@@ -1,0 +1,13 @@
+.dq-dropdown {
+    position: relative;
+}
+
+.dq-dropdown .dq-dropdown-menu {
+    position: absolute;
+    top: 35px;
+    z-index: 1000;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 1px 5px #eee;
+    color: #212121;
+}

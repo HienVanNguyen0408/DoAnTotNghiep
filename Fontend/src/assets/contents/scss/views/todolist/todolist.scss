@@ -1,0 +1,53 @@
+.dq-todolist{
+    .todolist-header{
+        min-height: 200px;
+        .todolist-title{
+            font-size: 22px;
+            text-transform: uppercase();
+            font-weight: bold;
+        }
+    }
+    .filter-todolist{
+        align-items: center;
+        .filter-search{
+            width: 300px;
+        }
+
+        .filter{
+            border-radius: 6px;
+            border: 1px solid #bec5d2;
+            height: 36px;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            padding-left: 8px;
+            padding-right: 16px;
+            cursor: pointer;
+            .text-filter{
+                color: #4f5b6b;
+                margin-left: 3px;
+                font-size: 15px;
+                font-weight: 500;
+            }
+            &:hover,&:active{
+                background-color: #dcdcdc;
+            }
+        }
+    }
+    .add-todo{
+        /deep/.btn-add-todo{
+            background: rgb(33, 147, 243) !important;
+            border-radius: 24px !important;
+            border: none !important;
+            color:#fff !important;
+            font-weight: bold;
+            &:hover{
+                
+            }
+            &:active{
+
+            }
+        }
+    }
+
+}

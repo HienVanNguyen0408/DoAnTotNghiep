@@ -1,0 +1,22 @@
+export default{
+    ToDay : 'Ngày hôm nay',
+    LastDay : 'Ngày hôm trước',
+    NextDay : 'Ngày hôm sau',
+    ThisWeek : 'Tuần này',
+    LastWeek: 'Tuần trước',
+    NextMonth: 'Tuần sau',
+    LastMonth: 'Tháng trước',
+    ThisMonth: 'Tháng này',
+    NextMonth: 'Tháng sau',
+    ThisQuarter : 'Quý này',
+    QuarterI : 'Quý I',
+    QuarterII : 'Quý II',
+    QuarterIII : 'Quý III',
+    QuarterIV : 'Quý IV',
+    LastYear : 'Năm trước',
+    ThisYear : 'Năm nay',
+    NextYear : 'Năm sau',
+    FirstSixMonth : '6 tháng đầu năm',
+    LastSixMonth : '6 tháng cuối năm',
+    Option : 'Tùy chọn'
+}

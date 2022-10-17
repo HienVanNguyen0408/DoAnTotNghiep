@@ -1,0 +1,26 @@
+.h-button {
+    padding: 10px 15px;
+    border-radius: 4px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.h-btn-cancel {
+    background: #e5e5e5;
+    font-weight: bold;
+}
+
+.h-btn-cancel:hover {
+    background: #969494;
+}
+
+.h-btn-save {
+    background: #1fb141;
+    padding: 10px 20px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.h-btn-save:hover {
+    background: #199435;
+}

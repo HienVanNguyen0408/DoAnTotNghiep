@@ -1,0 +1,134 @@
+.dq-bg {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url(https://media.istockphoto.com/vectors/internet-banner-about-learning-english-language-blue-outline-icons-vector-id1195746261);
+}
+
+.dq-login {
+    position: absolute;
+    background: #fff;
+    top: 20%;
+    left: calc(50% - 300px);
+    border-radius: 8px;
+    padding: 30px 16px;
+    width: 600px;
+    z-index: 10;
+}
+
+.dq-login .icon-back {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin-left: 20px;
+    position: absolute;
+}
+
+.dq-login .icon-back:hover {
+    color: #292929;
+}
+
+.dq-login .login-title {
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.login-title .dq-logo {
+    margin-left: calc(50% - 40px);
+    cursor: pointer;
+}
+
+.login-content {
+    margin: 30px;
+}
+
+.login-content .option {
+    background-color: #fff;
+    border: 2px solid #dce0e3;
+    border-radius: 44px;
+    display: inline-block;
+    height: 44px;
+    line-height: 44px;
+    position: relative;
+    text-align: center;
+    width: 60%;
+    margin-left: 20%;
+    margin-bottom: 25px;
+    cursor: pointer;
+    padding-left: 20px;
+}
+
+.login-content .option .option-text {
+    color: #35414c;
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 40px;
+    outline: 0;
+    text-align: center;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.login-content .option:hover,
+.login-content .option:active,
+.login-content .option:focus {
+    background-color: #dce0e3;
+}
+
+.login-content .option-phone-email {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.login-content .option-phone-email .text-option {
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.option-phone-email .input-option {}
+
+.option-phone-email .input-option .login-input {
+    width: 100% !important;
+    background: rgba(22, 24, 35, .06);
+    border: 1px solid rgba(22, 24, 35, .06);
+    border-radius: 44px;
+    display: flex;
+    height: 44px;
+    overflow: hidden;
+}
+
+.option-phone-email .input-option .btn-login {
+    background: #22dfbf !important;
+    border-radius: 44px;
+    height: 44px;
+    margin-top: 20px;
+    width: 100% !important;
+    border: none !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+
+.option-phone-email .input-option .login-input:hover,
+.option-phone-email .input-option .login-input:focus,
+.option-phone-email .input-option .login-input:active {
+    border: 1px solid rgba(22, 24, 35, .06);
+}
+
+.option-phone-email .input-option .login-input:focus-visible {
+    outline: none !important;
+}
+
+.more-option {
+    margin-top: 30px;
+}
+
+.more-option .register-text {
+    cursor: pointer;
+    margin-left: 6px;
+    color: #f05123;
+}

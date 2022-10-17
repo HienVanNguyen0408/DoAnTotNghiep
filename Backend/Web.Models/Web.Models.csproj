@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MongoDBData\MongoDBData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\GHN\Enum\" />
+    <Folder Include="Respone\User\" />
+  </ItemGroup>
+
+</Project>

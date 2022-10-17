@@ -1,0 +1,18 @@
+th{
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+}
+.dq-th{
+    padding: 10px;
+}
+.th-checkbox{
+    
+}
+
+
+.th-first{
+    position: sticky;
+    background-color: #fff;
+    left: 0px;
+    z-index: 9;
+}

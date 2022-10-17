@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  dqfontend:
+    container_name: container_dqfontend
+    image: image_dqfontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - "80:8080"
+    stdin_open: true
+    tty: true
+    environment:
+    - CHOKIDAR_USEPOLLING="true"

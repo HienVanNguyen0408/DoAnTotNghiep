@@ -1,0 +1,71 @@
+.h-table {
+    width: 100%;
+}
+
+.h-table th {
+    border-left: 1px solid #e5e5e5;
+    padding: 10px 10px;
+    box-shadow: inset 0px 0px 3px 0px #e5e5e5;
+}
+
+.h-table td {
+    border: 1px solid #e5e5e5;
+    padding: 10px 10px;
+}
+
+.h-content-table-admin {
+    width: calc(100% - 250px);
+    max-height: calc(100vh - 56px);
+    min-height: calc(100vh - 56px);
+    overflow: auto;
+    padding-top: 0px !important;
+    padding: 20px;
+}
+
+.panel-heading {
+    position: sticky;
+    top: 0px;
+    background: #ffffff;
+    padding: 20px 0 20px 0 !important;
+    border-bottom: 1px solid #e5e5e5;
+    z-index: 10;
+}
+
+.h-th-table {
+    position: sticky;
+    top: 76px;
+    background: #ffffff;
+    box-shadow: inset 1px 0px #e5e5e5, inset 0px 1px #e5e5e5;
+    box-shadow: inset 0px 1px #e5e5e5, inset 0px 1px #e5e5e5;
+    border: 1px solid #e5e5e5 !important;
+}
+
+.h-content-table-admin::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.h-content-table-admin::-webkit-scrollbar-track-piece {
+    background-color: #c2d2e4;
+}
+
+.h-content-table-admin::-webkit-scrollbar-thumb:vertical {
+    height: 30px;
+    background-color: #0a4c95;
+}
+
+.h-pagination {
+    height: 50px;
+    left: 0;
+    bottom: -50px;
+    position: sticky;
+    background: #ffffff;
+    z-index: 50 !important;
+}
+
+.btn-add {
+    background: #1fb141;
+    padding: 10px 30px;
+    color: #ffffff;
+    font-size: 16px;
+}
