@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.WorkerService", "Web.Wo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.MessageQ", "Web.MessageQ\Web.MessageQ.csproj", "{554147D0-7D11-49BB-8B96-EF117AE369C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostgresDBData", "PostgresDBData\PostgresDBData.csproj", "{EE101C0E-2D3D-479E-B186-E13DD9443FD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgresDBData", "PostgresDBData\PostgresDBData.csproj", "{EE101C0E-2D3D-479E-B186-E13DD9443FD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Storage", "Web.Storage\Web.Storage.csproj", "{9A5AF3F1-C5FF-4EDD-AD1A-EB2C7AE64734}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{EE101C0E-2D3D-479E-B186-E13DD9443FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE101C0E-2D3D-479E-B186-E13DD9443FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE101C0E-2D3D-479E-B186-E13DD9443FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A5AF3F1-C5FF-4EDD-AD1A-EB2C7AE64734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A5AF3F1-C5FF-4EDD-AD1A-EB2C7AE64734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A5AF3F1-C5FF-4EDD-AD1A-EB2C7AE64734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A5AF3F1-C5FF-4EDD-AD1A-EB2C7AE64734}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,7 +5,7 @@ services:
     image: image-backend
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Web.Api/Dockerfile
   # mongo:
   #     image: mongo
   #     container_name: mongo

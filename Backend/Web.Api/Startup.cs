@@ -20,6 +20,7 @@ using Web.Stockets;
 using Microsoft.AspNetCore.SignalR;
 using Web.Models.Entities.GHN;
 using Web.MessageQ;
+using Web.Caching;
 
 namespace Web.Api
 {
@@ -81,11 +82,17 @@ namespace Web.Api
                 options.JsonSerializerOptions.Converters.Add(new ByteArrayConverter());
             });
 
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetSection("RedisConfig")["ConnectionString"];
+            });
+
             services
                 .AddDataInfastructure(Configuration)
                 .AddAppCoreService()
                 .AddServiceCollectionInfrastructure()
                 .AddSettingsInfrastructure(Configuration)
+                .AddRedisCahedService()
                 .AddDataServiceWebStockets();
 
 

@@ -17,7 +17,6 @@ namespace Web.Caching
         /// <returns></returns>
         bool Set<T>(string key, T value, double? absoluteExpiration = null);
 
-
         /// <summary>
         /// Lấy giá trị lưu từ cached theo key
         /// </summary>

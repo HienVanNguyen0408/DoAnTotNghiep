@@ -3,9 +3,11 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Web.Api.Auth;
 using Web.AppCore.Interfaces.Services;
+using Web.Caching;
 using Web.Models.Entities;
 using Web.Models.Request;
 
@@ -17,8 +19,8 @@ namespace Web.Api.Controllers
         #region Declaration
         private const string TAG = "UserInfoController";
         protected readonly IUserService _userService;
+        protected readonly IRedisCached _redisCached;
         protected readonly IJwtAuthencationManager _jwtAuthencation;
-        protected readonly IMongoCollection<User> _collection;
         #endregion
 
         #region Contructor
@@ -26,6 +28,7 @@ namespace Web.Api.Controllers
         {
             _userService = GetRequiredService<IUserService>();
             _jwtAuthencation = GetRequiredService<IJwtAuthencationManager>();
+            _redisCached = GetRequiredService<IRedisCached>();
         }
         #endregion
 
@@ -41,38 +44,13 @@ namespace Web.Api.Controllers
             try
             {
                 // Danh sách user
-                var users = await _collection.Find(x => true).ToListAsync();
+                var users = await _userService.GetUsersAsync();
+                await _redisCached.SetAsync("Users", users, 60 * 60);
                 return users;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm GetUsersAsync::Exception::{ex.Message}");
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Danh sách user theo điều kiện tìm kiếm
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("filter")]
-        public async Task<List<User>> GetUsersFilterAsync(string textSearch)
-        {
-            try
-            {
-                //Đánh index phục vụ việc tìm kiếm full text seach hiệu quả hơn
-                _collection.Indexes.CreateOneAsync(Builders<User>.IndexKeys.Text(x => x.UserName));
-                _collection.Indexes.CreateOne(Builders<User>.IndexKeys.Text(x => x.FullName));
-                _collection.Indexes.CreateOne(Builders<User>.IndexKeys.Text(x => x.PhoneNumber));
-                _collection.Indexes.CreateOne(Builders<User>.IndexKeys.Text(x => x.Address));
-                var filter = Builders<User>.Filter.Text($"{textSearch}");
-                // Danh sách user
-                var users = await _collection.Find(filter).ToListAsync();
-                return users;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"{TAG}::Lỗi hàm GetUsersFilterAsync::Exception::{ex.Message}");
                 return null;
             }
         }
@@ -87,9 +65,8 @@ namespace Web.Api.Controllers
             try
             {
                 var filter = Builders<User>.Filter.Eq(x => x.UserName, userName);
-                // Danh sách user
-                var user = await _collection.Find(filter).FirstOrDefaultAsync();
-                return user;
+                var users = await _userService.GetUsersAsync(filter);
+                return users.FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -109,7 +86,7 @@ namespace Web.Api.Controllers
             try
             {
                 //Thêm user
-                await _collection.InsertOneAsync(user);
+                await _userService.InsertUserAsync(user);
                 return true;
             }
             catch (Exception ex)
@@ -129,9 +106,8 @@ namespace Web.Api.Controllers
         {
             try
             {
-                var filter = Builders<User>.Filter.Eq(x => x.UserId, userId);
                 //Thêm user
-                await _collection.DeleteOneAsync(filter);
+                await _userService.DeleteUserAsync(userId);
                 return true;
             }
             catch (Exception ex)
@@ -151,20 +127,9 @@ namespace Web.Api.Controllers
         {
             try
             {
-                var filter = Builders<User>.Filter.Eq(x => x.UserId, userId);
-                UpdateDefinition<User> updateDefinition = null;
-                updateDefinition = updateDefinition
-                                    .Set(s => s.ModifiedDate, DateTime.Now)
-                                    .Set(s => s.UserName, user.UserName)
-                                    .Set(s => s.Password, user.Password)
-                                    .Set(s => s.FullName, user.FullName)
-                                    .Set(s => s.Address, user.Address)
-                                    .Set(s => s.PhoneNumber, user.PhoneNumber)
-                                    .Set(s => s.Email, user.Email)
-                                    .Set(s => s.RoleType, user.RoleType);
                 //Sửa 
-                var updateRes = await _collection.UpdateOneAsync(filter, updateDefinition);
-                return updateRes.ModifiedCount == 1;
+                var updateRes = await _userService.UpdateUserAsync(userId, user);
+                return updateRes;
             }
             catch (Exception ex)
             {

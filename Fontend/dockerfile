@@ -1,5 +1,5 @@
 # build stage
-FROM node:16-alpine as build-vue
+FROM node:13-alpine  as build-vue
 WORKDIR /app
 COPY . .
 RUN npm install 
