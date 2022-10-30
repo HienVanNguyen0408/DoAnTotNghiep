@@ -38,4 +38,8 @@
     <ProjectReference Include="..\Web.Infrastructure\Web.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Documents\TemplateExcel\" />
+  </ItemGroup>
+
 </Project>

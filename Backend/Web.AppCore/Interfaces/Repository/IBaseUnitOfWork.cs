@@ -7,5 +7,6 @@ namespace Web.AppCore.Interfaces.Repository
     {
         IBaseRepo<Subcriber> Subcribers { get; }
         IBaseRepo<User> Users { get; }
+        IBaseRepo<Customer> Customers { get; }
     }
 }

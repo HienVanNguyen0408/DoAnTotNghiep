@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspose.Cells" Version="22.10.1" />
     <PackageReference Include="Dapper" Version="2.0.90" />
     <PackageReference Include="Google.Apis.Translate.v2" Version="1.55.0.875" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">

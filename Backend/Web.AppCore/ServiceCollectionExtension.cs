@@ -28,6 +28,9 @@ namespace Web.AppCore
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IShipmentService, ShipmentService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IDownloadService, DowloadService>();
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IImportExcelService, ImportExcelService>();
 
             return services;
         }

@@ -9,22 +9,31 @@ namespace Web.Api.Controllers
     public class DownloadController : Controller
     {
         private readonly IDownloadService _downloadService;
+        private readonly IImportExcelService _importExcelService;
 
-        public DownloadController(IDownloadService downloadService)
+        public DownloadController(IDownloadService downloadService, IImportExcelService importExcelService)
         {
-            _downloadService = downloadService; 
+            _downloadService = downloadService;
+            _importExcelService = importExcelService;
         }
 
         [HttpPost]
         public async Task<bool> SaveFile([FromBody] DowloadRequest dowloadRequest)
         {
-            return await _downloadService.SaveFile(dowloadRequest.data,dowloadRequest.FolderType,dowloadRequest.FileName);
+            return await _downloadService.SaveFile(dowloadRequest.data, dowloadRequest.FolderType, dowloadRequest.FileName);
         }
 
         [HttpGet]
         public async Task<string> InsertDataAuto([FromQuery] string path)
         {
             return await _downloadService.GetDataFileAsync(path);
+        }
+        
+        [HttpPost("excel")]
+        public async Task<string> TestImportExcel([FromQuery] string path)
+        {
+            await _importExcelService.ImportDataExcelToDBAsync();
+            return string.Empty;
         }
     }
 }

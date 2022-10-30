@@ -10,12 +10,12 @@ namespace Web.Models.Entities
         /// <summary>
         /// Tổng số bản ghi
         /// </summary>
-        public int TotalRecord { get; set; }
+        public long TotalRecord { get; set; }
 
         /// <summary>
         /// Tổng số trang
         /// </summary>
-        public int TotalPages { get; set; }
+        public long TotalPages { get; set; }
 
         /// <summary>
         /// Dữ liệu phân trang

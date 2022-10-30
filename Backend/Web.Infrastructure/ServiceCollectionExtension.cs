@@ -28,6 +28,7 @@ namespace Web.Infrastructure
             services.AddTransient<IProductUoW, ProductUoW>();
             services.AddTransient<IShipmentUoW, ShipmentUoW>();
             services.AddTransient<IOrderUoW, OrderUoW>();
+            services.AddTransient<ICustomerUoW, CustomerUoW>();
 
             //Service 
             services.AddServiceEmailClient();

@@ -26,5 +26,8 @@ namespace Web.AppCore.Services
         }
         #endregion
 
+        #region Methods
+        protected string GetKeyCached(int skip, int take) => $"GetPaggingCustomer_{take}_{skip}";
+        #endregion
     }
 }

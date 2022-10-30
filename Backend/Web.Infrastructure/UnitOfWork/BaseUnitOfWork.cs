@@ -20,6 +20,7 @@ namespace Web.Infrastructure.UnitOfWork
 
         private IBaseRepo<Subcriber> _subcriber;
         private IBaseRepo<User> _user;
+        private IBaseRepo<Customer> _customers;
 
         protected readonly IMongoDbContext _dbContext;
         protected readonly MongoDbSettings _mongoDbSettings;
@@ -39,6 +40,7 @@ namespace Web.Infrastructure.UnitOfWork
         #region Properties
         public IBaseRepo<Subcriber> Subcribers => _subcriber ??= new BaseRepo<Subcriber>(_dbContext);
         public IBaseRepo<User> Users => _user ??= new BaseRepo<User>(_dbContext);
+        public IBaseRepo<Customer> Customers => _customers ??= new BaseRepo<Customer>(_dbContext);
         #endregion
 
         #region Methods
