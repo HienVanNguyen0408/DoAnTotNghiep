@@ -16,6 +16,9 @@ export default {
             url : customerClient.url,
             queries : payload 
         });
+        if(res && res.Data){
+            context.commit("updateCustomers",res.Data);
+        }
         return res;
     },
     
@@ -30,6 +33,10 @@ export default {
             url : `${customerClient.url}/customers/pagging`,
             data : payload
         });
+
+        if(res && res.Data){
+            context.commit("updateCustomersPagging",res);
+        }
         return res;
     },
 
@@ -54,7 +61,7 @@ export default {
      */
     updateCustomerAsync: async function (context, payload) {
         var res = await customerClient.getAsync({
-            url : `${customerClient.url}/updatedelete/${payload}`,
+            url : `${customerClient.url}/update/${payload}`,
             data : payload
         });
         return res;

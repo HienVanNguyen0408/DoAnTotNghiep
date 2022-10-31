@@ -1,5 +1,15 @@
 export default{
-    updateWorks : async function(state,res){
-        state.works = [...res];
+    updateCustomersPagging : async function(state,res){
+        state.CustomersPagging = res;
+        state.Customer = res.data;
+    },
+    updateTotalPage : async function(state,res){
+        state.TotalPage = res;
+    },
+    updateTotalRecords: async function(state,res){
+        state.TotalRecords = res;
+    },
+    updateCustomer : async function(state,res){
+        state.Customer = res;
     }
 }

@@ -49,6 +49,13 @@
                         icon : 'icon-todolist dq-icon-20',
                         active : true
                     },
+                    {
+                        name : 'customer',
+                        router : '/customer',
+                        text : 'Danh sách thông tin khách hàng',
+                        icon : 'icon-todolist dq-icon-20',
+                        active : true
+                    },
                 ];
             },
             initRouterDefault(){

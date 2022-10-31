@@ -1,5 +1,9 @@
 export default{
-    getUsers(state){
-        return state.users;
+    Customers(state){
+        return state.Customers;
+    },
+
+    Customer(state){
+        return state.Customer;
     }
 }

@@ -10,6 +10,7 @@ import actions from './actions';
 import user from './user/user-const.js';
 import download from './download/download-const.js';
 import work from './work/const-work';
+import customer from './customer/customer-const';
 const store = new Vuex.Store({
     getters,
     state,
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
     modules:{
         user,
         download,
-        work
+        work,
+        customer
     }
 });
 
