@@ -14,7 +14,7 @@ namespace Web.AppCore.Interfaces.Services
         /// Lấy thông tin danh danh sách khách hàng theo điều kiện phân trang
         /// </summary>
         /// <returns></returns>
-        Task<Pagging<Customer>> GetPaggingCustomer(int skip, int take);
+        Task<Pagging<Customer>> GetPaggingCustomer(int pageIndex, int pageSize);
 
         /// <summary>
         /// Thêm thông tin nhiều khách hàng

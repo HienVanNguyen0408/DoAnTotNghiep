@@ -9,7 +9,7 @@
                     <div class="filter-search">
                         <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter"></dq-input>
                     </div>
-                    <div class="filter dq-mgl-20" @click="filterToDoList">
+                    <div class="filter dq-mgl-20" @click="filterCustomer">
                         <div class="icon dq-icon-24 icon-filter"></div>
                         <div class="text-filter">Lọc</div>
                     </div>
@@ -25,8 +25,8 @@
                 <div class="add-todo" style="width:200px;height:36px">
                     <dq-button 
                         :classButton="'btn-add-todo'"
-                        :title="$t('i18nToDoList.AddToDo')"
-                        @click="addToDo"
+                        :title="'Thêm khách hàng'"
+                        @click="addCustomer"
                     ></dq-button>
                 </div>
             </div>
@@ -39,7 +39,8 @@
                     pagination="true"
                     :dataPagination="params"
                     :textPage="$t('i18nToDoList.ToDo')"
-                    @dbclick="editDataWork"
+                    @dbclick="editDataCustomer"
+                    @getData="getDataPagging"
                 >
                 </dq-grid>
             </div>
@@ -94,17 +95,21 @@ import { ModuleCustomer } from '@/store/module-const';
         },
         created(){
             const me = this;
-            me.initDataStatic();
+            me.initData();
         },
         methods:{
             ...mapActions(ModuleCustomer, [
                 "getCustomersPagging"
             ]),
+            async initData(){
+                const me = this;
+                me.initDataStatic();
+                await me.loadDataCustomers();
+            },
             // Khởi tạo dữ liệu tĩnh
             async initDataStatic(){
                 const me = this;
                 me.initDataColumns();
-                await me.loadDataCustomers();
             },
 
             async loadDataCustomers(){
@@ -112,7 +117,7 @@ import { ModuleCustomer } from '@/store/module-const';
                 let params = {
                     Pagination : me.params
                 };
-                await me.CustomersPagging(params);
+                await me.getCustomersPagging(params);
                 if(me.CustomersPagging){
                     me.params.pageIndex = me.CustomersPagging.pageIndex;
                     me.params.pageSize = me.CustomersPagging.pageSize;
@@ -178,7 +183,7 @@ import { ModuleCustomer } from '@/store/module-const';
             /*
             *Hàm lọc danh sách khách hàng
             */
-            filterToDoList(){
+            filterCustomer(){
                 const me = this;
             },
             /*
@@ -204,7 +209,19 @@ import { ModuleCustomer } from '@/store/module-const';
              * Hàm xử lý sửa đổi thông tin khách hàng
              */
             editDataCustomer(customer){ 
+            },
+
+            async getDataPagging(params){
+                const me = this;
+                me.params.pageIndex = params.pageIndex;
+                me.params.pageSize = params.pageSize;
+                me.params.filter = params.filter;
+                me.params.totalRecord = params.totalRecord;
+                me.params.totalPages = params.totalPages;
+
+                await me.getCustomersPagging(params);
             }
+
         }
     }
 </script>

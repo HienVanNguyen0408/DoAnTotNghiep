@@ -1,7 +1,7 @@
 export default{
     updateCustomersPagging : async function(state,res){
-        state.CustomersPagging = res;
-        state.Customer = res.data;
+        state.CustomersPagging = {...res};
+        state.Customers = res.data;
     },
     updateTotalPage : async function(state,res){
         state.TotalPage = res;

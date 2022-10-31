@@ -2,7 +2,6 @@ import { BASE_URL } from '@/api/url';
 import BaseFuncApi from '@/api/base/commonFunc-api';
 import Enum from '@/enum/enum';
 import CustomerClient from '@/api/customer/customer-client';
-const controllerName = "UserInfo"
 const customerClient = new CustomerClient();
 export default {
     /**
@@ -30,11 +29,11 @@ export default {
      */
     getCustomersPagging: async function (context, payload) {
         var res = await customerClient.postAsync({
-            url : `${customerClient.url}/customers/pagging`,
+            url : `${customerClient.url}/pagging`,
             data : payload
         });
 
-        if(res && res.Data){
+        if(res && res.data){
             context.commit("updateCustomersPagging",res);
         }
         return res;

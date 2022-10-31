@@ -87,7 +87,9 @@
                 let params = {
                     pageIndex : this.pageIndexD,
                     pageSize : this.pageSize,
-                    filter : this.filter
+                    filter : this.filter,
+                    totalRecord : this.totalRecord,
+                    totalPages : this.totalPages
                 };
                 this.$emit('getData',params);
             },

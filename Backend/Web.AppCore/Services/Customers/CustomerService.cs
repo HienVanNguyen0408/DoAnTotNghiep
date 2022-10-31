@@ -85,8 +85,10 @@ namespace Web.AppCore.Services
             return updateRes;
         }
 
-        public async Task<Pagging<Customer>> GetPaggingCustomer(int skip, int take)
+        public async Task<Pagging<Customer>> GetPaggingCustomer(int pageIndex, int pageSize)
         {
+            var skip = (pageIndex - 1) * pageSize;
+            var take = pageSize;
             var keyCached = GetKeyCached(skip, take);
             //Lấy dữ liệu từ cached
             //var customerPagging = await _cached.GetAsync<Pagging<Customer>>(keyCached);

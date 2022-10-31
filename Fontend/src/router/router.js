@@ -12,6 +12,7 @@ import Admin from '@/views/admin/Admin.vue';
 import ToDoList from '@/views/todolist/ToDoList.vue';
 import Dashboard from '@/views/dashboard/Dashboard.vue';
 import PaymentOrder from '@/views/payment/PaymentOrder.vue';
+import CustomerAdmin from '@/views/customer/CustomerAdmin.vue';
 
 Vue.use(VueRouter);
 
@@ -47,9 +48,9 @@ export const router = new VueRouter({
                     props: true
                 },
                 {
-                    name: 'paymentorder',
-                    path: '/payment-order',
-                    component: PaymentOrder,
+                    name: 'customer',
+                    path: '/customer',
+                    component: CustomerAdmin,
                     props: true
                 },
             ],

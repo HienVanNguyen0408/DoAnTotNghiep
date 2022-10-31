@@ -42,13 +42,13 @@
                         text : 'Tổng quan',
                         icon : 'icon-dashboard dq-icon-20',
                     },
-                    {
-                        name : 'todolist',
-                        router : '/to-do-list',
-                        text : 'Việc của tôi',
-                        icon : 'icon-todolist dq-icon-20',
-                        active : true
-                    },
+                    // {
+                    //     name : 'todolist',
+                    //     router : '/to-do-list',
+                    //     text : 'Việc của tôi',
+                    //     icon : 'icon-todolist dq-icon-20',
+                    //     active : true
+                    // },
                     {
                         name : 'customer',
                         router : '/customer',
@@ -60,7 +60,7 @@
             },
             initRouterDefault(){
                 const me = this;
-                let routerDefault = "/to-do-list";
+                let routerDefault = "/customer";
                 // bắt đầu để màn mặc định
                 if(me.$route && me.$route.path && me.$route.path == "/") me.$router.push(routerDefault);
             },
