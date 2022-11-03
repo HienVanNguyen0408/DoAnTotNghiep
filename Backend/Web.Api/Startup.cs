@@ -120,9 +120,9 @@ namespace Web.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            UseSwaggerDoc(app,"dev-docs");
-            //app.UseSwagger();
-            //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web.Api v1"));
+            //UseSwaggerDoc(app,"dev-docs");
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web.Api v1"));
             //app.UseWebSockets();
 
             //var webSocketOptions = new WebSocketOptions()

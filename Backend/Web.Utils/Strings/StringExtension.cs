@@ -21,8 +21,12 @@ namespace Web.Utils
 
         public static string ReplaceText(this string value, string oldText, string textReplace, StringComparison comparison = StringComparison.OrdinalIgnoreCase)
         {
-            if(value.IsNullOrEmptyOrWhiteSpace() || oldText.IsNullOrEmptyOrWhiteSpace()) return value ?? string.Empty;
-            return value?.Replace(oldText, textReplace,comparison);
+            if (value.IsNullOrEmptyOrWhiteSpace() || oldText.IsNullOrEmptyOrWhiteSpace()) return value ?? string.Empty;
+            return value?.Replace(oldText, textReplace, comparison);
         }
+
+        public static bool ContainsText(this string text, string value) =>
+            (string.IsNullOrEmpty(text) && string.IsNullOrEmpty(value))
+            || text.Contains(value, StringComparison.OrdinalIgnoreCase);
     }
 }

@@ -9,6 +9,8 @@ using Web.AppCore.Interfaces.Repository;
 using Web.AppCore.Interfaces.Services;
 using Web.Caching;
 using Web.Models.Entities;
+using Web.Models.Settings;
+using Web.Utils;
 
 namespace Web.AppCore.Services
 {
@@ -17,12 +19,14 @@ namespace Web.AppCore.Services
         #region Declaration
         private readonly ICustomerUoW _customerUoW;
         private readonly IRedisCached _cached;
+        private readonly AppSettings _appSettings;
         #endregion
         #region Contructor
         public CustomerService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             _customerUoW = serviceProvider.GetRequiredService<ICustomerUoW>();
             _cached = serviceProvider.GetRequiredService<IRedisCached>();
+            _appSettings = new AppSettings();
         }
 
 
@@ -38,7 +42,7 @@ namespace Web.AppCore.Services
                 await _customerUoW.Customers.InsertManyAsync(customers);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -47,6 +51,13 @@ namespace Web.AppCore.Services
         {
             var filter = Builders<Customer>.Filter.Eq(x => x.CustomerId, customerId);
             var countDelete = await _customerUoW.Customers.DeleteOneAsync(filter);
+            return countDelete > 0;
+        }
+        
+        public async Task<bool> DeleteManyCustomerAsync(List<string> customerIds)
+        {
+            var filter = Builders<Customer>.Filter.In(x => x.CustomerId, customerIds);
+            var countDelete = await _customerUoW.Customers.DeleteManyAsync(filter);
             return countDelete > 0;
         }
 
@@ -85,19 +96,32 @@ namespace Web.AppCore.Services
             return updateRes;
         }
 
-        public async Task<Pagging<Customer>> GetPaggingCustomer(int pageIndex, int pageSize)
+        public async Task<Pagging<Customer>> GetPaggingCustomer(Pagination pagination)
         {
-            var skip = (pageIndex - 1) * pageSize;
-            var take = pageSize;
+            var skip = (pagination.PageIndex - 1) * pagination.PageSize;
+            var take = pagination.PageSize;
             var keyCached = GetKeyCached(skip, take);
-            //Lấy dữ liệu từ cached
-            //var customerPagging = await _cached.GetAsync<Pagging<Customer>>(keyCached);
-            //if (customerPagging != null && customerPagging.Data != null && customerPagging.Data.Count() > 0)
-            //{
-            //    return customerPagging;
-            //}
+            var filter = Builders<Customer>.Filter.Empty;
 
-            var filter = Builders<Customer>.Filter.Where(x => true);
+
+            if (!pagination.Filter.IsNullOrEmptyOrWhiteSpace())
+            {
+                var textSearch = pagination.Filter.Trim().ToLower();
+                //Sử dụng fulltext search hay không
+                if (_appSettings.IsFullTextSearch)
+                {
+                    filter = Builders<Customer>.Filter.Text($"\"{textSearch}\"");
+                }
+                else
+                {
+                    filter = Builders<Customer>.Filter.Where(x =>
+                                    x.CustomerCode.ToLower().Contains(textSearch) || x.Gender.ToLower().Contains(textSearch)
+                                    || x.Contract.ToLower().Contains(textSearch) || x.PaymentMethod.ToLower().Contains(textSearch)
+                            );
+                }
+            }
+
+
             var customers = await _customerUoW.Customers.GetPaginatedAsync(filter, sortDefinition: null, skip, take);
             if (customers == null)
             {
@@ -106,8 +130,8 @@ namespace Web.AppCore.Services
                     Data = null,
                     TotalPages = 0,
                     TotalRecord = 0,
-                    PageIndex = skip,
-                    PageSize = take
+                    PageIndex = pagination.PageIndex,
+                    PageSize = pagination.PageSize
                 };
             }
 
@@ -115,10 +139,10 @@ namespace Web.AppCore.Services
             var pageResult = new Pagging<Customer>()
             {
                 Data = customers,
-                TotalPages = totalRecord % take == 0 ? totalRecord / take : totalRecord / take + 1,
+                TotalPages = totalRecord % pagination.PageSize == 0 ? totalRecord / pagination.PageSize : totalRecord / pagination.PageSize + 1,
                 TotalRecord = totalRecord,
-                PageIndex = skip,
-                PageSize = take
+                PageIndex = pagination.PageIndex,
+                PageSize = pagination.PageSize
             };
             //Lưu cached dữ liệu customer
             //Lưu cached 1 giờ

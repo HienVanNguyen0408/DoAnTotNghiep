@@ -1,16 +1,14 @@
 <template>
   <div>
-    <div class="h-input">
+    <div v-if="isButton">
+      <dq-button :title="'Chọn file'" @click="clickSelectFile()"></dq-button>
+      <input v-show="false" ref="inputFile" class="input" type="file" v-bind="$attrs" @change="changImage($event)"
+        :accept="extentions" />
+    </div>
+    <div class="h-input" v-else>
       <div v-if="title" class="h-mb-5 text-title">{{ title }}</div>
-      <input
-        v-show="false"
-        ref="inputFile"
-        class="input"
-        type="file"
-        v-bind="$attrs"
-        @change="changImage($event)"
-        :accept="extentions"
-      />
+      <input v-show="false" ref="inputFile" class="input" type="file" v-bind="$attrs" @change="changImage($event)"
+        :accept="extentions" />
       <div class="custom-input-file">
         <div class="file-select text-center" @click="clickSelectFile()">
           <img class="icon-select h-flex" :src="srcIcon" alt="" />
@@ -65,6 +63,10 @@ export default {
       typeof: Object,
       default: null,
     },
+    isButton: {
+      typeof: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -75,7 +77,7 @@ export default {
     const me = this;
     me.fileName = me.name;
   },
-  created(){
+  created() {
   },
   computed: {
     inputListeners: function () {
@@ -113,7 +115,7 @@ export default {
       return require("@/assets/contents/icon/icon-upload.png");
     },
   },
-  updated() {},
+  updated() { },
   methods: {
     clickSelectFile() {
       this.$refs.inputFile.click();
@@ -122,13 +124,17 @@ export default {
       const me = this;
       me.fileName = e.target.files[0].name;
       let file = e.target.files[0];
-      me.srcImg = await this.$commonFunc.getBase64FromImage(file);
       let dataFile = await this.$commonFunc.getFileToByte(file);
+      if(!me.isButton){
+        me.srcImg = await this.$commonFunc.getBase64FromImage(file);
+      }
       let prams = {
         file: dataFile,
         fileName: me.fileName,
       };
       this.$emit("change", prams);
+      
+      
     },
   },
 
@@ -143,30 +149,37 @@ export default {
   position: relative;
   box-sizing: border-box;
 }
+
 .input {
   border: 1px solid #e5e5e5;
   border-radius: 4px;
   padding-left: 10px;
 }
+
 .h-icon-input {
   position: absolute;
   top: 8px;
   right: 10px;
 }
+
 .custom-input-file {
   border: 1px solid #e5e5e5;
   padding: 20px;
 }
+
 .icon-select {
   cursor: pointer;
 }
+
 .text-title {
   font-weight: bold;
 }
+
 .prev-img {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
 .file-name {
   font-weight: bold;
   font-size: 20px;

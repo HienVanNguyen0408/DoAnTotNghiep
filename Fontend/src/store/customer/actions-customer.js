@@ -73,9 +73,9 @@ export default {
      * @returns 
      */
     deleteCustomerAsync: async function (context, payload) {
-        let customerClient = new customerClient(); 
-        var res = await customerClient.getAsync({
-            url : `${customerClient.url}/delete/${payload}`,
+        var res = await customerClient.postAsync({
+            url : `${customerClient.url}/delete`,
+            data: payload
         });
         return res;
     },

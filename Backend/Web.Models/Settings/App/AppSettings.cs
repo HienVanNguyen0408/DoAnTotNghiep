@@ -10,5 +10,10 @@ namespace Web.Models.Settings
         public const string CONFIG_NAME = "AppSettings";
 
         public CachedSettings CachedKeys { get; set; } = new CachedSettings();
+
+        /// <summary>
+        /// Có sử dụng Fulltext search hay không
+        /// </summary>
+        public bool IsFullTextSearch { get; set; } = true;
     }
 }

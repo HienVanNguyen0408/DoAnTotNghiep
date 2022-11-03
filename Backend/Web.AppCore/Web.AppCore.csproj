@@ -65,6 +65,7 @@
 
   <ItemGroup>
     <Folder Include="Entities\Setting\" />
+    <Folder Include="Services\XGBoost\" />
   </ItemGroup>
 
 </Project>

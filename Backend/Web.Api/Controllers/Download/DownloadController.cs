@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Services;
+using Web.Models.Request.Download;
 
 namespace Web.Api.Controllers
 {
@@ -29,10 +30,10 @@ namespace Web.Api.Controllers
             return await _downloadService.GetDataFileAsync(path);
         }
         
-        [HttpPost("excel")]
-        public async Task<string> TestImportExcel([FromQuery] string path)
+        [HttpPost("import-excel")]
+        public async Task<string> TestImportExcel([FromBody] ImportRequest request)
         {
-            await _importExcelService.ImportDataExcelToDBAsync();
+            await _importExcelService.ImportDataExcelToDBAsync(request);
             return string.Empty;
         }
     }

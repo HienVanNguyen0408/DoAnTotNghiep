@@ -14,7 +14,7 @@ namespace Web.AppCore.Interfaces.Services
         /// Lấy thông tin danh danh sách khách hàng theo điều kiện phân trang
         /// </summary>
         /// <returns></returns>
-        Task<Pagging<Customer>> GetPaggingCustomer(int pageIndex, int pageSize);
+        Task<Pagging<Customer>> GetPaggingCustomer(Pagination pagination);
 
         /// <summary>
         /// Thêm thông tin nhiều khách hàng
@@ -47,6 +47,7 @@ namespace Web.AppCore.Interfaces.Services
         /// </summary>
         /// <returns></returns>
         Task<bool> DeleteCustomerAsync(string customerId);
+        Task<bool> DeleteManyCustomerAsync(List<string> customerIds);
 
         /// <summary>
         /// Cập nhật thông tin khách hàng

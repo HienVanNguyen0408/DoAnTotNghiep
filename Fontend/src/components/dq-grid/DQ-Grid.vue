@@ -187,6 +187,10 @@ export default {
       }
       return false;
     },
+    resetSelect(){
+      const me = this;
+      me.selected = [];
+    }
   },
 };
 </script>

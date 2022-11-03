@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Services;
 using Web.Caching;
 using Web.Models.Entities;
+using Web.Models.Request.Customer;
 
 namespace Web.Api.Controllers.CustomerEnpoint
 {
@@ -60,7 +61,7 @@ namespace Web.Api.Controllers.CustomerEnpoint
             try
             {
                 // Danh sách khách hàng theo phân trang
-                var customers = await _customerService.GetPaggingCustomer(pagination.PageIndex,pagination.PageSize);
+                var customers = await _customerService.GetPaggingCustomer(pagination);
                 return customers;
             }
             catch (Exception ex)
@@ -91,26 +92,6 @@ namespace Web.Api.Controllers.CustomerEnpoint
         }
 
         /// <summary>
-        /// Xóa thông tin khách hàng
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("delete/{customerId}")]
-        public async Task<bool> DeleteCustomerAsync(string customerId)
-        {
-            try
-            {
-                //Thêm khách hàng
-                await _customerService.DeleteCustomerAsync(customerId);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"{TAG}::Lỗi hàm DeleteCustomerAsync::Exception::{ex.Message}");
-                return false;
-            }
-        }
-
-        /// <summary>
         /// Sửa thông tin khách hàng
         /// </summary>
         /// <returns></returns>
@@ -129,6 +110,28 @@ namespace Web.Api.Controllers.CustomerEnpoint
                 return false;
             }
         }
+
+        /// <summary>
+        /// Xóa thông tin khách hàng
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("delete")]
+        public async Task<bool> DeleteManyCustomerAsync([FromBody] CustomerRequest request)
+        {
+            try
+            {
+                if (request.CustomerIds == null || request.CustomerIds.Count() <= 0) return false;
+                //Xóa thông tin khách hàng
+                await _customerService.DeleteManyCustomerAsync(request.CustomerIds);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm DeleteManyCustomerAsync::Exception::{ex.Message}");
+                return false;
+            }
+        }
+
         #endregion
     }
 }

@@ -12,6 +12,10 @@ namespace Web.Models.Entities
         /// </summary>
         public string CustomerId { get; set; }
         /// <summary>
+        /// Mã khách hàng
+        /// </summary>
+        public string CustomerCode { get; set; }
+        /// <summary>
         /// Giới tính của khách hàng
         /// </summary>
         public string Gender { get; set; }

@@ -52,7 +52,7 @@
                     {
                         name : 'customer',
                         router : '/customer',
-                        text : 'Danh sách thông tin khách hàng',
+                        text : 'Khách hàng',
                         icon : 'icon-todolist dq-icon-20',
                         active : true
                     },

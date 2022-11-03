@@ -1,13 +1,13 @@
 import BaseAPI from '@/api/base/base-api';
 import { BASE_URL } from '@/api/url';
-
+import DownloadClient from '@/api/download/download-client';
+const downloadClient = new DownloadClient();
 export default{
-     saveFileToStorage : async function(context,payload){
-        let url = BASE_URL + '/Download';
-        let res = await BaseAPI.postAsync(url,payload);
-        if(res){
-            // context.commit("updateOrders");
-        }
+    importDataExcelAsync: async function (context, payload) {
+        var res = await downloadClient.postAsync({
+            url : `${downloadClient.url}/import-excel`,
+            data : payload
+        });
         return res;
     },
 }
