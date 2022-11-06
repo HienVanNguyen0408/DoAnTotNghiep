@@ -20,7 +20,7 @@ namespace Web.AppCore.Services
         {
             _customerService = customerService;
         }
-        public async Task<bool> ImportDataExcelToDBAsync(ImportRequest request)
+        public async Task<bool> ImportDataExcelToDBAsync(ExcelRequest request)
         {
             try
             {

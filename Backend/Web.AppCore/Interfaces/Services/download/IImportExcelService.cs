@@ -9,6 +9,6 @@ namespace Web.AppCore.Interfaces.Services
 {
     public interface IImportExcelService
     {
-        Task<bool> ImportDataExcelToDBAsync(ImportRequest request);
+        Task<bool> ImportDataExcelToDBAsync(ExcelRequest request);
     }
 }

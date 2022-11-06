@@ -10,4 +10,12 @@ export default{
         });
         return res;
     },
+
+    exportDataExcelAsync: async function (context, payload) {
+        var res = await downloadClient.postAsync({
+            url : `${downloadClient.url}/export-excel`,
+            data : payload
+        });
+        return res;
+    },
 }

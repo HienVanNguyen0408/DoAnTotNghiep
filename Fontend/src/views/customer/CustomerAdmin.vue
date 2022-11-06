@@ -14,6 +14,9 @@
                     <div class="dq-mgl-10">
                         <dq-input-file :isButton="true" :extentions="'.csv,.xlsx'" @change="selectImportFile"></dq-input-file>
                     </div>
+                    <div class="dq-mgl-10">
+                        <dq-button :title="'Xuất khẩu dữ liệu'" @click="exportData"></dq-button>
+                    </div>
                     <!-- <div class="filter dq-mgl-20" @click="filterCustomer">
                         <div class="icon dq-icon-24 icon-filter"></div>
                         <div class="text-filter">Lọc</div>
@@ -27,10 +30,10 @@
                         </dq-date-range>
                     </div> -->
                 </div>
-                <div class="add-todo" style="width:200px;height:36px">
+                <!-- <div class="add-todo" style="width:200px;height:36px">
                     <dq-button :classButton="'btn-add-todo'" :title="'Thêm khách hàng'" @click="addCustomer">
                     </dq-button>
-                </div>
+                </div> -->
             </div>
             <div class="grid-todolist dq-mgt-20">
                 <dq-grid
@@ -103,7 +106,8 @@ export default {
             'deleteCustomerAsync'
         ]),
         ...mapActions(ModuleDownload, [
-           'importDataExcelAsync' 
+           'importDataExcelAsync',
+           'exportDataExcelAsync'
         ]),
         async initData() {
             const me = this;
@@ -278,6 +282,36 @@ export default {
             const me = this;
             if(!seleteds || seleteds.length <= 0) me.selected = [];
             me.selected = [...seleteds];
+        },
+
+        async exportData(){
+            const me = this;
+            if(!me.Customers || me.Customers.length <= 0) return;
+            let customerIds = me.Customers.map(x => x.customerId);
+            let params = {
+                    CustomerIds :customerIds
+            };
+            let res = await me.exportDataExcelAsync(params);
+            debugger;
+            if(res && res.length > 0){
+                const url = URL.createObjectURL(new Blob([(me.byteToUint8Array(res))], {
+                    type: 'application/vnd.ms-excel'
+                }));
+                const link = document.createElement('a');
+                link.href = url;
+                let fileName ="customer.csv";
+                link.setAttribute('download', fileName);
+                document.body.appendChild(link);
+                link.click();
+            }
+        },
+        byteToUint8Array(byteArray) {
+            var uint8Array = new Uint8Array(byteArray.length);
+            for(var i = 0; i < uint8Array.length; i++) {
+                uint8Array[i] = byteArray[i];
+            }
+
+            return uint8Array;
         }
 
     }

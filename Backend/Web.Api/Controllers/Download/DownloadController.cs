@@ -31,10 +31,17 @@ namespace Web.Api.Controllers
         }
         
         [HttpPost("import-excel")]
-        public async Task<string> TestImportExcel([FromBody] ImportRequest request)
+        public async Task<string> ImportExcelAsync([FromBody] ExcelRequest request)
         {
             await _importExcelService.ImportDataExcelToDBAsync(request);
             return string.Empty;
+        }
+        
+        [HttpPost("export-excel")]
+        public async Task<byte[]> ExportExcelAsync([FromBody] ExcelRequest request)
+        {
+            var file = await _downloadService.DownloadFileExcelCustomerAsync(request.CustomerIds);
+            return file;
         }
     }
 }

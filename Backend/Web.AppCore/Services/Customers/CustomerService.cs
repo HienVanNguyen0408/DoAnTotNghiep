@@ -53,7 +53,7 @@ namespace Web.AppCore.Services
             var countDelete = await _customerUoW.Customers.DeleteOneAsync(filter);
             return countDelete > 0;
         }
-        
+
         public async Task<bool> DeleteManyCustomerAsync(List<string> customerIds)
         {
             var filter = Builders<Customer>.Filter.In(x => x.CustomerId, customerIds);
