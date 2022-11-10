@@ -9,7 +9,7 @@ namespace Web.Models.Entities
     /// </summary>
     public class Employee : BaseEntity
     {
-        public string EmployeeId { get; set; } = GenerateNewId();
+        public string EmployeeId { get; set; } 
         public string FullName { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }

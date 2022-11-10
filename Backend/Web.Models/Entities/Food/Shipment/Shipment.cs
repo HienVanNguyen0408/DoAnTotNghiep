@@ -12,7 +12,7 @@ namespace Web.Models.Entities
         /// <summary>
         /// Id của lô hàng
         /// </summary>
-        public string ShipmentId { get; set; } = GenerateNewId();
+        public string ShipmentId { get; set; }
         public string ShipmentName { get; set; }
 
         /// <summary>

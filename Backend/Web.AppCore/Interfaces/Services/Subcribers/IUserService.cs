@@ -1,8 +1,4 @@
-﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Web.Models.Entities;
 
@@ -21,13 +17,7 @@ namespace Web.AppCore.Interfaces.Services
         /// Lấy thông tin danh sách user
         /// </summary>
         /// <returns></returns>
-        Task<List<User>> GetUsersAsync();
-
-        /// <summary>
-        /// Lấy thông tin danh sách user
-        /// </summary>
-        /// <returns></returns>
-        Task<List<User>> GetUsersAsync(FilterDefinition<User> filterDefinition);
+        Task<IEnumerable<User>> GetUsersAsync();
 
         /// <summary>
         /// Lấy thông tin danh sách user

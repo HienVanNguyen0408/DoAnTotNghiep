@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Web.AppCore.Interfaces.Services
 {
-    public interface IEmployeeService : IBaseDomainService
+    public interface ISizeService : IBaseDomainService
     {
     }
 }

@@ -7,16 +7,13 @@ namespace Web.Models.Entities
 {
     public class Order : BaseEntity
     {
-        public string OrderId { get; set; } = GenerateNewId();
         /// <summary>
         /// Id người dùng
         /// </summary>
-        public string UserId { get; set; }
-        /// <summary>
-        /// Id khách hàng
-        /// </summary>
-        public string UserName { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; }
+        public string user_id { get; set; }
+        public User user { get; set; }
+
+        public List<OrderItem> OrderDetails { get; set; }
 
         /// <summary>
         /// Trạng thái của đơn hàng

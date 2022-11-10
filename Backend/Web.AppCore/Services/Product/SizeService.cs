@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,11 +7,10 @@ using Web.AppCore.Interfaces.Services;
 
 namespace Web.AppCore.Services
 {
-    public class EmployeeService : BaseDomainService<EmployeeService>, IEmployeeService
+    public class SizeService : BaseDomainService<SizeService>, ISizeService
     {
-        public EmployeeService(IServiceProvider serviceProvider):base(serviceProvider)
+        public SizeService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-
         }
     }
 }

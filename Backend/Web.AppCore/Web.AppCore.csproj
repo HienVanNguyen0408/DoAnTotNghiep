@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PostgresDBData\PostgresDBData.csproj" />
     <ProjectReference Include="..\Web.Caching\Web.Caching.csproj" />
     <ProjectReference Include="..\Web.MessageQ\Web.MessageQ.csproj" />
     <ProjectReference Include="..\Web.Models\Web.Models.csproj" />
@@ -65,7 +66,6 @@
 
   <ItemGroup>
     <Folder Include="Entities\Setting\" />
-    <Folder Include="Services\XGBoost\" />
   </ItemGroup>
 
 </Project>

@@ -41,7 +41,7 @@ namespace Web.AppCore.Services
             else
             {
                 var user = await _userService.GetUserByIdAsync(userId);
-                if(user != null && user.RoleType == RoleType.Admin)
+                if(user != null )
                 {
                     isAdmin = true; 
                 }

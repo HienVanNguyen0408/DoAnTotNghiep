@@ -6,20 +6,20 @@ namespace Web.Models.Entities
 {
     public class Product : BaseEntity
     {
-        public string ProductId { get; set; } = GenerateNewId();
+        public string id { get; set; }
         /// <summary>
         /// Mã sản phẩm
         /// </summary>
-        public string ProductCode { get; set; }
+        public string code { get; set; }
 
         /// <summary>
         /// Tên sản phẩm
         /// </summary>
-        public string ProductName { get; set; }
+        public string product_name { get; set; }
         /// <summary>
         /// Mô tả sản phẩm
         /// </summary>
-        public string ProductDescription { get; set; }
+        public string description { get; set; }
 
         /// <summary>
         /// Id lô hàng
@@ -31,64 +31,55 @@ namespace Web.Models.Entities
         /// <summary>
         /// Ngày hết hạn
         /// </summary>
-        public DateTime ExpiredDate { get; set; }
+        public DateTime expired_date { get; set; }
         /// <summary>
         /// Ngày sản xuất
         /// </summary>
-        public DateTime ManufactureDate { get; set; }
+        public DateTime manufacture_date { get; set; }
 
         /// <summary>
-        /// Số lượng tồn(còn lại trong kho, cửa hàng)
+        /// Số lượng
         /// </summary>
-        public long QuantityStock { get; set; }
+        public long quantity { get; set; }
+
+        /// <summary>
+        /// Số lượng đã bán
+        /// </summary>
+        public long quantity_sold { get; set; }
 
         /// <summary>
         /// Giá gốc(giá nhập vào)
         /// </summary>
-        public decimal OriginalPrice { get; set; }
+        public decimal original_price { get; set; }
         /// <summary>
         /// Giá bán
         /// </summary>
-        public decimal SalePrice { get; set; }
+        public decimal sale_price { get; set; }
 
         /// <summary>
         /// Tiền thuế
         /// </summary>
-        public decimal? VatAmount { get; set; }
+        public decimal? vat_amount { get; set; }
         /// <summary>
         /// Thuế suất
         /// </summary>
-        public decimal? VatRate { get; set; }
-
+        public decimal? vat_rate { get; set; }
 
         /// <summary>
         /// Tiền chiết khấu
         /// </summary>
-        public decimal? DiscountAmount { get; set; }
+        public decimal? discount_amount { get; set; }
         /// <summary>
         /// Tỷ lệ chiết khấu
         /// </summary>
-        public string DiscountRate { get; set; }
-
+        public string discount_rate { get; set; }
         /// <summary>
-        /// Chiều cao của sản phẩm
-        /// đơn vị cm
+        /// Đơn vị
         /// </summary>
-        public decimal? Height { get; set; }
+        public string unit_name { get; set; }
         /// <summary>
-        /// Chiều rộng của sản phẩm
-        /// đơn vị cm
+        /// Mô tả đơn vị
         /// </summary>
-        public decimal? Width { get; set; }
-        /// <summary>
-        /// Cân nặng của sản phẩm
-        /// đơn vị cm
-        /// </summary>
-        public decimal? Weight { get; set; }
-
-        /// <summary>
-        /// Thông tin đơn vị sản phẩm
-        /// </summary>
-        public UnitProduct UnitInfo { get; set; }
+        public string dnit_discription { get; set; }
     }
 }

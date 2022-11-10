@@ -36,7 +36,7 @@ namespace Web.Api.Auth
                 var users = await _userService.GetUsersAsync();
                 if (userRequest.IsLoginGoogle)
                 {
-                    if (!users.Any(x => x.UserName.Equals(userRequest.UserName) && x.Email.Equals(userRequest.Email)))
+                    if (!users.Any(x => x.user_name.Equals(userRequest.UserName) && x.email.Equals(userRequest.Email)))
                     {
                         var userEntity = new User();
                         userEntity = userEntity.ConvertData(userRequest);
@@ -45,7 +45,7 @@ namespace Web.Api.Auth
                     }
                     return GetToken(userRequest);
                 }
-                if (!users.Any(x => x.UserName == userRequest.UserName && x.Password == userRequest.Password))
+                if (!users.Any(x => x.user_name == userRequest.UserName && x.password == userRequest.Password))
                 {
                     return null;
                 }

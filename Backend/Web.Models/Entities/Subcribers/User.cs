@@ -9,49 +9,38 @@ namespace Web.Models.Entities
     public class User : BaseEntity
     {
         /// <summary>
-        /// User Id
-        /// </summary>
-        /// 
-        [JsonIgnore]
-        public string UserId { get; set; } = GenerateNewId();
-
-        /// <summary>
         /// Tên tài khoản , đăng nhập
         /// </summary>
-        public string UserName { get; set; }
+        public string user_name { get; set; }
 
         /// <summary>
         /// Mật khẩu
         /// </summary>
-        public string Password { get; set; }
+        public string password { get; set; }
 
         /// <summary>
         /// Họ tên đầy đủ
         /// </summary>
-        public string FullName { get; set; }
+        public string full_name { get; set; }
 
         /// <summary>
         /// Địa chỉ
         /// </summary>
-        public string Address { get; set; }
+        public string address { get; set; }
 
         /// <summary>
         /// Số điện thoại
         /// </summary>
-        public string PhoneNumber { get; set; }
+        public string phone_number { get; set; }
 
         /// <summary>
         /// Email đăng nhập
         /// </summary>
-        public string Email { get; set; }
-        /// <summary>
-        /// Email Id
-        /// </summary>
-        public string EmailId { get; set; }
+        public string email { get; set; }
 
         /// <summary>
         /// Loại quyền của User
         /// </summary>
-        public RoleType RoleType { get; set; } = RoleType.User;
+        //public RoleType role_type { get; set; } = RoleType.User;
     }
 }

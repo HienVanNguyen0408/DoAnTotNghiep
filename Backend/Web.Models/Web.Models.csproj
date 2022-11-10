@@ -9,10 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MongoDBData\MongoDBData.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Entities\GHN\Enum\" />
     <Folder Include="Respone\User\" />
   </ItemGroup>

@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Repository;
 using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
-using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
-using Microsoft.Extensions.Logging;
 
 namespace Web.AppCore.Services
 {
@@ -34,18 +31,17 @@ namespace Web.AppCore.Services
         /// <summary>
         /// Lấy thông tin user theo Id
         /// </summary>
-        /// <param name="userId">Id của user</param>
+        /// <param name="id">Id của user</param>
         /// <returns></returns>
-        public async Task<User> GetUserByIdAsync(string userId)
+        public async Task<User> GetUserByIdAsync(string id)
         {
-            var user = await _userUoW.Users.GetByIdAsync(userId);
+            var user = await _userUoW.Users.GetByIdAsync(id);
             return user;
         }
 
-        public async Task<List<User>> GetUsersAsync()
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            FilterDefinition<User> filter = Builders<User>.Filter.Where(x => true);
-            var users = await _userUoW.Users.GetAllAsync(filter);
+            var users = await _userUoW.Users.GetAllAsync();
             return users;
         }
 
@@ -83,42 +79,10 @@ namespace Web.AppCore.Services
             }
         }
 
-        public Task<List<User>> GetUsersAsync(FilterDefinition<User> filterDefinition)
+        public Task<bool> UpdateUserAsync(string userId, User user)
         {
             throw new NotImplementedException();
         }
-
-        /// <summary>
-        /// Cập nhật thông tin người dùng
-        /// </summary>
-        /// <param name="userId">Id của user</param>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public async Task<bool> UpdateUserAsync(string userId, User user)
-        {
-            try
-            {
-                var filter = Builders<User>.Filter.Eq(x => x.UserId, userId);
-                UpdateDefinition<User> updateDefinition = null;
-                updateDefinition = updateDefinition
-                                    .Set(s => s.ModifiedDate, DateTime.Now)
-                                    .Set(s => s.UserName, user.UserName)
-                                    .Set(s => s.Password, user.Password)
-                                    .Set(s => s.FullName, user.FullName)
-                                    .Set(s => s.Address, user.Address)
-                                    .Set(s => s.PhoneNumber, user.PhoneNumber)
-                                    .Set(s => s.Email, user.Email)
-                                    .Set(s => s.RoleType, user.RoleType);
-                var resUpdate = await _userUoW.Users.UpdateOneAsync(filter, updateDefinition);
-                return resUpdate;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-
         #endregion
     }
 }

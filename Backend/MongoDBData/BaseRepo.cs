@@ -13,7 +13,7 @@ namespace MongoDBData
     public class BaseRepo<TDocument> : IBaseRepo<TDocument> where TDocument : IDocument
     {
         #region Declaration
-        protected readonly IMongoDbContext _dbContext;
+        protected readonly PostgreSqlContext _dbContext;
         protected readonly IMongoCollection<TDocument> _collection;
         public const string FieldId = "_id";
 

@@ -1,15 +1,11 @@
 ﻿using Aspose.Cells;
-using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
 using Web.Models.Request.Download;
-using Web.Utils;
 
 namespace Web.AppCore.Services
 {
@@ -37,7 +33,7 @@ namespace Web.AppCore.Services
                 for (int row = 1; row < 7044; row++)
                 {
                     var customer = new Customer();
-                    customer.CustomerId = $"{ObjectId.GenerateNewId()}";
+                    customer.CustomerId = $"{Guid.NewGuid()}";
                     customer.CustomerCode = ws.Cells[row, 0].Value.ToString();
                     customer.Gender = ws.Cells[row, 1].Value.ToString();
                     customer.SeniorCitizen = (int)ws.Cells[row, 2].Value;
@@ -61,7 +57,7 @@ namespace Web.AppCore.Services
                     customer.Churn = ws.Cells[row, 20].Value.ToString();
                     customers.Add(customer);
                 }
-                var res = await _customerService.InsertManyCustomersAsync(customers);
+                //var res = await _customerService.InsertManyCustomersAsync(customers);
                 return false;
             }
             catch (Exception)

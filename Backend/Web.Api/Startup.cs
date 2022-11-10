@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using MongoDBData;
+using PostgresDBData;
 using System;
 using System.IO;
 using System.Reflection;
@@ -14,13 +15,11 @@ using System.Text;
 using Web.Api.Auth;
 using Web.AppCore;
 using Web.AppCore.Entities;
-using Web.Infrastructure;
-using Web.Models.Settings;
-using Web.Stockets;
-using Microsoft.AspNetCore.SignalR;
-using Web.Models.Entities.GHN;
-using Web.MessageQ;
 using Web.Caching;
+using Web.Infrastructure;
+using Web.MessageQ;
+using Web.Models.Entities.GHN;
+using Web.Stockets;
 
 namespace Web.Api
 {
@@ -36,9 +35,11 @@ namespace Web.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // add configure
-            services.Configure<MongoDbSettings>(Configuration.GetSection(MongoDbSettings.CONFIG_NAME));
-            services.Configure<MongoDbSettings>(Configuration.GetSection(AppSettings.CONFIG_NAME));
+            services.Configure<PostgresSettings>(Configuration.GetSection(PostgresSettings.CONFIG_NAME));
+
+            services.AddDbContext<PostgreSqlContext>(options => options.UseNpgsql(PostgresSettings.ConnectionString));
+
+
             services.Configure<GHNSettings>(Configuration.GetSection(GHNSettings.CONFIG_NAME));
             services.Configure<QueueSettings>(Configuration.GetSection(QueueSettings.CONFIG_NAME));
 

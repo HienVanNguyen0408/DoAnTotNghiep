@@ -1,10 +1,8 @@
 ﻿using Aspose.Cells;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Web.AppCore.Entities;
@@ -31,8 +29,7 @@ namespace Web.AppCore.Services
         {
             try
             {
-                var filter = Builders<Customer>.Filter.In(x => x.CustomerId, customerIds);
-                var customers = await _customerUoW.Customers.GetAllAsync(filter);
+                var customers = new List<Customer>();
                 if (customers == null || customers.Count <= 0) return null;
                 var baseDir = Directory.GetCurrentDirectory();
                 var fileName = "template-customer.csv";

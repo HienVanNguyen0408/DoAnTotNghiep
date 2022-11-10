@@ -1,13 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDBData;
-using System.Configuration;
+using PostgresDBData;
 using Web.AppCore.Interfaces.Repository;
 using Web.Infrastructure.Services;
 using Web.Infrastructure.Services.GHN;
 using Web.Infrastructure.Services.Momo;
 using Web.Infrastructure.UnitOfWork;
-using Web.Models.Entities.GHN;
 
 namespace Web.Infrastructure
 {
@@ -15,20 +13,16 @@ namespace Web.Infrastructure
     {
         public static IServiceCollection AddDataInfastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            SerializationFactory.Register();
-
             // add configure
-            services.AddSingleton<IMongoDbContext, MongoDbContext>();
             services.AddTransient(typeof(IBaseRepo<>), typeof(BaseRepo<>));
-            services.AddTransient(typeof(IDbShareRepo<>), typeof(DbShareRepo<>));
 
             services.AddTransient<IUserUoW, UserUoW>();
-            services.AddTransient<IEmployeeUoW, EmployeeUoW>();
-            services.AddTransient<ISupplierUoW, SupplierUoW>();
             services.AddTransient<IProductUoW, ProductUoW>();
-            services.AddTransient<IShipmentUoW, ShipmentUoW>();
-            services.AddTransient<IOrderUoW, OrderUoW>();
-            services.AddTransient<ICustomerUoW, CustomerUoW>();
+            services.AddTransient<IColorUoW, ColorUoW>();
+            services.AddTransient<ISizeUoW, SizeUoW>();
+            services.AddTransient<IProductCategoryUoW, ProductCategoryUoW>();
+            services.AddTransient<IOrderUoW, IOrderUoW>();
+            services.AddTransient<IOrderItemUoW, OrderItemUoW>();
 
             //Service 
             services.AddServiceEmailClient();

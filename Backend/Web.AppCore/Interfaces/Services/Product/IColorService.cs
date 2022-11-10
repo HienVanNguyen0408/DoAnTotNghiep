@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.AppCore.Interfaces.Repository
+namespace Web.AppCore.Interfaces.Services
 {
-    public interface IEmployeeUoW : IBaseUnitOfWork
+    public interface IColorService : IBaseDomainService
     {
     }
 }

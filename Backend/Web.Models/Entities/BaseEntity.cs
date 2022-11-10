@@ -1,23 +1,11 @@
-﻿using MongoDB.Bson;
-using MongoDBData;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace Web.Models.Entities
 {
-    public class BaseEntity : Document, ICloneable
+    public class BaseEntity
     {
-
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
-
-        /// <summary>
-        /// Gen Id
-        /// </summary>
-        /// <returns></returns>
-        public static string GenerateNewId() => $"{ObjectId.GenerateNewId()}";
+        public string id { get; set; }
+        public DateTime? created_date { get; set; }
+        public DateTime? modified_date { get; set; }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Web.Api.Auth;
 using Web.AppCore.Interfaces.Services;
@@ -39,38 +37,17 @@ namespace Web.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<List<User>> GetUsersAsync()
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
             try
             {
                 // Danh sách user
                 var users = await _userService.GetUsersAsync();
-                await _redisCached.SetAsync("Users", users, 60 * 60);
                 return users;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm GetUsersAsync::Exception::{ex.Message}");
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Lấy thông tin user theo user name
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("username/{userName}")]
-        public async Task<User> GetUserByUserNameAsync(string userName)
-        {
-            try
-            {
-                var filter = Builders<User>.Filter.Eq(x => x.UserName, userName);
-                var users = await _userService.GetUsersAsync(filter);
-                return users.FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"{TAG}::Lỗi hàm GetUserByUserNameAsync::Exception::{ex.Message}");
                 return null;
             }
         }
@@ -86,8 +63,8 @@ namespace Web.Api.Controllers
             try
             {
                 //Thêm user
-                await _userService.InsertUserAsync(user);
-                return true;
+                var res = await _userService.InsertUserAsync(user);
+                return res;
             }
             catch (Exception ex)
             {

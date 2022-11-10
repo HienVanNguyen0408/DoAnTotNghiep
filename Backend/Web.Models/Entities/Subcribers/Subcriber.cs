@@ -4,7 +4,7 @@ namespace Web.Models.Entities
 {
     public class Subcriber : BaseEntity
     {
-        public string SubcriberId { get; set; } = GenerateNewId();
+        public string SubcriberId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }

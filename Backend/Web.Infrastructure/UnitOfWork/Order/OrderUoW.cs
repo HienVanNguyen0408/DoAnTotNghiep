@@ -1,17 +1,14 @@
-﻿using MongoDBData;
+﻿using PostgresDBData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Repository;
 
 namespace Web.Infrastructure.UnitOfWork
 {
     public class OrderUoW : BaseUnitOfWork<OrderUoW>, IOrderUoW
     {
-        public OrderUoW(IMongoDbContext dbContext, IServiceProvider serviceProvider) : base(dbContext,serviceProvider)
+        public OrderUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
         {
+
         }
     }
 }
