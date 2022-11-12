@@ -21,9 +21,14 @@ namespace Web.Infrastructure
             services.AddTransient<IColorUoW, ColorUoW>();
             services.AddTransient<ISizeUoW, SizeUoW>();
             services.AddTransient<IProductCategoryUoW, ProductCategoryUoW>();
-            services.AddTransient<IOrderUoW, IOrderUoW>();
+            services.AddTransient<IOrderUoW, OrderUoW>();
             services.AddTransient<IOrderItemUoW, OrderItemUoW>();
-
+            services.AddTransient<IBlogUoW, BlogUoW>();
+            services.AddTransient<IBlogCategoryUoW, BlogCategoryUoW>();
+            services.AddTransient<IImageUoW, ImageUoW>();
+            services.AddTransient<IPermissionUoW, PermissionUoW>();
+            services.AddTransient<IPermissionDetailUoW, PermissionDetailUoW>();
+            services.AddTransient<IPermissionRelationshipUoW, PermissionRelationshipUoW>();
             //Service 
             services.AddServiceEmailClient();
 

@@ -20,26 +20,27 @@ namespace Web.AppCore
 
         public static IServiceCollection AddDataServiceAppCore(this IServiceCollection services)
         {
+            services.AddTransient<IDownloadService, DowloadService>();
+            services.AddTransient<IImportExcelService, ImportExcelService>();
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleAccessService, RoleAccessService>();
             services.AddTransient<ISupplierService, SupplierService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IShipmentService, ShipmentService>();
-            services.AddTransient<IDownloadService, DowloadService>();
             services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<IImportExcelService, ImportExcelService>();
-
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IColorService, ColorService>();
             services.AddTransient<ISizeService, SizeService>();
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderItemService, OrderItemService>();
-
-
-
-
+            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IBlogService, BlogService>();
+            services.AddTransient<IBlogCategoryService, BlogCategoryService>();
+            services.AddTransient<IPermissionService, PermissionService>();
+            services.AddTransient<IPermissionDetailService, PermissionDetailService>();
+            services.AddTransient<IPermissionRelationshipService, PermissionRelationshipService>();
             return services;
         }
 

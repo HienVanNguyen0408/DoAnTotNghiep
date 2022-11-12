@@ -4,7 +4,7 @@ using Web.AppCore.Interfaces.Repository;
 
 namespace Web.Infrastructure.UnitOfWork
 {
-    public class OrderItemUoW : BaseUnitOfWork<OrderUoW>, IOrderItemUoW
+    public class OrderItemUoW : BaseUnitOfWork<OrderItemUoW>, IOrderItemUoW
     {
         public OrderItemUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
         {

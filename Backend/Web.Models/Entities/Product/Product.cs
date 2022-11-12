@@ -22,13 +22,6 @@ namespace Web.Models.Entities
         public string description { get; set; }
 
         /// <summary>
-        /// Id lô hàng
-        /// </summary>
-        public string ShipmentId{ get; set; }
-
-        public string Shipment{ get; set; }
-
-        /// <summary>
         /// Ngày hết hạn
         /// </summary>
         public DateTime expired_date { get; set; }
@@ -55,24 +48,6 @@ namespace Web.Models.Entities
         /// Giá bán
         /// </summary>
         public decimal sale_price { get; set; }
-
-        /// <summary>
-        /// Tiền thuế
-        /// </summary>
-        public decimal? vat_amount { get; set; }
-        /// <summary>
-        /// Thuế suất
-        /// </summary>
-        public decimal? vat_rate { get; set; }
-
-        /// <summary>
-        /// Tiền chiết khấu
-        /// </summary>
-        public decimal? discount_amount { get; set; }
-        /// <summary>
-        /// Tỷ lệ chiết khấu
-        /// </summary>
-        public string discount_rate { get; set; }
         /// <summary>
         /// Đơn vị
         /// </summary>
@@ -80,6 +55,6 @@ namespace Web.Models.Entities
         /// <summary>
         /// Mô tả đơn vị
         /// </summary>
-        public string dnit_discription { get; set; }
+        public string unit_discription { get; set; }
     }
 }
