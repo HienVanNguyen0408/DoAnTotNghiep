@@ -310,18 +310,13 @@ export default {
             for(var i = 0; i < uint8Array.length; i++) {
                 uint8Array[i] = byteArray[i];
             }
-
             return uint8Array;
         }
-
     }
 }
 </script>
-
 <style scoped lang="scss">
 @import "@/assets/contents/scss/views/todolist/todolist.scss";
-
-
 .icon-delete-big {
     cursor: pointer;
 }
