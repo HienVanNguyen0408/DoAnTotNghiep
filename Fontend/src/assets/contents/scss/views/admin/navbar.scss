@@ -1,0 +1,19 @@
+.menus{
+}
+.nav-header{
+    padding: 15px;
+    font-size: 20px;
+}
+.menu{
+    padding: 15px;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.menu-active{
+    background-color: red;
+}
+.menu:hover{
+    background-color: red;
+}

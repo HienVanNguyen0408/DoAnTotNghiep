@@ -37,15 +37,9 @@ namespace Web.Models.Entities
         /// Email đăng nhập
         /// </summary>
         public string email { get; set; }
-
         /// <summary>
         /// Ngày sinh
         /// </summary>
         public DateTime? date_of_birth { get; set; }
-
-        /// <summary>
-        /// Loại quyền của User
-        /// </summary>
-        //public RoleType role_type { get; set; } = RoleType.User;
     }
 }

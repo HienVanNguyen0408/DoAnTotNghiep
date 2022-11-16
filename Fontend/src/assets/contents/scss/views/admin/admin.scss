@@ -1,0 +1,22 @@
+.dq-admin{
+    width: 100%;
+    height: 100vh;
+}
+.admin-navbar{
+    width: 300px;
+    height: 100vh;
+    border-right: 1px solid #e5e5e5;
+}
+
+.admin-right{
+    height: 100vh;
+    width: calc(100% - 300px);
+}
+.admin-header{
+    height: 60px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.admin-content{
+    height: calc(100vh - 60px);
+}

@@ -1,15 +1,5 @@
 export default {
     Question: "Câu hỏi",
     User: "Người dùng",
-    LevelQuestion : "Trình độ câu hỏi",
-    TypeQuestion :"Loại câu hỏi",
-    Exam : "Bài thi",
-    AddUser : "Thêm thông tin người dùng",
-    EditUser : "Sửa thông tin người dùng",
-    AddQuestion : "Thêm câu hỏi",
-    EditQuestion : "Sửa câu hỏi",
-    AddLevelQuestion : "Thêm trình độ câu hỏi",
-    EditLevelQuestion : "Sửa trình độ câu hỏi",
-    AddTypeQuestion : "Thêm loại câu hỏi",
-    EditTypeQuestion : "Sửa loại câu hỏi",
+    ManageShop : "Quản lý cửa hàng"
 }

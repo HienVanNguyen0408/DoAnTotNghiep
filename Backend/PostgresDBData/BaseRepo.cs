@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
+using Web.Models.Entities;
 namespace PostgresDBData
 {
     public class BaseRepo<TEntity> : IBaseRepo<TEntity> where TEntity : class
@@ -156,6 +154,46 @@ namespace PostgresDBData
             {
                 return false;
             }
+        }
+
+        public async Task<Pagging<TEntity>> GetPaggingAsync(Pagination pagination)
+        {
+            var skip = (pagination.PageIndex - 1) * pagination.PageSize;
+            var take = pagination.PageSize;
+            var entities = await _context.Set<TEntity>().Take(take).Skip(skip).ToListAsync();
+            var pageResult = new Pagging<TEntity>();
+            if (entities == null || entities.Count <= 0) return pageResult;
+
+            var totalCount = await GetCountEntity();
+            pageResult.Data = entities;
+            pageResult.TotalRecord = totalCount;
+            pageResult.TotalPages = totalCount % pagination.PageSize == 0 ? totalCount / pagination.PageSize : totalCount / pagination.PageSize + 1;
+            return pageResult;
+        }
+
+        public async Task<long> GetCountEntity()
+        {
+            var entities = await _context.Set<TEntity>().ToListAsync();
+            return entities.Count();
+        }
+
+        /// <summary>
+        /// Lấy danh sách dữ liệu theo điều kiện lọc
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<TEntity>> GetAllAsync(Func<TEntity, bool> predicate)
+        {
+            var entities = await _context.Set<TEntity>().ToListAsync();
+            entities = entities.Where(predicate).ToList();
+            return entities;
+        }
+
+        public async Task<TEntity> GetOneAsync(Func<TEntity, bool> predicate)
+        {
+            var entities = await _context.Set<TEntity>().ToListAsync();
+            var entity = entities.FirstOrDefault(predicate);
+            return entity;
         }
     }
 }

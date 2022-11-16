@@ -1,12 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+using Web.Utils.Shared;
 
 namespace Web.Worker
 {
@@ -19,10 +13,11 @@ namespace Web.Worker
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                //.ConfigAppSettings()
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigAppSettings()
+                .ConfigureServices((hostContext, services) =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    var config = hostContext.Configuration;
+                    AppConfiguaration.ConfigServices(services, config);
                 });
     }
 }

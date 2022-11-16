@@ -37,21 +37,5 @@ namespace Web.Api.Controllers
                 return token;
             }
         }
-
-        [HttpGet("access-admin")]
-        public async Task<bool> IsAdminRoleAsync(string userId, string subcriberId)
-        {
-            try
-            {
-                var isRoleAdmin = false;
-                if (string.IsNullOrEmpty(userId)) return false;
-                isRoleAdmin = await _roleService.IsAdminRoleAsync(userId, subcriberId);
-                return isRoleAdmin;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
     }
 }

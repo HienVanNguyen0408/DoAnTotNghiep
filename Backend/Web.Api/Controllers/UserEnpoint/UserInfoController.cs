@@ -156,12 +156,12 @@ namespace Web.Api.Controllers
         {
             try
             {
-                var authen = await _jwtAuthencation.Autheticate(request);
-                return !string.IsNullOrEmpty(authen);
+                var res = await _userService.InsertUserAsync(user: request);
+                return res;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{TAG}::Lỗi hàm LoginUser::Exception::{ex.Message}");
+                _logger.LogError($"{TAG}::Lỗi hàm RegiterUserAsync::Exception::{ex.Message}");
                 return false;
             }
         }

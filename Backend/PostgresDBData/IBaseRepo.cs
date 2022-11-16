@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Web.Models.Entities;
 
 namespace PostgresDBData
 {
@@ -12,8 +13,12 @@ namespace PostgresDBData
         #endregion
 
         #region Get
+        Task<long> GetCountEntity();
         IEnumerable<TEntity>GetAll();
         Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllAsync(Func<TEntity,bool> predicate);
+        Task<TEntity> GetOneAsync(Func<TEntity,bool> predicate);
+        Task<Pagging<TEntity>> GetPaggingAsync(Pagination pagination);
         Task<IEnumerable<TEntity>> GetByIdsAsync(IEnumerable<string> ids);
         TEntity GetById(string id);
         Task<TEntity>GetByIdAsync(string id);

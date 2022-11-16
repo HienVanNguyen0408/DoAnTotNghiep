@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Web.Models.Entities;
 
 namespace Web.AppCore.Interfaces.Services
 {
@@ -10,5 +11,28 @@ namespace Web.AppCore.Interfaces.Services
     {
         Task<bool> UpdateOrderAsync();
         Task<bool> UpdatePaymentOrderAsync();
+
+
+        /// <summary>
+        /// Thêm đơn hàng
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        Task<bool> InsertOrderAsync(Order order);
+
+        /// <summary>
+        /// Xóa đơn hàng
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        Task<bool> DeleteOrderAsync(string orderId);
+
+
+        /// <summary>
+        /// Xóa đơn hàng
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
+        Task<bool> UpdateOrderAsync(Order order);
     }
 }

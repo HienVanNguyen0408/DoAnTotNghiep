@@ -34,18 +34,7 @@ namespace Web.Api.Auth
             try
             {
                 var users = await _userService.GetUsersAsync();
-                if (userRequest.IsLoginGoogle)
-                {
-                    if (!users.Any(x => x.user_name.Equals(userRequest.UserName) && x.email.Equals(userRequest.Email)))
-                    {
-                        var userEntity = new User();
-                        userEntity = userEntity.ConvertData(userRequest);
-                        // Register
-                        await _userService.InsertUserAsync(userEntity);
-                    }
-                    return GetToken(userRequest);
-                }
-                if (!users.Any(x => x.user_name == userRequest.UserName && x.password == userRequest.Password))
+                if (!users.Any(x => x.user_name == userRequest.user_name && x.password == userRequest.password))
                 {
                     return null;
                 }
@@ -67,8 +56,7 @@ namespace Web.Api.Auth
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name,user.UserName),
-                    new Claim(ClaimTypes.Role, $"{user.RoleType}"),
+                    new Claim(ClaimTypes.Name,user.user_name),
                     new Claim(ClaimTypes.Expired, $"{_jwtSettings.ExpireDate}")
                 }),
                 Expires = DateTime.UtcNow.AddHours(_jwtSettings.ExpireDate),
@@ -79,6 +67,5 @@ namespace Web.Api.Auth
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
     }
 }

@@ -26,8 +26,8 @@
         },
         created() {
             const me = this;
-            me.initDataStatic();
-            me.initRouterDefault();
+            // me.initDataStatic();
+            // me.initRouterDefault();
         },
         methods:{
             /**

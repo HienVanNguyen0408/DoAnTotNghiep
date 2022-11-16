@@ -6,7 +6,7 @@ namespace Web.Models.Entities
 {
     public class Product : BaseEntity
     {
-        public string id { get; set; }
+        public string product_category_id { get; set; }
         /// <summary>
         /// Mã sản phẩm
         /// </summary>

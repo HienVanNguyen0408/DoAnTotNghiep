@@ -10,6 +10,10 @@ namespace Web.Utils
 {
     public static class QueryExtention
     {
+        public static IOrderedQueryable<T> OrderByCustom<T>(this IQueryable<T> source, string property, string methodName)
+        {
+            return ApplyOrder<T>(source, property, methodName);
+        }
         /// <summary>
         /// Custom OrderBy
         /// Created By NVHIEN
@@ -18,7 +22,7 @@ namespace Web.Utils
         /// <param name="source">Danh sách đối tượng</param>
         /// <param name="property">Tên trường</param>
         /// <returns></returns>
-        public static IOrderedQueryable<T> OrderByCustom<T>(this IQueryable<T> source,string property)
+        public static IOrderedQueryable<T> OrderByCustom<T>(this IQueryable<T> source, string property)
         {
             return ApplyOrder<T>(source, property, "OrderBy");
         }
@@ -31,7 +35,7 @@ namespace Web.Utils
         /// <param name="source">Danh sách đối tượng</param>
         /// <param name="property">Tên trường</param>
         /// <returns></returns>
-        public static IOrderedQueryable<T> OrderByDescendingCustom<T>(this IQueryable<T> source,string property)
+        public static IOrderedQueryable<T> OrderByDescendingCustom<T>(this IQueryable<T> source, string property)
         {
             return ApplyOrder<T>(source, property, "OrderByDescending");
         }
@@ -57,7 +61,7 @@ namespace Web.Utils
         /// <param name="source">Danh sách đối tượng</param>
         /// <param name="property">Tên trường</param>
         /// <returns></returns>
-        public static IOrderedQueryable<T> ThenByDescendingCustom<T>(this IOrderedQueryable<T> source,string property)
+        public static IOrderedQueryable<T> ThenByDescendingCustom<T>(this IOrderedQueryable<T> source, string property)
         {
             return ApplyOrder<T>(source, property, "ThenByDescending");
         }
@@ -70,7 +74,7 @@ namespace Web.Utils
         /// <param name="property"></param>
         /// <param name="methodName"></param>
         /// <returns></returns>
-        static IOrderedQueryable<T> ApplyOrder<T>(IQueryable<T> source,string property,string methodName)
+        static IOrderedQueryable<T> ApplyOrder<T>(IQueryable<T> source, string property, string methodName)
         {
             string[] props = property.Split('.');
             Type type = typeof(T);

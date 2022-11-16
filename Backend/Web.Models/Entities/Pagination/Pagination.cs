@@ -17,5 +17,14 @@ namespace Web.Models.Entities
 
         public string FieldSearch { get; set; }
         public List<string> ListFieldSeach { get; set; }
+
+        public string FiledSort { get; set; }
+
+        public SortType SortType { get; set; } = SortType.DESC;
+    }
+    public enum SortType
+    {
+        DESC = 1,
+        ASC = 2
     }
 }
