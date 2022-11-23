@@ -13,6 +13,7 @@ namespace Web.AppCore.Interfaces.Repository
         IBaseRepo<ProductCategory> ProductCategories { get; }
         IBaseRepo<Customer> Customers { get; }
         IBaseRepo<Order> Orders { get; }
+        IBaseRepo<OrderItem> OrderItems { get; }
         IBaseRepo<Blog> Blogs { get; }
         IBaseRepo<BlogCategory> BlogCategories { get; }
         IBaseRepo<Image> Images { get; }

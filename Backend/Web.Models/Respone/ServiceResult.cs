@@ -15,6 +15,7 @@ namespace Web.Models.Respone
         public ServiceResultStatus Status { get; set; }
 
         public string Message { get; set; }
+        public string MessageDev { get; set; }
     }
 
     public enum ServiceResultStatus

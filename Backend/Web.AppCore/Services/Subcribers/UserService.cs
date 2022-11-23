@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Repository;
 using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
+using Web.Utils;
 
 namespace Web.AppCore.Services
 {
@@ -49,7 +50,7 @@ namespace Web.AppCore.Services
         {
             try
             {
-                await _userUoW.Users.InsertOneAsync(user);
+                var userInsert = await _userUoW.Users.InsertOneAsync(user);
                 return true;
             }
             catch (Exception ex)
@@ -79,9 +80,29 @@ namespace Web.AppCore.Services
             }
         }
 
+        public async Task<bool> DeleteUserAsync(List<string> userIds)
+        {
+            try
+            {
+                var users = await _userUoW.Users.GetByIdsAsync(userIds);
+                await _userUoW.Users.DeleteManyAsync(users);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm DeleteUserAsync::Exception::{ex.Message}::FromData::{JsonUtils.Serialize(userIds)}");
+                return false;
+            }
+        }
+
         public Task<bool> UpdateUserAsync(string userId, User user)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Pagging<User>> GetUserPageAsync(Pagination pagination)
+        {
+            return await _userUoW.Users.GetPaggingAsync(pagination);
         }
         #endregion
     }

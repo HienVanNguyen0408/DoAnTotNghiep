@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Web.Models.Entities;
+using Web.Models.Request;
 
 namespace Web.AppCore.Interfaces.Services
 {
@@ -18,7 +19,7 @@ namespace Web.AppCore.Interfaces.Services
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        Task<bool> InsertOrderAsync(Order order);
+        Task<bool> InsertOrderAsync(OrderRequest order);
 
         /// <summary>
         /// Xóa đơn hàng

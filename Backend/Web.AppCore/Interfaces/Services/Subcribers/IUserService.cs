@@ -17,7 +17,13 @@ namespace Web.AppCore.Interfaces.Services
         /// Lấy thông tin danh sách user
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<User>> GetUsersAsync();
+        Task<IEnumerable<User>> GetUsersAsync(); 
+        
+        /// <summary>
+        /// Lấy thông tin danh sách user phân trang
+        /// </summary>
+        /// <returns></returns>
+        Task<Pagging<User>> GetUserPageAsync(Pagination pagination);
 
         /// <summary>
         /// Lấy thông tin danh sách user
@@ -31,6 +37,13 @@ namespace Web.AppCore.Interfaces.Services
         /// <param name="user"></param>
         /// <returns></returns>
         Task<bool> DeleteUserAsync(string userId);
+
+        /// <summary>
+        /// Xóa thông tin người dùng
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<bool> DeleteUserAsync(List<string> userIds);
 
         /// <summary>
         /// Cập nhật thông tin người dùng

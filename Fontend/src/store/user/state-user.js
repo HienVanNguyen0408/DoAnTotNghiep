@@ -1,3 +1,6 @@
 export default{
-    works : []
+    Users : [],
+    UserPage : {},
+    TotalPage : 0,
+    TotalRecords : 0
 }

@@ -32,14 +32,16 @@ namespace PostgresDBData
         #endregion
 
         #region Insert
-        Task<bool> InsertOneAsync(TEntity entity);
-        Task<bool> InsertManyAsync(IEnumerable<TEntity>entity);
+        Task<TEntity> InsertOneAsync(TEntity entity);
+        Task<IEnumerable<TEntity>> InsertManyAsync(IEnumerable<TEntity>entity);
         #endregion
 
         #region Delete
         Task<bool> DeleteOneAsync(TEntity entity);
+        Task<bool> DeleteOneAsync(Func<TEntity, bool> predicate);
         Task<bool> DeleteOneAsync(string id);
         Task<bool> DeleteManyAsync(IEnumerable<TEntity>entity);
+        Task<bool> DeleteManyAsync(Func<TEntity, bool> predicate);
         Task<bool> DeleteManyAsync(List<string> ids);
         #endregion
     }

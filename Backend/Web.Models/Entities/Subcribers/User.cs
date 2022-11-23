@@ -16,6 +16,8 @@ namespace Web.Models.Entities
         /// <summary>
         /// Mật khẩu
         /// </summary>
+        /// 
+        [JsonIgnore]
         public string password { get; set; }
 
         /// <summary>

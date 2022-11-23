@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Web.Models.Entities;
+using Web.Models.Enums;
+using Web.Models.Request;
 
 namespace Web.AppCore.Interfaces.Services
 {
@@ -49,7 +51,7 @@ namespace Web.AppCore.Interfaces.Services
         /// </summary>
         /// <param name="ProductCategory"></param>
         /// <returns></returns>
-        Task<bool> DeleteProductCategoryAsync(ProductCategory productCategory);
+        Task<DeleteStatus> DeleteProductCategoryAsync(ProductCategoryRequest productCategory);
         #endregion
 
 
@@ -78,21 +80,23 @@ namespace Web.AppCore.Interfaces.Services
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        Task<bool> InsertProductAsync(Product product);
+        Task<bool> InsertProductAsync(ProductRequest product);
 
         /// <summary>
         /// Cập nhật thông tin sản phẩm
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        Task<bool> UpdateProductAsync(Product product);
+        Task<bool> UpdateProductAsync(ProductRequest product);
 
         /// <summary>
         /// Xóa sản phẩm
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        Task<bool> DeleteProductAsync(Product product);
+        Task<DeleteStatus> DeleteProductAsync(Product product);
+
+        Task<DeleteStatus> DeleteProductsAsync(IEnumerable<Product> products);
         #endregion
 
     }

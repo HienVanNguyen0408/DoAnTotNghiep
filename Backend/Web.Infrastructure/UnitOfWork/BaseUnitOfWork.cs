@@ -22,6 +22,7 @@ namespace Web.Infrastructure.UnitOfWork
         private IBaseRepo<Color> _colors;
         private IBaseRepo<ProductCategory> _product_categories;
         private IBaseRepo<Order> _orders;
+        private IBaseRepo<OrderItem> _orderItems;
         private IBaseRepo<Blog> _blogs;
         private IBaseRepo<BlogCategory> _blog_categories;
         private IBaseRepo<Image> _images;
@@ -56,6 +57,7 @@ namespace Web.Infrastructure.UnitOfWork
 
         public IBaseRepo<ProductCategory> ProductCategories => _product_categories ??= new BaseRepo<ProductCategory>(_dbContext);
         public IBaseRepo<Order> Orders => _orders ??= new BaseRepo<Order>(_dbContext);
+        public IBaseRepo<OrderItem> OrderItems => _orderItems ??= new BaseRepo<OrderItem>(_dbContext);
         public IBaseRepo<Blog> Blogs => _blogs ??= new BaseRepo<Blog>(_dbContext);
         public IBaseRepo<BlogCategory> BlogCategories => _blog_categories ??= new BaseRepo<BlogCategory>(_dbContext);
         public IBaseRepo<Image> Images => _images ??= new BaseRepo<Image>(_dbContext);

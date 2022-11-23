@@ -52,6 +52,26 @@ namespace Web.Api.Controllers
             }
         }
 
+         /// <summary>
+        /// Lấy danh sách user
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("pagging")]
+        public async Task<Pagging<User>> GetUserPageAsync([FromBody] Pagination pagination)
+        {
+            try
+            {
+                //Danh sách user phân trang
+                var pageResult = await _userService.GetUserPageAsync(pagination);
+                return pageResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm GetUserPageAsync::Exception::{ex.Message}");
+                return null;
+            }
+        }
+
         /// <summary>
         /// Thêm thông tin user
         /// </summary>
@@ -79,12 +99,12 @@ namespace Web.Api.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost("delete")]
-        public async Task<bool> DeleteUserAsync(string userId)
+        public async Task<bool> DeleteUserAsync([FromBody] List<string> userIds)
         {
             try
             {
-                //Thêm user
-                await _userService.DeleteUserAsync(userId);
+                //Xóa user
+                await _userService.DeleteUserAsync(userIds);
                 return true;
             }
             catch (Exception ex)
@@ -99,7 +119,7 @@ namespace Web.Api.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [HttpPost("update/{userId}")]
+        [HttpPost("update")]
         public async Task<bool> UpdateUserAsync(string userId, [FromBody] User user)
         {
             try

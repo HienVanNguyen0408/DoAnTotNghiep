@@ -1,5 +1,6 @@
 <template>
     <div class="dq-admin-content">
+        <router-view></router-view>
     </div>
 </template>
 

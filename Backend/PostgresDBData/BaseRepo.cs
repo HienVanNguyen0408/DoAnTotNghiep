@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,11 +48,37 @@ namespace PostgresDBData
             {
                 return false;
             }
+        } 
+        
+        public async Task<bool> DeleteManyAsync(Func<TEntity, bool> predicate)
+        {
+            var entities = await GetAllAsync(predicate);
+            if (entities == null || entities.Count() <= 0) return false;
+            try
+            {
+                _context.RemoveRange(entities);
+                await _context.SaveChangesAsync(true);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> DeleteOneAsync(TEntity entity)
         {
             await Task.CompletedTask;
+            if (entity == null) return false;
+            var res = _context.Remove<TEntity>(entity);
+            await _context.SaveChangesAsync(true);
+            return res != null;
+        }
+        
+        public async Task<bool> DeleteOneAsync(Func<TEntity, bool> predicate)
+        {
+            await Task.CompletedTask;
+            var entity = await GetOneAsync(predicate);
             if (entity == null) return false;
             var res = _context.Remove<TEntity>(entity);
             await _context.SaveChangesAsync(true);
@@ -97,31 +124,31 @@ namespace PostgresDBData
             return entity;
         }
 
-        public async Task<bool> InsertManyAsync(IEnumerable<TEntity> entities)
+        public async Task<IEnumerable<TEntity>> InsertManyAsync(IEnumerable<TEntity> entities)
         {
             try
             {
                 await _context.AddRangeAsync(entities);
                 await _context.SaveChangesAsync(true);
-                return true;
+                return entities;
             }
             catch (Exception)
             {
-                return false;
+                return null;
             }
         }
 
-        public async Task<bool> InsertOneAsync(TEntity entity)
+        public async Task<TEntity> InsertOneAsync(TEntity entity)
         {
             try
             {
                 await _context.AddAsync(entity);
                 await _context.SaveChangesAsync(true);
-                return true;
+                return entity;
             }
             catch (Exception ex)
             {
-                return false;
+                return null;
             }
         }
 
@@ -168,6 +195,8 @@ namespace PostgresDBData
             pageResult.Data = entities;
             pageResult.TotalRecord = totalCount;
             pageResult.TotalPages = totalCount % pagination.PageSize == 0 ? totalCount / pagination.PageSize : totalCount / pagination.PageSize + 1;
+            pageResult.PageIndex = pagination.PageIndex;
+            pageResult.PageSize = pagination.PageSize;
             return pageResult;
         }
 

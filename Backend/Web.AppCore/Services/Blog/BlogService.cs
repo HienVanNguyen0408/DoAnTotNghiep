@@ -52,7 +52,8 @@ namespace Web.AppCore.Services
 
         public async Task<bool> InsertBlogCategoryAsync(BlogCategory blogCategory)
         {
-            return await _blogCategoryUoW.BlogCategories.InsertOneAsync(blogCategory);
+            var blogCate = _blogCategoryUoW.BlogCategories.InsertOneAsync(blogCategory);
+            return blogCate != null;
         }
 
         public async Task<bool> UpdateBlogCategoryAsync(BlogCategory blogCategory)
@@ -82,7 +83,8 @@ namespace Web.AppCore.Services
 
         public async Task<bool> InsertBlogAsync(Blog blog)
         {
-            return await _blogUoW.Blogs.InsertOneAsync(blog);
+            blog = await _blogUoW.Blogs.InsertOneAsync(blog);
+            return blog != null;
         }
 
         public async Task<bool> UpdateBlogAsync(Blog blog)

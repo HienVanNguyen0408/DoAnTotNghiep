@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
+using Web.Models.Request;
 
 namespace Web.Api.Controllers
 {
@@ -32,7 +33,7 @@ namespace Web.Api.Controllers
         /// <param name="order"></param>
         /// <returns></returns>
         [HttpGet("insert")]
-        public async Task<bool> InsertOrderAsync([FromBody] Order order)
+        public async Task<bool> InsertOrderAsync([FromBody] OrderRequest order)
         {
             try
             {

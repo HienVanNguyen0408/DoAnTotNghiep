@@ -27,9 +27,12 @@ export default {
      */
     getUsersPagging: async function (context, payload) {
         var res = await userClient.postAsync({
-            url : `${userClient.url}/works`,
+            url : `${userClient.url}/pagging`,
             data : payload
         });
+        if(res){
+            context.commit('updatePaggingUsers',res);
+        }
         return res;
     },
 
@@ -93,24 +96,10 @@ export default {
      * @param {*} payload 
      * @returns 
      */
-    deleteUserAsync: async function (context, payload) {
+     deleteUserAsync: async function (context, payload) {
         let userClient = new UserClient(); 
         var res = await userClient.getAsync({
-            url : `${userClient.url}/delete/${payload}`,
-        });
-        return res;
-    },
-
-    /**
-     * Xoá nhiều người dùng
-     * @param {*} context 
-     * @param {*} payload 
-     * @returns 
-     */
-    deleteManyUserAsync: async function (context, payload) {
-        let userClient = new UserClient(); 
-        var res = await userClient.getAsync({
-            url : `${userClient.url}/delete-many`,
+            url : `${userClient.url}/delete`,
             data : payload
         });
         return res;

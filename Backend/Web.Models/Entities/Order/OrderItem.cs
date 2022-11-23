@@ -6,7 +6,6 @@ namespace Web.Models.Entities
 {
     public class OrderItem : BaseEntity
     {
-
         /// <summary>
         /// Id của sản phẩm
         /// </summary>

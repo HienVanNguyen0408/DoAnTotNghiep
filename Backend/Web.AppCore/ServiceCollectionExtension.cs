@@ -32,7 +32,6 @@ namespace Web.AppCore
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderItemService, OrderItemService>();
-            services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IBlogService, BlogService>();
             services.AddTransient<IPermissionService, PermissionService>();
             services.AddTransient<IPermissionDetailService, PermissionDetailService>();
@@ -48,7 +47,5 @@ namespace Web.AppCore
             services.AddTransient<IPublisherQueue, PublisherQueue>();
             return services;
         }
-
-
     }
 }

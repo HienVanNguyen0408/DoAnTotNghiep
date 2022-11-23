@@ -8,10 +8,15 @@ import Register from '@/views/user/Register.vue';
 
 import Home from '@/views/home/Home.vue';
 // Page Admin
-import Admin from '@/views/admin/Admin.vue';
 import ToDoList from '@/views/todolist/ToDoList.vue';
-import Dashboard from '@/views/dashboard/Dashboard.vue';
 import CustomerAdmin from '@/views/customer/CustomerAdmin.vue';
+
+import Admin from '@/views/admin/Admin.vue';
+import AdminUser from '@/views/admin/user/User.vue';
+import AdminProduct from '@/views/admin/product/Product.vue';
+import AdminOrder from '@/views/admin/order/Order.vue';
+import AdminBlog from '@/views/admin/blog/Blog.vue';
+import Dashboard from '@/views/admin/dashboard/Dashboard.vue';
 
 Vue.use(VueRouter);
 
@@ -34,24 +39,6 @@ export const router = new VueRouter({
                     component: Home,
                     props: true
                 },
-                {
-                    name: 'todolist',
-                    path: '/to-do-list',
-                    component: ToDoList,
-                    props: true
-                },
-                {
-                    name: 'dashboard',
-                    path: '/dashboard',
-                    component: Dashboard,
-                    props: true
-                },
-                {
-                    name: 'customer',
-                    path: '/customer',
-                    component: CustomerAdmin,
-                    props: true
-                },
             ],
             props: true
         },
@@ -70,7 +57,39 @@ export const router = new VueRouter({
             name: 'admin',
             path: '/admin',
             component: Admin,
-            props: true
+            props: true,
+            children: [
+                {
+                    name: 'dashboard',
+                    path: '/dashboard',
+                    component: Dashboard,
+                    props: true
+                },
+                {
+                    name: 'adminuser',
+                    path: '/admin-user',
+                    component: AdminUser,
+                    props: true
+                },
+                {
+                    name: 'adminblog',
+                    path: '/admin-blog',
+                    component: AdminBlog,
+                    props: true
+                },
+                {
+                    name: 'adminproduct',
+                    path: '/admin-product',
+                    component: AdminProduct,
+                    props: true
+                },
+                {
+                    name: 'adminOrder',
+                    path: '/admin-order',
+                    component: AdminOrder,
+                    props: true
+                },
+            ]
         },
     ]
 });

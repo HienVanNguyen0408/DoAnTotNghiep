@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Repository;
 using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
+using Web.Models.Enums;
+using Web.Models.Request;
 
 namespace Web.AppCore.Services
 {
@@ -17,6 +19,8 @@ namespace Web.AppCore.Services
         private readonly IProductCategoryUoW _productCategoryUoW;
         private readonly ISizeUoW _sizeUoW;
         private readonly IColorUoW _colorUoW;
+        private readonly IOrderItemUoW _orderItemUoW;
+        private readonly IImageUoW _imageUow;
         #endregion
 
         #region Contructor
@@ -26,33 +30,200 @@ namespace Web.AppCore.Services
             _productCategoryUoW = serviceProvider.GetRequiredService<IProductCategoryUoW>();
             _sizeUoW = serviceProvider.GetRequiredService<ISizeUoW>();
             _colorUoW = serviceProvider.GetRequiredService<IColorUoW>();
+            _orderItemUoW = serviceProvider.GetRequiredService<IOrderItemUoW>();
+            _imageUow = serviceProvider.GetRequiredService<IImageUoW>();
         }
 
         #endregion
 
         #region Methods
-        public async Task<bool> DeleteProductAsync(Product product)
-        {
-            //Xóa sản phẩm
 
-            //Xóa image đang của sản phẩm 
-            return false;
-        }
 
-        public async Task<bool> DeleteProductCategoryAsync(ProductCategory productCategory)
+        #region ProductCategory
+        /// <summary>
+        /// Xóa loại sản phẩm
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<DeleteStatus> DeleteProductCategoryAsync(ProductCategoryRequest request)
         {
             try
             {
-                //Xóa sản phẩm của loại sản phẩm
-                //Danh sách sản phẩm của loại sản phẩm
-                var products = await _productUoW.Products.GetAllAsync(x => x.product_category_id == productCategory.id);
-                //Chỉ xóa dữ liệu vẫn để thông tin id của sản phẩm
-                products = products.Select(x => new Product() { id = x.id });
-                await _productUoW.Products.UpdateManyAsync(products);
+                //Xóa sản phẩm của loại sp
+                if (request.products == null || request.products.Count() <= 0)
+                {
+                    request.products = await _productUoW.Products.GetAllAsync(x => x.product_category_id == request.id);
+                }
 
+                if (request.products != null && request.products.Count() > 0)
+                {
+                    var products = await _productUoW.Products.GetAllAsync(x => x.product_category_id == request.id);
+                    var deleteStatus = await DeleteProductsAsync(request.products);
+
+                    //Lỗi/phát sinh đơn hàng của sản phẩm
+                    if (deleteStatus != DeleteStatus.Success) return deleteStatus;
+                }
                 //Xóa loại sản phẩm
-                await _productCategoryUoW.ProductCategories.DeleteOneAsync(productCategory);
-                return true;
+                var resDelete = await _productCategoryUoW.ProductCategories.DeleteOneAsync(request);
+                return resDelete ? DeleteStatus.Success : DeleteStatus.Fail;
+            }
+            catch (Exception ex)
+            {
+                return DeleteStatus.Fail;
+            }
+        }
+
+        /// <summary>
+        /// Danh sách loại sản phẩm
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<ProductCategory>> GetProductCategoriesAsync()
+        {
+            return await _productCategoryUoW.ProductCategories.GetAllAsync();
+        }
+
+        /// <summary>
+        /// Danh sách loại sản phẩm phân trang
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <returns></returns>
+        public async Task<Pagging<ProductCategory>> GetProductCategoriesPaggingAsync(Pagination pagination)
+        {
+            return await _productCategoryUoW.ProductCategories.GetPaggingAsync(pagination);
+        }
+
+        /// <summary>
+        /// Thông tin chi tiết của loại sản phẩm
+        /// </summary>
+        /// <param name="productCategoryId"></param>
+        /// <returns></returns>
+        public async Task<ProductCategory> GetProductCategoryAsync(string productCategoryId)
+        {
+            return await _productCategoryUoW.ProductCategories.GetByIdAsync(productCategoryId);
+        }
+
+        /// <summary>
+        /// Thêm loại sản phẩm
+        /// </summary>
+        /// <param name="productCategory"></param>
+        /// <returns></returns>
+        public async Task<bool> InsertProductCategoryAsync(ProductCategory productCategory)
+        {
+            var productCategoryInsert = await _productCategoryUoW.ProductCategories.InsertOneAsync(productCategory);
+            return productCategoryInsert != null;
+        }
+
+        /// <summary>
+        /// Cập nhật thông tin loại sản phẩm
+        /// </summary>
+        /// <param name="productCategory"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateProductCategoryAsync(ProductCategory productCategory)
+        {
+            return await _productCategoryUoW.ProductCategories.UpdateOneAsync(productCategory);
+        }
+        #endregion
+
+        #region Product
+
+        /// <summary>
+        /// Xóa thông tin 1 sản phẩm
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        public async Task<DeleteStatus> DeleteProductAsync(Product product)
+        {
+            try
+            {
+                //Kiểm tra xem sản phẩm đã phát sinh đơn hàng chưa
+                //Phát sinh thì không cho phép xóa 
+                var orderItems = await _orderItemUoW.OrderItems.GetAllAsync(x => x.product_id == product.id);
+                //Đã phát sinh đơn hàng
+                if (orderItems != null && orderItems.Count() > 0) return DeleteStatus.Incurred;
+
+                //Xóa image đang của sản phẩm 
+                await _imageUow.Images.DeleteManyAsync(x => x.product_id == product.id);
+                //Delete image trên storage
+
+                //Xóa sản phẩm
+                var resDelete = await _productUoW.Products.DeleteOneAsync(product);
+                return resDelete ? DeleteStatus.Success : DeleteStatus.Fail;
+            }
+            catch (Exception ex)
+            {
+                return DeleteStatus.Fail;
+            }
+        }
+
+        /// <summary>
+        /// Xóa nhiều sản phẩm
+        /// </summary>
+        /// <param name="products"></param>
+        /// <returns></returns>
+        public async Task<DeleteStatus> DeleteProductsAsync(IEnumerable<Product> products)
+        {
+            try
+            {
+                if (products == null && products.Count() <= 0) return DeleteStatus.None;
+
+                //Kiểm tra xem sản phẩm đã phát sinh đơn hàng chưa
+                //Phát sinh thì không cho phép xóa 
+                var orderItems = await _orderItemUoW.OrderItems.GetAllAsync(x => products.Any(p => p.id == x.product_id));
+                //Đã phát sinh đơn hàng
+                if (orderItems != null && orderItems.Count() > 0) return DeleteStatus.Incurred;
+
+                //Xóa image đang của sản phẩm 
+                await _imageUow.Images.DeleteManyAsync(x => products.Any(p => p.id == x.product_id));
+                //Delete image trên storage
+
+                //Xóa sản phẩm
+                var resDelete = await _productUoW.Products.DeleteManyAsync(products);
+                return resDelete ? DeleteStatus.Success : DeleteStatus.Fail;
+            }
+            catch (Exception ex)
+            {
+                return DeleteStatus.Fail;
+            }
+        }
+
+        /// <summary>
+        /// Danh sách sản phẩm
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Product>> GetProductsAsync()
+        {
+            return await _productUoW.Products.GetAllAsync();
+        }
+
+        /// <summary>
+        /// Danh sách sản phẩm phân trang
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <returns></returns>
+        public async Task<Pagging<Product>> GetProductsPaggingAsync(Pagination pagination)
+        {
+            return await _productUoW.Products.GetPaggingAsync(pagination);
+        }
+
+        /// <summary>
+        /// Thêm sản phẩm
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        public async Task<bool> InsertProductAsync(ProductRequest product)
+        {
+            try
+            {
+                var productInsert = await _productUoW.Products.InsertOneAsync(product);
+                //Thêm thông tin ảnh của product
+                if (product.images != null && product.images.Count() > 0)
+                {
+                    product.images.ToList().ForEach(x => x.product_id = product.id);
+                    //Thêm vào DB
+                    await _imageUow.Images.InsertManyAsync(product.images);
+                    //Thêm ảnh vào storage
+                }
+                return productInsert != null;
             }
             catch (Exception ex)
             {
@@ -60,56 +231,30 @@ namespace Web.AppCore.Services
             }
         }
 
+
+        /// <summary>
+        /// Cập nhật thông tin sản phẩm
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateProductAsync(ProductRequest product)
+        {
+            //Cập nhật ảnh trên storage
+            //Cập nhật ảnh trong DB
+            return await _productUoW.Products.UpdateOneAsync(product);
+        }
+
+        /// <summary>
+        /// Lấy thông tin sản phẩm
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
         public async Task<Product> GetProductAsync(string productId)
         {
             return await _productUoW.Products.GetByIdAsync(productId);
         }
-
-        public async Task<IEnumerable<ProductCategory>> GetProductCategoriesAsync()
-        {
-            return await _productCategoryUoW.ProductCategories.GetAllAsync();
-        }
-
-        public async Task<Pagging<ProductCategory>> GetProductCategoriesPaggingAsync(Pagination pagination)
-        {
-            return await _productCategoryUoW.ProductCategories.GetPaggingAsync(pagination);
-        }
-
-        public async Task<ProductCategory> GetProductCategoryAsync(string productCategoryId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Product>> GetProductsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Pagging<Product>> GetProductsPaggingAsync(Pagination pagination)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> InsertProductAsync(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> InsertProductCategoryAsync(ProductCategory productCategory)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> UpdateProductAsync(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> UpdateProductCategoryAsync(ProductCategory productCategory)
-        {
-            throw new NotImplementedException();
-        }
-
+        #endregion
+        
         #endregion
     }
 }

@@ -42,30 +42,45 @@
                         active : true
                     },
                     {
-                        name : 'user',
-                        router : '/user',
+                        name : 'adminuser',
+                        router : '/admin-user',
                         text : 'Quản lý người dùng',
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
-                        name : 'product',
-                        router : '/product',
+                        name : 'adminproduct',
+                        router : '/admin-product',
                         text : 'Quản lý sản phẩm',
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
-                        name : 'order',
-                        router : '/order',
+                        name : 'adminorder',
+                        router : '/admin-order',
                         text : 'Quản lý đơn hàng',
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
-                        name : 'blog',
-                        router : '/blog',
+                        name : 'adminblog',
+                        router : '/admin-blog',
                         text : 'Quản lý bài viết',
                         icon : 'icon-todolist dq-icon-20',
                     },
                 ];
+
+                me.$router.push(`${me.menus[0].router}`);
+            },
+            
+            setActiveMenu(menu){
+                const me = this;
+                me.menus.forEach(item => {
+                    if(item.router == menu.router) item.active = true;
+                    else item.active = false;
+                });
+            },
+            menuChange(menu){
+                const me = this;
+                me.setActiveMenu(menu);
+                me.$router.push(`${menu.router}`);
             }
         }
     }
