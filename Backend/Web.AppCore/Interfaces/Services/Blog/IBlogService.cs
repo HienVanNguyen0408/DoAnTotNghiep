@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Web.Models.Entities;
+using Web.Models.Enums;
 
 namespace Web.AppCore.Interfaces.Services
 {
@@ -49,7 +50,7 @@ namespace Web.AppCore.Interfaces.Services
         /// </summary>
         /// <param name="blogCategory"></param>
         /// <returns></returns>
-        Task<bool> DeleteBlogCategoryAsync(BlogCategory blogCategory);
+        Task<DeleteStatus> DeleteBlogCategoryAsync(BlogCategory blogCategory);
         #endregion
 
 

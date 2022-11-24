@@ -38,7 +38,6 @@ namespace Web.AppCore.Services
 
         #region Methods
 
-
         #region ProductCategory
         /// <summary>
         /// Xóa loại sản phẩm

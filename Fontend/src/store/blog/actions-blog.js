@@ -12,23 +12,31 @@ export default {
      */
     getBlogs: async function (context, payload) {
         var res = await blogClient.getAsync({
-            url : blogClient.url,
-            queries : payload 
+            url: blogClient.url,
+            queries: payload
         });
+
+        if (res) {
+            return res.data;
+        }
         return res;
     },
-    
+
     /**
      * Lấy danh sách bài viết theo điều kiện lọc
      * @param {*} context 
      * @param {*} payload 
      * @returns 
      */
-    getBlogsPagging: async function (context, payload) {
+    getBlogPageAsync: async function (context, payload) {
         var res = await blogClient.postAsync({
-            url : `${blogClient.url}/pagging`,
-            data : payload
+            url: `${blogClient.url}/pagging`,
+            data: payload
         });
+
+        if (res) {
+            return res.data;
+        }
         return res;
     },
 
@@ -38,10 +46,14 @@ export default {
      * @param {*} payload 
      * @returns 
      */
-    getBlogById: async function (context, payload) {
+    getBLogAsync: async function (context, payload) {
         var res = await blogClient.getAsync({
-            url : `${blogClient.url}/${payload}`,
+            url: `${blogClient.url}/${payload}`,
         });
+
+        if (res) {
+            return res.data;
+        }
         return res;
     },
 
@@ -52,10 +64,14 @@ export default {
      * @returns 
      */
     insertBlogAsync: async function (context, payload) {
-        var res = await blogClient.getAsync({
-            url : `${blogClient.url}/insert`,
+        var res = await blogClient.postAsync({
+            url: `${blogClient.url}/insert`,
             data: payload
         });
+
+        if (res) {
+            return res.data;
+        }
         return res;
     },
 
@@ -66,10 +82,14 @@ export default {
      * @returns 
      */
     updateBlogAsync: async function (context, payload) {
-        var res = await blogClient.getAsync({
-            url : `${blogClient.url}/update`,
-            data : payload
+        var res = await blogClient.postAsync({
+            url: `${blogClient.url}/update`,
+            data: payload
         });
+
+        if (res) {
+            return res.data;
+        }
         return res;
     },
 
@@ -80,23 +100,126 @@ export default {
      * @returns 
      */
     deleteBlogAsync: async function (context, payload) {
-        var res = await blogClient.getAsync({
-            url : `${blogClient.url}/delete/${payload}`,
+        var res = await blogClient.postAsync({
+            url: `${blogClient.url}/delete`,
+            data : payload
         });
+
+        if (res) {
+            return res.data;
+        }
         return res;
+
     },
 
+
+    //======================
+    //Loại bài viết
     /**
-     * Xoá nhiều bài viết
+     * Lấy danh sách loại bài viết
      * @param {*} context 
      * @param {*} payload 
      * @returns 
      */
-    deleteManyBlogAsync: async function (context, payload) {
+     getBlogCategories: async function (context, payload) {
         var res = await blogClient.getAsync({
-            url : `${blogClient.url}/delete-many`,
+            url: `${blogClient.url}/categories`,
+            queries: payload
+        });
+
+        if (res) {
+            return res.data;
+        }
+        return res;
+    },
+
+    /**
+     * Lấy danh sách loại bài viết phân trang
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+    getBlogCategoryPageAsync: async function (context, payload) {
+        var res = await blogClient.postAsync({
+            url: `${blogClient.url}/pagging`,
+            data: payload
+        });
+
+        if (res) {
+            return res.data;
+        }
+        return res;
+    },
+
+    /**
+     * Thông tin chi tiết loại bài viết
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+    getBLogCategoryAsync: async function (context, payload) {
+        var res = await blogClient.getAsync({
+            url: `${blogClient.url}/category/${payload}`,
+        });
+
+        if (res) {
+            return res.data;
+        }
+        return res;
+    },
+
+    /**
+     * Thêm loại bài viết
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+    insertBlogCategoryAsync: async function (context, payload) {
+        var res = await blogClient.postAsync({
+            url: `${blogClient.url}/category-insert`,
+            data: payload
+        });
+
+        if (res) {
+            return res.data;
+        }
+        return res;
+    },
+
+    /**
+     * Cập nhật thông tin của bài viết
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+    updateBlogCategoryAsync: async function (context, payload) {
+        var res = await blogClient.postAsync({
+            url: `${blogClient.url}/category-update`,
+            data: payload
+        });
+
+        if (res) {
+            return res.data;
+        }
+        return res;
+    },
+
+    /**
+     * Xóa thông tin loại bài viết
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+    deleteBlogCategoryAsync: async function (context, payload) {
+        var res = await blogClient.postAsync({
+            url: `${blogClient.url}/category-delete`,
             data : payload
         });
+
+        if (res) {
+            return res.data;
+        }
         return res;
+
     },
 }

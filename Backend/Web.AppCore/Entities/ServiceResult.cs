@@ -10,7 +10,7 @@ namespace Web.AppCore.Entities
     {
         public T Data { get; set; }
 
-        public bool Success { get; set; } = true;
+        public bool Success { get; set; } = false;
 
         public ServiceResultStatus Status { get; set; }
 
