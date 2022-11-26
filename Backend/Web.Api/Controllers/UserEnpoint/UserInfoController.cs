@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Web.Api.Auth;
+using Web.AppCore.Entities;
 using Web.AppCore.Interfaces.Services;
 using Web.Caching;
 using Web.Models.Entities;
@@ -37,18 +38,25 @@ namespace Web.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<ServiceResult<IEnumerable<User>>> GetUsersAsync()
         {
+            var svcResult = new ServiceResult<IEnumerable<User>>();
             try
             {
                 // Danh sách user
                 var users = await _userService.GetUsersAsync();
-                return users;
+                svcResult = new ServiceResult<IEnumerable<User>>
+                {
+                    Data = users,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm GetUsersAsync::Exception::{ex.Message}");
-                return null;
+                return svcResult;
             }
         }
 
@@ -57,18 +65,25 @@ namespace Web.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("pagging")]
-        public async Task<Pagging<User>> GetUserPageAsync([FromBody] Pagination pagination)
+        public async Task<ServiceResult<Pagging<User>>> GetUserPageAsync([FromBody] Pagination pagination)
         {
+            var svcResult = new ServiceResult<Pagging<User>>();
             try
             {
                 //Danh sách user phân trang
                 var pageResult = await _userService.GetUserPageAsync(pagination);
-                return pageResult;
+                svcResult = new ServiceResult<Pagging<User>>
+                {
+                    Data = pageResult,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm GetUserPageAsync::Exception::{ex.Message}");
-                return null;
+                return svcResult;
             }
         }
 
@@ -78,18 +93,25 @@ namespace Web.Api.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost("insert")]
-        public async Task<bool> InsertUserAsync([FromBody] User user)
+        public async Task<ServiceResult<bool>> InsertUserAsync([FromBody] User user)
         {
+            var svcResult = new ServiceResult<bool>();
             try
             {
                 //Thêm user
-                var res = await _userService.InsertUserAsync(user);
-                return res;
+                var resInsert = await _userService.InsertUserAsync(user);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = resInsert,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm InsertUserAsync::Exception::{ex.Message}");
-                return false;
+                return svcResult;
             }
         }
 
@@ -99,18 +121,25 @@ namespace Web.Api.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost("delete")]
-        public async Task<bool> DeleteUserAsync([FromBody] List<string> userIds)
+        public async Task<ServiceResult<bool>> DeleteUserAsync([FromBody] List<string> userIds)
         {
+            var svcResult = new ServiceResult<bool>();
             try
             {
                 //Xóa user
-                await _userService.DeleteUserAsync(userIds);
-                return true;
+                var resDelete = await _userService.DeleteUserAsync(userIds);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = resDelete,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm DeleteUserAsync::Exception::{ex.Message}");
-                return false;
+                return svcResult;
             }
         }
 
@@ -120,49 +149,70 @@ namespace Web.Api.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost("update")]
-        public async Task<bool> UpdateUserAsync(string userId, [FromBody] User user)
+        public async Task<ServiceResult<bool>> UpdateUserAsync(string userId, [FromBody] User user)
         {
+            var svcResult = new ServiceResult<bool>();
             try
             {
                 //Sửa 
-                var updateRes = await _userService.UpdateUserAsync(userId, user);
-                return updateRes;
+                var resUpdate = await _userService.UpdateUserAsync(userId, user);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = resUpdate,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm UpdateUserAsync::Exception::{ex.Message}");
-                return false;
+                return svcResult;
             }
         }
 
 
         [HttpPost("authenticate")]
-        public async Task<string> AutheticateAsync([FromBody] UserRequest request)
+        public async Task<ServiceResult<string>> AutheticateAsync([FromBody] UserRequest request)
         {
+            var svcResult = new ServiceResult<string>();
             try
             {
                 var authen = await _jwtAuthencation.Autheticate(request);
-                return authen;
+                svcResult = new ServiceResult<string>
+                {
+                    Data = authen,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm LoginUser::Exception::{ex.Message}");
-                return String.Empty;
+                return svcResult;
             }
         }
 
         [HttpPost("login")]
-        public async Task<bool> LoginUser([FromBody] UserRequest request)
+        public async Task<ServiceResult<bool>> LoginUser([FromBody] UserRequest request)
         {
+            var svcResult = new ServiceResult<bool>();
             try
             {
                 var authen = await _jwtAuthencation.Autheticate(request);
-                return !string.IsNullOrEmpty(authen);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = !string.IsNullOrEmpty(authen),
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm LoginUser::Exception::{ex.Message}");
-                return false;
+                return svcResult;
             }
         }
 
@@ -172,17 +222,24 @@ namespace Web.Api.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("register")]
-        public async Task<bool> RegiterUserAsync([FromBody] UserRequest request)
+        public async Task<ServiceResult<bool>> RegiterUserAsync([FromBody] UserRequest request)
         {
+            var svcResult = new ServiceResult<bool>();
             try
             {
-                var res = await _userService.InsertUserAsync(user: request);
-                return res;
+                var resRegister = await _userService.InsertUserAsync(user: request);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = resRegister,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm RegiterUserAsync::Exception::{ex.Message}");
-                return false;
+                return svcResult;
             }
         }
         #endregion

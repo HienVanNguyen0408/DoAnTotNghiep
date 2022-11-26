@@ -31,7 +31,7 @@ export default {
             data : payload
         });
         if(res){
-            context.commit('updatePaggingUsers',res);
+            context.commit('updatePaggingUsers',res.data);
         }
         return res;
     },

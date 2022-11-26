@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Web.Models.Entities.Subcribers
+namespace Web.Models.Entities
 {
     /// <summary>
     /// Đánh giá cửa hàng

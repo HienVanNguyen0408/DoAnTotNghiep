@@ -42,7 +42,7 @@ namespace PostgresDBData
         Task<bool> DeleteOneAsync(string id);
         Task<bool> DeleteManyAsync(IEnumerable<TEntity>entity);
         Task<bool> DeleteManyAsync(Func<TEntity, bool> predicate);
-        Task<bool> DeleteManyAsync(List<string> ids);
+        Task<bool> DeleteManyAsync(IEnumerable<string> ids);
         #endregion
     }
 }

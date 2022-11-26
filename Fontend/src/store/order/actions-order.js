@@ -25,11 +25,15 @@ export default {
      * @param {*} payload 
      * @returns 
      */
-    getOrdersPagging: async function (context, payload) {
+    getOrderPageAsync: async function (context, payload) {
         var res = await orderClient.postAsync({
             url : `${orderClient.url}/pagging`,
             data : payload
         });
+
+        if(res && res.data){
+            context.commit('updateOrderPage',res.data);
+        }
         return res;
     },
 
@@ -39,10 +43,14 @@ export default {
      * @param {*} payload 
      * @returns 
      */
-    getOrderById: async function (context, payload) {
+    getOrderAsync: async function (context, payload) {
         var res = await orderClient.getAsync({
             url : `${orderClient.url}/${payload}`,
         });
+
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 
@@ -58,6 +66,9 @@ export default {
             url : `${orderClient.url}/insert`,
             data: payload
         });
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 
@@ -67,11 +78,14 @@ export default {
      * @param {*} payload 
      * @returns 
      */
-    updateUserAsync: async function (context, payload) {
+    updateOrderAsync: async function (context, payload) {
         var res = await orderClient.getAsync({
             url : `${orderClient.url}/update`,
             data : payload
         });
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 
@@ -85,6 +99,9 @@ export default {
         var res = await orderClient.getAsync({
             url : `${orderClient.url}/delete/${payload}`,
         });
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 
@@ -99,6 +116,9 @@ export default {
             url : `${orderClient.url}/delete-many`,
             data : payload
         });
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 }

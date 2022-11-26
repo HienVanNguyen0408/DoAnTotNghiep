@@ -18,30 +18,30 @@ namespace Web.Api.Controllers
             _importExcelService = importExcelService;
         }
 
-        [HttpPost]
-        public async Task<bool> SaveFile([FromBody] DowloadRequest dowloadRequest)
-        {
-            return await _downloadService.SaveFile(dowloadRequest.data, dowloadRequest.FolderType, dowloadRequest.FileName);
-        }
+        //[HttpPost]
+        //public async Task<bool> SaveFile([FromBody] DowloadRequest dowloadRequest)
+        //{
+        //    return await _downloadService.SaveFile(dowloadRequest.data, dowloadRequest.FolderType, dowloadRequest.FileName);
+        //}
 
-        [HttpGet]
-        public async Task<string> InsertDataAuto([FromQuery] string path)
-        {
-            return await _downloadService.GetDataFileAsync(path);
-        }
+        //[HttpGet]
+        //public async Task<string> InsertDataAuto([FromQuery] string path)
+        //{
+        //    return await _downloadService.GetDataFileAsync(path);
+        //}
         
-        [HttpPost("import-excel")]
-        public async Task<string> ImportExcelAsync([FromBody] ExcelRequest request)
-        {
-            await _importExcelService.ImportDataExcelToDBAsync(request);
-            return string.Empty;
-        }
+        //[HttpPost("import-excel")]
+        //public async Task<string> ImportExcelAsync([FromBody] ExcelRequest request)
+        //{
+        //    await _importExcelService.ImportDataExcelToDBAsync(request);
+        //    return string.Empty;
+        //}
         
-        [HttpPost("export-excel")]
-        public async Task<byte[]> ExportExcelAsync([FromBody] ExcelRequest request)
-        {
-            var file = await _downloadService.DownloadFileExcelCustomerAsync(request.CustomerIds);
-            return file;
-        }
+        //[HttpPost("export-excel")]
+        //public async Task<byte[]> ExportExcelAsync([FromBody] ExcelRequest request)
+        //{
+        //    var file = await _downloadService.DownloadFileExcelCustomerAsync(request.CustomerIds);
+        //    return file;
+        //}
     }
 }

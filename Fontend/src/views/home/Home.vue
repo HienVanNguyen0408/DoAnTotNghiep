@@ -1,11 +1,11 @@
 <template>
-  <div class="dq-content">
-    
+  <div class="dq-home">
+
   </div>
 </template>
 <script>
 export default {
-  name: "TheContent",
+  name: "Home",
   components: {},
   data() {
     return {};

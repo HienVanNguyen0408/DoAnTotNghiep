@@ -4,20 +4,20 @@
             <div class="flex">
                 <div class="flex-1">
                     <div class="filter-search">
-                        <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterOrders">
+                        <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterUsers">
                         </dq-input>
                     </div>
                 </div>
                 <div class="flex-1 flex jus-right">
                     <div class="btn-add">
-                        <dq-button :title="'Thêm đơn hàng'"></dq-button>
+                        <dq-button :title="'Thêm loại sản phẩm'"></dq-button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="dq-grid dq-mgt-20">
-            <dq-grid ref="gridOrder" :data="Orders" :columns="columns" serial="true" checkbox="true"
-                pagination="true" :dataPagination="params" :textPage="'Đơn hàng'" @dbclick="editDataOrder"
+            <dq-grid ref="gridProductCategory" :data="ProductCategories" :columns="columns" serial="true" checkbox="true"
+                pagination="true" :dataPagination="params" :textPage="'Loại sản phẩm'" @dbclick="editDataProductCategory"
                 @getData="getDataPagging" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti">
             </dq-grid>
         </div>
@@ -30,9 +30,9 @@ import {
     mapActions,
     mapGetters
 } from 'vuex';
-import { ModuleOrder } from '@/store/module-const';
+import { ModuleProductCategory } from '@/store/module-const';
 export default {
-    name: "AdminOrder",
+    name: "AdminProductCategory",
     components: {},
     props: {},
     data() {
@@ -52,9 +52,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(ModuleOrder, [
-            'OrderPage',
-            'Orders',
+        ...mapGetters(ModuleProductCategory, [
+            'ProductCategoryPage',
+            'ProductCategories',
             'TotalPage',
             'TotalRecords'
         ]),
@@ -64,80 +64,72 @@ export default {
         me.initData();
     },
     methods: {
-        ...mapActions(ModuleOrder, [
-            'getOrders',
-            'getOrderPageAsync',
-            'getOrderAsync',
-            'insertOrderAsync',
-            'updateOrderAsync',
-            'deleteOrderAsync',
-            'deleteManyOrderAsync'
+        ...mapActions(ModuleProductCategory, [
+            'getProductCategories',
+            'getProductCategoryPageAsync',
+            'getProductCategoryAsync',
+            'insertProductCategoryAsync',
+            'updateProductCategoryAsync',
+            'deleteProductCategoryAsync',
+            'deleteManyProductCategoryAsync'
         ]),
 
         initData() {
             const me = this;
             me.initDataStatic();
-            me.loadDataOrders();
+            me.loadDataProductCategorys();
         },
         initDataStatic() {
             const me = this;
             me.columns = [
                 {
-                    title: 'Địa chỉ nhận hàng',
-                    dataField: 'address',
+                    title: 'Mã sản phẩm',
+                    dataField: 'code',
                 },
                 {
-                    title: 'SDT người nhận',
-                    dataField: 'phone_number',
+                    title: 'Tên sản phẩm',
+                    dataField: 'product_name',
                 },
                 {
-                    title: 'Người nhận hàng',
-                    dataField: 'receiver_name',
+                    title: 'Đơn vị tính',
+                    dataField: 'unit_name',
                 },
                 {
-                    title: 'Tổng tiền đơn hàng',
-                    dataField: 'total_amount',
+                    title: 'Số lượng',
+                    dataField: 'quantity',
                 },
                 {
-                    title: 'Tổng tiền thuế',
-                    dataField: 'total_amount',
+                    title: 'Số lượng đã bán',
+                    dataField: 'quantity_sold',
                 },
                 {
-                    title: 'Tiền chiết khấu',
-                    dataField: 'discount_amount',
-                },
-                {
-                    title: 'Phương phức thanh toán',
+                    title: 'Giá gốc',
                     dataField: 'original_price',
                 },
                 {
-                    title: 'Thời gian dự tính giao hàng',
+                    title: 'Giá bán',
                     dataField: 'sale_price',
                 },
                 {
-                    title: 'Thời gian cập nhật quá trình vận chuyển',
-                    dataField: 'delivery_update_date',
+                    title: 'Giá gốc',
+                    dataField: 'original_price',
                 },
                 {
-                    title: 'Trạng thái đơn hàng',
-                    dataField: 'order_status',
-                },
-                {
-                    title: 'Ghi chú đơn hàng',
-                    dataField: 'content',
+                    title: 'Mô tả',
+                    dataField: 'description',
                 },
             ]
         },
 
-        async loadDataOrders() {
+        async loadDataProductCategorys() {
             const me = this;
             let params = me.getPayload()
-            await me.getOrderPageAsync(params);
-            if (me.OrderPage) {
-                me.params.pageIndex = me.OrderPage.pageIndex;
-                me.params.pageSize = me.OrderPage.pageSize;
-                me.params.totalRecord = me.OrderPage.totalRecord;
-                me.params.totalPages = me.OrderPage.totalPages;
+            await me.getProductCategoryPageAsync(params);
+            if (me.ProductCategoryPage) {
+                me.params.pageIndex = me.ProductCategoryPage.pageIndex;
+                me.params.pageSize = me.ProductCategoryPage.pageSize;
+                me.params.totalRecord = me.ProductCategoryPage.totalRecord;
+                me.params.totalPages = me.ProductCategoryPage.totalPages;
             }
         },
         getPayload() {
@@ -148,7 +140,6 @@ export default {
                 Filter: me.params.filter
             };
         },
-
         async getDataPagging(params) {
             const me = this;
             me.params.pageIndex = params.pageIndex;
@@ -156,28 +147,28 @@ export default {
             me.params.filter = params.filter;
             me.params.totalRecord = params.totalRecord;
             me.params.totalPages = params.totalPages;
-            await me.getOrderPageAsync(params);
+            await me.getProductCategoryPageAsync(params);
         },
 
         /*
         *Hàm lọc danh sách
         */
-        filterOrders: _.debounce(async function () {
+        filterUsers: _.debounce(async function () {
             const me = this;
-            await me.loadDataOrders();
+            await me.loadDataProductCategorys();
         }, 1000),
         /**
          * Xóa nhiều
          */
-        async deleteManyOrder() {
+        async deleteManyProductCategory() {
             const me = this;
             if (me.selected && me.selected.length > 0) {
                 let params = {
-                    orderIds: me.selected.map(x => x.order_id)
+                    productIds: me.selected.map(x => x.product_id)
                 }
-                let res = await me.deleteManyOrderAsync(params);
+                let res = await me.deleteManyProductCategoryAsync(params);
                 if (res) {
-                    me.loadDataOrders();
+                    me.loadDataProductCategorys();
                     me.selected = [];
                     if (me.$refs && me.$refs.gridCustomer) {
                         me.$refs.gridCustomer.resetSelect();
@@ -186,7 +177,7 @@ export default {
             }
         },
 
-        editDataOrder() {
+        editDataProductCategory() {
             const me = this;
         },
 

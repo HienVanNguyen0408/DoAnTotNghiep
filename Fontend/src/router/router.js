@@ -7,15 +7,16 @@ import Login from '@/views/user/Login.vue';
 import Register from '@/views/user/Register.vue';
 
 import Home from '@/views/home/Home.vue';
-// Page Admin
-import ToDoList from '@/views/todolist/ToDoList.vue';
-import CustomerAdmin from '@/views/customer/CustomerAdmin.vue';
 
 import Admin from '@/views/admin/Admin.vue';
 import AdminUser from '@/views/admin/user/User.vue';
 import AdminProduct from '@/views/admin/product/Product.vue';
+import AdminProductCategory from '@/views/admin/productCategory/ProductCategory.vue';
+
 import AdminOrder from '@/views/admin/order/Order.vue';
 import AdminBlog from '@/views/admin/blog/Blog.vue';
+
+
 import Dashboard from '@/views/admin/dashboard/Dashboard.vue';
 
 Vue.use(VueRouter);
@@ -75,6 +76,12 @@ export const router = new VueRouter({
                     name: 'adminblog',
                     path: '/admin-blog',
                     component: AdminBlog,
+                    props: true
+                },
+                {
+                    name: 'adminproductcategory',
+                    path: '/admin-productcategory',
+                    component: AdminProductCategory,
                     props: true
                 },
                 {

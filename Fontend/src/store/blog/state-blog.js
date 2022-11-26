@@ -1,3 +1,7 @@
 export default{
-    works : []
+    Blogs : [],
+    BlogPage : {},
+    Blog: {},
+    TotalPage : 0,
+    TotalRecords : 0
 }

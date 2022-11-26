@@ -1,5 +1,17 @@
 export default{
-    updateWorks : async function(state,res){
-        state.works = [...res];
-    }
+    updateBlogPage : async function(state,res){
+        state.BlogPage = {...res};
+        if(res && res.data){
+            state.Blogs = res.data;
+        }
+    },
+    updateBlog : async function(state,res){
+        state.Blog = {...res};
+    },
+    updateTotalPage : async function(state,res){
+        state.TotalPage = res;
+    },
+    updateTotalRecords: async function(state,res){
+        state.TotalRecords = res;
+    },
 }

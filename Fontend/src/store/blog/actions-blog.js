@@ -34,7 +34,8 @@ export default {
             data: payload
         });
 
-        if (res) {
+        if (res && res.data) {
+            context.commit('updateBlogPage',res.data);
             return res.data;
         }
         return res;
@@ -109,7 +110,6 @@ export default {
             return res.data;
         }
         return res;
-
     },
 
 

@@ -19,10 +19,26 @@ namespace PostgresDBData
         }
 
         public DbSet<User> users { get; set; }
+        public DbSet<Comment> comments { get; set; }
+        public DbSet<Permission> permissions { get; set; }
+        public DbSet<PermissionDetail> permissionDetails { get; set; }
+        public DbSet<PermissionRelationship> permissionRelationships { get; set; }
+        public DbSet<Feedback> feedbacks { get; set; }
+
+
+
         public DbSet<Product> products { get; set; }
         public DbSet<ProductCategory> productCategories { get; set; }
         public DbSet<Size> sizes { get; set; }
         public DbSet<Color> colors { get; set; }
+
+
+        public DbSet<Order> orders { get; set; }
+        public DbSet<OrderItem> orderItems { get; set; }
+        public DbSet<BlogCategory> blogCategories { get; set; }
+        public DbSet<Blog> blogs { get; set; }
+        public DbSet<Image> images { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

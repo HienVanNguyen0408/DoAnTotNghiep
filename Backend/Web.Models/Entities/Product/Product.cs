@@ -55,6 +55,6 @@ namespace Web.Models.Entities
         /// <summary>
         /// Mô tả đơn vị
         /// </summary>
-        public string unit_discription { get; set; }
+        public string unit_description { get; set; }
     }
 }

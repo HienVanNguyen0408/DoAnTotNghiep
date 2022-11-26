@@ -4,7 +4,7 @@
             {{ $t('i18nAdmin.ManageShop')}}
         </div>
         <div class="menus" v-if="menus && menus.length > 0">
-            <div class="menu" v-for="(menu,index) in menus" :key="index" :class="menu.active ? 'menu-active' : ''" @click="menuChange(menu)">
+            <div class="menu" v-for="(menu,index) in menus" :key="index" :class="{'menu-active' : routerActive == menu.router}" @click="menuChange(menu)">
                 <div class="flex align-center w-100">
                     <div class="dq-mgr-10 icon-navbar" :class="menu.icon"></div>
                     <div class="text-navbar">{{ menu.text }}</div>
@@ -20,6 +20,13 @@
         data(){
             return{
                 menus : [],
+            }
+        },
+        computed:{
+            routerActive(){
+                const me = this;
+                if(me.$route && me.$route.path) return me.$route.path;
+                return '/dashboard';
             }
         },
         created(){
@@ -38,13 +45,18 @@
                         name : 'dashboard',
                         router : '/dashboard',
                         text : 'Tổng quan',
-                        icon : 'icon-dashboard dq-icon-20',
-                        active : true
+                        icon : 'icon-dashboard dq-icon-20'
                     },
                     {
                         name : 'adminuser',
                         router : '/admin-user',
                         text : 'Quản lý người dùng',
+                        icon : 'icon-todolist dq-icon-20',
+                    },
+                    {
+                        name : 'adminproductcategory',
+                        router : '/admin-productcategory',
+                        text : 'Quản lý loại sản phẩm',
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
@@ -65,9 +77,7 @@
                         text : 'Quản lý bài viết',
                         icon : 'icon-todolist dq-icon-20',
                     },
-                ];
-
-                me.$router.push(`${me.menus[0].router}`);
+                ];          
             },
             
             setActiveMenu(menu){
@@ -79,7 +89,6 @@
             },
             menuChange(menu){
                 const me = this;
-                me.setActiveMenu(menu);
                 me.$router.push(`${menu.router}`);
             }
         }

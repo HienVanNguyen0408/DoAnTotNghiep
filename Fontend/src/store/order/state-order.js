@@ -1,3 +1,7 @@
 export default{
-    orders : []
+    Orders : [],
+    OrderPage : {},
+    Order: {},
+    TotalPage : 0,
+    TotalRecords : 0
 }

@@ -27,6 +27,13 @@ namespace Web.AppCore.Interfaces.Services
         /// <param name="orderId"></param>
         /// <returns></returns>
         Task<bool> DeleteOrderAsync(string orderId);
+        
+        /// <summary>
+        /// Xóa nhiều đơn hàng
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        Task<bool> DeleteOrdersAsync(IEnumerable<string> orderIds);
 
 
         /// <summary>
@@ -35,5 +42,21 @@ namespace Web.AppCore.Interfaces.Services
         /// <param name="order"></param>
         /// <returns></returns>
         Task<bool> UpdateOrderAsync(Order order);
+
+
+        /// <summary>
+        /// Lấy danh sách đơn hàng phân trang
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <returns></returns>
+        Task<Pagging<Order>> GetOrderPageAsync(Pagination pagination);
+
+
+        /// <summary>
+        /// Lấy thông tin chi tiết đơn hàng
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <returns></returns>
+        Task<Order> GetOrderAsync(string orderId);
     }
 }

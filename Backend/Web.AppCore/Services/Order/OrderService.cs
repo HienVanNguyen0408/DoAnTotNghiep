@@ -51,6 +51,40 @@ namespace Web.AppCore.Services
         }
 
         /// <summary>
+        /// Xóa đơn hàng
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteOrdersAsync(IEnumerable<string> orderIds)
+        {
+            try
+            {
+                if (orderIds == null && orderIds.Count() <= 0) return false;
+
+                //Xóa chi tiết đơn hàng
+                var orderItems = await _orderItemUoW.OrderItems.GetAllAsync(x => orderIds.Any(o => o == x.order_id));
+                await _orderItemUoW.OrderItems.DeleteManyAsync(orderItems);
+                //Xóa đơn hàng
+                var resDelete = await _orderUoW.Orders.DeleteManyAsync(orderIds);
+                return resDelete;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<Order> GetOrderAsync(string orderId)
+        {
+            return await _orderUoW.Orders.GetByIdAsync(orderId);
+        }
+
+        public async Task<Pagging<Order>> GetOrderPageAsync(Pagination pagination)
+        {
+            return await _orderUoW.Orders.GetPaggingAsync(pagination);
+        }
+
+        /// <summary>
         /// Thêm đơn hàng
         /// </summary>
         /// <param name="order"></param>

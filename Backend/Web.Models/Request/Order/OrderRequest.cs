@@ -8,5 +8,6 @@ namespace Web.Models.Request
     public class OrderRequest : Order
     {
         public List<OrderItemRequest> order_items { get; set; }
+        public IEnumerable<string> order_ids { get; set; }
     }
 }

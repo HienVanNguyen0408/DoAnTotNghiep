@@ -11,13 +11,14 @@ export default {
      * @param {*} payload 
      * @returns 
      */
-    getProductsPagging: async function (context, payload) {
+    getProductPageAsync: async function (context, payload) {
         var res = await productClient.postAsync({
             url: `${productClient.url}/pagging`,
             data: payload
         });
 
         if (res) {
+            context.commit('updateProductPage',res.data);
             return res.data;
         }
         return res;
@@ -35,6 +36,7 @@ export default {
         });
 
         if (res) {
+            context.commit('updateProduct',res.data);
             return res.data;
         }
         return res;

@@ -15,7 +15,7 @@ namespace Web.Api.Controllers
         /// Loại folder 
         /// Vocab, Grammar ....
         /// </summary>
-        public TypeFolder FolderType { get; set; }
+        //public TypeFolder FolderType { get; set; }
 
         /// <summary>
         /// Tên file

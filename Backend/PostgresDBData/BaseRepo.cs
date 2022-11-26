@@ -33,9 +33,9 @@ namespace PostgresDBData
             }
         }
 
-        public async Task<bool> DeleteManyAsync(List<string> ids)
+        public async Task<bool> DeleteManyAsync(IEnumerable<string> ids)
         {
-            if (ids == null || ids.Count <= 0) return false;
+            if (ids == null || ids.Count() <= 0) return false;
             var entities = await GetByIdsAsync(ids);
             if (entities == null || entities.Count() <= 0) return false;
             try

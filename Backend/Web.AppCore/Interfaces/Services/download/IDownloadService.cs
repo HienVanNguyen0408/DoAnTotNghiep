@@ -9,13 +9,13 @@ namespace Web.AppCore.Interfaces.Services
 {
     public interface IDownloadService
     {
-        Task<byte[]> DownloadFileExcelCustomerAsync(List<string> customerIds);
-        Task<bool> SaveFile(byte[] data, TypeFolder typeFolder, string fileName);
-        string PathSave(TypeFolder typeFolder, string fileName);
-        bool RemoveFileStorage(string path);
-        Task<bool> ChangeFile(byte[] data, TypeFolder typeFolder, string fileName, string pathFile);
+        //Task<byte[]> DownloadFileExcelCustomerAsync(List<string> customerIds);
+        //Task<bool> SaveFile(byte[] data, TypeFolder typeFolder, string fileName);
+        //string PathSave(TypeFolder typeFolder, string fileName);
+        //bool RemoveFileStorage(string path);
+        //Task<bool> ChangeFile(byte[] data, TypeFolder typeFolder, string fileName, string pathFile);
 
-        Task<string> GetDataFileAsync(string pathFile);
+        //Task<string> GetDataFileAsync(string pathFile);
 
     }
 }

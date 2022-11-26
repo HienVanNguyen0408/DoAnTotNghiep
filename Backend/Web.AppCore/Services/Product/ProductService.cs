@@ -62,6 +62,7 @@ namespace Web.AppCore.Services
                     //Lỗi/phát sinh đơn hàng của sản phẩm
                     if (deleteStatus != DeleteStatus.Success) return deleteStatus;
                 }
+
                 //Xóa loại sản phẩm
                 var resDelete = await _productCategoryUoW.ProductCategories.DeleteOneAsync(request);
                 return resDelete ? DeleteStatus.Success : DeleteStatus.Fail;
