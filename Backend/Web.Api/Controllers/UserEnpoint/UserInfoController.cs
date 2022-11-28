@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Web.Api.Auth;
 using Web.AppCore.Entities;
@@ -9,6 +10,8 @@ using Web.AppCore.Interfaces.Services;
 using Web.Caching;
 using Web.Models.Entities;
 using Web.Models.Request;
+using Web.Storage;
+using Web.Utils;
 
 namespace Web.Api.Controllers
 {
@@ -20,6 +23,7 @@ namespace Web.Api.Controllers
         protected readonly IUserService _userService;
         protected readonly IRedisCached _redisCached;
         protected readonly IJwtAuthencationManager _jwtAuthencation;
+        protected readonly IStorageClient _storageClient;
         #endregion
 
         #region Contructor
@@ -28,6 +32,7 @@ namespace Web.Api.Controllers
             _userService = GetRequiredService<IUserService>();
             _jwtAuthencation = GetRequiredService<IJwtAuthencationManager>();
             _redisCached = GetRequiredService<IRedisCached>();
+            _storageClient = GetRequiredService<IStorageClient>();
         }
         #endregion
 
@@ -242,6 +247,26 @@ namespace Web.Api.Controllers
                 return svcResult;
             }
         }
+
+        [HttpPost("testminio")]
+        public async Task<bool> TestMinIO()
+        {
+            var file = System.IO.File.ReadAllBytes(@"C:\Users\HienVanNguyen\Pictures\icon_hud4b034c4f7a5c231da985da63cf83ade_53523_512x512_fill_lanczos_center_2.png");
+            var fullPath = GlobalConstant.GetFullPathTemplate("product","filetest.png");
+            var xxx = await _storageClient.UploadFileAsync(fullPath, file);
+            return true;
+        }
+
+         [HttpGet("getpath")]
+        public async Task<string> GetPath([FromQuery] string fullPath)
+        {
+            var xxx = await _storageClient.GetPathFileDownloadAsync(fullPath);
+            var data = await _storageClient.DownloadFileAsync(fullPath);
+            System.IO.File.WriteAllBytes(@"C:\Users\HienVanNguyen\Pictures\abc.png", data);
+            return xxx;
+        }
+
+
         #endregion
     }
 }

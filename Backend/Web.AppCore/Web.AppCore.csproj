@@ -37,6 +37,7 @@
     <ProjectReference Include="..\Web.MessageQ\Web.MessageQ.csproj" />
     <ProjectReference Include="..\Web.Models\Web.Models.csproj" />
     <ProjectReference Include="..\Web.Stockets\Web.Stockets.csproj" />
+    <ProjectReference Include="..\Web.Storage\Web.Storage.csproj" />
     <ProjectReference Include="..\Web.Utils\Web.Utils.csproj" />
   </ItemGroup>
 

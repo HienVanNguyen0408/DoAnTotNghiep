@@ -21,6 +21,7 @@ using Web.MessageQ;
 using Web.Models.Entities.GHN;
 using Web.Models.Settings;
 using Web.Stockets;
+using Web.Storage;
 
 namespace Web.Api
 {
@@ -41,6 +42,7 @@ namespace Web.Api
             services.Configure<GHNSettings>(Configuration.GetSection(GHNSettings.CONFIG_NAME));
             services.Configure<QueueSettings>(Configuration.GetSection(QueueSettings.CONFIG_NAME));
             services.Configure<AppSettings>(Configuration.GetSection(AppSettings.CONFIG_NAME));
+            services.Configure<StorageSettings>(Configuration.GetSection(StorageSettings.CONFIG_NAME));
 
             services.AddAuthentication(x =>
             {
@@ -93,7 +95,8 @@ namespace Web.Api
                 .AddServiceCollectionInfrastructure()
                 .AddSettingsInfrastructure(Configuration)
                 .AddRedisCahedService()
-                .AddDataServiceWebStockets();
+                .AddDataServiceWebStockets()
+                .AddStorageServiceExtension(Configuration);
 
 
             services.AddSwaggerGen(c =>
