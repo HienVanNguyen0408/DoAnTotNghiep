@@ -4,65 +4,33 @@
       <table class="dq-grid w-100">
         <thead class="dq-th-grid">
           <tr class="flex">
-            <dq-th
-              @clickCheck="clickCheckboxMul"
-              :checked="isCheckboxSelectedMul"
-              class="maxW-42px"
-              :checkbox="checkbox"
-              v-if="checkbox"
-            ></dq-th>
-            <dq-th
-              class="maxW-50px"
-              v-if="serial"
-              :serial="serial"
-              :order="'STT'"
-            ></dq-th>
+            <dq-th @clickCheck="clickCheckboxMul" :checked="isCheckboxSelectedMul" class="maxW-42px dq-thead-th"
+              :checkbox="checkbox" v-if="checkbox"></dq-th>
+            <dq-th class="dq-thead-th maxW-50px" v-if="serial" :serial="serial" :order="'STT'"></dq-th>
             <dq-th v-for="(col, index) in columns" :col="col" :key="index"></dq-th>
           </tr>
         </thead>
         <tbody>
-          <dq-tr
-            v-for="(item, index) in data"
-            :key="index"
-            :data="item"
-            :columns="columns"
-            @dblclick="dblclick(item)"
-          >
+          <dq-tr v-for="(item, index) in data" :key="index" :data="item" :columns="columns" @dblclick="dblclick(item)">
             <template v-slot:td-checkbox>
-              <dq-th
-                @clickCheck="clickCheckbox(item)"
-                :checked="isCheckboxSelected(item)"
-                class="maxW-42px"
-                :checkbox="checkbox"
-                v-if="checkbox"
-              ></dq-th>
+              <dq-th @clickCheck="clickCheckbox(item)" :checked="isCheckboxSelected(item)" class="maxW-42px"
+                :checkbox="checkbox" v-if="checkbox"></dq-th>
             </template>
-             <template v-slot:td-widget>
-               <div v-if="widget" class="icon-32 icon-delete maxW-50px"></div>
+            <template v-slot:td-widget>
+              <div v-if="widget" class="icon-32 icon-delete maxW-50px"></div>
             </template>
             <template v-slot:td-serial>
-              <dq-th
-                class="maxW-50px"
-                v-if="serial"
-                :serial="serial"
-                :order="index + 1"
-              ></dq-th>
+              <dq-th class="maxW-50px" v-if="serial" :serial="serial" :order="index + 1"></dq-th>
             </template>
           </dq-tr>
         </tbody>
       </table>
     </div>
     <div class="ms-pagination" v-if="pagination">
-      <dq-pagination
-        ref="pagination"
-        @getData="getData"
-        :totalRecord="dataPagination.totalRecord"
-        :pageSize="dataPagination.pageSize"
-        :totalPages="dataPagination.totalPages"
-        :pageIndex="dataPagination.pageIndex"
-        :filter="dataPagination.filter"
-        :textTotal="dataPagination.textPage"
-      ></dq-pagination>
+      <dq-pagination ref="pagination" @getData="getData" :totalRecord="dataPagination.totalRecord"
+        :pageSize="dataPagination.pageSize" :totalPages="dataPagination.totalPages"
+        :pageIndex="dataPagination.pageIndex" :filter="dataPagination.filter" :textTotal="dataPagination.textPage">
+      </dq-pagination>
     </div>
   </div>
 </template>
@@ -103,10 +71,10 @@ export default {
       typeof: String,
       default: "",
     },
-    dataPagination : {},
-    widget : {
-      default : false,
-      typeof : Boolean
+    dataPagination: {},
+    widget: {
+      default: false,
+      typeof: Boolean
     },
   },
   computed: {
@@ -134,7 +102,7 @@ export default {
   methods: {
     getData(params) {
       const me = this;
-      me.$emit('getData',params);
+      me.$emit('getData', params);
     },
     deleteData(id) {
       const me = this;
@@ -150,7 +118,7 @@ export default {
      * Sửa thông tin của dòng đó
      */
     dblclick(item) {
-      this.$emit('dbclick',item);
+      this.$emit('dbclick', item);
     },
     /**
      * Click check box multiple
@@ -178,7 +146,7 @@ export default {
         me.selected.push(item);
         this.$emit("checkboxOne", me.selected);
       }
-      
+
     },
     isCheckboxSelected(item) {
       const me = this;
@@ -187,7 +155,7 @@ export default {
       }
       return false;
     },
-    resetSelect(){
+    resetSelect() {
       const me = this;
       me.selected = [];
     }
@@ -196,8 +164,9 @@ export default {
 </script>
 
 <style scoped>
-@import url("../../assets/contents/css/grid/grid.css");
-.overflow-grid{
+@import url("@/assets/contents/css/grid/grid.css");
+
+.overflow-grid {
   max-width: 100%;
   overflow: auto;
 }
@@ -215,4 +184,11 @@ export default {
     height: 30px;
     background-color: #0a4c95;
 } */
+.dq-th-grid {
+  background: #f3f4f7;
+}
+
+.dq-thead-th {
+  background: #f3f4f7 !important;
+}
 </style>

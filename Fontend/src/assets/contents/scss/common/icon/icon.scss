@@ -1,5 +1,5 @@
 .icon{
-    background: url(@/assets/contents/icon/full-icon.svg) no-repeat;;
+    background: url(@/assets/contents/icon/icon-app.svg) no-repeat;;
 }
 
 .dq-icon-100 {
@@ -154,12 +154,7 @@
 .icon-close {
     background-image: url(@/assets/contents/icon/icon-close.png);
 }
-.icon-delete{
-    background-image: url(@/assets/contents/icon/icon-delete.png);
-}
-.icon-delete-big{
-    background-image: url(@/assets/contents/icon/icon-delete-big.png);
-}
+
 .icon-history{
     background-image: url(@/assets/contents/icon/history.png);
 }
@@ -193,4 +188,9 @@
 
 .icon-look-for{
     background-position: 0 -1198px;
+}
+
+
+.icon-delete{
+    background-position: -576px -512px;
 }

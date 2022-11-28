@@ -1,15 +1,134 @@
 <template>
-    <div>
-
+    <div class="dq-detail" v-if="isShow">
+        <dq-popup @closePopup="closePopup" :width="600" :height="500">
+            <template slot="header">
+                <div class="dq-titlte">
+                    {{ titlleMode }}
+                </div>
+            </template>
+            <template slot="content">
+                <div>
+                    <div class="h-row flex dq-mgt-10">
+                        <div class="h-col flex-1">
+                            <dq-input class="w-100" :title="'Tên loại sản phẩm'" placeholder="Tên loại sản phẩm"
+                                v-model="productCategory.name"></dq-input>
+                        </div>
+                    </div>
+                    <div class="h-row flex dq-mgt-10">
+                        <div class="h-col flex-1">
+                            <dq-textarea class="w-100" :title="'Mô tả loại'" :height="200" placeholder="Mô tả loại"
+                                v-model="productCategory.description"></dq-textarea>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template slot="footer">
+                <div style="width:100%">
+                    <div class="flex jus-right">
+                        <dq-button
+                            :title="'Hủy bỏ'"
+                            @click="closePopup"
+                        >
+                        </dq-button>
+                        <dq-button
+                            class="dq-mgl-10"
+                            :title="'Lưu'"
+                            @click="saveDataAsync"
+                        >
+                        </dq-button>
+                    </div>
+                </div>
+            </template>
+        </dq-popup>
     </div>
 </template>
-
 <script>
-    export default {
-        
+import { mapActions } from "vuex";
+import { ModuleProduct } from "@/store/module-const";
+export default {
+    name: "AdminProductCategoryDetail",
+    props: {
+        isShow: {
+            typeof: Boolean,
+            default: false
+        },
+        productCategory: {
+            typeof: Object,
+            default: null
+        },
+        mode: {
+            typeof: String,
+            default: null
+        }
+    },
+    data() {
+        return {
+        }
+    },
+    watch: {
+    },
+    mounted() {
+    },
+    computed: {
+        titlleMode() {
+            const me = this;
+            if (me.mode == me.$enum.Mode.Add) {
+                return me.$t('i18nAdmin.AddProductCategory');
+            }
+            if (me.mode == me.$enum.Mode.Edit) {
+                return me.$t('i18nAdmin.EditProductCategory');
+            }
+            return "";
+        }
+    },
+    methods: {
+        ...mapActions(ModuleProduct, [
+            "insertProductCategoryAsync",
+            "updateProductCategoryAsync"
+        ]),
+
+        /**
+         * Load lại thông tin vừa thay đổi
+         */
+        async loadData() {
+            const me = this;
+            await me.$emit("loadData");
+        },
+
+        /**
+         * Lưu thông tin
+         */
+        async saveDataAsync() {
+            const me = this;
+            // Thêm
+            if (me.mode == me.$enum.Mode.Add) {
+                await me.insertProductCategoryAsync(me.productCategory);
+            }
+            // Sửa
+            else if (me.mode == me.$enum.Mode.Edit) {
+                await me.updateProductCategoryAsync(me.productCategory);
+            }
+            me.loadData();
+            me.closePopup();
+        },
+
+        /**
+         * Đóng popup
+         */
+        closePopup() {
+            const me = this;
+            me.$emit("closePopup");
+            me.resetData();
+        },
+
+        resetData(){
+            const me = this;
+            me.$emit('resetData');
+        }
     }
+}
 </script>
 
 <style lang="scss" scoped>
-
+@import url('@/assets/contents/scss/views/admin/detail/detail.scss');
 </style>

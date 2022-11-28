@@ -4,39 +4,45 @@
             <div class="flex">
                 <div class="flex flex-1">
                     <div class="filter-search">
-                        <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterUsers">
+                        <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterBlogCategories">
                         </dq-input>
                     </div>
-                    <div class="ml-2.5" v-if="selected && selected.length > 0">
+                    <div class="ml-2.5" v-if="selected && selected.length > 0"  @click="deleteBlogCategory">
                         <div class="icon icon-delete dq-icon-24"></div>
                     </div>
                 </div>
                 <div class="flex-1 flex jus-right">
                     <div class="btn-add">
-                        <dq-button :title="'Thêm sản phẩm'"></dq-button>
+                        <dq-button :title="'Thêm loại bài viết'" @click="addBlogCategory"></dq-button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="dq-grid mt-5">
-            <dq-grid ref="gridProduct" :data="Products" :columns="columns" serial="true" checkbox="true"
-                pagination="true" :dataPagination="params" :textPage="'Sản phẩm'" @dbclick="editDataProduct"
+            <dq-grid ref="gridBlogCategory" :data="BlogCategories" :columns="columns" serial="true" checkbox="true"
+                pagination="true" :dataPagination="params" :textPage="'Loại bài viết'" @dbclick="editDataBlogCategory"
                 @getData="getDataPagging" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti">
             </dq-grid>
         </div>
+        <BlogCategoryDetail :isShow="isShow" :blogCategory="blogCategory" :mode="mode" @closePopup="setStateDetail(false)"
+            @showPopup="setStateDetail(true)" @loadData="loadDataBlogCategorys"
+            @resetData="resetDataDetail"/>
     </div>
 </template>
 
 <script>
+import BlogCategoryDetail from './BlogCategoryDetail.vue';
 import _ from 'lodash';
 import {
     mapActions,
     mapGetters
 } from 'vuex';
-import { ModuleProduct } from '@/store/module-const';
+import { ModuleBlog } from '@/store/module-const';
 export default {
-    name: "AdminProduct",
-    components: {},
+    name: "AdminBlogCategory",
+    components: {
+        BlogCategoryDetail
+    },
     props: {},
     data() {
         return {
@@ -51,15 +57,16 @@ export default {
             columns: [],
             isShow: false,
             mode: this.$enum.Mode.Add,
-            selected: []
+            selected: [],
+            blogCategory: {}
         }
     },
     computed: {
-        ...mapGetters(ModuleProduct, [
-            'ProductPage',
-            'Products',
-            'TotalPage',
-            'TotalRecords'
+        ...mapGetters(ModuleBlog, [
+            'BlogCategoryPage',
+            'BlogCategories',
+            'CategoryTotalPage',
+            'CategoryTotalRecords'
         ]),
     },
     created() {
@@ -67,55 +74,27 @@ export default {
         me.initData();
     },
     methods: {
-        ...mapActions(ModuleProduct, [
-            'getUsers',
-            'getProductPageAsync',
-            'getProductAsync',
-            'insertProductAsync',
-            'updateProductAsync',
-            'deleteProductAsync',
-            'deleteManyProductAsync'
+        ...mapActions(ModuleBlog, [
+            'getBlogCategories',
+            'getBlogCategoryPageAsync',
+            'getBlogCategoryAsync',
+            'insertBlogCategoryAsync',
+            'updateBlogCategoryAsync',
+            'deleteBlogCategoryAsync',
+            'deleteManyBlogCategoryAsync'
         ]),
 
         initData() {
             const me = this;
             me.initDataStatic();
-            me.loadDataProducts();
+            me.loadDataBlogCategorys();
         },
         initDataStatic() {
             const me = this;
             me.columns = [
                 {
-                    title: 'Mã sản phẩm',
-                    dataField: 'code',
-                },
-                {
-                    title: 'Tên sản phẩm',
-                    dataField: 'product_name',
-                },
-                {
-                    title: 'Đơn vị tính',
-                    dataField: 'unit_name',
-                },
-                {
-                    title: 'Số lượng',
-                    dataField: 'quantity',
-                },
-                {
-                    title: 'Số lượng đã bán',
-                    dataField: 'quantity_sold',
-                },
-                {
-                    title: 'Giá gốc',
-                    dataField: 'original_price',
-                },
-                {
-                    title: 'Giá bán',
-                    dataField: 'sale_price',
-                },
-                {
-                    title: 'Giá gốc',
-                    dataField: 'original_price',
+                    title: 'Tên loại bài viết',
+                    dataField: 'name',
                 },
                 {
                     title: 'Mô tả',
@@ -124,15 +103,15 @@ export default {
             ]
         },
 
-        async loadDataProducts() {
+        async loadDataBlogCategorys() {
             const me = this;
             let params = me.getPayload()
-            await me.getProductPageAsync(params);
-            if (me.ProductPage) {
-                me.params.pageIndex = me.ProductPage.pageIndex;
-                me.params.pageSize = me.ProductPage.pageSize;
-                me.params.totalRecord = me.ProductPage.totalRecord;
-                me.params.totalPages = me.ProductPage.totalPages;
+            await me.getBlogCategoryPageAsync(params);
+            if (me.BlogCategoryPage) {
+                me.params.pageIndex = me.BlogCategoryPage.pageIndex;
+                me.params.pageSize = me.BlogCategoryPage.pageSize;
+                me.params.totalRecord = me.BlogCategoryPage.totalRecord;
+                me.params.totalPages = me.BlogCategoryPage.totalPages;
             }
         },
         getPayload() {
@@ -150,28 +129,28 @@ export default {
             me.params.filter = params.filter;
             me.params.totalRecord = params.totalRecord;
             me.params.totalPages = params.totalPages;
-            await me.getProductPageAsync(params);
+            await me.getBlogCategoryPageAsync(params);
         },
 
         /*
         *Hàm lọc danh sách
         */
-        filterUsers: _.debounce(async function () {
+        filterBlogCategories: _.debounce(async function () {
             const me = this;
-            await me.loadDataProducts();
+            await me.loadDataBlogCategorys();
         }, 1000),
         /**
          * Xóa nhiều
          */
-        async deleteManyProduct() {
+        async deleteManyBlogCategory() {
             const me = this;
             if (me.selected && me.selected.length > 0) {
                 let params = {
-                    productIds: me.selected.map(x => x.product_id)
+                    blogIds: me.selected.map(x => x.blog_id)
                 }
-                let res = await me.deleteManyProductAsync(params);
+                let res = await me.deleteManyBlogCategoryAsync(params);
                 if (res) {
-                    me.loadDataProducts();
+                    me.loadDataBlogCategorys();
                     me.selected = [];
                     if (me.$refs && me.$refs.gridCustomer) {
                         me.$refs.gridCustomer.resetSelect();
@@ -180,8 +159,13 @@ export default {
             }
         },
 
-        editDataProduct() {
+        editDataBlogCategory() {
             const me = this;
+        },
+
+        async deleteBlogCategory(){
+            const me = this;
+            
         },
 
         /**
@@ -202,8 +186,19 @@ export default {
             if (!seleteds || seleteds.length <= 0) me.selected = [];
             me.selected = [...seleteds];
         },
+        addBlogCategory(){
+            const me = this;
+            me.setStateDetail(true);
 
-
+        },
+        setStateDetail(isShow){
+            const me = this;
+            me.isShow = isShow;
+        },
+        resetDataDetail(){
+            const me = this;
+            me.blogCategory = {};
+        }
     }
 }
 </script>

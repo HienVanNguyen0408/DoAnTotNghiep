@@ -12,9 +12,10 @@ import Admin from '@/views/admin/Admin.vue';
 import AdminUser from '@/views/admin/user/User.vue';
 import AdminProduct from '@/views/admin/product/Product.vue';
 import AdminProductCategory from '@/views/admin/productCategory/ProductCategory.vue';
+import AdminBlog from '@/views/admin/blog/Blog.vue';
+import AdminBlogCategory from '@/views/admin/blogCategory/BlogCategory.vue';
 
 import AdminOrder from '@/views/admin/order/Order.vue';
-import AdminBlog from '@/views/admin/blog/Blog.vue';
 
 
 import Dashboard from '@/views/admin/dashboard/Dashboard.vue';
@@ -70,6 +71,12 @@ export const router = new VueRouter({
                     name: 'adminuser',
                     path: '/admin-user',
                     component: AdminUser,
+                    props: true
+                },
+                {
+                    name: 'adminblogcategory',
+                    path: '/admin-blogcategory',
+                    component: AdminBlogCategory,
                     props: true
                 },
                 {

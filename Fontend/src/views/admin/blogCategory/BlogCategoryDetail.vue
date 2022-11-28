@@ -9,35 +9,15 @@
             <template slot="content">
                 <div>
                     <div class="h-row flex dq-mgt-10">
-                        <div class="h-col w-50">
-                            <dq-input class="w-100" ref="firstInput" :title="'Tài khoản'" placeholder="Tài khoản"
-                                v-model="user.user_name"></dq-input>
-                        </div>
-                        <div class="h-col w-50 dq-mgl-10">
-                            <dq-input class="w-100" :title="'Mật khẩu'" placeholder="Mật khẩu" v-model="user.password">
-                            </dq-input>
-                        </div>
-                    </div>
-                    <div class="h-row flex dq-mgt-10">
-                        <div class="h-col w-50">
-                            <dq-input class="w-100" :title="'Họ và tên'" placeholder="Họ và tên"
-                                v-model="user.full_name"></dq-input>
-                        </div>
-                        <div class="h-col w-50 dq-mgl-10">
-                            <dq-input class="w-100" :title="'Địa chỉ'" placeholder="Địa chỉ" v-model="user.address">
-                            </dq-input>
+                        <div class="h-col flex-1">
+                            <dq-input class="w-100" :title="'Tên loại bài viết'" placeholder="Tên loại bài viết"
+                                v-model="blogCategory.name"></dq-input>
                         </div>
                     </div>
                     <div class="h-row flex dq-mgt-10">
                         <div class="h-col flex-1">
-                            <dq-input class="w-100" :title="'Số điện thoại'" placeholder="Số điện thoại"
-                                v-model="user.phone_number"></dq-input>
-                        </div>
-                    </div>
-                    <div class="h-row flex dq-mgt-10">
-                        <div class="h-col flex-1">
-                            <dq-input class="w-100" :title="'Email'" placeholder="Email"
-                                v-model="user.email"></dq-input>
+                            <dq-textarea class="w-100" :title="'Mô tả loại'" :height="200" placeholder="Mô tả loại"
+                                v-model="blogCategory.description"></dq-textarea>
                         </div>
                     </div>
                 </div>
@@ -64,15 +44,15 @@
 </template>
 <script>
 import { mapActions } from "vuex";
-import { ModuleUser } from "@/store/module-const";
+import { ModuleBlog } from "@/store/module-const";
 export default {
-    name: "AdminUserDetail",
+    name: "AdminBlogCategoryDetail",
     props: {
         isShow: {
             typeof: Boolean,
             default: false
         },
-        user: {
+        blogCategory: {
             typeof: Object,
             default: null
         },
@@ -93,18 +73,18 @@ export default {
         titlleMode() {
             const me = this;
             if (me.mode == me.$enum.Mode.Add) {
-                return me.$t('i18nAdmin.AddUser');
+                return me.$t('i18nAdmin.AddBlogCategory');
             }
             if (me.mode == me.$enum.Mode.Edit) {
-                return me.$t('i18nAdmin.EditUser');
+                return me.$t('i18nAdmin.EditBlogCategory');
             }
             return "";
         }
     },
     methods: {
-        ...mapActions(ModuleUser, [
-            "registerUserAsync",
-            "updateUserAsync"
+        ...mapActions(ModuleBlog, [
+            "insertBlogCategoryAsync",
+            "updateBlogCategoryAsync"
         ]),
 
         /**
@@ -122,11 +102,11 @@ export default {
             const me = this;
             // Thêm
             if (me.mode == me.$enum.Mode.Add) {
-                await me.registerUserAsync(me.user);
+                await me.insertBlogCategoryAsync(me.blogCategory);
             }
             // Sửa
             else if (me.mode == me.$enum.Mode.Edit) {
-                await me.updateUserAsync(me.user);
+                await me.updateBlogCategoryAsync(me.blogCategory);
             }
             me.loadData();
             me.closePopup();

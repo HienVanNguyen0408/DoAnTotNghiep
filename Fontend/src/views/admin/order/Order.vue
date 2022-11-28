@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="dq-grid dq-mgt-20">
+        <div class="dq-grid mt-5">
             <dq-grid ref="gridOrder" :data="Orders" :columns="columns" serial="true" checkbox="true"
                 pagination="true" :dataPagination="params" :textPage="'Đơn hàng'" @dbclick="editDataOrder"
                 @getData="getDataPagging" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti">

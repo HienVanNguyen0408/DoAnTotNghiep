@@ -57,7 +57,7 @@ namespace Web.Api.Controllers.BlogEnpoint
         /// </summary>
         /// <param name="pagination"></param>
         /// <returns></returns>
-        [HttpPost("categories-pagging")]
+        [HttpPost("category-pagging")]
         public async Task<ServiceResult<Pagging<BlogCategory>>> GetBlogCategoryPaggingAsync([FromBody] Pagination pagination)
         {
             var svcResult = new ServiceResult<Pagging<BlogCategory>>();
@@ -308,7 +308,6 @@ namespace Web.Api.Controllers.BlogEnpoint
                 return svcResult;
             }
         }
-
 
         [HttpPost("update")]
         public async Task<ServiceResult<bool>> UpdateBlogAsync([FromBody] Blog blog)

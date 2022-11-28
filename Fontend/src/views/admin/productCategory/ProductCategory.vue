@@ -2,38 +2,48 @@
     <div class="dq-content">
         <div class="dq-content-header">
             <div class="flex">
-                <div class="flex-1">
+                <div class="flex flex-1">
                     <div class="filter-search">
                         <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterUsers">
                         </dq-input>
                     </div>
+                    <div class="ml-2.5" v-if="selected && selected.length > 0">
+                        <div class="icon icon-delete dq-icon-24"></div>
+                    </div>
                 </div>
                 <div class="flex-1 flex jus-right">
                     <div class="btn-add">
-                        <dq-button :title="'Thêm loại sản phẩm'"></dq-button>
+                        <dq-button :title="'Thêm loại sản phẩm'" @click="addProductCategory"></dq-button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="dq-grid dq-mgt-20">
-            <dq-grid ref="gridProductCategory" :data="ProductCategories" :columns="columns" serial="true" checkbox="true"
-                pagination="true" :dataPagination="params" :textPage="'Loại sản phẩm'" @dbclick="editDataProductCategory"
-                @getData="getDataPagging" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti">
+        <div class="dq-grid mt-5">
+            <dq-grid ref="gridProductCategory" :data="ProductCategories" :columns="columns" serial="true"
+                checkbox="true" pagination="true" :dataPagination="params" :textPage="'Loại sản phẩm'"
+                @dbclick="editDataProductCategory" @getData="getDataPagging" @checkboxOne="checkboxOne"
+                @checkboxMulti="checkboxMulti">
             </dq-grid>
         </div>
+        <ProductCategoryDetail :isShow="isShow" :productCategory="productCategory" :mode="mode"
+            @closePopup="setStateDetail(false)" @showPopup="setStateDetail(true)" @loadData="loadDataProductCategorys"
+            @resetData="resetDataDetail" />
     </div>
 </template>
 
 <script>
+import ProductCategoryDetail from './ProductCategoryDetail.vue';
 import _ from 'lodash';
 import {
     mapActions,
     mapGetters
 } from 'vuex';
-import { ModuleProductCategory } from '@/store/module-const';
+import { ModuleProduct } from '@/store/module-const';
 export default {
     name: "AdminProductCategory",
-    components: {},
+    components: {
+        ProductCategoryDetail
+    },
     props: {},
     data() {
         return {
@@ -48,15 +58,16 @@ export default {
             columns: [],
             isShow: false,
             mode: this.$enum.Mode.Add,
-            selected: []
+            selected: [],
+            productCategory: {}
         }
     },
     computed: {
-        ...mapGetters(ModuleProductCategory, [
+        ...mapGetters(ModuleProduct, [
             'ProductCategoryPage',
             'ProductCategories',
-            'TotalPage',
-            'TotalRecords'
+            'CategoryTotalPage',
+            'CategoryTotalRecords'
         ]),
     },
     created() {
@@ -64,7 +75,7 @@ export default {
         me.initData();
     },
     methods: {
-        ...mapActions(ModuleProductCategory, [
+        ...mapActions(ModuleProduct, [
             'getProductCategories',
             'getProductCategoryPageAsync',
             'getProductCategoryAsync',
@@ -83,36 +94,8 @@ export default {
             const me = this;
             me.columns = [
                 {
-                    title: 'Mã sản phẩm',
-                    dataField: 'code',
-                },
-                {
-                    title: 'Tên sản phẩm',
-                    dataField: 'product_name',
-                },
-                {
-                    title: 'Đơn vị tính',
-                    dataField: 'unit_name',
-                },
-                {
-                    title: 'Số lượng',
-                    dataField: 'quantity',
-                },
-                {
-                    title: 'Số lượng đã bán',
-                    dataField: 'quantity_sold',
-                },
-                {
-                    title: 'Giá gốc',
-                    dataField: 'original_price',
-                },
-                {
-                    title: 'Giá bán',
-                    dataField: 'sale_price',
-                },
-                {
-                    title: 'Giá gốc',
-                    dataField: 'original_price',
+                    title: 'Tên loại sản phẩm',
+                    dataField: 'name',
                 },
                 {
                     title: 'Mô tả',
@@ -177,8 +160,11 @@ export default {
             }
         },
 
-        editDataProductCategory() {
+        editDataProductCategory(item) {
             const me = this;
+            me.setStateDetail(true);
+            me.mode = me.$enum.Mode.Edit;
+            me.productCategory = {...item};
         },
 
         /**
@@ -199,8 +185,19 @@ export default {
             if (!seleteds || seleteds.length <= 0) me.selected = [];
             me.selected = [...seleteds];
         },
+        addProductCategory() {
+            const me = this;
+            me.setStateDetail(true);
 
-
+        },
+        setStateDetail(isShow) {
+            const me = this;
+            me.isShow = isShow;
+        },
+        resetDataDetail() {
+            const me = this;
+            me.productCategory = {};
+        }
     }
 }
 </script>

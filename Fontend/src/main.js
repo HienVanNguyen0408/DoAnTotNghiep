@@ -10,19 +10,23 @@ import  filters  from './filters/dq-filter';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 
+import './tailwind.css'
+
+// import "./plugin.js";
+
 // register plugin global
 import './globalPlugin';
 // register plugin components
 import './globalPluginComponents';
 
-import GAuth from 'vue-google-oauth2'
-const gauthOption = {
-  clientId: '658612176566-5sp84c1s1k36bqj9kk5i211f0vpllbtk.apps.googleusercontent.com',
-  scope: 'profile email',
-  prompt: 'select_account',
-  fetch_basic_profile : true
-}
-Vue.use(GAuth, gauthOption);
+// import GAuth from 'vue-google-oauth2'
+// const gauthOption = {
+//   clientId: '658612176566-5sp84c1s1k36bqj9kk5i211f0vpllbtk.apps.googleusercontent.com',
+//   scope: 'profile email',
+//   prompt: 'select_account',
+//   fetch_basic_profile : true
+// }
+// Vue.use(GAuth, gauthOption);
 
 Vue.config.productionTip = false;
 Vue.use(vue2Swiper);

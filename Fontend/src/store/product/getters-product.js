@@ -16,5 +16,24 @@ export default{
 
     TotalRecords(state){
         return state.TotalRecords;
+    },
+
+    ProductCategoryPage(state){
+        return state.ProductCategoryPage;
+    },
+    ProductCategories(state){
+        return state.ProductCategories;
+    },
+
+    ProductCategory(state){
+        return state.ProductCategory;
+    },
+
+    CategoryTotalPage(state){
+        return state.CategoryTotalPage;
+    },
+
+    CategoryTotalRecords(state){
+        return state.CategoryTotalRecords;
     }
 }

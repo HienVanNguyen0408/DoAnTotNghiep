@@ -35,7 +35,7 @@ export default {
         });
 
         if (res && res.data) {
-            context.commit('updateBlogPage',res.data);
+            context.commit('updateBlogPage', res.data);
             return res.data;
         }
         return res;
@@ -103,7 +103,7 @@ export default {
     deleteBlogAsync: async function (context, payload) {
         var res = await blogClient.postAsync({
             url: `${blogClient.url}/delete`,
-            data : payload
+            data: payload
         });
 
         if (res) {
@@ -121,7 +121,7 @@ export default {
      * @param {*} payload 
      * @returns 
      */
-     getBlogCategories: async function (context, payload) {
+    getBlogCategories: async function (context, payload) {
         var res = await blogClient.getAsync({
             url: `${blogClient.url}/categories`,
             queries: payload
@@ -141,11 +141,12 @@ export default {
      */
     getBlogCategoryPageAsync: async function (context, payload) {
         var res = await blogClient.postAsync({
-            url: `${blogClient.url}/pagging`,
+            url: `${blogClient.url}/category-pagging`,
             data: payload
         });
 
         if (res) {
+            context.commit('updateBlogCategoryPage', res.data);
             return res.data;
         }
         return res;
@@ -213,7 +214,7 @@ export default {
     deleteBlogCategoryAsync: async function (context, payload) {
         var res = await blogClient.postAsync({
             url: `${blogClient.url}/category-delete`,
-            data : payload
+            data: payload
         });
 
         if (res) {

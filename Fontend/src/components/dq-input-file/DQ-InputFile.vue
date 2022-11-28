@@ -59,10 +59,6 @@ export default {
       typeof: String,
       default: "",
     },
-    srcImg: {
-      typeof: Object,
-      default: null,
-    },
     isButton: {
       typeof: Boolean,
       default: false
@@ -71,6 +67,7 @@ export default {
   data() {
     return {
       fileName: null,
+      srcImg : null
     };
   },
   mounted() {
@@ -91,10 +88,12 @@ export default {
           // This ensures that the component works with v-model
           input: async function (e) {
             // me.$attrs.val = e.target.files[0].name;
-            me.$emit("input", e.target.value);
             me.fileName = e.target.files[0].name;
             let file = e.target.files[0];
+            
             me.srcImg = await this.$commonFunc.getBase64FromImage(file);
+            me.$emit("input", e.target.value);
+
           },
           click: (event) => {
             this.$emit("click", event);

@@ -72,11 +72,18 @@
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
+                        name : 'adminblogcategory',
+                        router : '/admin-blogcategory',
+                        text : 'Quản lý loại bài viết',
+                        icon : 'icon-todolist dq-icon-20',
+                    },
+                    {
                         name : 'adminblog',
                         router : '/admin-blog',
                         text : 'Quản lý bài viết',
                         icon : 'icon-todolist dq-icon-20',
                     },
+
                 ];          
             },
             

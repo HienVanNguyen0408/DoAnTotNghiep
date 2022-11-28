@@ -6,6 +6,7 @@
     width: 300px;
     height: 100vh;
     border-right: 1px solid #e5e5e5;
+    background: #030e43;
 }
 
 .admin-right{
@@ -15,15 +16,19 @@
 .admin-header{
     height: 60px;
     border-bottom: 1px solid #e5e5e5;
+    color: #ffffff;
 }
 
 .admin-content{
     height: calc(100vh - 60px);
+    background: #f4f5f8;
+    padding: 16px;
 }
 
 
 .dq-content{
     padding: 20px;
+    background: #ffff;
 }
 
 .dq-content-header{

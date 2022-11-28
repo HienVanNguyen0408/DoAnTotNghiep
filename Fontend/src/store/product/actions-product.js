@@ -18,7 +18,7 @@ export default {
         });
 
         if (res) {
-            context.commit('updateProductPage',res.data);
+            context.commit('updateProductPage', res.data);
             return res.data;
         }
         return res;
@@ -36,7 +36,7 @@ export default {
         });
 
         if (res) {
-            context.commit('updateProduct',res.data);
+            context.commit('updateProduct', res.data);
             return res.data;
         }
         return res;
@@ -88,7 +88,7 @@ export default {
     deleteProductAsync: async function (context, payload) {
         var res = await productClient.postAsync({
             url: `${productClient.url}/delete`,
-            data : payload
+            data: payload
         });
 
         if (res) {
@@ -124,13 +124,14 @@ export default {
     * @param {*} payload 
     * @returns 
     */
-    getPageProductCategoriesAsync: async function (context, payload) {
+    getProductCategoryPageAsync: async function (context, payload) {
         var res = await productClient.postAsync({
-            url: `${productClient.url}/pagging`,
+            url: `${productClient.url}/pagging-productcategory`,
             data: payload
         });
 
         if (res) {
+            context.commit('updateProductCategoryPage', res.data);
             return res.data;
         }
         return res;
@@ -178,7 +179,7 @@ export default {
      * @param {*} payload 
      * @returns 
      */
-    updateProductAsync: async function (context, payload) {
+    updateProductCategoryAsync: async function (context, payload) {
         var res = await productClient.postAsync({
             url: `${productClient.url}/update-productcategory`,
             data: payload
@@ -198,6 +199,22 @@ export default {
     deleteProductCategoryAsync: async function (context, payload) {
         var res = await productClient.postAsync({
             url: `${productClient.url}/delete-productcategory`,
+        });
+        if (res) {
+            return res.data;
+        }
+        return res;
+    },
+
+    /**
+     * Xóa nhiều loại sản phẩm
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+     deleteProductCategoriesAsync: async function (context, payload) {
+        var res = await productClient.postAsync({
+            url: `${productClient.url}/delete-many-productcategory`,
         });
         if (res) {
             return res.data;

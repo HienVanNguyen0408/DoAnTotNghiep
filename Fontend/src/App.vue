@@ -19,6 +19,7 @@
 </script>
 
 <style scoped>
+ @import url('./tailwind.css');
  @import url('@/assets/contents/scss/common/common.scss');
   #app {
     width:100%;

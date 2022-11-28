@@ -52,6 +52,7 @@ namespace Web.AppCore.Interfaces.Services
         /// <param name="ProductCategory"></param>
         /// <returns></returns>
         Task<DeleteStatus> DeleteProductCategoryAsync(ProductCategoryRequest productCategory);
+        //Task<DeleteStatus> DeleteProductCategoriesAsync(IEnumerable<ProductCategoryRequest> productCategoryRequests);
         #endregion
 
 

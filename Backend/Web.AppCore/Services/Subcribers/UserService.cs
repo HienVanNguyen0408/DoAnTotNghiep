@@ -95,9 +95,9 @@ namespace Web.AppCore.Services
             }
         }
 
-        public Task<bool> UpdateUserAsync(string userId, User user)
+        public async Task<bool> UpdateUserAsync(User user)
         {
-            throw new NotImplementedException();
+            return await _userUoW.Users.UpdateOneAsync(user);
         }
 
         public async Task<Pagging<User>> GetUserPageAsync(Pagination pagination)

@@ -10,21 +10,24 @@
                 </div>
                 <div class="flex-1 flex jus-right">
                     <div class="btn-add">
-                        <dq-button :title="'Thêm bài viết'"></dq-button>
+                        <dq-button :title="'Thêm bài viết'" @click="addBlog"></dq-button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="dq-grid dq-mgt-20">
+        <div class="dq-grid mt-5">
             <dq-grid ref="gridBlog" :data="Blogs" :columns="columns" serial="true" checkbox="true"
                 pagination="true" :dataPagination="params" :textPage="'Bài viết'" @dbclick="editDataBlog"
                 @getData="getDataPagging" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti">
             </dq-grid>
         </div>
+        <BlogDetail :isShow="isShow" :blog="blog" :mode="mode" @closePopup="setStateDetail(false)"
+            @showPopup="setStateDetail(true)" @resetData="resetDataDetail" @loadData="loadDataBlogs"/>
     </div>
 </template>
 
 <script>
+import BlogDetail from './BlogDetail.vue';
 import _ from 'lodash';
 import {
     mapActions,
@@ -33,7 +36,9 @@ import {
 import { ModuleBlog } from '@/store/module-const';
 export default {
     name: "AdminBlog",
-    components: {},
+    components: {
+        BlogDetail
+    },
     props: {},
     data() {
         return {
@@ -48,7 +53,8 @@ export default {
             columns: [],
             isShow: false,
             mode: this.$enum.Mode.Add,
-            selected: []
+            selected: [],
+            blog : {}
         }
     },
     computed: {
@@ -176,7 +182,18 @@ export default {
             if (!seleteds || seleteds.length <= 0) me.selected = [];
             me.selected = [...seleteds];
         },
-
+        addBlog(){
+            const me = this;
+            me.setStateDetail(true);
+        },
+        setStateDetail(isShow) {
+            const me = this;
+            me.isShow = isShow;
+        },
+        resetDataDetail(){
+            const me = this;
+            me.blog = {};
+        }
 
     }
 }

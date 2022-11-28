@@ -60,7 +60,7 @@ namespace Web.Api.Controllers
             }
         }
 
-         /// <summary>
+        /// <summary>
         /// Lấy danh sách user
         /// </summary>
         /// <returns></returns>
@@ -149,13 +149,13 @@ namespace Web.Api.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost("update")]
-        public async Task<ServiceResult<bool>> UpdateUserAsync(string userId, [FromBody] User user)
+        public async Task<ServiceResult<bool>> UpdateUserAsync([FromBody] User user)
         {
             var svcResult = new ServiceResult<bool>();
             try
             {
                 //Sửa 
-                var resUpdate = await _userService.UpdateUserAsync(userId, user);
+                var resUpdate = await _userService.UpdateUserAsync(user);
                 svcResult = new ServiceResult<bool>
                 {
                     Data = resUpdate,

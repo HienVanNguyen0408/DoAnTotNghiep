@@ -254,7 +254,7 @@ namespace Web.AppCore.Services
             return await _productUoW.Products.GetByIdAsync(productId);
         }
         #endregion
-        
+
         #endregion
     }
 }

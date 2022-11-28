@@ -4,7 +4,7 @@
             <div class="todolist-title">
                 Danh sách thông tin khách hàng
             </div>
-            <div class="flex align-center dq-mgt-20 jus-between">
+            <div class="flex align-center mt-5 jus-between">
                 <div class="flex filter-todolist">
                     <div class="filter-search">
                         <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterCustomer">
@@ -35,7 +35,7 @@
                     </dq-button>
                 </div> -->
             </div>
-            <div class="grid-todolist dq-mgt-20">
+            <div class="grid-todolist mt-5">
                 <dq-grid
                     ref="gridCustomer"
                      :data="Customers" :columns="columns" serial="true" checkbox="true" pagination="true"

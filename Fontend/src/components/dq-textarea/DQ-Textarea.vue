@@ -9,6 +9,7 @@
 
 <script>
     export default {
+        name:"DQTextarea",
         props:{
             title:{
                 typeof:String,

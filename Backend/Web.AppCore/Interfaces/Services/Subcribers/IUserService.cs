@@ -50,6 +50,6 @@ namespace Web.AppCore.Interfaces.Services
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<bool> UpdateUserAsync(string userId, User user);
+        Task<bool> UpdateUserAsync(User user);
     }
 }

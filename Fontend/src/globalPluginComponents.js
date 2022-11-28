@@ -73,6 +73,10 @@ Vue.component('dq-line-chart',LineChart);
 import Doughnut from '@/components/dq-chart/DQ-DoughnutChart';
 Vue.component('dq-doughnut-chart',Doughnut);
 
+//vue editor
+import DQEditor from '@/components/dq-editor/DQEditor';
+Vue.component('dq-editor',DQEditor);
+
 
 //fb login 
 import FBLogin from '@/views/user/FacebookLogin';
