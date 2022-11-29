@@ -22,5 +22,6 @@ namespace Web.Models.Entities
         /// Id của sản phẩm
         /// </summary>
         public string product_id { get; set; }
+        public string blog_id { get; set; }
     }
 }

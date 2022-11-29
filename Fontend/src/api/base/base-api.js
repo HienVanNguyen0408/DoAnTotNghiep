@@ -9,14 +9,12 @@ const intance = axios.create({
     headers: {
         'Authorization': `Bearer ${resToken}`
     }
-
 });
+
 export const getAsync = async (url) =>
     await intance.get(url).then(res => {
         return Promise.resolve(res.data);
     }).catch(err => Promise.reject(err));
-
-
 
 /**
  * DELETE

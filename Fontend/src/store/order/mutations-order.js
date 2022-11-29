@@ -4,6 +4,9 @@ export default{
         if(res && res.data){
             state.Orders = res.data;
         }
+        else{
+            state.Orders = [];
+        }
     },
     updateOrder : async function(state,res){
         state.Order = {...res};

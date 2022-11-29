@@ -4,6 +4,9 @@ export default{
         if(res && res.data){
             state.Products = res.data;
         }
+        else{
+            state.Products = [];
+        }
     },
     updateProduct : async function(state,res){
         state.Product = {...res};

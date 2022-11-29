@@ -8,7 +8,7 @@
       <div class="dq-pop-header flex">
         <slot name="header"></slot>
         <div
-          class="icon-close dq-icon-16 dq-icon-close"
+          class="icon icon-close dq-icon-24 dq-icon-close"
           @click="clickClosePopup"
         ></div>
       </div>

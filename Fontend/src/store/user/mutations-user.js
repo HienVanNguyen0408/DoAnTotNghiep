@@ -4,8 +4,11 @@ export default{
     },
     updatePaggingUsers : async function(state,res){
         state.UserPage = {...res};
-        if(res){
+        if(res && res.data){
             state.Users = res.data;
+        }
+        else{
+            state.Users = [];
         }
     },
     updateTotalPage : async function(state,res){

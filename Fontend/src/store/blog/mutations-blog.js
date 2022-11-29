@@ -4,6 +4,9 @@ export default{
         if(res && res.data){
             state.Blogs = res.data;
         }
+        else{
+            state.Blogs = [];
+        }
     },
     updateBlog : async function(state,res){
         state.Blog = {...res};
@@ -21,7 +24,15 @@ export default{
         if(res && res.data){
             state.BlogCategories = res.data;
         }
+        else{
+            state.BlogCategories = [];
+        }
     },
+
+    updateBlogCategores: async function(state,res){
+        state.BlogCategories = res;
+    },
+
     updateBlogCategory : async function(state,res){
         state.BlogCategory = {...res};
     },

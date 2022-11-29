@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
@@ -16,6 +17,9 @@ namespace Web.Api.Controllers
         protected readonly AppSettings _appSettings;
 
         protected readonly IRoleAccessService _roleService;
+        protected readonly IHttpContextAccessor _httpContext;
+        protected readonly HttpRequest _httpRequest;
+
         #endregion
 
         #region Contructor
@@ -23,6 +27,7 @@ namespace Web.Api.Controllers
         {
             _appSettings = GetRequiredService<IOptions<AppSettings>>().Value;
             _roleService = GetRequiredService<IRoleAccessService>();
+            _httpContext = GetRequiredService<IHttpContextAccessor>();
         }
         #endregion
 

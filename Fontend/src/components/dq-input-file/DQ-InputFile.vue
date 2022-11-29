@@ -10,16 +10,20 @@
       <input v-show="false" ref="inputFile" class="input" type="file" v-bind="$attrs" @change="changImage($event)"
         :accept="extentions" />
       <div class="custom-input-file">
-        <div class="file-select text-center" @click="clickSelectFile()">
-          <img class="icon-select h-flex" :src="srcIcon" alt="" />
-          <div class="text-center h-mt-20 file-name font-20" v-if="fileName">
-            {{ fileName }}
-          </div>
-          <div class="text-center h-mt-20 font-20" v-else>
-            Chọn file tại đây
+        <div class="file-select flex justify-center align-center" @click="clickSelectFile()">
+          <div>
+            <div class="flex justify-center align-center">
+              <img class="icon-select mb-5" :src="srcIcon" alt="" />
+            </div>
+            <div class="font-20 mb-5 text-lg font-bold" v-if="fileName">
+              {{ fileName }}
+            </div>
+            <div class="text-lg font-bold" v-else>
+              Chọn file tại đây
+            </div>
           </div>
         </div>
-        <div class="prev-img text-center dq-mgt-10" v-if="srcImg && !isAudio">
+        <div class="flex justify-center align-center" v-if="srcImg && !isAudio">
           <img width="200px" height="200px" :src="srcImg" />
         </div>
         <div v-if="srcImg && isAudio" class="dq-mgt-10">
@@ -62,12 +66,12 @@ export default {
     isButton: {
       typeof: Boolean,
       default: false
-    }
+    },
   },
   data() {
     return {
       fileName: null,
-      srcImg : null
+      srcImg: null,
     };
   },
   mounted() {
@@ -90,7 +94,7 @@ export default {
             // me.$attrs.val = e.target.files[0].name;
             me.fileName = e.target.files[0].name;
             let file = e.target.files[0];
-            
+
             me.srcImg = await this.$commonFunc.getBase64FromImage(file);
             me.$emit("input", e.target.value);
 
@@ -124,16 +128,17 @@ export default {
       me.fileName = e.target.files[0].name;
       let file = e.target.files[0];
       let dataFile = await this.$commonFunc.getFileToByte(file);
-      if(!me.isButton){
+      if (!me.isButton) {
         me.srcImg = await this.$commonFunc.getBase64FromImage(file);
       }
       let prams = {
         file: dataFile,
         fileName: me.fileName,
+        contentType: file.type
       };
       this.$emit("change", prams);
-      
-      
+
+
     },
   },
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -88,7 +89,7 @@ namespace Web.Api
             {
                 options.Configuration = Configuration.GetSection("RedisConfig")["ConnectionString"];
             });
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services
                 .AddDataInfastructure(Configuration)
                 .AddAppCoreService()
@@ -148,13 +149,21 @@ namespace Web.Api
 
             app.UseCors("MyPolicy");
 
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers.Add("X-Codepedia-Custom-Header-Response", "Satinder singh");
+            //    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+            //    context.Response.Headers.Add("X-Frame-Options", "DENY");
+            //    context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+            //    await next();
+            //});
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
-
-
+        
         //private void InitializeDatabase(IApplicationBuilder app)
         //{
         //    using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())

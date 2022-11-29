@@ -20,11 +20,6 @@ namespace Web.Models.Entities
         public string user_id { get; set; }
 
         /// <summary>
-        /// Id của ảnh trên bài viết
-        /// </summary>
-        public string image_id { get; set; }
-
-        /// <summary>
         /// Tiêu đề của bài viết
         /// </summary>
         public string title { get; set; }

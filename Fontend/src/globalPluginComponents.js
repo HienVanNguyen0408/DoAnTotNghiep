@@ -15,6 +15,9 @@ Vue.component('dq-input',Input);
 import InputFile  from '@/components/dq-input-file/DQ-InputFile';
 Vue.component('dq-input-file',InputFile);
 
+import InputFileMany  from '@/components/dq-input-file/DQ-InputFileMany';
+Vue.component('dq-input-file-many',InputFileMany);
+
 import InputDate from '@/components/dq-input-date/DQ-InputDate';
 Vue.component('dq-input-date',InputDate);
 

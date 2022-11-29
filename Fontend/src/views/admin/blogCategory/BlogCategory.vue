@@ -25,7 +25,7 @@
             </dq-grid>
         </div>
         <BlogCategoryDetail :isShow="isShow" :blogCategory="blogCategory" :mode="mode" @closePopup="setStateDetail(false)"
-            @showPopup="setStateDetail(true)" @loadData="loadDataBlogCategorys"
+            @showPopup="setStateDetail(true)" @loadData="loadDataBlogCategories"
             @resetData="resetDataDetail"/>
     </div>
 </template>
@@ -87,7 +87,7 @@ export default {
         initData() {
             const me = this;
             me.initDataStatic();
-            me.loadDataBlogCategorys();
+            me.loadDataBlogCategories();
         },
         initDataStatic() {
             const me = this;
@@ -103,7 +103,7 @@ export default {
             ]
         },
 
-        async loadDataBlogCategorys() {
+        async loadDataBlogCategories() {
             const me = this;
             let params = me.getPayload()
             await me.getBlogCategoryPageAsync(params);
@@ -137,7 +137,7 @@ export default {
         */
         filterBlogCategories: _.debounce(async function () {
             const me = this;
-            await me.loadDataBlogCategorys();
+            await me.loadDataBlogCategories();
         }, 1000),
         /**
          * Xóa nhiều
@@ -150,7 +150,7 @@ export default {
                 }
                 let res = await me.deleteManyBlogCategoryAsync(params);
                 if (res) {
-                    me.loadDataBlogCategorys();
+                    me.loadDataBlogCategories();
                     me.selected = [];
                     if (me.$refs && me.$refs.gridCustomer) {
                         me.$refs.gridCustomer.resetSelect();

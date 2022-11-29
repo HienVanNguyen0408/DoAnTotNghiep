@@ -8,6 +8,9 @@ using Web.AppCore.Interfaces.Repository;
 using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
 using Web.Models.Enums;
+using Web.Models.Request;
+using Web.Storage;
+using Web.Utils;
 
 namespace Web.AppCore.Services
 {
@@ -15,14 +18,19 @@ namespace Web.AppCore.Services
     {
         #region Declaration
         private readonly IBlogUoW _blogUoW;
+        private readonly IImageUoW _imageUoW;
         private readonly IBlogCategoryUoW _blogCategoryUoW;
+        private readonly IStorageClient _storageClient;
+
         #endregion
 
         #region Contructor
         public BlogService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             _blogUoW = serviceProvider.GetRequiredService<IBlogUoW>();
+            _imageUoW = serviceProvider.GetRequiredService<IImageUoW>();
             _blogCategoryUoW = serviceProvider.GetRequiredService<IBlogCategoryUoW>();
+            _storageClient = serviceProvider.GetRequiredService<IStorageClient>();
         }
 
         #endregion
@@ -143,12 +151,44 @@ namespace Web.AppCore.Services
         /// <summary>
         /// Thêm  bài viết
         /// </summary>
-        /// <param name="blog"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<bool> InsertBlogAsync(Blog blog)
+        public async Task<bool> InsertBlogAsync(BlogRequest request)
         {
-            blog = await _blogUoW.Blogs.InsertOneAsync(blog);
-            return blog != null;
+            try
+            {
+                var blog = (Blog)request;
+                var blogInsert = await _blogUoW.Blogs.InsertOneAsync(blog);
+
+                if (blogInsert != null)
+                {
+                    var fileInfo = new FileInfo()
+                    {
+                        cotent_type = request.content_type,
+                        data = request.data,
+                        file_name = request.file_name
+                    };
+
+                    var image = new Image()
+                    {
+                        path = GlobalConstant.GetFullPathBlog($"{blogInsert.id}", FileExtensions.GetFileExtention(FileType.Image)),
+                        is_picked = true,
+                        blog_id = blogInsert.id
+                    };
+
+                    //Thêm thông tin file vào DB
+                    var insertImage = await _imageUoW.Images.InsertOneAsync(image);
+                    if (insertImage == null) return false;
+
+                    //Thêm ảnh vào storage
+                    await _storageClient.UploadFileAsync(image.path, fileInfo.data);
+                }
+                return blogInsert != null;
+            }
+            catch (Exception exx)
+            {
+                return false;
+            }
         }
 
         /// <summary>

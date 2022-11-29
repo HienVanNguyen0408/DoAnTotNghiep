@@ -128,6 +128,7 @@ export default {
         });
 
         if (res) {
+            context.commit('updateBlogCategores', res.data);
             return res.data;
         }
         return res;

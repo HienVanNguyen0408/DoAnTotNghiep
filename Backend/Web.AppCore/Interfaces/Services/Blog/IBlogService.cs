@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Web.Models.Entities;
 using Web.Models.Enums;
+using Web.Models.Request;
 
 namespace Web.AppCore.Interfaces.Services
 {
@@ -79,7 +80,7 @@ namespace Web.AppCore.Interfaces.Services
         /// </summary>
         /// <param name="blog"></param>
         /// <returns></returns>
-        Task<bool> InsertBlogAsync(Blog blog);
+        Task<bool> InsertBlogAsync(BlogRequest blog);
 
         /// <summary>
         /// Cập nhật thông tin bài viết

@@ -8,6 +8,7 @@ using Web.AppCore.Entities;
 using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
 using Web.Models.Enums;
+using Web.Models.Request;
 
 namespace Web.Api.Controllers.BlogEnpoint
 {
@@ -262,9 +263,9 @@ namespace Web.Api.Controllers.BlogEnpoint
                 return svcResult;
             }
         }
-
+        
         [HttpPost("insert")]
-        public async Task<ServiceResult<bool>> InsertBlogAsync([FromBody] Blog blog)
+        public async Task<ServiceResult<bool>> InsertBlogAsync([FromBody] BlogRequest blog)
         {
             var svcResult = new ServiceResult<bool>();
             try

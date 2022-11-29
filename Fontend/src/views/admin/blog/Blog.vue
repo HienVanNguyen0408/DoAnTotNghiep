@@ -22,7 +22,7 @@
             </dq-grid>
         </div>
         <BlogDetail :isShow="isShow" :blog="blog" :mode="mode" @closePopup="setStateDetail(false)"
-            @showPopup="setStateDetail(true)" @resetData="resetDataDetail" @loadData="loadDataBlogs"/>
+            @showPopup="setStateDetail(true)" @resetData="resetDataDetail" @loadData="loadDataBlogs" @updateBlog="updateBlog"/>
     </div>
 </template>
 
@@ -193,6 +193,11 @@ export default {
         resetDataDetail(){
             const me = this;
             me.blog = {};
+        },
+
+        updateBlog(data){
+            const me = this;
+            me.blog = data;
         }
 
     }

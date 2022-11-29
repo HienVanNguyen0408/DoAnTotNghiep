@@ -1,8 +1,9 @@
 <template>
     <div class="dq-editor">
         <div v-if="title" class="mb-1 text-title">{{ title }}</div>
-        <div class="dq-vue-editor mt-2" style="width:100%" :style="{ height: height + 'px' }">
+        <div class="mt-2" style="width:100%" :style="{ 'min-height': height + 'px' }">
             <vue-editor @imageAdded="handleImageAdded" v-model="htmlContent" :disabled="disabled"
+            :editorToolbar="editorToolbar"
             >
             </vue-editor>
         </div>
@@ -28,7 +29,8 @@ export default {
         disabled: {
             typeof: Boolean,
             default: false
-        }
+        },
+        editorToolbar : null
     },
     data() {
         return {

@@ -35,31 +35,31 @@ class CommonFunc {
     }
 
     async getFileToByte(file) {
-            return new Promise((resolve, reject) => {
-                try {
-                    let reader = new FileReader();
-                    let fileByteArray = [];
-                    reader.readAsArrayBuffer(file);
-                    reader.onloadend = (evt) => {
-                        if (evt.target.readyState == FileReader.DONE) {
-                            let arrayBuffer = evt.target.result,
-                                array = new Uint8Array(arrayBuffer);
-                            if (array && array.length > 0) {
-                                array.forEach(byte => {
-                                    fileByteArray.push(byte);
-                                });
-                            }
+        return new Promise((resolve, reject) => {
+            try {
+                let reader = new FileReader();
+                let fileByteArray = [];
+                reader.readAsArrayBuffer(file);
+                reader.onloadend = (evt) => {
+                    if (evt.target.readyState == FileReader.DONE) {
+                        let arrayBuffer = evt.target.result,
+                            array = new Uint8Array(arrayBuffer);
+                        if (array && array.length > 0) {
+                            array.forEach(byte => {
+                                fileByteArray.push(byte);
+                            });
                         }
-                        resolve(fileByteArray);
                     }
-                } catch (e) {
-                    reject(e);
+                    resolve(fileByteArray);
                 }
-            })
-        }
-        /**
-         * Thêm order vào giỏ hàng
-         */
+            } catch (e) {
+                reject(e);
+            }
+        })
+    }
+    /**
+     * Thêm order vào giỏ hàng
+     */
     addCart(userName, order) {
         let store = localStorage.getItem(keyOrderStorage)
         let orderStorage = !store ? {} : JSON.parse(store);
@@ -90,25 +90,25 @@ class CommonFunc {
      * Lấy thông tin giỏ hàng của user
      */
     getCartByUser(userName) {
-            let orderUserName = {};
-            // Lấy dữ liệu trên storgare
-            let store = localStorage.getItem(keyOrderStorage);
-            if (!store) return orderUserName;
+        let orderUserName = {};
+        // Lấy dữ liệu trên storgare
+        let store = localStorage.getItem(keyOrderStorage);
+        if (!store) return orderUserName;
 
-            // convert dữ liệu
-            let orderStorage = JSON.parse(store);
-            if (!orderStorage) return orderUserName;
+        // convert dữ liệu
+        let orderStorage = JSON.parse(store);
+        if (!orderStorage) return orderUserName;
 
-            if (orderStorage[userName]) {
-                orderUserName = {
-                    orders: orderStorage[userName].orders
-                };
-            }
-            return orderUserName;
+        if (orderStorage[userName]) {
+            orderUserName = {
+                orders: orderStorage[userName].orders
+            };
         }
-        /**
-         * reset dữ liệu trên storage của user
-         */
+        return orderUserName;
+    }
+    /**
+     * reset dữ liệu trên storage của user
+     */
     updateCartByUser(userName) {
         let store = localStorage.getItem(keyOrderStorage)
         let orderStorage = !store ? {} : JSON.parse(store);
@@ -238,9 +238,9 @@ class CommonFunc {
         return res;
     }
 
-    startTimer(seconds,stop) {
+    startTimer(seconds, stop) {
         console.log(stop);
-        if(stop) return;
+        if (stop) return;
         if (!seconds) {
             seconds = 0;
         }
@@ -259,16 +259,16 @@ class CommonFunc {
         today = mm + "/" + dd + "/" + yyyy;
         //end
         const countDown = new Date(timeFisnish).getTime(),
-            x = setInterval(function() {
+            x = setInterval(function () {
 
                 const now = new Date().getTime(),
                     distance = countDown - now;
                 let h = Math.floor((distance % (day)) / (hour)) < 10 ? `0${Math.floor((distance % (day)) / (hour))}` : `${Math.floor((distance % (day)) / (hour))}`
                 let m = Math.floor((distance % (hour)) / (minute)) < 10 ? `0${Math.floor((distance % (hour)) / (minute))}` : `${Math.floor((distance % (hour)) / (minute))}`
-                let s = Math.floor((distance % (minute)) / second) < 10 ? `0${ Math.floor((distance % (minute)) / second)}` : `${ Math.floor((distance % (minute)) / second)}`
+                let s = Math.floor((distance % (minute)) / second) < 10 ? `0${Math.floor((distance % (minute)) / second)}` : `${Math.floor((distance % (minute)) / second)}`
                 let timer = h + ":" + m + ":" + s;
                 let div = document.getElementById('countdownTimemer');
-                if(!div) return;
+                if (!div) return;
                 document.getElementById('countdownTimemer').innerText = timer;
                 localStorage.setItem(keyCountdown, timer);
                 //do something later when date is reached
@@ -282,7 +282,7 @@ class CommonFunc {
                 //seconds
             }, 0)
     }
-    
+
     continueCountdowExam() {
         let time = this.getTimerExam();
         if (time) {
@@ -370,60 +370,60 @@ class CommonFunc {
         }
     }
 
-    getExamForms(){
+    getExamForms() {
         let examForms = [
             {
                 id: 1,
-                examForm : Enum.ExamForm.SelectOne,
-                examFormText : "Chọn 1 đáp án"
+                examForm: Enum.ExamForm.SelectOne,
+                examFormText: "Chọn 1 đáp án"
             },
             {
                 id: 2,
-                examForm : Enum.ExamForm.SelectMany,
-                examFormText : "Chọn nhiều đáp án"
+                examForm: Enum.ExamForm.SelectMany,
+                examFormText: "Chọn nhiều đáp án"
             },
             {
                 id: 3,
-                examForm : Enum.ExamForm.TrueFalse,
-                examFormText : "Chọn đúng sai"
+                examForm: Enum.ExamForm.TrueFalse,
+                examFormText: "Chọn đúng sai"
             }
         ];
         return examForms;
     }
-    getSrcImageByPath(path){
-        if(path){
+    getSrcImageByPath(path) {
+        if (path) {
             // path = path.replaceAll(prefixPathDefault,"");
             return require(`${path}`);
         }
         return path;
     }
 
-    getBase64FromData(data){
-        if(data){
+    getBase64FromData(data) {
+        if (data) {
             return `data:image/png;base64,${data}`;
         }
         return data;
     }
 
     getTextOption(index) {
-        if(index == 0) return "A. ";
-        if(index == 1) return "B. ";
-        if(index == 2) return "C. ";
-        if(index == 3) return "D. ";
+        if (index == 0) return "A. ";
+        if (index == 1) return "B. ";
+        if (index == 2) return "C. ";
+        if (index == 3) return "D. ";
     }
-    removeTimmer(){
+    removeTimmer() {
         localStorage.removeItem(keyCountdown);
     }
-    runExam(){
-        localStorage.setItem(keyStatusExam,true);
+    runExam() {
+        localStorage.setItem(keyStatusExam, true);
     }
-    finishExam(){
+    finishExam() {
         localStorage.removeItem(keyStatusExam);
     }
-    getStatusExam(){
+    getStatusExam() {
         return localStorage.getItem(keyStatusExam);
     }
-    
+
     setQuestionReads(questionReads) {
         if (questionReads) {
             localStorage.setItem(keyQuestionReads, JSON.stringify(questionReads));
@@ -444,8 +444,8 @@ class CommonFunc {
         if (partListens) {
             let res = [...partListens.map((x) => {
                 return {
-                    partListenId : x.partListenId,
-                    questions : x.questions
+                    partListenId: x.partListenId,
+                    questions: x.questions
                 }
             })];
             let data = JSON.stringify(res);
@@ -464,26 +464,26 @@ class CommonFunc {
     }
 
     // Set dữ liệu kết quả lên localstorage
-    setExamResult(result){
-        if(result){
+    setExamResult(result) {
+        if (result) {
             let data = JSON.stringify(result);
             localStorage.setItem(keyExamResult, data);
         }
-    }   
+    }
     //Xóa dữ liệu kết quả khỏi storage
-    deleteExamResult(){
+    deleteExamResult() {
         localStorage.removeItem(keyExamResult);
     }
 
-    getExamResult(){
+    getExamResult() {
         let result = localStorage.getItem(keyExamResult);
-        if(result){
+        if (result) {
             return JSON.parse(result);
         }
         return result;
     }
 
-    clearLocalStore(){
+    clearLocalStore() {
         localStorage.removeItem("examTimer");
         localStorage.removeItem("PartListens");
         localStorage.removeItem("PartListens");
@@ -492,7 +492,7 @@ class CommonFunc {
         localStorage.removeItem("LevelNumber");
     }
 
-    PeriodFilter(enumPeriod){
+    PeriodFilter(enumPeriod) {
         let text = '';
         switch (enumPeriod) {
             case Enum.PeriodFilter.ToDay:
@@ -536,37 +536,59 @@ class CommonFunc {
                 break;
             case Enum.PeriodFilter.Option:
                 text = 'Tùy chọn';
-                break;   
+                break;
             default:
                 break;
-        }    
+        }
         return text;
     }
-    
-    getDataEnum(keyObjectEnum,data){
+
+    getDataEnum(keyObjectEnum, data) {
         let enumKeys = Enum[`${keyObjectEnum}`];
         let enumValues = i18nEnum[`${keyObjectEnum}`];
         let dataEnums = [];
-        if(enumKeys){
+        if (enumKeys) {
             for (var enumKey in enumKeys) {
                 let dataEnum = {
                     key: enumKeys[`${enumKey}`],
-                    value : enumValues[`${enumKey}`]
+                    value: enumValues[`${enumKey}`]
                 }
                 dataEnums.push(dataEnum);
             }
         }
         return dataEnums;
     }
-    getValueStringByEnum(keyObjectEnum,value){
+    getValueStringByEnum(keyObjectEnum, value) {
         let enumValues = i18nEnum[`${keyObjectEnum}`];
         let enumKeys = Enum[`${keyObjectEnum}`];
         for (var enumKey in enumKeys) {
-            if(enumKeys[`${enumKey}`] == value){
+            if (enumKeys[`${enumKey}`] == value) {
                 return enumValues[`${enumKey}`];
             }
         }
         return null;
+    }
+
+    getToolBarEditor() {
+        return [
+            ["bold", "italic", "underline", "strike"],
+            [
+                { align: "" },
+                { align: "center" },
+                { align: "right" },
+                { align: "justify" }
+            ],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ header: 1 }, { header: 2 }],
+            ["blockquote", "code-block"],
+            [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+            [{ script: "sub" }, { script: "super" }],
+            [{ indent: "-1" }, { indent: "+1" }],
+            [{ color: [] }, { background: [] }],
+            // ["link", "", "video", "formula"],
+            [{ direction: "rtl" }],
+            ["clean"]
+        ];
     }
 }
 
