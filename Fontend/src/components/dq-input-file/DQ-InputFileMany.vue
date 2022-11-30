@@ -21,14 +21,19 @@
                     </div>
                 </div>
                 <div class="flex justify-center align-center" v-if="files && files.length > 0">
-                    <div class="images flex justify-center align-center">
-                        <div class="image flex-1 border border-b-gray-400 flex-wrap w-24 h-24" v-for="(file, index) in files" :key="index">
-                            <div>
-                                <div class="font-20 mb-5 text-lg font-bold" v-if="fileName">
-                                    {{ fileName }}
+                    <div class="images flex p-4 w-full flex-wrap">
+                        <div class="image border border-b-gray-400 flex-wrap p-4 w-1/3 relative"
+                            v-for="(file, index) in files" :key="index">
+                            <div class="icon dq-icon-24 icon-close absolute right-2 cursor-pointer"
+                                @click="removeFileSelect(file)"></div>
+                            <!-- <div>
+                                <div class="font-20 mb-5 text-lg font-bold w-full text-ellipsis whitespace-nowrap overflow-hidden" v-if="file.file_name">
+                                    {{ file.file_name }}
                                 </div>
+                            </div> -->
+                            <div class="flex justify-center">
+                                <img class="w-24 h-24" :src="file.src_image" />
                             </div>
-                            <img class="w-24 h-24" :src="file.srcImage" />
                         </div>
                     </div>
                 </div>
@@ -65,6 +70,7 @@ export default {
             typeof: Boolean,
             default: false
         },
+        value: null
     },
     data() {
         return {
@@ -78,6 +84,12 @@ export default {
         me.fileName = me.name;
     },
     created() {
+        const me = this;
+        if (me.value && (!me.files || me.files.length <= 0)) {
+            me.files = [...me.value.map(x => {
+                return {src_image : x}
+            })];
+        }
     },
     computed: {
         inputListeners: function () {
@@ -133,16 +145,22 @@ export default {
             let file = e.target.files[0];
             let srcImage = await this.$commonFunc.getBase64FromImage(file);
             me.fileName = e.target.files[0].name;
+
             let dataFile = await this.$commonFunc.getFileToByte(file);
             me.files.push({
-                file: dataFile,
-                fileName: me.fileName,
-                contentType: file.type,
-                srcImage : srcImage
+                data: dataFile,
+                file_name: me.fileName,
+                content_type: file.type,
+                src_image: srcImage
             });
             me.$emit("input", e.target.value);
             this.$emit("change", me.files);
         },
+
+        removeFileSelect(file) {
+            const me = this;
+            me.files.remove(file);
+        }
     },
 
     beforeDestroy() {

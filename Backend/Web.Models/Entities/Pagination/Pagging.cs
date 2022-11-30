@@ -20,7 +20,7 @@ namespace Web.Models.Entities
         /// <summary>
         /// Dữ liệu phân trang
         /// </summary>
-        public IEnumerable<T> Data { get; set; }
+        public List<T> Data { get; set; }
 
         /// <summary>
         /// Trang hiện tại

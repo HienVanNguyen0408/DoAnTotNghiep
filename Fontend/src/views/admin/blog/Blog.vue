@@ -160,8 +160,11 @@ export default {
             }
         },
 
-        editDataBlog() {
+        editDataBlog(item) {
             const me = this;
+            me.setStateDetail(true);
+            me.mode = me.$enum.Mode.Edit;
+            me.blog = {...item};
         },
 
         /**

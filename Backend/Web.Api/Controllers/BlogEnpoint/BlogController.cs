@@ -9,6 +9,7 @@ using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
 using Web.Models.Enums;
 using Web.Models.Request;
+using Web.Models.Respone;
 
 namespace Web.Api.Controllers.BlogEnpoint
 {
@@ -215,13 +216,13 @@ namespace Web.Api.Controllers.BlogEnpoint
         /// </summary>
         /// <returns></returns>
         [HttpGet("{blogId}")]
-        public async Task<ServiceResult<Blog>> GetBlogAsync(string blogId)
+        public async Task<ServiceResult<BlogRespone>> GetBlogAsync(string blogId)
         {
-            var svcResult = new ServiceResult<Blog>();
+            var svcResult = new ServiceResult<BlogRespone>();
             try
             {
                 var blog = await _blogService.GetBlogAsync(blogId);
-                svcResult = new ServiceResult<Blog>
+                svcResult = new ServiceResult<BlogRespone>
                 {
                     Data = blog,
                     Status = ServiceResultStatus.Ok,
@@ -242,14 +243,14 @@ namespace Web.Api.Controllers.BlogEnpoint
         /// <param name="pagination"></param>
         /// <returns></returns>
         [HttpPost("pagging")]
-        public async Task<ServiceResult<Pagging<Blog>>> GetBlogPaggingAsync([FromBody] Pagination pagination)
+        public async Task<ServiceResult<Pagging<BlogRespone>>> GetBlogPaggingAsync([FromBody] Pagination pagination)
         {
-            var svcResult = new ServiceResult<Pagging<Blog>>();
+            var svcResult = new ServiceResult<Pagging<BlogRespone>>();
             try
             {
                 // Danh sách Blog
                 var pageResult = await _blogService.GetBlogsPaggingAsync(pagination);
-                svcResult = new ServiceResult<Pagging<Blog>>
+                svcResult = new ServiceResult<Pagging<BlogRespone>>
                 {
                     Data = pageResult,
                     Success = true,

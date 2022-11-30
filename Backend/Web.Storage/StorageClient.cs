@@ -107,6 +107,38 @@ namespace Web.Storage
             }
         }
 
+        /// <summary>
+        /// Lấy file storage dạng base 64
+        /// </summary>
+        /// <param name="fullPath"></param>
+        /// <returns></returns>
+        public async Task<string> GetFileStorageAsync(string fullPath)
+        {
+            try
+            {
+                GetObjectRequest request = new GetObjectRequest()
+                {
+                    BucketName = _storageSettings.BucketName,
+                    Key = fullPath
+                };
+                using (GetObjectResponse response = await _awsClient.GetObjectAsync(request))
+                using (Stream stream = response.ResponseStream)
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    stream.CopyTo(ms);
+                    var byteFile = ms.ToArray();
+                    if(byteFile != null && byteFile.Length > 0)
+                    {
+                        return Convert.ToBase64String(byteFile);
+                    }
+                };
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
 
         #endregion
     }

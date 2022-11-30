@@ -11,5 +11,12 @@ namespace Web.Storage
         Task<bool> UploadFileAsync(string fullPath, byte[] byteFile);
         Task<string> GetPathFileDownloadAsync(string fullPath);
         Task<byte[]> DownloadFileAsync(string fullPath);
+
+        /// <summary>
+        /// File dạng base64
+        /// </summary>
+        /// <param name="fullPath"></param>
+        /// <returns></returns>
+        Task<string> GetFileStorageAsync(string fullPath);
     }
 }

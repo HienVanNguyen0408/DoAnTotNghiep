@@ -9,6 +9,7 @@ using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
 using Web.Models.Enums;
 using Web.Models.Request;
+using Web.Models.Respone;
 using Web.Storage;
 using Web.Utils;
 
@@ -123,9 +124,21 @@ namespace Web.AppCore.Services
         /// </summary>
         /// <param name="blogId"></param>
         /// <returns></returns>
-        public async Task<Blog> GetBlogAsync(string blogId)
+        public async Task<BlogRespone> GetBlogAsync(string blogId)
         {
-            return await _blogUoW.Blogs.GetByIdAsync(blogId);
+            var blogRespone = new BlogRespone();
+            var blog = await _blogUoW.Blogs.GetByIdAsync(blogId);
+            if (blog != null)
+            {
+                blogRespone = (BlogRespone)blog;
+
+                var pathImages = await GetPathImagesBlogAsync(blogId);
+                if (pathImages != null && pathImages.CountExt() > 0)
+                {
+                    blogRespone.images.AddRange(pathImages);
+                }
+            }
+            return blogRespone;
         }
 
         /// <summary>
@@ -142,9 +155,47 @@ namespace Web.AppCore.Services
         /// </summary>
         /// <param name="pagination"></param>
         /// <returns></returns>
-        public async Task<Pagging<Blog>> GetBlogsPaggingAsync(Pagination pagination)
+        public async Task<Pagging<BlogRespone>> GetBlogsPaggingAsync(Pagination pagination)
         {
-            var pageResult = await _blogUoW.Blogs.GetPaggingAsync(pagination);
+            var pageResult = new Pagging<BlogRespone>();
+            try
+            {
+                var blogPage = await _blogUoW.Blogs.GetPaggingAsync(pagination);
+                if (blogPage != null)
+                {
+                    pageResult = new Pagging<BlogRespone>
+                    {
+                        Data = blogPage.Data != null ? blogPage.Data.Select(blog => MapperExtensions.MapperData<Blog, BlogRespone>(blog)).ToList() : null,
+                        PageIndex = blogPage.PageIndex,
+                        PageSize = blogPage.PageSize,
+                        TotalPages = blogPage.TotalPages,
+                        TotalRecord = blogPage.TotalRecord
+                    };
+
+                    //Lấy thông tin ảnh
+                    if (pageResult.Data != null && pageResult.Data.CountExt() > 0)
+                    {
+                        var blogs = pageResult.Data;
+                        for (int index = 0; index < pageResult.Data.CountExt(); index++)
+                        {
+                            var blog = pageResult.Data[index];
+                            if (blog.images == null) blog.images = new List<string>();
+                            var pathImages = await GetPathImagesBlogAsync(blog.id);
+                            if (pathImages != null && pathImages.CountExt() > 0)
+                            {
+                                blog.images.AddRange(pathImages);
+                            }
+                            pageResult.Data[index].images = blog.images;
+
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
             return pageResult;
         }
 
@@ -162,34 +213,32 @@ namespace Web.AppCore.Services
 
                 if (blogInsert != null)
                 {
-                    var fileInfo = new FileInfo()
+                    if (request.files != null && request.files.CountExt() > 0)
                     {
-                        cotent_type = request.content_type,
-                        data = request.data,
-                        file_name = request.file_name
-                    };
-
-                    var image = new Image()
-                    {
-                        path = GlobalConstant.GetFullPathBlog($"{blogInsert.id}", FileExtensions.GetFileExtention(FileType.Image)),
-                        is_picked = true,
-                        blog_id = blogInsert.id
-                    };
-
-                    //Thêm thông tin file vào DB
-                    var insertImage = await _imageUoW.Images.InsertOneAsync(image);
-                    if (insertImage == null) return false;
-
-                    //Thêm ảnh vào storage
-                    await _storageClient.UploadFileAsync(image.path, fileInfo.data);
+                        var images = new List<Image>();
+                        images = request.files.Select((x, index) => new Image()
+                        {
+                            path = GlobalConstant.GetFullPathBlog($"{blogInsert.id}_{index}", FileExtensions.GetFileExtention(FileType.Image)),
+                            blog_id = blogInsert.id,
+                            is_picked = true
+                        }).ToList();
+                        //Thêm thông tin file vào DB
+                        var insertImage = await _imageUoW.Images.InsertManyAsync(images);
+                        if (insertImage == null) return false;
+                        for (int index = 0; index < request.files.CountExt(); index++)
+                        {
+                            await _storageClient.UploadFileAsync(images[index].path, request.files[index].data);
+                        }
+                    }
                 }
                 return blogInsert != null;
             }
-            catch (Exception exx)
+            catch (Exception ex)
             {
                 return false;
             }
         }
+
 
         /// <summary>
         /// Cập nhật bài viết
@@ -211,6 +260,64 @@ namespace Web.AppCore.Services
             return await _blogUoW.Blogs.DeleteOneAsync(blog);
         }
 
+
+        /// <summary>
+        /// Lấy danh sách đường dẫn file ảnh trên storage
+        /// </summary>
+        /// <param name="blogId">Id bài viết</param>
+        /// <returns></returns>
+        private async Task<List<string>> GetPathImagesBlogAsync(string blogId)
+        {
+            try
+            {
+                //Key cached lưu các path trong DB của image
+                var cachedKeyImages = $"blog_{blogId}";
+                var pathDbImages = await _cached.GetAsync<List<string>>(cachedKeyImages);
+                //Lấy thông tin image từ DB
+                if (pathDbImages == null || pathDbImages.CountExt() <= 0)
+                {
+                    var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blogId);
+                    if (images != null && images.CountExt() > 0)
+                    {
+                        pathDbImages = images.SelectExt(x => x.path).ToList();
+                    }
+                }
+
+                if (pathDbImages == null || pathDbImages.Count() <= 0) return new List<string>();
+
+                //Thời gian lưu thông tin path trong DB của các ảnh bài viết
+                var timeCached = 60 * 60 * 24;
+                await _cached.SetAsync(cachedKeyImages, pathDbImages, timeCached);
+
+                var paths = new List<string>();
+                //Lấy thông tin path image trên storage
+                foreach (var path in pathDbImages)
+                {
+                    var keyPathStorage = $"{path}";
+                    var pathStorage = await _cached.GetAsync<string>(keyPathStorage);
+
+                    //Lấy path download từ Cached
+                    if (!pathStorage.IsNullOrEmptyOrWhiteSpace())
+                    {
+                        paths.Add(pathStorage);
+                    }
+                    else
+                    {
+                        //Lấy path file ảnh từ storage
+                        pathStorage = await _storageClient.GetPathFileDownloadAsync(path);
+                        if (!pathStorage.IsNullOrEmptyOrWhiteSpace()) paths.Add(pathStorage);
+                        //Lưu cached 1 ngày
+                        await _cached.SetAsync(keyPathStorage, pathStorage, timeCached);
+                    }
+                }
+
+                return paths;
+            }
+            catch (Exception ex)
+            {
+                return new List<string>();
+            }
+        }
         #endregion
 
         #endregion

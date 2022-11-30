@@ -35,12 +35,13 @@
                             <!-- <dq-textarea ref="firstInput" :height="200" :title="'Nội dung bài viết'"
                                 placeholder="Nội dung bài viết" v-model="blog.content"></dq-textarea> -->
                             <dq-editor id="editor" :height="200" :title="'Nội dung bài viết'"
-                                :editorToolbar="customToolbar" v-model="blog.content">
+                                :editorToolbar="customToolbar" v-model="blog.content" @updateData="updateContentBlog"
+                                :value="blog.content">
                             </dq-editor>
                         </div>
                     </div>
                     <div class="mt-5">
-                        <dq-input-file-many class="mt-5" :title="'Ảnh bài viết'" @change="changeImage">
+                        <dq-input-file-many class="mt-5" :title="'Ảnh bài viết'" @change="changeImage" :value="blog.images">
                         </dq-input-file-many>
                     </div>
                 </div>
@@ -106,6 +107,7 @@ export default {
         blogCategoryDefault() {
             const me = this;
             if (me.BlogCategories && me.BlogCategories.length > 0) {
+                if(!me.blog.blog_category_id){me.blog.blog_category_id =me.BlogCategories[0].id;}
                 return me.BlogCategories[0].id;
             }
             return '';
@@ -172,8 +174,11 @@ export default {
             //     data: param.file,
             //     content_type: param.contentType
             // };
-            // me.$emit("updateBlog", { ...data, ...me.blog });
-            console.log(files);
+            me.$emit("updateBlog", { ...me.blog,files : files  });
+        },
+        updateContentBlog(content){
+            const me = this;
+            me.$emit("updateBlog", { ...me.blog,content : content  });
         }
     }
 }

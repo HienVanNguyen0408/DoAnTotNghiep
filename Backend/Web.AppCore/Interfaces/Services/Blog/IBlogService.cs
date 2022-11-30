@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Web.Models.Entities;
 using Web.Models.Enums;
 using Web.Models.Request;
+using Web.Models.Respone;
 
 namespace Web.AppCore.Interfaces.Services
 {
@@ -66,14 +67,14 @@ namespace Web.AppCore.Interfaces.Services
         /// Lấy danh sách bài viết theo điều kiện phân trang
         /// </summary>
         /// <returns></returns>
-        Task<Pagging<Blog>> GetBlogsPaggingAsync(Pagination pagination);
+        Task<Pagging<BlogRespone>> GetBlogsPaggingAsync(Pagination pagination);
 
         /// <summary>
         /// Lấy thông tin bài viết theo Id
         /// </summary>
         /// <param name="blogId"></param>
         /// <returns></returns>
-        Task<Blog> GetBlogAsync(string blogId);
+        Task<BlogRespone> GetBlogAsync(string blogId);
 
         /// <summary>
         /// Thêm loại bài viết

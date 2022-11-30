@@ -2,7 +2,7 @@
     <div class="dq-editor">
         <div v-if="title" class="mb-1 text-title">{{ title }}</div>
         <div class="mt-2" style="width:100%" :style="{ 'min-height': height + 'px' }">
-            <vue-editor @imageAdded="handleImageAdded" v-model="htmlContent" :disabled="disabled"
+            <vue-editor v-model="htmlContent" :disabled="disabled"
             :editorToolbar="editorToolbar"
             >
             </vue-editor>
@@ -30,24 +30,28 @@ export default {
             typeof: Boolean,
             default: false
         },
-        editorToolbar : null
+        editorToolbar : null,
+        value : null
+    },
+    created(){
+        const me = this;
+        if(me.value && !me.htmlContent){
+            me.htmlContent = me.value;
+        }
+    },
+    watch: {
+        htmlContent(newV,oldV){
+            if(newV != oldV){
+                this.$emit('updateData',newV);
+            }
+        }
     },
     data() {
         return {
-            htmlContent: 'Heloo Hiến',
+            htmlContent : null
         }
     },
     methods: {
-        handleImageAdded: function (file, Editor, cursorLocation, resetUploader) {
-            console.log(file);
-            console.log(Editor);
-            console.log(cursorLocation);
-            console.log(resetUploader);
-            // An example of using FormData
-            // NOTE: Your key could be different such as:
-            // formData.append('file', file)
-
-        }
     }
 }
 </script>
