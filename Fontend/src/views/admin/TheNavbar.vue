@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import i18nConfig from '@/i18n/i18n-config.js';
     export default {
         name:"AdminNavbar",
         data(){
@@ -44,43 +45,43 @@
                     {
                         name : 'dashboard',
                         router : '/dashboard',
-                        text : 'Tổng quan',
+                        text : `${me.$t('i18nAdmin.Dashboard')}`,
                         icon : 'icon-dashboard dq-icon-20'
                     },
                     {
                         name : 'adminuser',
                         router : '/admin-user',
-                        text : 'Quản lý người dùng',
+                        text : `${me.$t('i18nAdmin.ManageUser')}`,
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
                         name : 'adminproductcategory',
                         router : '/admin-productcategory',
-                        text : 'Quản lý loại sản phẩm',
+                        text : `${me.$t('i18nAdmin.ManageProductCategory')}`,
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
                         name : 'adminproduct',
                         router : '/admin-product',
-                        text : 'Quản lý sản phẩm',
+                        text : `${me.$t('i18nAdmin.ManageProduct')}`,
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
                         name : 'adminorder',
                         router : '/admin-order',
-                        text : 'Quản lý đơn hàng',
+                        text : `${me.$t('i18nAdmin.ManageOrder')}`,
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
                         name : 'adminblogcategory',
                         router : '/admin-blogcategory',
-                        text : 'Quản lý loại bài viết',
+                        text : `${me.$t('i18nAdmin.ManageBlogCategory')}`,
                         icon : 'icon-todolist dq-icon-20',
                     },
                     {
                         name : 'adminblog',
                         router : '/admin-blog',
-                        text : 'Quản lý bài viết',
+                        text : `${me.$t('i18nAdmin.ManageBlog')}`,
                         icon : 'icon-todolist dq-icon-20',
                     },
 

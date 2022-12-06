@@ -135,7 +135,29 @@ namespace Web.Api.Controllers
                 return svcResult;
             }
         }
-        
+
+        [HttpPost("productcategories")]
+        public async Task<ServiceResult<IEnumerable<ProductCategory>>> GetProductCategoriesAsync()
+        {
+            var svcResult = new ServiceResult<IEnumerable<ProductCategory>>();
+            try
+            {
+                var productCategoryPage = await _productService.GetProductCategoriesAsync();
+                svcResult = new ServiceResult<IEnumerable<ProductCategory>>
+                {
+                    Data = productCategoryPage,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm GetProductCategoriesAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
+
         [HttpGet("productcategory/{productCategoryId}")]
         public async Task<ServiceResult<ProductCategory>> GetProductCategoryAsync(string productCategoryId)
         {

@@ -11,4 +11,13 @@ export default {
     EditBlogCategory : 'Sửa loại bài viết',
     AddBlog:'Thêm bài viết',
     EditBlog : 'Sửa bài viết',
+
+    Dashboard : 'Dashboard',
+    ManageUser : 'Quản lý người dùng',
+    ManageProduct : 'Quản lý sản phẩm',
+    ManageProductCategory: 'Quản lý Loại sản phẩm',
+    ManageOrder : 'Quản lý đơn hàng',
+    ManageBlogCategory : 'Quản lý loại bài viết',
+    ManageBlog : 'Quản lý bài viết',
+
 }

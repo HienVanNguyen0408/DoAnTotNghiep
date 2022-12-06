@@ -108,7 +108,8 @@ export default {
             else if (me.mode == me.$enum.Mode.Edit) {
                 await me.updateProductCategoryAsync(me.productCategory);
             }
-            me.loadData();
+            // Load lại dữ liệu trên grid
+            await me.loadData();
             me.closePopup();
         },
 

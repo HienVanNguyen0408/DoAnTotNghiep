@@ -310,9 +310,31 @@ namespace Web.Api.Controllers.BlogEnpoint
                 return svcResult;
             }
         }
+        
+        [HttpPost("delete-many")]
+        public async Task<ServiceResult<bool>> DeleteBlogsAsync([FromBody] List<Blog> blogs)
+        {
+            var svcResult = new ServiceResult<bool>();
+            try
+            {
+                var resDelete = await _blogService.DeleteBlogsAsync(blogs);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = resDelete,
+                    Status = ServiceResultStatus.Ok,
+                    Success = true
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm DeleteBlogsAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
 
         [HttpPost("update")]
-        public async Task<ServiceResult<bool>> UpdateBlogAsync([FromBody] Blog blog)
+        public async Task<ServiceResult<bool>> UpdateBlogAsync([FromBody] BlogRequest blog)
         {
             var svcResult = new ServiceResult<bool>();
             try

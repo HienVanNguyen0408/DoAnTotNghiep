@@ -112,6 +112,24 @@ export default {
         return res;
     },
 
+    /**
+     * Xóa thông tin bài viết
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+     deleteBlogsAsync: async function (context, payload) {
+        var res = await blogClient.postAsync({
+            url: `${blogClient.url}/delete-many`,
+            data: payload
+        });
+
+        if (res) {
+            return res.data;
+        }
+        return res;
+    },
+
 
     //======================
     //Loại bài viết

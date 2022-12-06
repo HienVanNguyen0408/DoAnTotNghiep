@@ -13,7 +13,7 @@
                 </div>
                 <div class="flex-1 flex jus-right">
                     <div class="btn-add">
-                        <dq-button :title="'Thêm sản phẩm'"></dq-button>
+                        <dq-button :title="'Thêm sản phẩm'" @click="addProduct"></dq-button>
                     </div>
                 </div>
             </div>
@@ -21,13 +21,16 @@
         <div class="dq-grid mt-5">
             <dq-grid ref="gridProduct" :data="Products" :columns="columns" serial="true" checkbox="true"
                 pagination="true" :dataPagination="params" :textPage="'Sản phẩm'" @dbclick="editDataProduct"
-                @getData="getDataPagging" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti">
+                @getData="getDataPagging" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti" @updateProduct="updateProduct">
             </dq-grid>
         </div>
+        <ProductDetail :isShow="isShow" :product="product" :mode="mode" @closePopup="setStateDetail(false)"
+            @showPopup="setStateDetail(true)" @resetData="resetDataDetail" @loadData="loadDataProducts" @updateProduct="updateProduct"/>
     </div>
 </template>
 
 <script>
+import ProductDetail from './ProductDetail.vue';
 import _ from 'lodash';
 import {
     mapActions,
@@ -36,7 +39,9 @@ import {
 import { ModuleProduct } from '@/store/module-const';
 export default {
     name: "AdminProduct",
-    components: {},
+    components: {
+        ProductDetail
+    },
     props: {},
     data() {
         return {
@@ -51,7 +56,8 @@ export default {
             columns: [],
             isShow: false,
             mode: this.$enum.Mode.Add,
-            selected: []
+            selected: [],
+            product : {}
         }
     },
     computed: {
@@ -74,7 +80,7 @@ export default {
             'insertProductAsync',
             'updateProductAsync',
             'deleteProductAsync',
-            'deleteManyProductAsync'
+            'deleteProductsAsync'
         ]),
 
         initData() {
@@ -182,6 +188,7 @@ export default {
 
         editDataProduct() {
             const me = this;
+            me.setSta
         },
 
         /**
@@ -202,6 +209,31 @@ export default {
             if (!seleteds || seleteds.length <= 0) me.selected = [];
             me.selected = [...seleteds];
         },
+
+        addProduct(){
+            const me = this;
+            me.setStateDetail(true);
+        },
+        setStateDetail(isShow) {
+            const me = this;
+            me.isShow = isShow;
+        },
+        resetDataDetail(){
+            const me = this;
+            me.product = {};
+        },
+
+        updateProduct(data){
+            const me = this;
+            me.product = data;
+        },
+
+        async deleteProduct(){
+            const me = this;
+            await me.deleteManyProductAsync(me.selected);
+        }, 
+        
+       
 
 
     }

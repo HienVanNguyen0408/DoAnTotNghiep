@@ -12,6 +12,8 @@ import 'ant-design-vue/dist/antd.css';
 
 import './tailwind.css'
 
+import InputColorPicker from 'vue-native-color-picker'
+
 // import "./plugin.js";
 
 // register plugin global
@@ -21,14 +23,15 @@ import './globalPluginComponents';
 
 // import GAuth from 'vue-google-oauth2'
 // const gauthOption = {
-//   clientId: '658612176566-5sp84c1s1k36bqj9kk5i211f0vpllbtk.apps.googleusercontent.com',
-//   scope: 'profile email',
-//   prompt: 'select_account',
-//   fetch_basic_profile : true
-// }
-// Vue.use(GAuth, gauthOption);
-
+  //   clientId: '658612176566-5sp84c1s1k36bqj9kk5i211f0vpllbtk.apps.googleusercontent.com',
+  //   scope: 'profile email',
+  //   prompt: 'select_account',
+  //   fetch_basic_profile : true
+  // }
+  // Vue.use(GAuth, gauthOption);
+  
 Vue.config.productionTip = false;
+Vue.use(InputColorPicker);
 Vue.use(vue2Swiper);
 Vue.use(Antd);
 Vue.use(moment);
@@ -36,6 +39,7 @@ Vue.use(moment);
 new Vue({
   router,
   store,
+  i18n:i18n,
   i18n,
   filters,
   render: h => h(App),

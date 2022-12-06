@@ -24,6 +24,13 @@ export default{
         if(res && res.data){
             state.ProductCategories = res.data;
         }
+        else{
+            state.ProductCategories = [];
+        }
+    },
+
+    updateProductCategories: async function(state,res){
+        state.ProductCategories = res;
     },
     updateProductCategory : async function(state,res){
         state.ProductCategory = {...res};

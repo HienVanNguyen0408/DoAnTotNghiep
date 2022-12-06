@@ -5,6 +5,7 @@ import commonFunc from './common/commonFunc';
 import DateRange from '@/utils/dateRange'
 import Enum from '@/enum/enum';
 import Auth from './auth/auth';
+
 const install = Vue => {
     //prototype
     Vue.prototype.moment = moment
@@ -13,5 +14,6 @@ const install = Vue => {
     Vue.prototype.$enum = Enum;
     Vue.prototype.$auth = Auth;
 };
+
 install(Vue);
 export default install;

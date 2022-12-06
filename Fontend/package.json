@@ -20,6 +20,7 @@
     "vue-google-oauth2": "^1.5.8",
     "vue-i18n": "^8.26.5",
     "vue-moment": "^4.1.0",
+    "vue-native-color-picker": "^1.2.0",
     "vue-router": "^3.5.2",
     "vue2-editor": "^2.10.3",
     "vue2-swiper": "0.0.13",

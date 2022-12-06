@@ -2,13 +2,13 @@
     <div class="dq-content">
         <div class="dq-content-header">
             <div class="flex">
-                <div class="flex flex-1">
+                <div class="flex flex-1 align-center">
                     <div class="filter-search">
                         <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterUsers">
                         </dq-input>
                     </div>
-                    <div class="ml-2.5" v-if="selected && selected.length > 0">
-                        <div class="icon icon-delete dq-icon-24"></div>
+                    <div class="ml-2.5 " v-if="selected && selected.length > 0">
+                        <div class="icon icon-delete dq-icon-24 cursor-pointer"></div>
                     </div>
                 </div>
                 <div class="flex-1 flex jus-right">

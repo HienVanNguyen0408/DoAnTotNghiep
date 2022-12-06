@@ -88,7 +88,7 @@ namespace Web.AppCore.Interfaces.Services
         /// </summary>
         /// <param name="blog"></param>
         /// <returns></returns>
-        Task<bool> UpdateBlogAsync(Blog blog);
+        Task<bool> UpdateBlogAsync(BlogRequest blogRequest);
 
         /// <summary>
         /// Xóa bài viết
@@ -96,6 +96,7 @@ namespace Web.AppCore.Interfaces.Services
         /// <param name="blog"></param>
         /// <returns></returns>
         Task<bool> DeleteBlogAsync(Blog blog);
+        Task<bool> DeleteBlogsAsync(List<Blog> blogs);
         #endregion
 
 

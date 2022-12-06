@@ -8,3 +8,4 @@ export default new VueI18n({
     locale: 'vi', // set locale
     messages : i18nData
 });
+

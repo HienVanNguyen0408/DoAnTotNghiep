@@ -87,6 +87,18 @@ namespace Web.Caching
             }
         }
 
+        public async Task RemoveAsync(string key)
+        {
+            try
+            {
+                await _cached.RemoveAsync(key);
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
         /// <summary>
         /// Lưu cached 
         /// </summary>

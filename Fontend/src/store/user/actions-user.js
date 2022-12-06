@@ -16,6 +16,9 @@ export default {
             url : userClient.url,
             queries : payload 
         });
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
     
@@ -33,6 +36,9 @@ export default {
         if(res){
             context.commit('updatePaggingUsers',res.data);
         }
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 
@@ -46,6 +52,9 @@ export default {
         var res = await userClient.getAsync({
             url : `${userClient.url}/${payload}`,
         });
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 
@@ -59,6 +68,9 @@ export default {
         var res = await userClient.getAsync({
             url : `${userClient.url}/userName/${payload}`,
         });
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 
@@ -73,6 +85,9 @@ export default {
             url : `${userClient.url}/register`,
             data: payload
         });
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 
@@ -83,10 +98,14 @@ export default {
      * @returns 
      */
     updateUserAsync: async function (context, payload) {
-        var res = await userClient.getAsync({
+        var res = await userClient.postAsync({
             url : `${userClient.url}/update`,
             data : payload
         });
+
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 
@@ -102,6 +121,9 @@ export default {
             url : `${userClient.url}/delete`,
             data : payload
         });
+        if(res && res.data){
+            return res.data;
+        }
         return res;
     },
 }

@@ -7,6 +7,9 @@ namespace Web.Models.Respone
 {
     public class BlogRespone : Blog
     {
-        public List<string> images { get; set; }
+        /// <summary>
+        /// Data base64
+        /// </summary>
+        public List<string> files { get; set; }
     }
 }

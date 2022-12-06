@@ -32,7 +32,7 @@
                                 </div>
                             </div> -->
                             <div class="flex justify-center">
-                                <img class="w-24 h-24" :src="file.src_image" />
+                                <img class="w-24 h-24" :src="file.path" />
                             </div>
                         </div>
                     </div>
@@ -83,12 +83,13 @@ export default {
         const me = this;
         me.fileName = me.name;
     },
-    created() {
+    async created() {
         const me = this;
         if (me.value && (!me.files || me.files.length <= 0)) {
             me.files = [...me.value.map(x => {
-                return {src_image : x}
+                return {path : x}
             })];
+            this.$emit("change", me.files);
         }
     },
     computed: {
@@ -145,21 +146,21 @@ export default {
             let file = e.target.files[0];
             let srcImage = await this.$commonFunc.getBase64FromImage(file);
             me.fileName = e.target.files[0].name;
-
-            let dataFile = await this.$commonFunc.getFileToByte(file);
+            // let dataFile = await this.$commonFunc.getBase64FromImage(file);
             me.files.push({
-                data: dataFile,
                 file_name: me.fileName,
                 content_type: file.type,
-                src_image: srcImage
+                path: srcImage
             });
+
             me.$emit("input", e.target.value);
             this.$emit("change", me.files);
         },
 
         removeFileSelect(file) {
             const me = this;
-            me.files.remove(file);
+            me.files = [...me.files.filter(x => x != file)];
+            me.$emit("change", me.files);
         }
     },
 

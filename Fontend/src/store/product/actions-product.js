@@ -137,6 +137,18 @@ export default {
         return res;
     },
 
+    getProductCategories: async function (context, payload) {
+        var res = await productClient.postAsync({
+            url: `${productClient.url}/productcategories`,
+            data: payload
+        });
+
+        if (res && res.data) {
+            context.commit('updateProductCategories', res.data);
+            return res.data;
+        }
+        return res;
+    },
 
     /**
      * Thông tin loại sản phẩm

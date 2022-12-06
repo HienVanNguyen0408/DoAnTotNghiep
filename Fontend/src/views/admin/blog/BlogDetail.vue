@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="mt-5">
-                        <dq-input-file-many class="mt-5" :title="'Ảnh bài viết'" @change="changeImage" :value="blog.images">
+                        <dq-input-file-many class="mt-5" :title="'Ảnh bài viết'" @change="changeImage" :value="blog.files">
                         </dq-input-file-many>
                     </div>
                 </div>

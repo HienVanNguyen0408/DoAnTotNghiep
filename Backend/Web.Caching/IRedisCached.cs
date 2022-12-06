@@ -45,5 +45,6 @@ namespace Web.Caching
         Task<T> GetAsync<T>(string key);
 
         void Remove(string key);
+        Task RemoveAsync(string key);
     }
 }

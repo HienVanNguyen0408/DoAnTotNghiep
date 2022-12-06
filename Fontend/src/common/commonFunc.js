@@ -1,6 +1,6 @@
 import Enum from '@/enum/enum';
 import moment from 'moment';
-import i18nEnum from '@/i18n/enum/i18nEnum';
+import i18nEnum from '@/i18n/vi/enum/i18nEnum';
 
 const keyOrderStorage = "Web-Order";
 const keyCountdown = "examTimer";

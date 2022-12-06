@@ -66,7 +66,7 @@ namespace Web.Storage
             return true;
         }
 
-        public async Task<string> GetPathFileDownloadAsync(string fullPath)
+        public async Task<string> GetPathFileDownloadAsync(string fullPath, int seconds = 60 * 60)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace Web.Storage
                 {
                     BucketName = _storageSettings.BucketName,
                     Key = fullPath,
-                    Expires = DateTime.Now.AddMinutes(30)
+                    Expires = DateTime.Now.AddMinutes(seconds)
                 });
                 return pathData.Replace("https","http");
             }
@@ -137,6 +137,21 @@ namespace Web.Storage
             catch (Exception ex)
             {
                 return string.Empty;
+            }
+        }
+
+        public async Task<bool> DeleteFileStorageAsync(string fullPath)
+        {
+            try
+            {
+
+                var deleteObjectRequest = new DeleteObjectRequest { BucketName = _storageSettings.BucketName, Key = fullPath };
+                var response = _awsClient.DeleteObjectAsync(deleteObjectRequest);
+                return response != null;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
 

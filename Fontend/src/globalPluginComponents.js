@@ -80,6 +80,8 @@ Vue.component('dq-doughnut-chart',Doughnut);
 import DQEditor from '@/components/dq-editor/DQEditor';
 Vue.component('dq-editor',DQEditor);
 
+import DQColorPicker from '@/components/dq-color-picker/DQ-ColorPicker';
+Vue.component('dq-color-picker',DQColorPicker);
 
 //fb login 
 import FBLogin from '@/views/user/FacebookLogin';

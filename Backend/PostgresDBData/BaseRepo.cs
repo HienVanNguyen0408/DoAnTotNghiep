@@ -132,7 +132,7 @@ namespace PostgresDBData
                 await _context.SaveChangesAsync(true);
                 return entities;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -161,7 +161,7 @@ namespace PostgresDBData
                 await _context.SaveChangesAsync(true);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -177,7 +177,7 @@ namespace PostgresDBData
                 await _context.SaveChangesAsync(true);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

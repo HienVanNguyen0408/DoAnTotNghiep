@@ -39,11 +39,24 @@ namespace PostgresDBData
         public DbSet<Image> images { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
-        }
+            //modelBuilder.Entity<ProductCategory>(entity =>
+            //{
+            //    // Set key for entity
+            //    entity.HasKey(p => p.id);
+            //});
 
+            //modelBuilder.Entity<Product>(entity =>
+            //{
+            //    // Set key for entity
+            //    entity.HasKey(p => p.id);
+            //});
+
+
+
+            base.OnModelCreating(modelBuilder);
+        }
         public override int SaveChanges()
         {
             ChangeTracker.DetectChanges();
@@ -56,13 +69,13 @@ namespace PostgresDBData
 
             foreach (var entityEntry in entries)
             {
-                entityEntry.Property("id").CurrentValue = $"{Guid.NewGuid()}";
                 if (entityEntry.State == EntityState.Modified)
                 {
                     entityEntry.Property("modified_date").CurrentValue = DateTime.UtcNow;
                 }
                 else if (entityEntry.State == EntityState.Added)
                 {
+                    entityEntry.Property("id").CurrentValue = $"{Guid.NewGuid()}";
                     entityEntry.Property("created_date").CurrentValue = DateTime.Now;
                     entityEntry.Property("modified_date").CurrentValue = DateTime.Now;
                 }
