@@ -7,7 +7,6 @@ namespace Web.AppCore.Interfaces.Repository
     {
         IBaseRepo<User> Users { get; }
         IBaseRepo<Avatar> Avatars { get; }
-        IBaseRepo<Size> Sizes { get; }
         IBaseRepo<Color> Colors { get; }
         IBaseRepo<Product> Products { get; }
         IBaseRepo<ProductCategory> ProductCategories { get; }

@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import i18nConfig from '@/i18n/i18n-config.js';
     export default {
         name:"AdminNavbar",
         data(){

@@ -17,7 +17,6 @@ namespace Web.Infrastructure.UnitOfWork
         private IBaseRepo<User> _user;
         private IBaseRepo<Avatar> _avatar;
         private IBaseRepo<Customer> _customers;
-        private IBaseRepo<Size> _sizes;
         private IBaseRepo<Product> _products;
         private IBaseRepo<Color> _colors;
         private IBaseRepo<ProductCategory> _product_categories;
@@ -49,8 +48,6 @@ namespace Web.Infrastructure.UnitOfWork
         public IBaseRepo<User> Users => _user ??= new BaseRepo<User>(_dbContext);
         public IBaseRepo<Avatar> Avatars => _avatar ??= new BaseRepo<Avatar>(_dbContext);
         public IBaseRepo<Customer> Customers => _customers ??= new BaseRepo<Customer>(_dbContext);
-        public IBaseRepo<Size> Sizes => _sizes ??= new BaseRepo<Size>(_dbContext);
-
         public IBaseRepo<Color> Colors => _colors ??= new BaseRepo<Color>(_dbContext);
 
         public IBaseRepo<Product> Products => _products ??= new BaseRepo<Product>(_dbContext);

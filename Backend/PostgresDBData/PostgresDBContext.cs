@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Web.Models.Entities;
-using Microsoft.Extensions.Options;
 using System.Threading;
+using System.Threading.Tasks;
+using Web.Models.Entities;
 
 namespace PostgresDBData
 {
@@ -28,7 +24,6 @@ namespace PostgresDBData
 
         public DbSet<Product> products { get; set; }
         public DbSet<ProductCategory> product_categories { get; set; }
-        public DbSet<Size> sizes { get; set; }
         public DbSet<Color> colors { get; set; }
 
 
@@ -52,9 +47,6 @@ namespace PostgresDBData
             //    // Set key for entity
             //    entity.HasKey(p => p.id);
             //});
-
-
-
             base.OnModelCreating(modelBuilder);
         }
         public override int SaveChanges()

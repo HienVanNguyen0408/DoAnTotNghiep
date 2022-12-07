@@ -11,6 +11,8 @@ export default {
     EditBlogCategory : 'Sửa loại bài viết',
     AddBlog:'Thêm bài viết',
     EditBlog : 'Sửa bài viết',
+    AddProduct:'Thêm sản phẩm',
+    EditProduct:'Sửa sản phẩm',
 
     Dashboard : 'Tổng quan',
     ManageUser : 'Quản lý người dùng',

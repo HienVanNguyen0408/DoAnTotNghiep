@@ -6,21 +6,21 @@ namespace Web.Models.Entities
 {
     public class Color : BaseEntity
     {
+        public string product_id { get; set; }
         /// <summary>
-        /// id của kích thước
+        /// Tên kích thước
         /// </summary>
-        public string size_id { get; set; }
+        public string size_name { get; set; }
+
         /// <summary>
-        /// Mã màu red
+        /// Màu sắc: lưu trữ dạng hex color
+        /// VD: #000000
         /// </summary>
-        public int red { get; set; }
+        public string color_name { get; set; }
+
         /// <summary>
-        /// Mã màu green
+        /// Số lượng sản phẩm
         /// </summary>
-        public int green { get; set; }
-        /// <summary>
-        /// Mã màu blue
-        /// </summary>
-        public int blue { get; set; }
+        public int amount { get; set; }
     }
 }

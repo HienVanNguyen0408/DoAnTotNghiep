@@ -7,9 +7,7 @@ namespace Web.Models.Request
 {
     public class ProductRequest : Product
     {
-        /// <summary>
-        /// Danh sách ảnh của sản phẩm
-        /// </summary>
-        public IEnumerable<Image> images { get; set; }
+        public List<FileInfo> files { get; set; }
+        public List<Color> colors { get; set; }
     }
 }

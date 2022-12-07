@@ -5,7 +5,7 @@
     <slot name="td-serial"></slot>
     <td class="w-100 dq-td flex flex-1 word-normal" 
       v-for="(col, index) in columns" :key="index" 
-      :class="[col && col.align ? `jus-${col.align}` : '',col && col.isBold ? 'font-bold' : '']"
+      :class="[col && col.align ? `jus-${col.align}` : '',col && col.isBold ? 'font-bold' : '',col.class]"
       :style="[
         col && col.width ? {width:`${col.width}px`,minWidth:`${col.width}px`} : '' 
       ]"
@@ -21,10 +21,13 @@
       <div v-else-if="col.format == $enum.Format.Date">
           {{ data[`${col.dataField}`] | formatDate}}
       </div>
+      <div v-else-if="(col.format == $enum.Format.Money)">
+          {{ data[`${col.dataField}`] | formatMoney }}
+      </div>
        <div v-else-if="col.enum != null">
           {{ $commonFunc.getValueStringByEnum(col.enum,data[`${col.dataField}`])}}
       </div>
-      <div v-else>
+      <div v-else :title="data[`${col.dataField}`]">
         {{ data[`${col.dataField}`] }}
       </div>
     </td>

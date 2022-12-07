@@ -25,12 +25,6 @@
                         </div>
                     </div>
                     <div class="h-row flex dq-mgt-10">
-                        <div class="h-col flex-1">
-                            <dq-input class="w-100" ref="firstInput" :title="'Tên sản phẩm'" placeholder="Tên sản phẩm"
-                                v-model="product.product_name"></dq-input>
-                        </div>
-                    </div>
-                    <div class="h-row flex dq-mgt-10">
                         <div class="flex-1 dq-mgr-10">
                             <dq-input-date class="w-100" ref="expired_date" :title="'Ngày hết hạn'"
                                 :value.sync="product.expired_date">
@@ -43,9 +37,31 @@
                         </div>
                     </div>
                     <div class="h-row flex dq-mgt-10">
+                        <div class="flex-1 dq-mgr-10">
+                            <dq-input class="w-100" ref="firstInput" :title="'Giá nhập'" placeholder="Giá nhập"
+                                :type="'number'" v-model="product.original_price"></dq-input>
+                        </div>
+                        <div class="flex-1">
+                            <dq-input class="w-100" ref="firstInput" :title="'Giá bán'" placeholder="Giá bán"
+                                :type="'number'" v-model="product.sale_price"></dq-input>
+                        </div>
+                    </div>
+                    <div class="h-row flex dq-mgt-10">
+                        <div class="flex-1 dq-mgr-10">
+                            <dq-input class="w-100" ref="firstInput" :title="'Đơn vị tính'" placeholder="Đơn vị tính"
+                                v-model="product.unit_name"></dq-input>
+                        </div>
+                        <div class="flex-1">
+                            <dq-input class="w-100" ref="firstInput" :title="'Mô tả đơn vị'" placeholder="Mô tả đơn vị"
+                                v-model="product.unit_description"></dq-input>
+                        </div>
+                    </div>
+                    <div class="h-row flex dq-mgt-10">
                         <div class="h-col flex-1">
-                            <dq-textarea ref="firstInput" :height="150" :title="'Mô tả sản phẩm'"
-                                placeholder="Mô tả sản phẩm" v-model="product.summary"></dq-textarea>
+                            <dq-editor id="editor" :height="200" :title="'Mô tả sản phẩm'"
+                                :editorToolbar="customToolbar" v-model="product.description"
+                                @updateData="updateSummaryProduct" :value="product.description">
+                            </dq-editor>
                         </div>
                     </div>
                     <div class="mt-5">
@@ -54,7 +70,7 @@
                         </dq-input-file-many>
                     </div>
                     <div class="mt-5">
-                        <ProductColorInfo :title="'Màu sắc chi tiết'" />
+                        <ProductColorInfo :title="'Màu sắc chi tiết'" @updateColorInfo="updateColorInfo" :value="product.colors"/>
                     </div>
                 </div>
             </template>
@@ -193,10 +209,14 @@ export default {
             me.$emit("updateProduct", product);
         },
 
-        // updateColor(color){
-        //     const me = this;
-        //     me.updateProduct({ ...me.product});
-        // }
+        updateColorInfo(colors) {
+            const me = this;
+            me.updateProduct({ ...me.product, colors: colors});
+        },
+        updateSummaryProduct(description) {
+            const me = this;
+            me.updateProduct({ ...me.product, description: description });
+        }
     }
 }
 </script>

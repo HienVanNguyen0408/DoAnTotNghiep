@@ -191,4 +191,20 @@ export default {
 .dq-thead-th {
   background: #f3f4f7 !important;
 }
+
+.overflow-grid::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .overflow-grid::-webkit-scrollbar-track-piece {
+    background-color: #c2d2e4;
+  }
+  .overflow-grid::-webkit-scrollbar-thumb:vertical {
+    height: 30px;
+    background-color: #000000;
+  }
+  .overflow-grid::-webkit-scrollbar-thumb:horizontal {
+    height: 30px;
+    background-color: #000000;
+  }
 </style>

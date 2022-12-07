@@ -83,18 +83,18 @@ export default {
             'deleteProductsAsync'
         ]),
 
-        initData() {
+        async initData() {
             const me = this;
             me.initDataStatic();
-            me.loadDataProducts();
+            await me.loadDataProducts();
         },
         initDataStatic() {
             const me = this;
             me.columns = [
-                {
-                    title: 'Mã sản phẩm',
-                    dataField: 'code',
-                },
+                // {
+                //     title: 'Mã sản phẩm',
+                //     dataField: 'code',
+                // },
                 {
                     title: 'Tên sản phẩm',
                     dataField: 'product_name',
@@ -114,19 +114,18 @@ export default {
                 {
                     title: 'Giá gốc',
                     dataField: 'original_price',
+                    format: me.$enum.Format.Money
                 },
                 {
                     title: 'Giá bán',
                     dataField: 'sale_price',
+                    format: me.$enum.Format.Money
                 },
-                {
-                    title: 'Giá gốc',
-                    dataField: 'original_price',
-                },
-                {
-                    title: 'Mô tả',
-                    dataField: 'description',
-                },
+                // {
+                //     title: 'Mô tả',
+                //     dataField: 'description',
+                //     class : 'text-ellipsis whitespace-nowrap overflow-hidden'
+                // },
             ]
         },
 
@@ -177,7 +176,7 @@ export default {
                 }
                 let res = await me.deleteManyProductAsync(params);
                 if (res) {
-                    me.loadDataProducts();
+                    await me.loadDataProducts();
                     me.selected = [];
                     if (me.$refs && me.$refs.gridCustomer) {
                         me.$refs.gridCustomer.resetSelect();
@@ -186,9 +185,11 @@ export default {
             }
         },
 
-        editDataProduct() {
+        editDataProduct(item) {
             const me = this;
-            me.setSta
+            me.setStateDetail(true);
+            me.mode = me.$enum.Mode.Edit;
+            me.product = {...item};
         },
 
         /**

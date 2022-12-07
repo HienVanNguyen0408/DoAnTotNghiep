@@ -9,6 +9,7 @@ using Web.AppCore.Interfaces.Services;
 using Web.Models.Entities;
 using Web.Models.Enums;
 using Web.Models.Request;
+using Web.Models.Respone;
 
 namespace Web.Api.Controllers
 {
@@ -303,13 +304,13 @@ namespace Web.Api.Controllers
         /// <param name="pagination"></param>
         /// <returns></returns>
         [HttpPost("pagging")]
-        public async Task<ServiceResult<Pagging<Product>>> GetPageProductAsync([FromBody] Pagination pagination)
+        public async Task<ServiceResult<Pagging<ProductRespone>>> GetPageProductAsync([FromBody] Pagination pagination)
         {
-            var svcResult = new ServiceResult<Pagging<Product>>();
+            var svcResult = new ServiceResult<Pagging<ProductRespone>>();
             try
             {
                 var productPage = await _productService.GetProductsPaggingAsync(pagination);
-                svcResult = new ServiceResult<Pagging<Product>>
+                svcResult = new ServiceResult<Pagging<ProductRespone>>
                 {
                     Data = productPage,
                     Success = true,

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Web.Models.Entities;
 using Web.Models.Enums;
 using Web.Models.Request;
+using Web.Models.Respone;
 
 namespace Web.AppCore.Interfaces.Services
 {
@@ -67,7 +68,7 @@ namespace Web.AppCore.Interfaces.Services
         /// Lấy danh sách sản phẩm theo điều kiện phân trang
         /// </summary>
         /// <returns></returns>
-        Task<Pagging<Product>> GetProductsPaggingAsync(Pagination pagination);
+        Task<Pagging<ProductRespone>> GetProductsPaggingAsync(Pagination pagination);
 
         /// <summary>
         /// Lấy thông tin sản phẩm theo Id

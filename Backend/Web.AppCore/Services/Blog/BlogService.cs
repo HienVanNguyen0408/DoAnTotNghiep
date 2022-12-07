@@ -257,7 +257,7 @@ namespace Web.AppCore.Services
                 await InsertImagesAsync(blogRequest.files, blogRequest.id);
             }
 
-            return await _blogUoW.Blogs.UpdateOneAsync(blog);
+            return blogUpdate;
         }
 
         /// <summary>
