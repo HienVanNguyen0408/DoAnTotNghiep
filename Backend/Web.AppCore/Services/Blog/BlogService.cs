@@ -79,7 +79,8 @@ namespace Web.AppCore.Services
         /// <returns></returns>
         public async Task<Pagging<BlogCategory>> GetBlogCategoriesPaggingAsync(Pagination pagination)
         {
-            var pageResult = await _blogCategoryUoW.BlogCategories.GetPaggingAsync(pagination);
+            if (pagination.Filter.IsNullOrEmptyOrWhiteSpace()) return await _blogCategoryUoW.BlogCategories.GetPaggingAsync(pagination);
+            var pageResult = await _blogCategoryUoW.BlogCategories.GetPaggingAsync(pagination, x => x.name.ContainsText(pagination.Filter));
             return pageResult;
         }
 
@@ -135,7 +136,7 @@ namespace Web.AppCore.Services
                 var pathImages = await GetBase64ImagesBlogAsync(blogId);
                 if (pathImages != null && pathImages.CountExt() > 0)
                 {
-                    blogRespone.files.AddRange(pathImages);
+                    blogRespone.files = pathImages.SelectExt(x => new FileInfo { path = x }).ToList();
                 }
             }
             return blogRespone;
@@ -160,7 +161,16 @@ namespace Web.AppCore.Services
             var pageResult = new Pagging<BlogRespone>();
             try
             {
-                var blogPage = await _blogUoW.Blogs.GetPaggingAsync(pagination);
+                var blogPage = new Pagging<Blog>();
+                if (pagination.Filter.IsNullOrEmptyOrWhiteSpace())
+                {
+                    blogPage = await _blogUoW.Blogs.GetPaggingAsync(pagination);
+                }
+                else
+                {
+                    blogPage = await _blogUoW.Blogs.GetPaggingAsync(pagination, x => x.title.ContainsText(pagination.Filter));
+                }
+
                 if (blogPage != null)
                 {
                     pageResult = new Pagging<BlogRespone>
@@ -179,11 +189,11 @@ namespace Web.AppCore.Services
                         for (int index = 0; index < pageResult.Data.CountExt(); index++)
                         {
                             var blog = pageResult.Data[index];
-                            if (blog.files == null) blog.files = new List<string>();
+                            if (blog.files == null) blog.files = new List<FileInfo>();
                             var base64Images = await GetBase64ImagesBlogAsync(blog.id);
                             if (base64Images != null && base64Images.CountExt() > 0)
                             {
-                                blog.files.AddRange(base64Images);
+                                blog.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
                             }
                             pageResult.Data[index].files = blog.files;
                         }

@@ -47,6 +47,7 @@ namespace PostgresDBData
             //    // Set key for entity
             //    entity.HasKey(p => p.id);
             //});
+
             base.OnModelCreating(modelBuilder);
         }
         public override int SaveChanges()

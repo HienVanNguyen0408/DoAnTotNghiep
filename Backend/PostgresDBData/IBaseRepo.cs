@@ -13,12 +13,12 @@ namespace PostgresDBData
         #endregion
 
         #region Get
-        Task<long> GetCountEntity();
+        Task<long> GetCountEntity(Func<TEntity, bool> predicate = null);
         IEnumerable<TEntity>GetAll();
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<IEnumerable<TEntity>> GetAllAsync(Func<TEntity,bool> predicate);
         Task<TEntity> GetOneAsync(Func<TEntity,bool> predicate);
-        Task<Pagging<TEntity>> GetPaggingAsync(Pagination pagination);
+        Task<Pagging<TEntity>> GetPaggingAsync(Pagination pagination, Func<TEntity, bool> predicate = null);
         Task<IEnumerable<TEntity>> GetByIdsAsync(IEnumerable<string> ids);
         TEntity GetById(string id);
         Task<TEntity>GetByIdAsync(string id);

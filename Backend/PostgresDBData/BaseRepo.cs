@@ -9,7 +9,7 @@ namespace PostgresDBData
 {
     public class BaseRepo<TEntity> : IBaseRepo<TEntity> where TEntity : class
     {
-        private readonly PostgreSqlContext _context;
+        protected readonly PostgreSqlContext _context;
         private readonly PostgresSettings _postgresSettings;
         public DbSet<TEntity> entities { get; set; }
         public BaseRepo(PostgreSqlContext context)
@@ -48,8 +48,8 @@ namespace PostgresDBData
             {
                 return false;
             }
-        } 
-        
+        }
+
         public async Task<bool> DeleteManyAsync(Func<TEntity, bool> predicate)
         {
             var entities = await GetAllAsync(predicate);
@@ -74,7 +74,7 @@ namespace PostgresDBData
             await _context.SaveChangesAsync(true);
             return res != null;
         }
-        
+
         public async Task<bool> DeleteOneAsync(Func<TEntity, bool> predicate)
         {
             await Task.CompletedTask;
@@ -183,26 +183,51 @@ namespace PostgresDBData
             }
         }
 
-        public async Task<Pagging<TEntity>> GetPaggingAsync(Pagination pagination)
+        public async Task<Pagging<TEntity>> GetPaggingAsync(Pagination pagination, Func<TEntity, bool> predicate = null)
         {
-            var skip = (pagination.PageIndex - 1) * pagination.PageSize;
-            var take = pagination.PageSize;
-            var entities = await _context.Set<TEntity>().Take(take).Skip(skip).ToListAsync();
-            var pageResult = new Pagging<TEntity>();
-            if (entities == null || entities.Count <= 0) return pageResult;
+            try
+            {
+                var skip = (pagination.PageIndex - 1) * pagination.PageSize;
+                var take = pagination.PageSize;
+                var entities = await _context.Set<TEntity>().Take(take).Skip(skip).ToListAsync();
 
-            var totalCount = await GetCountEntity();
-            pageResult.Data = entities;
-            pageResult.TotalRecord = totalCount;
-            pageResult.TotalPages = totalCount % pagination.PageSize == 0 ? totalCount / pagination.PageSize : totalCount / pagination.PageSize + 1;
-            pageResult.PageIndex = pagination.PageIndex;
-            pageResult.PageSize = pagination.PageSize;
-            return pageResult;
+                if (predicate != null)
+                {
+                    entities = entities.Where(predicate).ToList();
+                }
+
+                var pageResult = new Pagging<TEntity>() { PageIndex = pagination.PageIndex, PageSize = pagination.PageSize};
+                if (entities == null || entities.Count <= 0) return pageResult;
+                
+
+                long totalCount = 0;
+                if (predicate != null)
+                {
+                    totalCount = await GetCountEntity(predicate);
+                }
+                else
+                {
+                    totalCount = await GetCountEntity();
+                }
+
+                pageResult.Data = entities;
+                pageResult.TotalRecord = totalCount;
+                pageResult.TotalPages = totalCount % pagination.PageSize == 0 ? totalCount / pagination.PageSize : totalCount / pagination.PageSize + 1;
+                return pageResult;
+            }
+            catch (Exception ex)
+            {
+                return new Pagging<TEntity>();
+            }
         }
-
-        public async Task<long> GetCountEntity()
+        
+        public async Task<long> GetCountEntity(Func<TEntity, bool> predicate = null)
         {
             var entities = await _context.Set<TEntity>().ToListAsync();
+            if (predicate != null)
+            {
+                entities = entities.Where(predicate).ToList();
+            }
             return entities.Count();
         }
 

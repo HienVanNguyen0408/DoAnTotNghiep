@@ -141,7 +141,9 @@ export default {
             });
 
             if(indexColor >= 0){
-                me.colors[indexColor] = me.color;
+                me.colors[indexColor].size_name = me.color.size_name;
+                me.colors[indexColor].amount = me.color.amount;
+                me.colors[indexColor].color_name = me.color.color_name;
                 me.colors = [...me.colors];
             }else{
                 me.colors = [...me.colors, me.color];

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Web.Models.Entities;
+using Web.Models.Request;
 
 namespace Web.Models.Respone
 {
@@ -10,6 +11,6 @@ namespace Web.Models.Respone
         /// <summary>
         /// Data base64
         /// </summary>
-        public List<string> files { get; set; }
+        public List<FileInfo> files { get; set; }
     }
 }

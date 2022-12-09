@@ -70,7 +70,8 @@
                         </dq-input-file-many>
                     </div>
                     <div class="mt-5">
-                        <ProductColorInfo :title="'Màu sắc chi tiết'" @updateColorInfo="updateColorInfo" :value="product.colors"/>
+                        <ProductColorInfo :title="'Màu sắc chi tiết'" @updateColorInfo="updateColorInfo"
+                            :value="product.colors" />
                     </div>
                 </div>
             </template>
@@ -114,7 +115,6 @@ export default {
     data() {
         return {
             customToolbar: this.$commonFunc.getToolBarEditor(),
-            color: {}
         }
     },
     watch: {
@@ -199,19 +199,19 @@ export default {
             const me = this;
             me.$emit('resetData');
         },
-        changeImage(files) {
+        async changeImage(files) {
             const me = this;
-            me.updateProduct({ ...me.product, files: files });
+            await me.updateProduct({ ...me.product, files: files });
         },
 
-        updateProduct(product) {
+        async updateProduct(product) {
             const me = this;
-            me.$emit("updateProduct", product);
+            await me.$emit("updateProduct", product);
         },
 
-        updateColorInfo(colors) {
+        async updateColorInfo(colors) {
             const me = this;
-            me.updateProduct({ ...me.product, colors: colors});
+            await me.updateProduct({ ...me.product, colors: colors });
         },
         updateSummaryProduct(description) {
             const me = this;

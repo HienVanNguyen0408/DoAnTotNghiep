@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using PostgresDBData;
 using System;
 using Web.AppCore.Interfaces.Services;
@@ -14,6 +15,7 @@ namespace Web.AppCore.Services
         protected readonly PostgresSettings _postgresSettings;
         protected readonly AppSettings _appSettings;
         protected readonly IRedisCached _cached;
+        protected readonly DbFunctions _dbFunctions;
         #endregion
 
         #region Contructor

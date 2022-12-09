@@ -1,12 +1,8 @@
 <template>
-    <div class="flex full-view">
-        <div>
-            <dq-navbar></dq-navbar>
-        </div>
-        <div class="content-page">
-            <dq-header></dq-header>
-            <dq-content></dq-content>
-        </div>
+    <div class="full-page-user">
+        <dq-header></dq-header>
+        <dq-content></dq-content>
+        <dq-footer></dq-footer>
     </div>
 </template>
 
@@ -25,13 +21,8 @@
 </script>
 
 <style scoped>
-.full-view{
+.ull-page-user{
     width: 100%;
     height: 100vh;
-}
-.content-page{
-    height:100vh;
-    width : calc(100% - 240px);
-    margin-left : 240px;
 }
 </style>

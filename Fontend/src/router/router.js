@@ -4,8 +4,6 @@ import VueRouter from 'vue-router'
 
 import Page from '@/pages/Page.vue';
 import Login from '@/views/user/Login.vue';
-import Register from '@/views/user/Register.vue';
-
 import Home from '@/views/home/Home.vue';
 
 import Admin from '@/views/admin/Admin.vue';
@@ -49,11 +47,6 @@ export const router = new VueRouter({
             path: '/login',
             component: Login,
             props: true
-        },
-        {
-            name: 'register',
-            path: '/register',
-            component: Register
         },
         {
             name: 'admin',

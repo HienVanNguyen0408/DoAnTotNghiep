@@ -2,10 +2,10 @@ import Vue from 'vue';
 //Layouts
 import TheContent from '@/layouts/TheContent.vue';
 Vue.component('dq-content',TheContent);
+import TheFooter from '@/layouts/TheFooter.vue';
+Vue.component('dq-footer',TheFooter);
 import TheHeader from '@/layouts/TheHeader.vue';
 Vue.component('dq-header',TheHeader);
-import TheNavbar from '@/layouts/TheNavbar.vue';
-Vue.component('dq-navbar',TheNavbar);
 
 
 //components

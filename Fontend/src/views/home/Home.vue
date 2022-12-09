@@ -1,6 +1,6 @@
 <template>
-  <div class="dq-home">
-
+  <div class="">
+    
   </div>
 </template>
 <script>

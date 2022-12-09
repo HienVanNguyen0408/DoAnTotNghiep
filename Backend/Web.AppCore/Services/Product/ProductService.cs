@@ -94,7 +94,9 @@ namespace Web.AppCore.Services
         /// <returns></returns>
         public async Task<Pagging<ProductCategory>> GetProductCategoriesPaggingAsync(Pagination pagination)
         {
-            return await _productCategoryUoW.ProductCategories.GetPaggingAsync(pagination);
+            if (pagination.Filter.IsNullOrEmptyOrWhiteSpace()) return await _productCategoryUoW.ProductCategories.GetPaggingAsync(pagination);
+            var pageResult = await _productCategoryUoW.ProductCategories.GetPaggingAsync(pagination, x => x.name.ContainsText(pagination.Filter));
+            return pageResult;
         }
 
         /// <summary>
@@ -146,9 +148,14 @@ namespace Web.AppCore.Services
                 //Đã phát sinh đơn hàng
                 if (orderItems != null && orderItems.Count() > 0) return DeleteStatus.Incurred;
 
-                //Xóa image đang của sản phẩm 
+                var images = await _imageUoW.Images.GetAllAsync(x => x.product_id == product.id);
+                if (images.CountExt() > 0)
+                {
+                    //Xóa ảnh
+                    await DeleteImagesProductAsync(product.id, images.SelectExt(x => x.path).ToList());
+                }
+                //Xóa thông tin màu sắc, size của sản phẩm
                 await _imageUoW.Images.DeleteManyAsync(x => x.product_id == product.id);
-                //Delete image trên storage
 
                 //Xóa sản phẩm
                 var resDelete = await _productUoW.Products.DeleteOneAsync(product);
@@ -210,7 +217,16 @@ namespace Web.AppCore.Services
             var pageResult = new Pagging<ProductRespone>();
             try
             {
-                var productPage = await _productUoW.Products.GetPaggingAsync(pagination);
+                var productPage = new Pagging<Product>();
+                if (pagination.Filter.IsNullOrEmptyOrWhiteSpace())
+                {
+                    productPage = await _productUoW.Products.GetPaggingAsync(pagination);
+                }
+                else
+                {
+                    productPage = await _productUoW.Products.GetPaggingAsync(pagination, x => x.product_name.ContainsText(pagination.Filter));
+                }
+
                 if (productPage != null)
                 {
                     pageResult = new Pagging<ProductRespone>
@@ -229,11 +245,11 @@ namespace Web.AppCore.Services
                         {
                             var product = pageResult.Data[index];
                             // Lấy thông tin file
-                            if (product.files == null) product.files = new List<string>();
+                            if (product.files == null) product.files = new List<FileInfo>();
                             var base64Images = await GetBase64ImagesProductAsync(product.id);
                             if (base64Images != null && base64Images.CountExt() > 0)
                             {
-                                product.files.AddRange(base64Images);
+                                product.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
                             }
                             pageResult.Data[index].files = product.files;
 
@@ -382,15 +398,15 @@ namespace Web.AppCore.Services
                 //Cập nhật Id của product
                 colors.ForEach(x => x.product_id = product.id);
 
-                var quantity = 0;
                 var colorsDb = await _colorUoW.Colors.GetAllAsync(x => x.product_id == product.id);
                 if (colorsDb.CountExt() <= 0) return false;
+                var quantity = 0;
                 // Dữ liệu nằm trong dữ liệu gửi lên, không nằm trong DB
                 var colorsInsert = colors.WhereExt(x => !colorsDb.ToList().Exists(c => x.id.Equals(c.id))).ToList();
                 if (colorsInsert.CountExt() > 0)
                 {
                     await _colorUoW.Colors.InsertManyAsync(colorsInsert);
-                    quantity += colorsInsert.CountExt();
+                    quantity += colorsInsert.SumExt(x => x.amount);
                 }
 
                 //Dữ liệu cập nhật
@@ -398,15 +414,14 @@ namespace Web.AppCore.Services
                 if (colorsUpdate.CountExt() > 0)
                 {
                     await _colorUoW.Colors.UpdateManyAsync(colorsUpdate);
-                    quantity += colorsUpdate.CountExt();
+                    quantity += colorsUpdate.SumExt(x => x.amount);
                 }
 
                 // Dữ liệu nằm trong DB - không nằm trong dữ liệu gửi lên
                 var colorsDelete = colorsDb.ToList().WhereExt(x => !colors.Exists(c => x.id.Equals(c.id))).ToList();
                 if (colorsDelete.CountExt() > 0)
                 {
-                    await _colorUoW.Colors.DeleteManyAsync(colors);
-                    quantity -= colorsDelete.CountExt();
+                    await _colorUoW.Colors.DeleteManyAsync(colorsDelete);
                 }
                 product.quantity = quantity;
                 return true;

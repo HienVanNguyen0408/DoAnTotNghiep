@@ -35,7 +35,7 @@ const store = new Vuex.Store({
         order,
         product
     },
-    plugins: [vuexLocal.plugin]
+    // plugins: [vuexLocal.plugin]
 });
 
 

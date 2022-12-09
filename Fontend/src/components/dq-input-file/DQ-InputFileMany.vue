@@ -86,10 +86,7 @@ export default {
     async created() {
         const me = this;
         if (me.value && (!me.files || me.files.length <= 0)) {
-            me.files = [...me.value.map(x => {
-                return {path : x}
-            })];
-            this.$emit("change", me.files);
+            me.files = [...me.value];
         }
     },
     computed: {
@@ -154,7 +151,7 @@ export default {
             });
 
             me.$emit("input", e.target.value);
-            this.$emit("change", me.files);
+            me.$emit("change", me.files);
         },
 
         removeFileSelect(file) {

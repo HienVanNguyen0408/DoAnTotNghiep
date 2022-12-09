@@ -105,9 +105,6 @@
     min-height: 16px;
 }
 
-.icon-user {
-    background-image: url(@/assets/contents/images/user.svg);
-}
 
 .icon-google {
     background-image: url(@/assets/contents/images/google.svg);
@@ -115,7 +112,28 @@
 
 .icon-facebook {
     background-image: url(@/assets/contents/images/facebook.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
 }
+
+.icon-facebook-f {
+    background-image: url(@/assets/contents/icon/icon-facebook.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon-zalo {
+    background-image: url(@/assets/contents/icon/icon-facebook.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon-instagram {
+    background-image: url(@/assets/contents/icon/icon-instagram.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+
 
 .icon-github {
     background-image: url(@/assets/contents/images/github.svg);
@@ -165,6 +183,34 @@
     background-image: url(@/assets/contents/icon/excel.svg);
 }
 
+
+.icon-cart{
+    background-image: url(@/assets/contents/icon/icon-cart.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon-user{
+    background-image: url(@/assets/contents/icon/icon-user.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon-search {
+    background-image: url(@/assets/contents/icon/icon-search.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.icon-input-search{
+    background-image: url(@/assets/contents/icon/icon-input-search.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.icon-phone{
+    background-image: url(@/assets/contents/icon/icon-phone.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 
 .icon-loading{
     background-image: url(@/assets/contents/icon/loadding.gif);

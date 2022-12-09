@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Repository;
 using Web.AppCore.Interfaces.Services;
@@ -102,7 +104,15 @@ namespace Web.AppCore.Services
 
         public async Task<Pagging<User>> GetUserPageAsync(Pagination pagination)
         {
-            return await _userUoW.Users.GetPaggingAsync(pagination);
+            if (pagination.Filter.IsNullOrEmptyOrWhiteSpace())
+            {
+                return await _userUoW.Users.GetPaggingAsync(pagination);
+            }
+            return await _userUoW.Users.GetPaggingAsync(pagination, 
+                                                            x => x.user_name.ContainsText(pagination.Filter) 
+                                                            || x.address.ContainsText(pagination.Filter) 
+                                                            || x.full_name.ContainsText(pagination.Filter)
+                                                            || x.phone_number.ContainsText(pagination.Filter));
         }
         #endregion
     }
