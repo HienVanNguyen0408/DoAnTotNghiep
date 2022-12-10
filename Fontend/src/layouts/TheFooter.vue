@@ -24,8 +24,8 @@
                 <div class="flex">
                     <div class="dq-icon-18 icon-phone mr-2"></div>
                     <div>0338.392.897</div>
-                    <div>Tất cả các ngày trong tuần</div>
                 </div>
+                <div>Tất cả các ngày trong tuần</div>
                 <div class="font-bold mt-5">
                     <div class="mb-5">KẾT NỐI VỚI CHÚNG TÔI</div>
                     <div class="flex">
@@ -39,8 +39,8 @@
                 <div class="flex">
                     <div class="dq-icon-18 icon-phone mr-2"></div>
                     <div>0338.392.897</div>
-                    <div>Tất cả các ngày trong tuần</div>
                 </div>
+                <div>Tất cả các ngày trong tuần</div>
             </div>
         </div>
     </div>

@@ -244,7 +244,7 @@ namespace Web.AppCore.Services
                         for (int index = 0; index < pageResult.Data.CountExt(); index++)
                         {
                             var product = pageResult.Data[index];
-                            // Lấy thông tin file
+                            //// Lấy thông tin file
                             if (product.files == null) product.files = new List<FileInfo>();
                             var base64Images = await GetBase64ImagesProductAsync(product.id);
                             if (base64Images != null && base64Images.CountExt() > 0)
@@ -290,7 +290,7 @@ namespace Web.AppCore.Services
                     if (request.colors.CountExt() > 0)
                     {
                         //Cập nhật Id của product
-                        request.colors.ForEach(x => x.product_id = product.id);
+                        request.colors.ForEach(x => x.product_id = productInsert.id);
                         var insertColos = await _colorUoW.Colors.InsertManyAsync(request.colors);
                         if (insertColos.CountExt() > 0)
                         {
@@ -489,7 +489,6 @@ namespace Web.AppCore.Services
                 //Lấy thông tin path image trên storage
                 foreach (var path in pathDbImages)
                 {
-
                     var byteImage = await _storageClient.DownloadFileAsync(path);
                     if (byteImage != null && byteImage.Length > 0)
                     {

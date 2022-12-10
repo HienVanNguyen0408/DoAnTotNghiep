@@ -5,6 +5,9 @@ import VueRouter from 'vue-router'
 import Page from '@/pages/Page.vue';
 import Login from '@/views/user/Login.vue';
 import Home from '@/views/home/Home.vue';
+import ProductList from '@/views/product/ProductList.vue';
+
+
 
 import Admin from '@/views/admin/Admin.vue';
 import AdminUser from '@/views/admin/user/User.vue';
@@ -39,6 +42,12 @@ export const router = new VueRouter({
                     component: Home,
                     props: true
                 },
+                {
+                    name: 'product',
+                    path: '/product',
+                    component: ProductList,
+                    props:true
+                }
             ],
             props: true
         },

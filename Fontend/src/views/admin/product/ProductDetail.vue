@@ -193,6 +193,7 @@ export default {
             const me = this;
             me.$emit("closePopup");
             me.resetData();
+            me.mode = me.$enum.Mode.Add;
         },
 
         resetData() {

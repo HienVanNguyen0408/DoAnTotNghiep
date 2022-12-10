@@ -137,9 +137,9 @@ export default {
             const me = this;
             if (!me.color.color_name) me.color.color_name = "#000000";
             let indexColor = me.colors.findIndex(x => {
-                return x.size_name == me.color.size_name;
+                return x.size_name == me.color.size_name && x.color_name == me.color.color_name;;
             });
-
+            
             if(indexColor >= 0){
                 me.colors[indexColor].size_name = me.color.size_name;
                 me.colors[indexColor].amount = me.color.amount;
