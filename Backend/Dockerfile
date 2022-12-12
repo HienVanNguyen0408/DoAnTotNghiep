@@ -11,12 +11,13 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["Web.Api/Web.Api.csproj", "Web.Api/"]
-COPY ["Web.Infrastructure/Web.Infrastructure.csproj", "Web.Infrastructure/"]
+COPY ["PostgresDBData/PostgresDBData.csproj", "PostgresDBData/"]
 COPY ["Web.Models/Web.Models.csproj", "Web.Models/"]
-COPY ["MongoDBData/MongoDBData.csproj", "MongoDBData/"]
+COPY ["Web.Infrastructure/Web.Infrastructure.csproj", "Web.Infrastructure/"]
 COPY ["Web.AppCore/Web.AppCore.csproj", "Web.AppCore/"]
 COPY ["Web.MessageQ/Web.MessageQ.csproj", "Web.MessageQ/"]
 COPY ["Web.Utils/Web.Utils.csproj", "Web.Utils/"]
+COPY ["Web.Storage/Web.Storage.csproj", "Web.Storage/"]
 COPY ["Web.Caching/Web.Caching.csproj", "Web.Caching/"]
 COPY ["Web.Stockets/Web.Stockets.csproj", "Web.Stockets/"]
 RUN dotnet restore "Web.Api/Web.Api.csproj"
