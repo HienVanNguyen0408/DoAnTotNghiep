@@ -130,6 +130,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import url('@/assets/contents/scss/views/admin/detail/detail.scss');
+<style scoped>
+@import url('@/assets/contents/css/views/admin/detail/detail.css');
 </style>

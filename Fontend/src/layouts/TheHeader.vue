@@ -89,5 +89,5 @@ export default {
 </script>
 
 <style scoped>
-@import "@/assets/contents/scss/layout/header/header.scss";
+@import "@/assets/contents/css/layout/header/header.css";
 </style>

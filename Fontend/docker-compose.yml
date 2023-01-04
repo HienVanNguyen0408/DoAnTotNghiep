@@ -3,7 +3,7 @@ version: '3'
 services:
   dqfontend:
     container_name: container_dqfontend
-    image: image_dqfontend
+    image: hienvannguyen0408/web-app
     build:
       context: .
       dockerfile: Dockerfile

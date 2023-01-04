@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-reg
+  namespace: mta
+spec:
+  containers:
+  - name: web-api
+    image: hienvannguyen0408/web-api:1.0
+  imagePullSecrets:
+  - name: my-secret-docker

@@ -31,10 +31,7 @@
     "@vue/cli-plugin-babel": "^5.0.4",
     "@vue/cli-service": "^5.0.4",
     "autoprefixer": "^10.4.13",
-    "node-sass": "^7.0.3",
     "postcss": "^8.4.19",
-    "sass-loader": "^13.2.0",
-    "style-loader": "^3.3.1",
     "tailwindcss": "^3.2.4",
     "vue-hot-reload-loader": "^0.2.0",
     "vue-template-compiler": "^2.6.11"

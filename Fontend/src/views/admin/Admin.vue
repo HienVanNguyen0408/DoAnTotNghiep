@@ -40,6 +40,6 @@
         }
     }
 </script>
-<style lang="scss" scoped>
-@import url('@/assets/contents/scss/views/admin/admin.scss');
+<style scoped>
+@import url('@/assets/contents/css/views/admin/admin.css');
 </style>

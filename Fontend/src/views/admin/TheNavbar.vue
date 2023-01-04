@@ -102,6 +102,6 @@
     }
 </script>
 
-<style lang="scss" scoped>
-@import url('@/assets/contents/scss/views/admin/navbar.scss');
+<style scoped>
+@import url('@/assets/contents/css/views/admin/navbar.css');
 </style>

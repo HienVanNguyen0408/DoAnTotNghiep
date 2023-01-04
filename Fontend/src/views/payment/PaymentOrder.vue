@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .payment-order{
     cursor: pointer;
     font-size: 30px;

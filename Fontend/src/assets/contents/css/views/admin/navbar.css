@@ -1,0 +1,22 @@
+.menus{
+}
+.nav-header{
+    padding: 15px;
+    font-size: 20px;
+    color: #ffffff;
+}
+.menu{
+    padding: 15px;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #ffffff;
+}
+.menu-active{
+    background-color: #00aab7;
+    font-weight: bold;
+}
+.menu:hover{
+    background-color: #1e2856;
+}

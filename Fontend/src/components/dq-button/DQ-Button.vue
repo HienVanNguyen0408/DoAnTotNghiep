@@ -132,5 +132,5 @@ export default {
 </script>
 
 <style scoped>
-@import url('@/assets/contents/scss/components/button/button.scss');
+@import url('@/assets/contents/css/components/button/button.css');
 </style>

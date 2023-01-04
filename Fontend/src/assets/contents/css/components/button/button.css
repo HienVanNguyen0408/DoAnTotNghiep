@@ -1,0 +1,37 @@
+.btn-default {
+    border: 1px solid #665e5e;
+    background: #fff;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+    min-width: 80px;
+}
+
+.icon-left {}
+
+.icon-right {}
+
+.primary {
+    background-color: #00aab7;
+    color: #fff;
+    border: 1px solid #00aab7;
+}
+
+.primary:hover {
+    background-color: #1dcddb;
+    border: 1px solid #1dcddb;
+}
+
+.secondary {
+    background-color: #fff;
+    color: #00123b;
+    border: 1px solid #ced0d4;
+}
+
+.secondary:hover {
+    background-color: #dcdcdc;
+}

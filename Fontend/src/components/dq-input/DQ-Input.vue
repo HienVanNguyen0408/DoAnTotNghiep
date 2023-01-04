@@ -111,6 +111,6 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import "@/assets/contents/scss/components/input/input.scss";
+<style scoped >
+@import "@/assets/contents/css/components/input/input.css";
 </style>

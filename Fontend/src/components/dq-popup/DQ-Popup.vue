@@ -76,5 +76,5 @@ export default {
 </script>
 
 <style scoped>
-@import url('@/assets/contents/scss/components/popup/popup.scss');
+@import url('@/assets/contents/css/components/popup/popup.css');
 </style>

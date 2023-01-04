@@ -164,7 +164,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .product-color-info {
     border: 1px solid #e5e5e5;
 }

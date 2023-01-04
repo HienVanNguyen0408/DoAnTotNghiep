@@ -83,6 +83,6 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 @import url("../../assets/contents/css/grid/th.css");
 </style>

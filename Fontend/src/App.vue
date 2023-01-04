@@ -20,7 +20,7 @@
 
 <style scoped>
  @import url('./tailwind.css');
- @import url('@/assets/contents/scss/common/common.scss');
+ @import url('@/assets/contents/css/common/common.css');
   #app {
     width:100%;
     height: 100vh;;

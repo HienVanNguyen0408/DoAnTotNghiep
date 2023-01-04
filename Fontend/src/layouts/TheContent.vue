@@ -20,6 +20,6 @@ export default {
 };
 </script>
 
-<style  scoped>
-@import "@/assets/contents/scss/layout/content/content.scss";
+<style scoped>
+@import "@/assets/contents/css/layout/content/content.css";
 </style>

@@ -53,7 +53,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .price-sale {
     color: #f94c43;
 }

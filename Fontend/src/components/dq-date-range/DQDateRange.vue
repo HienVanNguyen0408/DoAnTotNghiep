@@ -154,6 +154,6 @@
     }
 </script>
 
-<style lang="scss" scoped>
-@import "@/assets/contents/scss/components/daterange/daterange.scss";
+<style scoped>
+@import "@/assets/contents/css/components/daterange/daterange.css";
 </style>

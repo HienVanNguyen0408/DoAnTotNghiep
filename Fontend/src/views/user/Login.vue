@@ -281,7 +281,6 @@ export default {
 };
 </script>
 <style scoped>
-@import url("../../assets/contents/css/views/user/login.css");
 .color-success {
   color: green;
 }

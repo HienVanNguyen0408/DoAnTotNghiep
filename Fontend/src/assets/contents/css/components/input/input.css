@@ -1,0 +1,50 @@
+.dq-input {
+    position: relative;
+    box-sizing: border-box;
+
+
+}
+
+.input {
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding-left: 20px;
+    height: 36px;
+    width: 200px;
+    outline: none !important;
+
+}
+
+.dq-input .input:hover,
+.dq-input .input:active,
+.dq-input .input:focus {
+    box-shadow: 0 0 0 4px rgba(8, 204, 218, 0.1);
+}
+
+.pd-icon-input {
+    padding-left: 36px;
+}
+
+.h-icon-input {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+}
+
+.text-title {
+    font-weight: bold;
+}
+
+.position-default {
+    position: absolute;
+    left: 8px;
+    top: 6px;
+}
+
+.position-icon-right {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+}
+
+.position-icon-center {}

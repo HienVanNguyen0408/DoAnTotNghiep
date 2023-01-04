@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .dq-editor {}
 
 .dq-editor .quillWrapper {
