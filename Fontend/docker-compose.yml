@@ -11,7 +11,7 @@ services:
       - '.:/app'
       - '/app/node_modules'
     ports:
-      - "8080:80"
+      - "8082:80"
     stdin_open: true
     tty: true
     environment:
