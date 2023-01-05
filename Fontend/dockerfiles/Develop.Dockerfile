@@ -4,4 +4,5 @@ WORKDIR /app
 COPY . .
 RUN npm install 
 COPY . .
-RUN npm run serve
+# start app
+CMD ["npm", "run", "serve"]
