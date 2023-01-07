@@ -6,7 +6,7 @@ const apiConfigDevLocal = {
 
 
 const apiConfigProduction = {
-    api : `${host}/api`
+    api : `${host}:5001`
 }
 
 const api = {
