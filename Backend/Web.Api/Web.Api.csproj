@@ -42,6 +42,8 @@
 
   <ItemGroup>
     <Folder Include="Documents\TemplateExcel\" />
+    <Folder Include="LocalStorage\Blog\" />
+    <Folder Include="LocalStorage\Product\" />
   </ItemGroup>
 
 </Project>

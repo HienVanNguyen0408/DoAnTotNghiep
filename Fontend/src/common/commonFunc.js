@@ -1,3 +1,4 @@
+// import { readdir } from 'fs';
 import Enum from '@/enum/enum';
 import moment from 'moment';
 import i18nEnum from '@/i18n/vi/enum/i18nEnum';
@@ -590,6 +591,14 @@ class CommonFunc {
             ["clean"]
         ];
     }
+
+
+    // async getDirectories(source){
+    //    let test =  (await readdir(source, { withFileTypes: true }))
+    //         .filter(dirent => dirent.isDirectory())
+    //         .map(dirent => dirent.name)
+    //     console.log(test);
+    // }
 }
 
 export default new CommonFunc();

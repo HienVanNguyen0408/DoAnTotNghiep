@@ -16,7 +16,6 @@
       }
     },
     created() {
-      console.log(process.env)
     },
   }
 </script>

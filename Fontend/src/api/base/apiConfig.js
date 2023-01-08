@@ -1,17 +1,17 @@
 let host = process.env.VUE_APP_SERVERHOST
-
+let enpoint = process.env.VUE_APP_BASE_API
 const apiConfigDevLocal = {
-    api : `${host}:5001`
+    api : `${host}:5001${enpoint}`
 }
 
 
 const apiConfigProduction = {
-    api : `${host}:5001`
+    api : `${host}:5001${enpoint}`
 }
 
 const api = {
     develop : apiConfigDevLocal,
-    prodution : apiConfigProduction
+    prod : apiConfigProduction
 }
 
-export default  api[process.env.NODE_ENV];
+export default api[process.env.NODE_ENV];

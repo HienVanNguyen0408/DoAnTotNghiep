@@ -25,6 +25,26 @@ export default {
     },
 
     /**
+     * Lấy danh sách sản phẩm theo điều kiện lọc
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+    getProductPageAdminAsync: async function (context, payload) {
+        var res = await productClient.postAsync({
+            url: `${productClient.url}/pagging-admin`,
+            data: payload
+        });
+
+        if (res) {
+            context.commit('updateProductPage', res.data);
+            return res.data;
+        }
+        return res;
+    },
+
+
+    /**
      * Thông tin sản phẩm theo id
      * @param {*} context 
      * @param {*} payload 
@@ -32,11 +52,16 @@ export default {
      */
     getProductAsync: async function (context, payload) {
         var res = await productClient.getAsync({
-            url: `${productClient.url}/${payload}`,
+            url: `${productClient.url}/${payload.productId}`,
         });
 
         if (res) {
-            context.commit('updateProduct', res.data);
+            if(payload.isUser){
+                context.commit('updateProductUser', res.data);
+            }
+            else{
+                context.commit('updateProduct', res.data);
+            }
             return res.data;
         }
         return res;

@@ -35,5 +35,9 @@ export default{
 
     CategoryTotalRecords(state){
         return state.CategoryTotalRecords;
+    },
+
+    ProductUser(state){
+        return state.ProductUser;
     }
 }

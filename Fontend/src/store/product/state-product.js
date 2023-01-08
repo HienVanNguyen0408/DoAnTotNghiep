@@ -2,6 +2,7 @@ export default{
     Products : [],
     ProductPage : {},
     Product: {},
+    ProductUser : {},
     TotalPage : 0,
     TotalRecords : 0,
 

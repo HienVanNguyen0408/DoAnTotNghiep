@@ -6,7 +6,7 @@ import Page from '@/pages/Page.vue';
 import Login from '@/views/user/Login.vue';
 import Home from '@/views/home/Home.vue';
 import ProductList from '@/views/product/ProductList.vue';
-
+import ProductDetail from '@/views/product/ProductDetail.vue';
 
 
 import Admin from '@/views/admin/Admin.vue';
@@ -46,6 +46,12 @@ export const router = new VueRouter({
                     name: 'product',
                     path: '/product',
                     component: ProductList,
+                    props:true
+                },
+                {
+                    name: 'productdetail',
+                    path: '/product-detail',
+                    component: ProductDetail,
                     props:true
                 }
             ],

@@ -75,7 +75,7 @@ export default {
     methods: {
         ...mapActions(ModuleProduct, [
             'getUsers',
-            'getProductPageAsync',
+            'getProductPageAdminAsync',
             'getProductAsync',
             'insertProductAsync',
             'updateProductAsync',
@@ -132,7 +132,7 @@ export default {
         async loadDataProducts() {
             const me = this;
             let params = me.getPayload()
-            await me.getProductPageAsync(params);
+            await me.getProductPageAdminAsync(params);
             if (me.ProductPage) {
                 me.params.pageIndex = me.ProductPage.pageIndex;
                 me.params.pageSize = me.ProductPage.pageSize;
@@ -155,7 +155,7 @@ export default {
             me.params.filter = params.filter;
             me.params.totalRecord = params.totalRecord;
             me.params.totalPages = params.totalPages;
-            await me.getProductPageAsync(params);
+            await me.getProductPageAdminAsync(params);
         },
 
         /*
@@ -185,11 +185,18 @@ export default {
             }
         },
 
-        editDataProduct(item) {
+        async editDataProduct(item) {
             const me = this;
-            me.setStateDetail(true);
-            me.mode = me.$enum.Mode.Edit;
-            me.product = {...item};
+            if(!item) return;
+            let payload = {
+                productId : item.id
+            };
+            let productDb = await me.getProductAsync(payload);
+            if(productDb){
+                me.setStateDetail(true);
+                me.mode = me.$enum.Mode.Edit;
+                me.product = {...productDb};
+            }
         },
 
         /**

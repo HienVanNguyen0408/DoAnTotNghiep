@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="product-filter">
-
         </div>
         <div class="products flex flex-wrap">
             <div class="product w-1/5" v-for="(product, index) in Products" :key="index">
@@ -96,6 +95,14 @@ export default {
             me.params.totalRecord = params.totalRecord;
             me.params.totalPages = params.totalPages;
             await me.getProductPageAsync(params);
+            
+            const illustrations = require.context(
+                `@/localstorage/product`,
+                true,
+                /^.*\.jpg$/
+            )
+            console.log(illustrations.keys())
+
         },
     }
 }

@@ -300,6 +300,7 @@ namespace Web.Api.Controllers
 
         /// <summary>
         /// Lấy danh sách sản phẩm phân trang
+        /// Hiển thị người dùng
         /// </summary>
         /// <param name="pagination"></param>
         /// <returns></returns>
@@ -325,19 +326,47 @@ namespace Web.Api.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Danh sách sản phẩm hiển thị cho quản trị
+        /// </summary>
+        /// <param name="pagination"></param>
+        /// <returns></returns>
+        [HttpPost("pagging-admin")]
+        public async Task<ServiceResult<Pagging<ProductRespone>>> GetPageProductClientAsync([FromBody] Pagination pagination)
+        {
+            var svcResult = new ServiceResult<Pagging<ProductRespone>>();
+            try
+            {
+                var productPage = await _productService.GetProductsPaggingAsync(pagination, isAdmin: true);
+                svcResult = new ServiceResult<Pagging<ProductRespone>>
+                {
+                    Data = productPage,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm GetPageProductAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
+
         /// <summary>
         /// Lấy thông tin sản phẩm
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
         [HttpGet("{productId}")]
-        public async Task<ServiceResult<Product>> GetProductAsync(string productId)
+        public async Task<ServiceResult<ProductRespone>> GetProductAsync(string productId)
         {
-            var svcResult = new ServiceResult<Product>();
+            var svcResult = new ServiceResult<ProductRespone>();
             try
             {
                 var productCategory = await _productService.GetProductAsync(productId);
-                svcResult = new ServiceResult<Product>
+                svcResult = new ServiceResult<ProductRespone>
                 {
                     Data = productCategory,
                     Success = true,
