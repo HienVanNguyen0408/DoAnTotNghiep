@@ -43,6 +43,10 @@ export default {
             indexProductViewPrev: 0
         }
     },
+    created(){
+        const me = this;
+        
+    },
     methods: {
         ...mapActions(ModuleProduct, [
             'getProductAsync',
@@ -68,8 +72,9 @@ export default {
             };
             await me.getProductAsync(payload);
 
+            this.$router.push({ path: 'product-detail', query: { product: productId }})
             //load view detail
-            me.$router.push('product-detail');
+            // me.$router.push('product-detail');
         }
     }
 }

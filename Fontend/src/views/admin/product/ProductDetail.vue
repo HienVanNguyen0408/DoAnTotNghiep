@@ -10,7 +10,7 @@
                 <div>
 
                     <div class="h-row flex dq-mgt-10">
-                        <div class="h-col flex-1">
+                        <div class="h-col flex-1 dq-mgr-10">
                             <dq-combobox :class="'w-100'" :title="'Loại sản phẩm'" :classTitle="'h-mb-5 font-bold'"
                                 :placeholder="'Loại sản phẩm'" :data="ProductCategories" :keyData="'id'"
                                 :display="'name'" :value.sync="product.product_category_id"
@@ -71,7 +71,7 @@
                     </div>
                     <div class="mt-5">
                         <ProductColorInfo :title="'Màu sắc chi tiết'" @updateColorInfo="updateColorInfo"
-                            :value="product.colors" />
+                            :value="product.colors" :sizeType="product.product_size_type"/>
                     </div>
                 </div>
             </template>
@@ -115,6 +115,7 @@ export default {
     data() {
         return {
             customToolbar: this.$commonFunc.getToolBarEditor(),
+            sizesType : []
         }
     },
     watch: {
@@ -143,7 +144,7 @@ export default {
                 return me.ProductCategories[0].id;
             }
             return '';
-        }
+        },
     },
     created() {
         const me = this;
@@ -155,7 +156,6 @@ export default {
             "updateProductAsync",
             'getProductCategories'
         ]),
-
         async getDataForm() {
             const me = this;
             await me.getProductCategories();

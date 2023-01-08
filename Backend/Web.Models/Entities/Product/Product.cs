@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Web.Models.Enums;
 
 namespace Web.Models.Entities
 {
@@ -56,5 +57,7 @@ namespace Web.Models.Entities
         /// Mô tả đơn vị
         /// </summary>
         public string unit_description { get; set; }
+
+        public ProductSizeType product_size_type { get; set; }
     }
 }

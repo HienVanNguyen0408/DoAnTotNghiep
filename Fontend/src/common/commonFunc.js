@@ -592,13 +592,78 @@ class CommonFunc {
         ];
     }
 
-
-    // async getDirectories(source){
-    //    let test =  (await readdir(source, { withFileTypes: true }))
-    //         .filter(dirent => dirent.isDirectory())
-    //         .map(dirent => dirent.name)
-    //     console.log(test);
-    // }
+    getSizeProduct(ProductSizeType) {
+        let sizes = [];
+        switch (ProductSizeType) {
+            case Enum.ProductSizeType.SizeLetter:
+                sizes = [
+                    {
+                        id: 'XS',
+                        value: 'XS'
+                    },
+                    {
+                        id: 'S',
+                        value: 'S'
+                    },
+                    {
+                        id: 'M',
+                        value: 'M'
+                    },
+                    {
+                        id: 'L',
+                        value: 'L'
+                    },
+                    {
+                        id: 'XL',
+                        value: 'XL'
+                    },
+                    {
+                        id: 'XXL',
+                        value: 'XXL'
+                    },
+                    {
+                        id: 'XXXL',
+                        value: 'XXXL'
+                    }
+                ];
+                break;
+            case Enum.ProductSizeType.SizeNumber:
+                sizes = [
+                    {
+                        id: '28',
+                        value: '28'
+                    },
+                    {
+                        id: '29',
+                        value: '29'
+                    },
+                    {
+                        id: '30',
+                        value: '30'
+                    },
+                    {
+                        id: '31',
+                        value: '31'
+                    },
+                    {
+                        id: '32',
+                        value: '32'
+                    },
+                    {
+                        id: '33',
+                        value: '33'
+                    },
+                    {
+                        id: '34',
+                        value: '34'
+                    }
+                ];
+                break;
+            default:
+                break;
+        }
+        return sizes;
+    }
 }
 
 export default new CommonFunc();

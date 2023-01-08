@@ -241,7 +241,6 @@ namespace Web.AppCore.Services
 
                     if (!isAdmin)
                     {
-
                         //Lấy thông tin ảnh
                         if (pageResult.Data != null && pageResult.Data.CountExt() > 0)
                         {
@@ -364,14 +363,24 @@ namespace Web.AppCore.Services
         {
             var productRespone = new ProductRespone();
             var product = await _productUoW.Products.GetByIdAsync(productId);
-            if (product == null) return productRespone;
+            if (product == null) return null;
             //Map dữ liệu
             productRespone = MapperExtensions.MapperData<Product, ProductRespone>(product);
 
             //// Lấy thông tin file
             if (productRespone.files == null) productRespone.files = new List<FileInfo>();
-            var base64Images = await GetBase64ImagesProductAsync(product.id);
-            if (base64Images != null && base64Images.CountExt() > 0)
+
+            var pathImagesProduct = FileExtensions.GetPathProductLocal();
+            var base64Images = await GetBase64ImagesProductLocalAsync(productId: product.id);
+            if (base64Images.CountExt() <= 0)
+            {
+                base64Images = await GetBase64ImagesProductAsync(product.id);
+                if (base64Images != null && base64Images.CountExt() > 0)
+                {
+                    productRespone.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
+                }
+            }
+            else
             {
                 productRespone.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
             }

@@ -2,7 +2,13 @@
     <div>
         <div v-if="title" class="mb-1 font-bold">{{ title }}</div>
         <div class="product-color-info p-5" style="width:100%" :style="{ 'min-height': height + 'px' }">
-            <div class="flex align-center">
+            <div class="h-col flex-1">
+                <dq-combobox :class="'w-100'" :title="'Loại kích thước của sản phẩm'" :classTitle="'h-mb-5 font-bold'"
+                    :placeholder="'Loại kích thước của sản phẩm'" :data="sizesType" :keyData="'id'" :display="'name'"
+                    :value.sync="sizeType" :defaultValue="sizeTypeDefault" ref="productSizeType">
+                </dq-combobox>
+            </div>
+            <div class="flex align-center mt-4">
                 <div class="flex-1 product-color">
                     <dq-color-picker :title="'Màu sắc sản phẩm'" @change="changeColor"
                         :value="color.color_name"></dq-color-picker>
@@ -30,8 +36,9 @@
                         </div>
                         <div class="size_name ml-2">Size: {{ colorInfo.size_name }} - Số lượng: {{ colorInfo.amount }}
                         </div>
-                        <div title="Xóa" class="icon dq-icon-24 icon-close cursor-pointer ml-4" @click="removeColorInfo(colorInfo)">
-                            </div>
+                        <div title="Xóa" class="icon dq-icon-24 icon-close cursor-pointer ml-4"
+                            @click="removeColorInfo(colorInfo)">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,6 +68,8 @@ export default {
             sizes: [],
             color: {},
             colors: [],
+            sizesType: [],
+            sizeType: this.$enum.ProductSizeType.SizeLetter
         }
     },
     created() {
@@ -77,6 +86,13 @@ export default {
             if (newV != oldV) {
                 me.updateColorInfo(newV);
             }
+        },
+        sizeType(newV, oldV) {
+            const me = this;
+            if (newV != oldV) {
+                me.initDataSize();
+                me.color.size_name = me.sizes[0].id;
+            }
         }
     },
     computed: {
@@ -89,6 +105,13 @@ export default {
                 return me.sizes[0].id;
             }
             return '';
+        },
+        sizeTypeDefault() {
+            const me = this;
+            if (me.sizesType && me.sizesType.length > 0) {
+                return me.sizesType[0].id;
+            }
+            return '';
         }
     },
     methods: {
@@ -98,36 +121,85 @@ export default {
         },
         initDataStatic() {
             const me = this;
-            me.sizes = [
+            me.sizesType = [
                 {
-                    id: 'XS',
-                    value: 'XS'
+                    id: me.$enum.ProductSizeType.SizeLetter,
+                    name: 'Kích thước bằng chữ(XS,S,M,XL,XXL...)'
                 },
                 {
-                    id: 'S',
-                    value: 'S'
-                },
-                {
-                    id: 'M',
-                    value: 'M'
-                },
-                {
-                    id: 'L',
-                    value: 'L'
-                },
-                {
-                    id: 'XL',
-                    value: 'XL'
-                },
-                {
-                    id: 'XXL',
-                    value: 'XXL'
-                },
-                {
-                    id: 'XXXL',
-                    value: 'XXXL'
-                },
-            ]
+                    id: me.$enum.ProductSizeType.SizeNumber,
+                    name: 'Kích thước bằng số(28,39,30,....)'
+                }
+            ];
+            me.initDataSize();
+        },
+
+        initDataSize() {
+            const me = this;
+            if (me.sizeType == me.$enum.ProductSizeType.SizeLetter) {
+                me.sizes = [
+                    {
+                        id: 'XS',
+                        value: 'XS'
+                    },
+                    {
+                        id: 'S',
+                        value: 'S'
+                    },
+                    {
+                        id: 'M',
+                        value: 'M'
+                    },
+                    {
+                        id: 'L',
+                        value: 'L'
+                    },
+                    {
+                        id: 'XL',
+                        value: 'XL'
+                    },
+                    {
+                        id: 'XXL',
+                        value: 'XXL'
+                    },
+                    {
+                        id: 'XXXL',
+                        value: 'XXXL'
+                    },
+                ]
+            }
+            else if (me.sizeType == me.$enum.ProductSizeType.SizeNumber) {
+                me.sizes = [
+                    {
+                        id: '28',
+                        value: '28'
+                    },
+                    {
+                        id: '29',
+                        value: '29'
+                    },
+                    {
+                        id: '30',
+                        value: '30'
+                    },
+                    {
+                        id: '31',
+                        value: '31'
+                    },
+                    {
+                        id: '32',
+                        value: '32'
+                    },
+                    {
+                        id: '33',
+                        value: '33'
+                    },
+                    {
+                        id: '34',
+                        value: '34'
+                    }
+                ];
+            }
         },
         updateColorInfo(colors) {
             const me = this;
@@ -140,12 +212,12 @@ export default {
                 return x.size_name == me.color.size_name && x.color_name == me.color.color_name;;
             });
 
-            if(indexColor >= 0){
+            if (indexColor >= 0) {
                 me.colors[indexColor].size_name = me.color.size_name;
                 me.colors[indexColor].amount = me.color.amount;
                 me.colors[indexColor].color_name = me.color.color_name;
                 me.colors = [...me.colors];
-            }else{
+            } else {
                 me.colors = [...me.colors, me.color];
             }
             me.color = { ...me.color };

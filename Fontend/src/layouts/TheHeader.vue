@@ -25,8 +25,8 @@
             <div class="dq-icon-24 icon-user cursor-pointer"></div>
           </div>
           <div class="flex items-center justify-center h-10 w-10 relative cart">
-            <div class="dq-icon-24 icon-cart cursor-pointer"></div>
-            <div class="number-cart font-bold absolute right-2.5 top-3 cursor-pointer">0</div>
+            <div class="dq-icon-24 icon-cart cursor-pointer relative"></div>
+            <div class="number-cart font-bold absolute cursor-pointer">0</div>
           </div>
         </div>
       </div>
@@ -90,4 +90,8 @@ export default {
 
 <style scoped>
 @import "@/assets/contents/css/layout/header/header.css";
+.number-cart{
+  right: 17px;
+  top: 11px;
+}
 </style>

@@ -178,5 +178,12 @@ export default {
         /// Không quan trọng, không khẩn cấp
         /// </summary>
         Work4 : 4,
+    },
+    ProductSizeType :{
+        //Size bằng chữ: S, M , XL, XXL
+        SizeLetter : 1,
+        //Size bằng số: 29,30...
+        SizeNumber : 2
     }
+
 }
