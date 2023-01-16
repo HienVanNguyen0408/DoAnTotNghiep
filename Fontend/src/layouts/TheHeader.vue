@@ -5,7 +5,8 @@
         VHSTORE
       </div>
       <div class="flex-3 menus-header flex h-full">
-        <div class="menu-header font-bold" v-for="(menu, index) in menus" :key="index">
+        <div class="menu-header font-bold cursor-pointer" v-for="(menu, index) in menus" :key="index"
+          @click="changeMenu(menu)">
           <div>{{ (menu.title) }}</div>
         </div>
       </div>
@@ -24,9 +25,12 @@
           <div class="flex items-center justify-center h-10 w-10 mr-5">
             <div class="dq-icon-24 icon-user cursor-pointer"></div>
           </div>
-          <div class="flex items-center justify-center h-10 w-10 relative cart">
+          <div class="flex items-center justify-center h-10 w-10 relative cart" @click="viewCart">
             <div class="dq-icon-24 icon-cart cursor-pointer relative"></div>
-            <div class="number-cart font-bold absolute cursor-pointer">0</div>
+            <div class="number-cart font-bold absolute cursor-pointer">
+              <span v-if="CartProducts && CartProducts.length > 0">{{ CartProducts.length }}</span>
+              <span v-else>0</span>
+            </div>
           </div>
         </div>
       </div>
@@ -35,6 +39,9 @@
 </template>
 
 <script>
+import {
+  mapActions, mapGetters
+} from 'vuex';
 export default {
   data() {
     return {
@@ -44,15 +51,18 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["CartProducts"]),
   },
   created() {
     const me = this;
     me.initData();
   },
   methods: {
+    ...mapActions(["getCartByUser"]),
     initData() {
       const me = this;
       me.initDataStatic();
+      me.getOrders();
     },
     initDataStatic() {
       const me = this;
@@ -67,7 +77,7 @@ export default {
         },
         {
           title: 'Quần áo',
-          router: '/clothes'
+          router: '/product'
         },
         {
           title: 'Địa chỉ cửa hàng',
@@ -79,9 +89,27 @@ export default {
         },
       ]
     },
-    showFormSearch(){
+    /**
+     * Lấy đanh sách đơn hàng trrong giỏ
+     */
+    async getOrders() {
+      const me = this;
+      let userName = me.$commonFunc.getUserName();
+      await me.getCartByUser(userName);
+    },
+    showFormSearch() {
       const me = this;
       me.isShowSearch = !me.isShowSearch;
+    },
+
+    viewCart() {
+      const me = this;
+      me.$router.push('/cart');
+    },
+
+    changeMenu(menu) {
+      const me = this;
+      me.$router.push(`${menu.router}`);
     }
   },
 
@@ -90,7 +118,8 @@ export default {
 
 <style scoped>
 @import "@/assets/contents/css/layout/header/header.css";
-.number-cart{
+
+.number-cart {
   right: 17px;
   top: 11px;
 }

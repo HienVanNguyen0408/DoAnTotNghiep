@@ -6,6 +6,9 @@ export default {
         }, 0)
     },
 
+    /**
+     * Dữ liệu product trong cart
+     */
     getCartByUser: async function(context, payload) {
         // Lấy dữ liệu trên storgare
         let store = localStorage.getItem(keyOrderStorage);

@@ -5,3 +5,4 @@ export const ModuleCustomer = "customer";
 export const ModuleProduct = 'product'; 
 export const ModuleOrder= "order";
 export const ModuleBlog = "blog";
+export const ModuleGHN = "ghn";

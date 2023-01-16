@@ -15,7 +15,7 @@ import user from './user/user-const.js';
 import product from './product/product-const.js';
 import order from './order/order-const.js';
 import blog from './blog/blog-const.js';
-
+import ghn from './ghn/ghn-const.js';
 const vuexLocal = new VuexPersistence({
     key: 'MYAPP',
     storage: window.localStorage
@@ -33,7 +33,8 @@ const store = new Vuex.Store({
         customer,
         blog,
         order,
-        product
+        product,
+        ghn
     },
     // plugins: [vuexLocal.plugin]
 });

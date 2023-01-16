@@ -24,7 +24,7 @@ namespace Web.Infrastructure.Services.GHN
             _ghnSettings = options.Value;
             _header = new Dictionary<string, string>
             {
-                {"token",_ghnSettings.Token },
+                {"Token",_ghnSettings.Token },
             };
         }
         #endregion

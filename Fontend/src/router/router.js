@@ -7,6 +7,7 @@ import Login from '@/views/user/Login.vue';
 import Home from '@/views/home/Home.vue';
 import ProductList from '@/views/product/ProductList.vue';
 import ProductDetail from '@/views/product/ProductDetail.vue';
+import Cart from '@/views/cart/Cart.vue';
 
 
 import Admin from '@/views/admin/Admin.vue';
@@ -53,7 +54,13 @@ export const router = new VueRouter({
                     path: '/product-detail',
                     component: ProductDetail,
                     props:true
-                }
+                },
+                {
+                    name: 'cart',
+                    path: '/cart',
+                    component: Cart,
+                    props:true
+                },
             ],
             props: true
         },

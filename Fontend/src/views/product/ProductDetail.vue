@@ -19,14 +19,14 @@
             <div class="product-infomation flex-1 ml-6">
                 <div class="product-name mt-3 pb-4 font-bold border-bottom">{{ ProductUser.product_name }}</div>
                 <div class="product-price mt-3 pb-4 border-bottom font-bold">
-                    <span> {{ ProductUser.original_price | formatMoney }}đ</span>
+                    <span> {{ ProductUser.sale_price | formatMoney }}đ</span>
                     <span class="ml-2 line-through">{{ ProductUser.original_price | formatMoney }}đ</span>
                 </div>
                 <div class="options-color mt-3 pb-4 border-bottom" v-if="ProductUser && ProductUser.colors">
                     <div class="colors flex">
                         <div class="color cursor-pointer ml-2" v-for="(color_name, index) in getColorsProduct" :key="index"
                             @click="selectColor(color_name)"
-                            :class="[colorSelect.color_name == color_name ? 'color-product-active' : '']">
+                            :class="[colorNameSelect == color_name ? 'color-product-active' : '']">
                             <div class="color_name" :style="{ 'background-color': `${color_name}` }"></div>
                         </div>
                     </div>
@@ -34,20 +34,23 @@
                 <div class="options-size mt-3 pb-4 border-bottom"
                     v-if="colorsProductSize && colorsProductSize.length > 0">
                     <div class="sizes-product flex">
-                        <div :class="[colorSelect.size_name == color.size_name ? 'size-product-active' : '']"
+                        <div :class="[sizeSelect == color.size_name ? 'size-product-active' : '']"
                             class="size-product cursor-pointer mr-3" v-for="(color, index) in colorsProductSize"
                             :key="index" @click="selectSize(color)">
                             <div>{{ color.size_name }}</div>
                         </div>
                     </div>
                 </div>
+                <div v-else class="font-bold options-size mt-3 pb-4 border-bottom">
+                    Hết size
+                </div>
                 <div class="option-number mt-3 pb-4 border-bottom">
                     <div class="font-bold mb-3">Chọn số lượng</div>
-                    <dq-input :type="'number'" v-model="numberSelect"></dq-input>
+                    <dq-input :type="'number'" v-model="product.number"></dq-input>
                 </div>
                 <div class="action-buy-product mt-4 pb-5">
                     <div class="add-cart">
-                        <dq-button :title="'Thêm giỏ hàng'"></dq-button>
+                        <dq-button :title="'Thêm giỏ hàng'" @click="addProductCart" :disabled="colorsProductSize && colorsProductSize.length > 0"></dq-button>
                     </div>
                     <div class="payment-product"></div>
                 </div>
@@ -60,6 +63,7 @@
 </template>
 
 <script>
+import * as fs from 'fs-web';
 import {
     mapActions,
     mapGetters
@@ -72,9 +76,13 @@ export default {
             indexProductView: 0,
             indexProductViewPrev: 0,
             sizes: [],
-            numberSelect: 1,
             colorSelect: {},
-            colorsProductSize: []
+            colorsProductSize: [],
+            product : {
+                number: 1
+            },
+            sizeSelect : "",
+            colorNameSelect : ""
         }
     },
     computed: {
@@ -107,6 +115,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(["getCartByUser"]),
         ...mapActions(ModuleProduct, [
             'getProductAsync',
         ]),
@@ -115,8 +124,9 @@ export default {
             const me = this;
             me.sizes = me.$commonFunc.getSizeProduct(me.ProductUser.product_size_type);
             if (me.ProductUser.colors && me.ProductUser.colors.length > 0) {
-                me.colorSelect = me.ProductUser.colors[0];
-                me.colorsProductSize = [...me.getColorByName(me.colorSelect.color_name)];
+                me.colorNameSelect = me.ProductUser.colors[0].color_name;
+                me.sizeSelect = me.ProductUser.colors[0].size_name;
+                me.colorsProductSize = [...me.getColorByName(me.colorNameSelect)];
             }
         },
         changeImageView(index) {
@@ -133,19 +143,44 @@ export default {
 
         selectSize(color) {
             const me = this;
-            me.colorSelect = color;
+            me.sizeSelect = color.size_name;
         },
 
         selectColor(color_name) {
             const me = this;
-            me.colorSelect.color_name = me.colorsProductSize[0].color_name;
+            me.colorNameSelect = color_name;
             me.colorsProductSize = [...me.getColorByName(color_name)];
+            if(me.colorsProductSize && me.colorsProductSize.length > 0){
+                me.sizeSelect = me.colorsProductSize[0].size_name;
+            }
         },
 
         getColorByName(color_name) {
             const me = this;
             if (!me.ProductUser || !me.ProductUser.colors || me.ProductUser.colors.length <= 0) return [];
-            return [...me.ProductUser.colors.filter(x => x.color_name == color_name)].sort((a, b) => a < b)
+            return [...me.ProductUser.colors.filter(x => x.color_name == color_name && x.amount > 0)];
+        },
+
+        async addProductCart(){
+            const me = this;
+            if(me.product.number >= 0) me.product.number = parseInt(me.product.number);
+            let product = {
+                id : me.ProductUser.id,
+                sale_price : me.ProductUser.sale_price,
+                product_name  : me.ProductUser.product_name,
+                size_name : me.sizeSelect,
+                color_name : me.colorNameSelect,
+                total_amount : me.product.number * me.ProductUser.sale_price
+            }
+            me.product = {...me.product,...product};
+            let userName = me.$commonFunc.getUserName();
+            if (userName) {
+                me.$commonFunc.addCart(userName, me.product );
+                //load lại giỏ hàng
+                await me.getCartByUser(userName);
+            } else {
+                me.$router.push("/login");
+            }
         }
     }
 }

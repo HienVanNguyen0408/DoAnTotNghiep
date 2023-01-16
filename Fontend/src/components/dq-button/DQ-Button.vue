@@ -7,7 +7,7 @@
       @mousedown="btnMouseDown"
       @mouseover="btnMouseover"
       @mouseleave="btnMouseleave"
-      :class="[classButton,classHover,classActive,type]"
+      :class="[classButton,classHover,classActive,type, disabled ? 'disabled-btn' : '']"
       :style="{
         height: height + 'px',
       }"
