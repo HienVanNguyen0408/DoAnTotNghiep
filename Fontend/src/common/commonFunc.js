@@ -58,13 +58,13 @@ class CommonFunc {
             }
         })
     }
+
     /**
      * Thêm order vào giỏ hàng
      */
     addCart(userName, order) {
         let store = localStorage.getItem(keyOrderStorage)
         let orderStorage = !store ? {} : JSON.parse(store);
-
         if (!orderStorage[`${userName}`]) {
             orderStorage[`${userName}`] = {};
             orderStorage[`${userName}`].orders = [];
@@ -73,10 +73,12 @@ class CommonFunc {
                 orders: orderStorage[`${userName}`].orders
             }
         } else {
-            let exist = order && orderStorage[`${userName}`].orders.filter(x => x.product.productId == order.product.productId) && orderStorage[`${userName}`].orders.filter(x => x.product.productId == order.product.productId).length > 0;
+            let exist = order && orderStorage[`${userName}`].orders.filter(x => x.id == order.id) && orderStorage[`${userName}`]
+                                    .orders.filter(x => x.id == order.id && x.color_name == order.color_name && x.size_name && order.size_name).length > 0;
             if (exist) {
-                let index = orderStorage[`${userName}`].orders.findIndex((obj => obj.product.productId == order.product.productId));
-                orderStorage[`${userName}`].orders[index].amount += order.amount;
+                let index = orderStorage[`${userName}`].orders.findIndex((obj => obj.id == order.id));
+                orderStorage[`${userName}`].orders[index].total_amount += order.total_amount;
+                orderStorage[`${userName}`].orders[index].number += order.number;
             } else {
                 orderStorage[`${userName}`].orders.push(order);
                 orderStorage[`${userName}`] = {
@@ -107,6 +109,7 @@ class CommonFunc {
         }
         return orderUserName;
     }
+    
     /**
      * reset dữ liệu trên storage của user
      */
@@ -132,7 +135,7 @@ class CommonFunc {
         orderStorage[`${userName}`].orders = [];
         localStorage.setItem(`${keyOrderStorage}`, JSON.stringify(orderStorage));
     }
-
+    
     /**
      * Lấy tên tài khoản
      */
@@ -152,7 +155,7 @@ class CommonFunc {
                 return orders.reduce((a, { amount, product }) => a + amount * product.productSalePrice, 0);
             }
             if (orders && orders.length == 1) {
-                return orders[0].amount * orders[0].product.productSalePrice;
+                return orders[0].total_amount * orders[0].product.productSalePrice;
             }
             return null;
         }
@@ -166,7 +169,7 @@ class CommonFunc {
                 return orders.reduce((a, { amount }) => a + amount, 0);
             }
             if (orders && orders.length == 1) {
-                return orders[0].amount;
+                return orders[0].total_amount;
             }
         }
         return null;
