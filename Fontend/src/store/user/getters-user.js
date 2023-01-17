@@ -6,15 +6,15 @@ export default{
         return state.Users;
     },
 
-    User(state){
-        return state.User;
-    },
-
     TotalPage(state){
         return state.TotalPage;
     },
 
     TotalRecords(state){
         return state.TotalRecords;
+    },
+
+    User(state){
+        return state.User;
     }
 }

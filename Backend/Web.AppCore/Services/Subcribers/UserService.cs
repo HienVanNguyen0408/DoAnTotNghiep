@@ -108,11 +108,18 @@ namespace Web.AppCore.Services
             {
                 return await _userUoW.Users.GetPaggingAsync(pagination);
             }
-            return await _userUoW.Users.GetPaggingAsync(pagination, 
-                                                            x => x.user_name.ContainsText(pagination.Filter) 
-                                                            || x.address.ContainsText(pagination.Filter) 
+            return await _userUoW.Users.GetPaggingAsync(pagination,
+                                                            x => x.user_name.ContainsText(pagination.Filter)
+                                                            || x.address.ContainsText(pagination.Filter)
                                                             || x.full_name.ContainsText(pagination.Filter)
                                                             || x.phone_number.ContainsText(pagination.Filter));
+        }
+
+        public async Task<User> GetUserByUserNameAsync(string userName)
+        {
+            var users = await _userUoW.Users.GetAllAsync(x => x.user_name.Equals(userName));
+            if (users.CountExt() <= 0) return null;
+            return users.FirstOrDefault();
         }
         #endregion
     }

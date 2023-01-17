@@ -12,6 +12,8 @@ const keyQuestionReads = "QuestioReads";
 const keyPartListen = "PartListens";
 
 const keyExamResult = "ExamResult";
+
+const keyUserInfo = "UserInfo";
 // path Storage vật lý
 // const prefixPathDefault = "C:\\Users\\ADMIN\\Desktop\\CLient serve\\english-test\\Fontend\\dq-fontend\\src";
 class CommonFunc {
@@ -145,6 +147,21 @@ class CommonFunc {
             name = "";
         }
         return name;
+    }
+
+    updateUserInfo(user){
+        if(!user) return;
+        localStorage.setItem(`${keyUserInfo}`, JSON.stringify(user));
+    }
+
+    getUserInfo(){
+        let userInfo = localStorage.getItem(keyUserInfo)
+        userInfo = !userInfo ? {} : JSON.parse(userInfo);
+        return userInfo;
+    }
+
+    logoutUserInfo(){
+        localStorage.removeItem(keyUserInfo);
     }
 
     getTotalMoneyOrderByUser(userName) {

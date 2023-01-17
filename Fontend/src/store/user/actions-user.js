@@ -81,11 +81,29 @@ export default {
      * @returns 
      */
     registerUserAsync: async function (context, payload) {
-        var res = await userClient.getAsync({
+        var res = await userClient.postAsync({
             url : `${userClient.url}/register`,
             data: payload
         });
         if(res && res.data){
+            return res.data;
+        }
+        return res;
+    },
+
+    /**
+     * Đăng ký tài khoản
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+    loginUserAsync: async function (context, payload) {
+        var res = await userClient.postAsync({
+            url : `${userClient.url}/login`,
+            data: payload
+        });
+        if(res && res.data){
+            context.commit('updateUserLogin', res.data);
             return res.data;
         }
         return res;

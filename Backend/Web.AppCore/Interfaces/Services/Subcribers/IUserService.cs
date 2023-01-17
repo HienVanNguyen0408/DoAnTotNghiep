@@ -14,6 +14,13 @@ namespace Web.AppCore.Interfaces.Services
         Task<User> GetUserByIdAsync(string userId);
 
         /// <summary>
+        /// Lấy thông tin người dùng theo tài khoản
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        Task<User> GetUserByUserNameAsync(string userName);
+
+        /// <summary>
         /// Lấy thông tin danh sách user
         /// </summary>
         /// <returns></returns>

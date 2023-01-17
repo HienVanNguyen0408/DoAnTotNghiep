@@ -17,4 +17,8 @@ export default{
     updateTotalRecords: async function(state,res){
         state.TotalRecords = res;
     },
+
+    updateUserLogin : async function(state,res){
+        state.User = {...res};
+    },
 }

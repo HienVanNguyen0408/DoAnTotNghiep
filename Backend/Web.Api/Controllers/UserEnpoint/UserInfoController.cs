@@ -10,6 +10,7 @@ using Web.AppCore.Interfaces.Services;
 using Web.Caching;
 using Web.Models.Entities;
 using Web.Models.Request;
+using Web.Models.Respone;
 using Web.Storage;
 using Web.Utils;
 
@@ -200,15 +201,23 @@ namespace Web.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ServiceResult<bool>> LoginUser([FromBody] UserRequest request)
+        public async Task<ServiceResult<UserRespone>> LoginUser([FromBody] UserRequest request)
         {
-            var svcResult = new ServiceResult<bool>();
+            var svcResult = new ServiceResult<UserRespone>();
             try
             {
                 var authen = await _jwtAuthencation.Autheticate(request);
-                svcResult = new ServiceResult<bool>
+                if (authen.IsNullOrEmptyOrWhiteSpace()) return svcResult;
+
+                var userRespone = new UserRespone();
+                var user = await _userService.GetUserByUserNameAsync(request.user_name);
+                if (user == null) return svcResult;
+
+                userRespone = MapperExtensions.MapperData<User, UserRespone>(user);
+                userRespone.key_auth = authen;
+                svcResult = new ServiceResult<UserRespone>
                 {
-                    Data = !string.IsNullOrEmpty(authen),
+                    Data = userRespone,
                     Success = true,
                     Status = ServiceResultStatus.Ok
                 };
@@ -252,12 +261,12 @@ namespace Web.Api.Controllers
         public async Task<bool> TestMinIO()
         {
             var file = System.IO.File.ReadAllBytes(@"C:\Users\HienVanNguyen\Pictures\icon_hud4b034c4f7a5c231da985da63cf83ade_53523_512x512_fill_lanczos_center_2.png");
-            var fullPath = GlobalConstant.GetFullPathTemplate("product","filetest.png");
+            var fullPath = GlobalConstant.GetFullPathTemplate("product", "filetest.png");
             var xxx = await _storageClient.UploadFileAsync(fullPath, file);
             return true;
         }
 
-         [HttpGet("getpath")]
+        [HttpGet("getpath")]
         public async Task<string> GetPath([FromQuery] string fullPath)
         {
             var xxx = await _storageClient.GetPathFileDownloadAsync(fullPath);

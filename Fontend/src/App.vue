@@ -6,6 +6,10 @@
 
 <script>
   import FullPage from '@/pages/FullPage.vue'
+import {
+  mapMutations
+} from 'vuex';
+import { ModuleUser } from '@/store/module-const';
   export default {
     name:"App",
     components: {
@@ -16,7 +20,18 @@
       }
     },
     created() {
+      const me = this;
+      let user = me.$commonFunc.getUserInfo();
+      if(user && user.user_name){
+        me.updateUserLogin(user);
+      }
     },
+
+    methods:{
+      ...mapMutations(ModuleUser, [
+        'updateUserLogin'
+      ])
+    }
   }
 </script>
 

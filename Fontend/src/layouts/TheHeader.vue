@@ -22,8 +22,42 @@
               </div>
             </div>
           </div>
-          <div class="flex items-center justify-center h-10 w-10 mr-5">
-            <div class="dq-icon-24 icon-user cursor-pointer"></div>
+          <div class="flex items-center justify-center h-10 w-10 mr-5 relative">
+            <div class="dq-icon-24 icon-user cursor-pointer" @click="showFormLogin"></div>
+            <div class="form-login" v-if="isShowLogin">
+              <div v-if="!User || !User.user_name">
+                <div>
+                  <div class="title-search">ĐĂNG NHẬP TÀI KHOẢN</div>
+                  <div class="mt-3">
+                    <dq-input v-model="user.user_name" placeholder="Tài khoản" :title="'Tài khoản'">
+                    </dq-input>
+                  </div>
+                  <div class="mt-6">
+                    <dq-input v-model="user.password" placeholder="Mật khẩu" :title="'Mật khẩu'"></dq-input>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <dq-button :title="'Đăng nhập'" @click="loginUser"></dq-button>
+                </div>
+                <div class="mt-4 flex justify-center align-center">
+                  <div>
+                    <div>Khách hàng mới? <span class="color-orange cursor-pointer" @click="registerUser">Tạo tài
+                        khoản</span></div>
+                    <div>Quên mật khẩu? <span class="color-orange cursor-pointer" @click="resetPassword">Khôi phục mật
+                        khẩu</span></div>
+                  </div>
+                </div>
+              </div>
+              <div v-else>
+                <div>
+                  <div class="title-search">THÔNG TIN TÀI KHOẢN</div>
+                  <div class="font-bold mt-4 cursor-pointer">{{ User.user_name }} ( {{ User.full_name }} )</div>
+                  <div class="mt-4 cursor-pointer action-form">Tài khoản của tôi</div>
+                  <div class="mt-4 cursor-pointer action-form">Địa chỉ của tôi</div>
+                  <div class="mt-4 cursor-pointer action-form" @click="logout">Đăng xuất</div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="flex items-center justify-center h-10 w-10 relative cart" @click="viewCart">
             <div class="dq-icon-24 icon-cart cursor-pointer relative"></div>
@@ -40,18 +74,24 @@
 
 <script>
 import {
-  mapActions, mapGetters
+  mapActions, mapGetters, mapMutations
 } from 'vuex';
+import { ModuleUser } from '@/store/module-const';
 export default {
   data() {
     return {
       menus: [],
       isShowSearch: false,
-      params: {}
+      isShowLogin: false,
+      params: {},
+      user: {}
     };
   },
   computed: {
     ...mapGetters(["CartProducts"]),
+    ...mapGetters(ModuleUser, [
+      'User'
+    ]),
   },
   created() {
     const me = this;
@@ -59,6 +99,14 @@ export default {
   },
   methods: {
     ...mapActions(["getCartByUser"]),
+    ...mapActions(ModuleUser, [
+      'loginUserAsync',
+      'registerUserAsync',
+    ]),
+
+    ...mapMutations(ModuleUser, [
+      'updateUserLogin'
+    ]),
     initData() {
       const me = this;
       me.initDataStatic();
@@ -101,6 +149,10 @@ export default {
       const me = this;
       me.isShowSearch = !me.isShowSearch;
     },
+    showFormLogin() {
+      const me = this;
+      me.isShowLogin = !me.isShowLogin;
+    },
 
     viewCart() {
       const me = this;
@@ -110,6 +162,39 @@ export default {
     changeMenu(menu) {
       const me = this;
       me.$router.push(`${menu.router}`);
+    },
+
+    closeFormLogin(){
+      const me = this;
+      me.isShowLogin = false;
+    },
+    async loginUser() {
+      const me = this;
+      let payload = {
+        user_name: me.user.user_name,
+        password: me.user.password
+      }
+      await me.loginUserAsync(me.user);
+      if (me.User) {
+        delete me.User.password;
+        me.$commonFunc.updateUserInfo(me.User);
+        me.closeFormLogin();
+      }
+    },
+
+    registerUser() {
+      const me = this;
+    },
+
+    resetPassword() {
+      const me = this;
+    },
+    logout() {
+      const me = this;
+      me.$commonFunc.logoutUserInfo();
+      me.updateUserLogin({});
+      me.closeFormLogin();
+      me.user = {};
     }
   },
 

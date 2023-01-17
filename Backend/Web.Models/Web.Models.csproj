@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <Folder Include="Entities\GHN\Enum\" />
-    <Folder Include="Respone\User\" />
   </ItemGroup>
 
 </Project>
