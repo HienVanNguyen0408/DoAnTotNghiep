@@ -16,5 +16,12 @@ export default{
 
     User(state){
         return state.User;
+    },
+
+    AddressInfos(state){
+        return state.AddressInfos;
+    },
+    AddressInfo(state){
+        return state.AddressInfo;
     }
 }

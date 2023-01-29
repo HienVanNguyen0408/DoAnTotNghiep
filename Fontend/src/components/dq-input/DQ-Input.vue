@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="dq-input" :class="customInput">
-      <div v-if="title" class="dq-mgb-5 text-title">{{ title }}</div>
+      <div v-if="title" class="mb-2 text-title">{{ title }}</div>
       <input
         ref="input"
         class="input"
@@ -38,7 +38,7 @@ export default {
       default: "",
     },
     height: {
-      default: 36,
+      default: 32,
       type: Number,
     },
     width: {

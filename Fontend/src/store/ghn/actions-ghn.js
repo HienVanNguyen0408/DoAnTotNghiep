@@ -1,7 +1,7 @@
 import { BASE_URL } from '@/api/url';
 import BaseFuncApi from '@/api/base/commonFunc-api';
 import Enum from '@/enum/enum';
-import GHNClient from '../../api/user/user-client';
+import GHNClient from '../../api/ghn/ghn-client.js';
 const ghnClient = new GHNClient();
 export default {
     getProvincesAsync: async function (context, payload) {
@@ -30,7 +30,7 @@ export default {
 
     getWardsAsync: async function (context, payload) {
         var res = await ghnClient.getAsync({
-            url : `${ghnClient.url}/provinces/${payload.district_id}`
+            url : `${ghnClient.url}/ward/${payload.district_id}`
         });
         
         if(res && res.data){

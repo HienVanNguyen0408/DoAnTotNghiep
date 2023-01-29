@@ -126,7 +126,6 @@ export default {
         }
         return res;
     },
-
     /**
      * Xóa thông tin người dùng
      * @param {*} context 
@@ -139,6 +138,77 @@ export default {
             url : `${userClient.url}/delete`,
             data : payload
         });
+        if(res && res.data){
+            return res.data;
+        }
+        return res;
+    },
+     /**
+     * Lấy danh sách thông tin địa chỉ người dùng
+     */
+    getAddressInfosAsync: async function (context, payload) {
+        var res = await userClient.getAsync({
+            url : `${userClient.url}/addressinfos/${payload.user_id}`,
+        });
+
+        if(res && res.data){
+            context.commit("updateAddressInfos", res.data);
+            return res.data;
+        }
+        return res;
+    },
+    /**
+     * Lấy thông tin địa chỉ người dùng
+     */
+    getAddressInfoAsync: async function (context, payload) {
+        var res = await userClient.getAsync({
+            url : `${userClient.url}/addressinfo/${payload.id}`,
+            data : payload
+        });
+
+        if(res && res.data){
+            context.commit("updateAddressInfo", res.data);
+            return res.data;
+        }
+        return res;
+    },
+    /**
+     * Thêm địa chỉ của người dùng
+     */
+    insertAddressInfoAsync: async function (context, payload) {
+        var res = await userClient.postAsync({
+            url : `${userClient.url}/insertaddress`,
+            data : payload
+        });
+
+        if(res && res.data){
+            return res.data;
+        }
+        return res;
+    },
+    /**
+     * Cập nhật thông tin địa chỉ người dùng
+     */
+    updateAddressInfoAsync: async function (context, payload) {
+        var res = await userClient.postAsync({
+            url : `${userClient.url}/updateaddress`,
+            data : payload
+        });
+
+        if(res && res.data){
+            return res.data;
+        }
+        return res;
+    },
+    /**
+     * Xóa thông tin địa chỉ người dùng
+     */
+    deleteAddressInfoAsync: async function (context, payload) {
+        var res = await userClient.postAsync({
+            url : `${userClient.url}/deleteaddress/${payload.id}`,
+            data : payload
+        });
+
         if(res && res.data){
             return res.data;
         }

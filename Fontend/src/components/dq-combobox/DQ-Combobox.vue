@@ -1,6 +1,6 @@
 <template>
   <div :class="classCombobox">
-    <div v-if="title" :class="classTitle">{{ title }}</div>
+    <div v-if="title" class="mb-2" :class="classTitle">{{ title }}</div>
     <a-select
       class="w-100"
       ref="aSelect"
@@ -52,7 +52,8 @@ export default {
       typeof: String,
       default: "",
     },
-    styleCombo: {},
+    styleCombo: {
+    },
     classTitle: {
       typeof: String,
       default: "",
@@ -87,11 +88,14 @@ export default {
       const me = this;
       this.valuePeriod = value;
       me.$emit("update:value",value);
-      this.$emit('change');
+      this.$emit('change',value);
     },
   },
 };
 </script>
 
 <style scoped>
+.ant-select-selection--single{
+  height: 36px !important;
+}
 </style>

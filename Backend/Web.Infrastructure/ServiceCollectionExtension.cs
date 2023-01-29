@@ -29,6 +29,7 @@ namespace Web.Infrastructure
             services.AddTransient<IPermissionUoW, PermissionUoW>();
             services.AddTransient<IPermissionDetailUoW, PermissionDetailUoW>();
             services.AddTransient<IPermissionRelationshipUoW, PermissionRelationshipUoW>();
+            services.AddTransient<IAddressInfoUoW, AddressInfoUoW>();
             //Service 
             services.AddServiceEmailClient();
 

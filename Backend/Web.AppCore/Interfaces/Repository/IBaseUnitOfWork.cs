@@ -6,6 +6,7 @@ namespace Web.AppCore.Interfaces.Repository
     public interface IBaseUnitOfWork
     {
         IBaseRepo<User> Users { get; }
+        IBaseRepo<AddressInfo> AddressInfos { get; }
         IBaseRepo<Avatar> Avatars { get; }
         IBaseRepo<Color> Colors { get; }
         IBaseRepo<Product> Products { get; }

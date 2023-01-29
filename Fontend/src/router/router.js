@@ -8,7 +8,7 @@ import Home from '@/views/home/Home.vue';
 import ProductList from '@/views/product/ProductList.vue';
 import ProductDetail from '@/views/product/ProductDetail.vue';
 import Cart from '@/views/cart/Cart.vue';
-
+import AddressInfos from '@/views/cart/AddressInfos.vue';
 
 import Admin from '@/views/admin/Admin.vue';
 import AdminUser from '@/views/admin/user/User.vue';
@@ -59,6 +59,12 @@ export const router = new VueRouter({
                     name: 'cart',
                     path: '/cart',
                     component: Cart,
+                    props:true
+                },
+                {
+                    name: 'address',
+                    path: '/address-info',
+                    component: AddressInfos,
                     props:true
                 },
             ],

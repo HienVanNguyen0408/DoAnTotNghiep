@@ -24,8 +24,8 @@
                 </div>
                 <div class="options-color mt-3 pb-4 border-bottom" v-if="ProductUser && ProductUser.colors">
                     <div class="colors flex">
-                        <div class="color cursor-pointer ml-2" v-for="(color_name, index) in getColorsProduct" :key="index"
-                            @click="selectColor(color_name)"
+                        <div class="color cursor-pointer ml-2" v-for="(color_name, index) in getColorsProduct"
+                            :key="index" @click="selectColor(color_name)"
                             :class="[colorNameSelect == color_name ? 'color-product-active' : '']">
                             <div class="color_name" :style="{ 'background-color': `${color_name}` }"></div>
                         </div>
@@ -50,7 +50,8 @@
                 </div>
                 <div class="action-buy-product mt-4 pb-5">
                     <div class="add-cart">
-                        <dq-button :title="'Thêm giỏ hàng'" @click="addProductCart" :disabled="colorsProductSize && colorsProductSize.length > 0"></dq-button>
+                        <dq-button :title="'Thêm giỏ hàng'" @click="addProductCart"
+                            :disabled="colorsProductSize && colorsProductSize.length > 0"></dq-button>
                     </div>
                     <div class="payment-product"></div>
                 </div>
@@ -78,11 +79,11 @@ export default {
             sizes: [],
             colorSelect: {},
             colorsProductSize: [],
-            product : {
+            product: {
                 number: 1
             },
-            sizeSelect : "",
-            colorNameSelect : ""
+            sizeSelect: "",
+            colorNameSelect: ""
         }
     },
     computed: {
@@ -150,7 +151,7 @@ export default {
             const me = this;
             me.colorNameSelect = color_name;
             me.colorsProductSize = [...me.getColorByName(color_name)];
-            if(me.colorsProductSize && me.colorsProductSize.length > 0){
+            if (me.colorsProductSize && me.colorsProductSize.length > 0) {
                 me.sizeSelect = me.colorsProductSize[0].size_name;
             }
         },
@@ -161,23 +162,23 @@ export default {
             return [...me.ProductUser.colors.filter(x => x.color_name == color_name && x.amount > 0)];
         },
 
-        async addProductCart(){
+        async addProductCart() {
             const me = this;
-            if(me.product.number >= 0) me.product.number = parseInt(me.product.number);
+            if (me.product.number >= 0) me.product.number = parseInt(me.product.number);
             let product = {
-                id : me.ProductUser.id,
-                sale_price : me.ProductUser.sale_price,
-                product_name  : me.ProductUser.product_name,
-                size_name : me.sizeSelect,
-                color_name : me.colorNameSelect,
-                total_amount : me.product.number * me.ProductUser.sale_price
+                id: me.ProductUser.id,
+                sale_price: me.ProductUser.sale_price,
+                product_name: me.ProductUser.product_name,
+                size_name: me.sizeSelect,
+                color_name: me.colorNameSelect,
+                total_amount: me.product.number * me.ProductUser.sale_price
             }
-            me.product = {...me.product,...product};
-            let userName = me.$commonFunc.getUserName();
-            if (userName) {
-                me.$commonFunc.addCart(userName, me.product );
+            me.product = { ...me.product, ...product };
+            let user = me.$commonFunc.getUserInfo();
+            if (user && user.id) {
+                me.$commonFunc.addCart(user.user_name, me.product);
                 //load lại giỏ hàng
-                await me.getCartByUser(userName);
+                await me.getCartByUser(user.user_name);
             } else {
                 me.$router.push("/login");
             }
@@ -224,7 +225,8 @@ export default {
     color: #fff;
     background-color: #000;
 }
-.color-product-active{
+
+.color-product-active {
     border: 1px solid #e5e5e5;
     display: flex;
     align-items: center;

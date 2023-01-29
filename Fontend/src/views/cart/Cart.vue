@@ -19,8 +19,14 @@
                 </div>
                 <div class="flex-2 form-confirm-order">
                     <div class="address-info">
-                        <div class="font-bold">Địa điểm</div>
-                        <div></div>
+                        <div class="flex">
+                            <div class="font-bold">Địa điểm</div>
+                            <div v-if="!userInfo.address_info" class="ml-3 text-add-address font-bold" @click="insertAddress">Thêm địa chỉ</div>
+                            <div v-else class="ml-3">{{ userInfo.address_info }}</div>
+                        </div>
+                        <div v-if="userInfo.address_info"  class="text-edit-address">
+                            <span class="cursor-pointer " @click="editInfoAddress">Chỉnh sửa</span>
+                        </div>
                     </div>
                     <div class="payment-info">
                         <div class="font-bold mt-2 mb-4">Thông tin đơn hàng</div>
@@ -51,9 +57,11 @@
         </div>
         <div v-else class="not-oder-cart">
             <div>
-                <div class="text-not-order">Không có sản phẩm nào trong giỏ hàng của bạn</div>
-                <dq-button @click="buyProduct" :title="'Tiếp tục mua hàng'">
-                </dq-button>
+                <div class="text-not-order flex justify-center align-center mt-8">Không có sản phẩm nào trong giỏ hàng của bạn</div>
+                <div class="flex justify-center align-center mt-8">
+                    <dq-button @click="buyProduct" class="continue-buy" :title="'Tiếp tục mua hàng'">
+                    </dq-button>
+                </div>
             </div>
         </div>
     </div>
@@ -65,6 +73,8 @@ import {
 } from 'vuex';
 export default {
     name: "Cart",
+    components:{
+    },
     data() {
         return {
             orders: [],
@@ -78,10 +88,15 @@ export default {
                 totalPages: 0
             },
             selected: [],
+            userInfo :{}
         }
     },
     created() {
         const me = this;
+        let user = me.$commonFunc.getUserInfo();
+        if (user) {
+            me.userInfo = user;
+        }
         me.initData();
         me.getOrders();
     },
@@ -105,23 +120,23 @@ export default {
             }
             return 0;
         },
-        totalMoney(){
+        totalMoney() {
             const me = this;
             if (me.selected && me.selected.length > 0) {
-                if(me.selected.length > 1){
+                if (me.selected.length > 1) {
                     return me.selected.reduce((a, {
                         total_amount
                     }) => a + total_amount, 0);
                 }
-                else if(me.selected.length == 1){
+                else if (me.selected.length == 1) {
                     return me.selected[0].total_amount;
                 }
             }
             return 0;
         },
-        totalFeeShip(){
+        totalFeeShip() {
             const me = this;
-           
+
             return 0;
         }
     },
@@ -272,6 +287,19 @@ export default {
             if (!selected || selected.length <= 0) me.selected = [];
             me.selected = [...selected];
         },
+        /**
+         * Thêm địa chỉ nhận hàng
+         */
+        insertAddress(){
+            const me = this;
+            me.$router.push("/address-info");
+        },
+
+        editInfoAddress(){
+            const me = this;
+            me.$router.push("/address-info");
+        }
+
     }
 }
 </script>
@@ -283,6 +311,7 @@ export default {
     margin-top: 20px;
     align-items: center;
 }
+
 .form-confirm-order {
     border: 2px solid #e5e5e5;
     padding: 30px;
@@ -293,4 +322,22 @@ export default {
 }
 
 .btn-confirm-order {}
+.text-add-address{
+    cursor: pointer;
+    color: #00aab7;
+}
+.text-add-address:hover{
+    color: #1dcddb;
+}
+
+.text-edit-address{
+    cursor: pointer;
+    color: #00aab7;
+}
+.text-edit-address:hover{
+    color: #1dcddb;
+}
+.continue-buy{
+    width: 150px;
+}
 </style>

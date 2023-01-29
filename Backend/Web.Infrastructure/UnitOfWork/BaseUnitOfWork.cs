@@ -15,6 +15,7 @@ namespace Web.Infrastructure.UnitOfWork
         private const string TAG = "BaseUnitOfWork";
 
         private IBaseRepo<User> _user;
+        private IBaseRepo<AddressInfo> _address_infos;
         private IBaseRepo<Avatar> _avatar;
         private IBaseRepo<Customer> _customers;
         private IBaseRepo<Product> _products;
@@ -46,6 +47,7 @@ namespace Web.Infrastructure.UnitOfWork
 
         #region Properties
         public IBaseRepo<User> Users => _user ??= new BaseRepo<User>(_dbContext);
+        public IBaseRepo<AddressInfo> AddressInfos => _address_infos ??= new BaseRepo<AddressInfo>(_dbContext);
         public IBaseRepo<Avatar> Avatars => _avatar ??= new BaseRepo<Avatar>(_dbContext);
         public IBaseRepo<Customer> Customers => _customers ??= new BaseRepo<Customer>(_dbContext);
         public IBaseRepo<Color> Colors => _colors ??= new BaseRepo<Color>(_dbContext);

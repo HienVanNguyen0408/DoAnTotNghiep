@@ -21,4 +21,10 @@ export default{
     updateUserLogin : async function(state,res){
         state.User = {...res};
     },
+    updateAddressInfos : async function(state,res){
+        state.AddressInfos = [...res];
+    },
+    updateAddressInfo : async function(state,res){
+        state.AddressInfo = {...res};
+    },
 }

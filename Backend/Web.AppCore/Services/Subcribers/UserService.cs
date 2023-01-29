@@ -102,6 +102,24 @@ namespace Web.AppCore.Services
             return await _userUoW.Users.UpdateOneAsync(user);
         }
 
+        /// <summary>
+        /// Cập nhật thông tin địa chỉ của người dùng
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateInfoAddressAsync(User user)
+        {
+            var userDb = await _userUoW.Users.GetOneAsync(x => x.user_name == user.user_name);
+            if (userDb == null) return false;
+            //userDb.address = user.address;
+            //userDb.full_name = user.full_name;
+            //userDb.province = user.province;
+            //userDb.district = user.district;
+            //userDb.ward = user.ward;
+            //userDb.phone_number = user.phone_number;
+            return await _userUoW.Users.UpdateOneAsync(userDb);
+        }
+
         public async Task<Pagging<User>> GetUserPageAsync(Pagination pagination)
         {
             if (pagination.Filter.IsNullOrEmptyOrWhiteSpace())
@@ -109,10 +127,7 @@ namespace Web.AppCore.Services
                 return await _userUoW.Users.GetPaggingAsync(pagination);
             }
             return await _userUoW.Users.GetPaggingAsync(pagination,
-                                                            x => x.user_name.ContainsText(pagination.Filter)
-                                                            || x.address.ContainsText(pagination.Filter)
-                                                            || x.full_name.ContainsText(pagination.Filter)
-                                                            || x.phone_number.ContainsText(pagination.Filter));
+                                                            x => x.user_name.ContainsText(pagination.Filter));
         }
 
         public async Task<User> GetUserByUserNameAsync(string userName)

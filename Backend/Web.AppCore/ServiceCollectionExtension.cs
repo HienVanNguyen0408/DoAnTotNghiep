@@ -37,6 +37,7 @@ namespace Web.AppCore
             services.AddTransient<IPermissionDetailService, PermissionDetailService>();
             services.AddTransient<IPermissionRelationshipService, PermissionRelationshipService>();
             services.AddTransient<ICartService, CartService>();
+            services.AddTransient<IAddressInfoService, AddressInfoService>();
             return services;
         }
 

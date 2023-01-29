@@ -23,6 +23,9 @@
               <dq-th class="maxW-50px" v-if="serial" :serial="serial" :order="index + 1"></dq-th>
             </template>
           </dq-tr>
+          <div v-if="!data || data.length <= 0" class="flex justify-center align-center mt-14 font-bold">
+            Không có dữ liệu
+          </div>
         </tbody>
       </table>
     </div>

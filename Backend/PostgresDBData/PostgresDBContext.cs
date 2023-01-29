@@ -15,6 +15,7 @@ namespace PostgresDBData
         }
 
         public DbSet<User> users { get; set; }
+        public DbSet<AddressInfo> address_infos { get; set; }
         public DbSet<Comment> comments { get; set; }
         public DbSet<Permission> permissions { get; set; }
         public DbSet<PermissionDetail> permission_details { get; set; }

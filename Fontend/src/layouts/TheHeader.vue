@@ -33,7 +33,7 @@
                     </dq-input>
                   </div>
                   <div class="mt-6">
-                    <dq-input v-model="user.password" placeholder="Mật khẩu" :title="'Mật khẩu'"></dq-input>
+                    <dq-input v-model="user.password" :type="'password'" placeholder="Mật khẩu" :title="'Mật khẩu'"></dq-input>
                   </div>
                 </div>
                 <div class="mt-4">
@@ -51,7 +51,7 @@
               <div v-else>
                 <div>
                   <div class="title-search">THÔNG TIN TÀI KHOẢN</div>
-                  <div class="font-bold mt-4 cursor-pointer">{{ User.user_name }} ( {{ User.full_name }} )</div>
+                  <div class="font-bold mt-4 cursor-pointer">{{ User.user_name }}</div>
                   <div class="mt-4 cursor-pointer action-form">Tài khoản của tôi</div>
                   <div class="mt-4 cursor-pointer action-form">Địa chỉ của tôi</div>
                   <div class="mt-4 cursor-pointer action-form" @click="logout">Đăng xuất</div>

@@ -18,12 +18,10 @@ namespace Web.Models.Entities.GHN
         public string ReasonMessage { get; set; }
         public string CreatedIP { get; set; }
         public string UpdatedIP { get; set; }
-
         public int CreatedEmployee { get; set; }
         public int UpdatedEmployee { get; set; }
         public string CreatedSource { get; set; }
         public string UpdatedSource { get; set; }
-
         public string CreatedDate { get; set; } 
         public string UpdatedDate { get; set; } 
     }

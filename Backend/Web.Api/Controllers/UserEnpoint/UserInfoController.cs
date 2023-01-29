@@ -25,6 +25,7 @@ namespace Web.Api.Controllers
         protected readonly IRedisCached _redisCached;
         protected readonly IJwtAuthencationManager _jwtAuthencation;
         protected readonly IStorageClient _storageClient;
+        protected readonly IAddressInfoService _addressInfoService;
         #endregion
 
         #region Contructor
@@ -34,6 +35,7 @@ namespace Web.Api.Controllers
             _jwtAuthencation = GetRequiredService<IJwtAuthencationManager>();
             _redisCached = GetRequiredService<IRedisCached>();
             _storageClient = GetRequiredService<IStorageClient>();
+            _addressInfoService = GetRequiredService<IAddressInfoService>();
         }
         #endregion
 
@@ -177,7 +179,6 @@ namespace Web.Api.Controllers
             }
         }
 
-
         [HttpPost("authenticate")]
         public async Task<ServiceResult<string>> AutheticateAsync([FromBody] UserRequest request)
         {
@@ -275,6 +276,135 @@ namespace Web.Api.Controllers
             return xxx;
         }
 
+        /// <summary>
+        /// Danh sách các địa chỉ của người dùng
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("addressinfos/{userId}")]
+        public async Task<ServiceResult<List<AddressInfo>>> GetAddressInfosAsync(string userId)
+        {
+            var svcResult = new ServiceResult<List<AddressInfo>>();
+            try
+            {
+                var addresInfos = await _addressInfoService.GetAddressInfos(userId);
+                svcResult = new ServiceResult<List<AddressInfo>>
+                {
+                    Data = addresInfos,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm GetAddressInfosAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
+
+        /// <summary>
+        /// Thông tin địa chỉ theo id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("addressinfo/{id}")]
+        public async Task<ServiceResult<AddressInfo>> GetAddressInfoAsync(string id)
+        {
+            var svcResult = new ServiceResult<AddressInfo>();
+            try
+            {
+                var addresInfo = await _addressInfoService.GetAddressInfo(id);
+                svcResult = new ServiceResult<AddressInfo>
+                {
+                    Data = addresInfo,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm GetAddressInfoAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
+
+        /// <summary>
+        /// Thêm địa chỉ
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("insertaddress")]
+        public async Task<ServiceResult<bool>> InsertAddressInfoAsync([FromBody] AddressInfo addressInfo)
+        {
+            var svcResult = new ServiceResult<bool>();
+            try
+            {
+                var result = await _addressInfoService.InsertAddressInfo(addressInfo);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = result,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm InsertAddressInfoAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật địa chỉa
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("updateaddress")]
+        public async Task<ServiceResult<bool>> UpdateAddressInfoAsync([FromBody] AddressInfo addressInfo)
+        {
+            var svcResult = new ServiceResult<bool>();
+            try
+            {
+                var result = await _addressInfoService.UpdateAddressInfo(addressInfo);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = result,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm UpdateAddressInfoAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật địa chỉa
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("deleteaddress/{id}")]
+        public async Task<ServiceResult<bool>> DeleteAddressInfoAsync(string id)
+        {
+            var svcResult = new ServiceResult<bool>();
+            try
+            {
+                var result = await _addressInfoService.DeleteAddressInfo(id);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = result,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm DeleteAddressInfoAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
 
         #endregion
     }
