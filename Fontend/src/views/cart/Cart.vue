@@ -21,10 +21,10 @@
                     <div class="address-info">
                         <div class="flex">
                             <div class="font-bold">Địa điểm</div>
-                            <div v-if="!userInfo.address_info" class="ml-3 text-add-address font-bold" @click="insertAddress">Thêm địa chỉ</div>
-                            <div v-else class="ml-3">{{ userInfo.address_info }}</div>
+                            <div v-if="!AddressInfo || !AddressInfo.id" class="ml-3 text-add-address font-bold" @click="insertAddress">Thêm địa chỉ</div>
+                            <div v-else class="ml-3">{{ AddressInfo.address_info }}</div>
                         </div>
-                        <div v-if="userInfo.address_info"  class="text-edit-address">
+                        <div v-if="AddressInfo && AddressInfo.address_info"  class="text-edit-address">
                             <span class="cursor-pointer " @click="editInfoAddress">Chỉnh sửa</span>
                         </div>
                     </div>
@@ -37,7 +37,10 @@
                                 <div>{{ totalMoney | formatMoney}}đ</div>
                             </div>
                             <div class="flex align-center justify-between mb-4">
-                                <div>Phí vận chuyển</div>
+                                <div>
+                                    <div>Phí vận chuyển</div>
+                                    <div>(Đơn vị vận chuyển: GHN)</div>
+                                </div>
                                 <div>{{ totalFeeShip | formatMoney}}đ</div>
                             </div>
                             <div class="flex align-center justify-between mb-4">
@@ -71,6 +74,7 @@
 import {
     mapActions, mapGetters
 } from 'vuex';
+import { ModuleUser, ModuleGHN } from '@/store/module-const';
 export default {
     name: "Cart",
     components:{
@@ -108,6 +112,12 @@ export default {
     watch: {},
     computed: {
         ...mapGetters(["CartProducts"]),
+        ...mapGetters(ModuleUser, [
+            "AddressInfo"
+        ]),
+        ...mapGetters(ModuleGHN, [
+            "Fee"
+        ]),
         totalAmount() {
             const me = this;
             if (me.CartProducts && me.CartProducts.length > 1) {
@@ -136,15 +146,22 @@ export default {
         },
         totalFeeShip() {
             const me = this;
-
+            if(me.Fee && me.Fee.total > 0) return me.Fee.total;
             return 0;
         }
     },
     methods: {
         ...mapActions(["getCartByUser"]),
-        initData() {
+        ...mapActions(ModuleUser, [
+            "getAddressInfoDefaultAsync",
+        ]),
+        ...mapActions(ModuleGHN, [
+            "getFeeInfoAsync"
+        ]),
+        async initData() {
             const me = this;
             me.initDataStatic();
+            await me.getAddressInfoDefault();
         },
         initDataStatic() {
             const me = this;
@@ -170,14 +187,34 @@ export default {
                 }
             ]
         },
-
+        /**
+         * Lấy thông tin địa chỉ mặc định
+         */
+        async getAddressInfoDefault(){
+            const me = this;
+            if (me.userInfo && me.userInfo.id) {
+                let payload = {
+                    user_id: me.userInfo.id
+                };
+                await me.getAddressInfoDefaultAsync(payload);
+                //Tính fee đơn hàng
+                if(me.AddressInfo && me.AddressInfo.id){
+                    payload = {
+                        to_ward_code : me.AddressInfo.ward_code,
+                        to_district_id : me.AddressInfo.district_id
+                    }
+                    await me.getFeeInfoAsync(payload);
+                }
+            }
+        },
         /**
          * Lấy đanh sách đơn hàng trrong giỏ
          */
         async getOrders() {
             const me = this;
-            let userName = me.$commonFunc.getUserName();
-            await me.getCartByUser(userName);
+            if(me.userInfo && me.userInfo.user_name){
+                await me.getCartByUser(me.userInfo.user_name);
+            }
         },
         /**
          * Xóa đơn hàng
@@ -211,7 +248,7 @@ export default {
          */
         buyProduct() {
             const me = this;
-            me.$router.push("/category")
+            me.$router.push("/product")
         },
 
         resetCart() {

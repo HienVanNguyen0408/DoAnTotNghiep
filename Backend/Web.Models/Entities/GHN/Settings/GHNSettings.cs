@@ -100,6 +100,13 @@ namespace Web.Models.Entities.GHN
         /// </summary>
         public string UrlPrintOrder { get; set; } = "shiip/public-api/v2/a5/gen-token";
         public string ApiPrintOrder => $"{APIEnpoint}/{UrlPrintOrder}";
+       
+    }
 
+    public  class StoreInfo
+    {
+        public string shop_id { get; set; } = "119013";
+        public int district_id { get; set; } = 1482;
+        public string ward_code { get; set; } = "11002";
     }
 }

@@ -8,4 +8,7 @@ export default{
     updateWards : async function(state,res){
         state.Wards = [...res];
     },
+    updateFeeInfo : async function(state,res){
+        state.Fee = {...res};
+    },
 }

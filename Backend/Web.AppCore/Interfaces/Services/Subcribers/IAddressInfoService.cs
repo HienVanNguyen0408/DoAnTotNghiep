@@ -10,6 +10,8 @@ namespace Web.AppCore.Interfaces.Services
     public interface IAddressInfoService
     {
         Task<List<AddressInfo>> GetAddressInfos(string userId);
+        Task<AddressInfo> GetAddressInfoDefault(string userId);
+        Task<bool> SetDefaultAddress(string userId, string id, bool isDefault);
         Task<AddressInfo> GetAddressInfo(string id);
         Task<bool> UpdateAddressInfo(AddressInfo addressInfo);
         Task<bool> InsertAddressInfo(AddressInfo addressInfo);

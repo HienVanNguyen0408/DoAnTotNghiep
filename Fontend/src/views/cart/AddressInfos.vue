@@ -11,14 +11,13 @@
         <div class="mt-5">
             <div class="grid-address-infos">
                 <dq-grid ref="gridAddress" :data="AddressInfos" :columns="columns" serial="true"
-                    @dbclick="editAddressInfo">
+                    @dbclick="editAddressInfo" :widgetLeft="widgetLeft" @widgetLeftEvent="widgetLeftEvent">
                 </dq-grid>
             </div>
         </div>
         <div v-if="showFormAddress">
-            <AddressInfoDetail @closePopup="setStateFormAddress(false)" @resetData="resetData"
-            :mode="mode" :userInfo="userInfo"
-                :addressInfo="addressInfo" />
+            <AddressInfoDetail @closePopup="setStateFormAddress(false)" @resetData="resetData" :mode="mode"
+                :userInfo="userInfo" :addressInfo="addressInfo" @loadData="loadData"/>
         </div>
     </div>
 </template>
@@ -27,6 +26,7 @@
 import AddressInfoDetail from './AddressInfoDetail.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { ModuleUser } from '@/store/module-const';
+import WidgetAddress from "./WidgetAddress.vue";
 export default {
     name: "AddressInfos",
     components: {
@@ -38,7 +38,8 @@ export default {
             userInfo: {},
             showFormAddress: false,
             mode: this.$enum.Mode.Add,
-            addressInfo: {}
+            addressInfo: {},
+            widgetLeft: {}
         }
     },
     computed: {
@@ -58,11 +59,18 @@ export default {
     methods: {
         ...mapActions(ModuleUser, [
             "getAddressInfosAsync",
-            "getAddressInfoAsync"
+            "getAddressInfoAsync",
+            "setAddressInfoAsync",
+            "deleteAddressInfoAsync"
         ]),
         async initData() {
             const me = this;
             me.initDataStatic();
+            await me.loadData();
+        },
+
+        async loadData() {
+            const me = this;
             if (me.userInfo && me.userInfo.id) {
                 let payload = {
                     user_id: me.userInfo.id
@@ -89,7 +97,11 @@ export default {
                     title: 'Số điện thoại',
                     dataField: 'phone_number',
                 }
-            ]
+            ];
+
+            me.widgetLeft = {
+                components: WidgetAddress
+            }
         },
         editAddressInfo(value) {
             const me = this;
@@ -109,9 +121,63 @@ export default {
             const me = this;
             me.showFormAddress = statusForm;
         },
-        resetData(){
+
+        async setAddressInfo(params) {
+            const me = this;
+            if (me.userInfo && me.userInfo.id) {
+                let payload = {
+                    user_id: me.userInfo.id,
+                    id: params.id,
+                    is_default: params.is_default
+                };
+                await me.setAddressInfoAsync(payload);
+            }
+        },
+
+        async deleteAddressInfo(id) {
+            const me = this;
+            if (me.userInfo && me.userInfo.id) {
+                let payload = {
+                    id: id
+                };
+                await me.deleteAddressInfoAsync(payload);
+            }
+        },
+        resetData() {
             const me = this;
             me.addressInfo = {};
+        },
+        async widgetLeftEvent(payload) {
+            const me = this;
+            switch (payload.action) {
+                case me.$enum.Action.Edit:
+                    await me.editAddressInfo(payload.data);
+                    break;
+                case me.$enum.Action.Delete:
+                    if (payload.data && !payload.data.is_default) {
+                        await me.deleteAddressInfo(payload.data.id);
+                    }
+                    break;
+                case me.$enum.Action.SetDefault:
+                    if (payload.data) {
+                        let params = {
+                            id: payload.data.id,
+                            is_default: payload.data.is_default
+                        }
+                        await me.setAddressInfo(params);
+                    }
+                    break;
+                case me.$enum.Action.UnSetDefault:
+                    if (payload.data) {
+                        let params = {
+                            id: payload.data.id,
+                            is_default: payload.data.is_default
+                        }
+                        await me.setAddressInfo(params);
+                    }
+                    break;
+            }
+            await me.loadData();
         }
     }
 }

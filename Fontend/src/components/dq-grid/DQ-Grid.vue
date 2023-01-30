@@ -8,10 +8,12 @@
               :checkbox="checkbox" v-if="checkbox"></dq-th>
             <dq-th class="dq-thead-th maxW-50px" v-if="serial" :serial="serial" :order="'STT'"></dq-th>
             <dq-th v-for="(col, index) in columns" :col="col" :key="index"></dq-th>
+            <dq-th class="" v-if="widgetLeft" :widgetLeft="widgetLeft"></dq-th>
           </tr>
         </thead>
         <tbody>
-          <dq-tr v-for="(item, index) in data" :key="index" :data="item" :columns="columns" @dblclick="dblclick(item)">
+          <dq-tr v-for="(item, index) in data" :key="index" :data="item" :columns="columns" @dblclick="dblclick(item)"
+            :widgetLeft="widgetLeft" @widgetLeftEvent="widgetLeftEvent">
             <template v-slot:td-checkbox>
               <dq-th @clickCheck="clickCheckbox(item)" :checked="isCheckboxSelected(item)" class="maxW-42px"
                 :checkbox="checkbox" v-if="checkbox"></dq-th>
@@ -79,6 +81,7 @@ export default {
       default: false,
       typeof: Boolean
     },
+    widgetLeft: {}
   },
   computed: {
     isCheckboxSelectedMul() {
@@ -161,6 +164,11 @@ export default {
     resetSelect() {
       const me = this;
       me.selected = [];
+    },
+
+    widgetLeftEvent(payload) {
+      const me = this;
+      me.$emit("widgetLeftEvent", payload);
     }
   },
 };
@@ -196,18 +204,21 @@ export default {
 }
 
 .overflow-grid::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
-  .overflow-grid::-webkit-scrollbar-track-piece {
-    background-color: #c2d2e4;
-  }
-  .overflow-grid::-webkit-scrollbar-thumb:vertical {
-    height: 30px;
-    background-color: #000000;
-  }
-  .overflow-grid::-webkit-scrollbar-thumb:horizontal {
-    height: 30px;
-    background-color: #000000;
-  }
+  width: 5px;
+  height: 5px;
+}
+
+.overflow-grid::-webkit-scrollbar-track-piece {
+  background-color: #c2d2e4;
+}
+
+.overflow-grid::-webkit-scrollbar-thumb:vertical {
+  height: 30px;
+  background-color: #000000;
+}
+
+.overflow-grid::-webkit-scrollbar-thumb:horizontal {
+  height: 30px;
+  background-color: #000000;
+}
 </style>

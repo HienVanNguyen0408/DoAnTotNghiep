@@ -3,33 +3,34 @@
     <slot name="td-widget"></slot>
     <slot name="td-checkbox"></slot>
     <slot name="td-serial"></slot>
-    <td class="w-100 dq-td flex flex-1 word-normal" 
-      v-for="(col, index) in columns" :key="index" 
-      :class="[col && col.align ? `jus-${col.align}` : '',col && col.isBold ? 'font-bold' : '',col.class]"
-      :style="[
-        col && col.width ? {width:`${col.width}px`,minWidth:`${col.width}px`} : '' 
-      ]"
-    >
+    <td class="w-100 dq-td flex flex-1 word-normal" v-for="(col, index) in columns" :key="index"
+      :class="[col && col.align ? `jus-${col.align}` : '', col && col.isBold ? 'font-bold' : '', col.class]" :style="[
+        col && col.width ? { width: `${col.width}px`, minWidth: `${col.width}px` } : ''
+      ]">
       <div v-if="col.image" class="flex jus-center w-100 align-center">
-        <img style="width:100px;height:100px" v-if="data[`${col.dataField}`]" :src="`data:image/png;base64,${data[`${col.dataField}`]}`" >
+        <img style="width:100px;height:100px" v-if="data[`${col.dataField}`]"
+          :src="`data:image/png;base64,${data[`${col.dataField}`]}`">
       </div>
       <div v-else-if="col.audio" class="flex jus-center w-100 align-center">
         <audio v-if="data[`${col.dataField}`]" controls style="width:100%">
-            <source :src="getBase64File(data[`${col.dataField}`])" type="audio/mpeg">
+          <source :src="getBase64File(data[`${col.dataField}`])" type="audio/mpeg">
         </audio>
       </div>
       <div v-else-if="col.format == $enum.Format.Date">
-          {{ data[`${col.dataField}`] | formatDate}}
+        {{ data[`${col.dataField}`] | formatDate }}
       </div>
       <div v-else-if="(col.format == $enum.Format.Money)">
-          {{ data[`${col.dataField}`] | formatMoney }}
+        {{ data[`${col.dataField}`] | formatMoney }}
       </div>
-       <div v-else-if="col.enum != null">
-          {{ $commonFunc.getValueStringByEnum(col.enum,data[`${col.dataField}`])}}
+      <div v-else-if="col.enum != null">
+        {{ $commonFunc.getValueStringByEnum(col.enum, data[`${col.dataField}`]) }}
       </div>
       <div v-else :title="data[`${col.dataField}`]">
         {{ data[`${col.dataField}`] }}
       </div>
+    </td>
+    <td v-if="widgetLeft" class="w-100 dq-td flex flex-1 word-normal">
+      <component :is="widgetLeft.components" :data="data" @widgetEvent="widgetLeftEvent" />
     </td>
   </tr>
 </template>
@@ -43,13 +44,14 @@ export default {
       typeof: Object,
       default: null,
     },
+    widgetLeft: {}
   },
-  data(){
+  data() {
     return {
     }
   },
-  computed:{
-    
+  computed: {
+
   },
   methods: {
     dbClick() {
@@ -60,9 +62,13 @@ export default {
       const me = this;
       me.$emit("click");
     },
-    getBase64File(data){
+    getBase64File(data) {
       const me = this;
       return me.$commonFunc.getBase64FromData(data);
+    },
+    widgetLeftEvent(payload) {
+      const me = this;
+      me.$emit('widgetLeftEvent', payload);
     }
   },
 };

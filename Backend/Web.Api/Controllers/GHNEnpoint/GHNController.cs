@@ -13,7 +13,7 @@ namespace Web.Api.Controllers.GHNEnpoint
         #region Declaration
         private const string TAG = "GHNController";
         protected readonly IGHNClient _ghn;
-        
+
         #endregion
 
         #region Contructor
@@ -34,7 +34,7 @@ namespace Web.Api.Controllers.GHNEnpoint
             try
             {
                 var provinces = await _ghn.GetProvinces();
-                if(provinces != null)
+                if (provinces != null)
                 {
                     svcResult.Data = provinces;
                     svcResult.Success = true;
@@ -45,7 +45,7 @@ namespace Web.Api.Controllers.GHNEnpoint
             }
             return svcResult;
         }
-        
+
         /// <summary>
         /// Các Quận Huyện của cả nước
         /// </summary>
@@ -57,7 +57,7 @@ namespace Web.Api.Controllers.GHNEnpoint
             try
             {
                 var districts = await _ghn.GetDistricts();
-                if(districts != null)
+                if (districts != null)
                 {
                     svcResult.Data = districts;
                     svcResult.Success = true;
@@ -68,7 +68,7 @@ namespace Web.Api.Controllers.GHNEnpoint
             }
             return svcResult;
         }
-        
+
         /// <summary>
         /// Các Quận/Huyện theo Tỉnh/TP
         /// </summary>
@@ -81,7 +81,7 @@ namespace Web.Api.Controllers.GHNEnpoint
             try
             {
                 var districts = await _ghn.GetDistricts(provinceId);
-                if(districts != null)
+                if (districts != null)
                 {
                     svcResult.Data = districts;
                     svcResult.Success = true;
@@ -92,7 +92,7 @@ namespace Web.Api.Controllers.GHNEnpoint
             }
             return svcResult;
         }
-        
+
         /// <summary>
         /// Các Xã/Phường theo Quận/Huyện
         /// </summary>
@@ -105,13 +105,37 @@ namespace Web.Api.Controllers.GHNEnpoint
             try
             {
                 var districts = await _ghn.GetWards(districtId);
-                if(districts != null)
+                if (districts != null)
                 {
                     svcResult.Data = districts;
                     svcResult.Success = true;
                 }
             }
             catch (Exception)
+            {
+            }
+            return svcResult;
+        }
+
+        /// <summary>
+        /// Các Xã/Phường theo Quận/Huyện
+        /// </summary>
+        /// <param name="districtId">Id quận huyện</param>
+        /// <returns></returns>
+        [HttpPost("calculatorfee")]
+        public async Task<ServiceResult<FeeInfo>> GetFeeOrderAsync([FromBody] FeeInfoRequest request)
+        {
+            var svcResult = new ServiceResult<FeeInfo>();
+            try
+            {
+                var feeInfo = await _ghn.GetFeeInfoAsync(request);
+                if (feeInfo != null)
+                {
+                    svcResult.Data = feeInfo;
+                    svcResult.Success = true;
+                }
+            }
+            catch (Exception ex)
             {
             }
             return svcResult;

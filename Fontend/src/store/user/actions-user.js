@@ -162,8 +162,21 @@ export default {
      */
     getAddressInfoAsync: async function (context, payload) {
         var res = await userClient.getAsync({
-            url : `${userClient.url}/addressinfo/${payload.id}`,
-            data : payload
+            url : `${userClient.url}/addressinfo/${payload.id}`
+        });
+
+        if(res && res.data){
+            context.commit("updateAddressInfo", res.data);
+            return res.data;
+        }
+        return res;
+    },
+    /**
+     * Lấy thông tin địa chỉ người dùng
+     */
+    getAddressInfoDefaultAsync: async function (context, payload) {
+        var res = await userClient.getAsync({
+            url : `${userClient.url}/addressdefault/${payload.user_id}`
         });
 
         if(res && res.data){
@@ -210,6 +223,21 @@ export default {
         });
 
         if(res && res.data){
+            return res.data;
+        }
+        return res;
+    },
+
+    /**
+     * Set địa chỉ mặc định
+     */
+    setAddressInfoAsync: async function (context, payload) {
+        var res = await userClient.getAsync({
+            url : `${userClient.url}/setdefault/${payload.user_id}/${payload.id}?isDefault=${payload.is_default}`
+        });
+
+        if(res && res.data){
+            context.commit("updateAddressInfo", res.data);
             return res.data;
         }
         return res;

@@ -365,10 +365,10 @@ namespace Web.Api.Controllers
             var svcResult = new ServiceResult<ProductRespone>();
             try
             {
-                var productCategory = await _productService.GetProductAsync(productId);
+                var product = await _productService.GetProductAsync(productId);
                 svcResult = new ServiceResult<ProductRespone>
                 {
-                    Data = productCategory,
+                    Data = product,
                     Success = true,
                     Status = ServiceResultStatus.Ok
                 };

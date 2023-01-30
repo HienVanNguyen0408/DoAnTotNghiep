@@ -406,6 +406,50 @@ namespace Web.Api.Controllers
             }
         }
 
+
+        [HttpGet("setdefault/{userid}/{id}")]
+        public async Task<ServiceResult<bool>> SetDefaultAddressAsync(string userId, string id, [FromQuery] bool isDefault)
+        {
+            var svcResult = new ServiceResult<bool>();
+            try
+            {
+                var result = await _addressInfoService.SetDefaultAddress(userId, id, isDefault);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = result,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm SetDefaultAddressAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
+
+        [HttpGet("addressdefault/{userid}")]
+        public async Task<ServiceResult<AddressInfo>> GetAddressDefaultAsync(string userId)
+        {
+            var svcResult = new ServiceResult<AddressInfo>();
+            try
+            {
+                var result = await _addressInfoService.GetAddressInfoDefault(userId);
+                svcResult = new ServiceResult<AddressInfo>
+                {
+                    Data = result,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm GetAddressDefaultAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
         #endregion
     }
 }

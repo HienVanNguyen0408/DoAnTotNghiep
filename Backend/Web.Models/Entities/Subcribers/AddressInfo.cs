@@ -33,10 +33,12 @@ namespace Web.Models.Entities
         /// Quận huyện
         /// </summary> 
         public string district { get; set; }
+        public int district_id { get; set; }
         /// <summary>
         /// Xã phường
         /// </summary>
         public string ward { get; set; }
+        public string ward_code { get; set; }
 
         public string address_info
         {

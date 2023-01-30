@@ -184,6 +184,12 @@ export default {
         SizeLetter : 1,
         //Size bằng số: 29,30...
         SizeNumber : 2
+    },
+    Action: {
+        Edit : 1,
+        Delete : 2,
+        SetDefault : 3,
+        UnSetDefault : 4
     }
 
 }

@@ -60,6 +60,9 @@
 .w-200px {
     width: 200px !important;
 }
+.max-w200{
+    max-width: 200px;
+  }
 
 .flex {
     display: flex !important;

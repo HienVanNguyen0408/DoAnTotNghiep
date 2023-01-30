@@ -9,4 +9,7 @@ export default{
     Wards(state){
         return state.Wards;
     },
+    Fee(state){
+        return state.Fee;
+    },
 }

@@ -51,7 +51,7 @@
                 <div class="action-buy-product mt-4 pb-5">
                     <div class="add-cart">
                         <dq-button :title="'Thêm giỏ hàng'" @click="addProductCart"
-                            :disabled="colorsProductSize && colorsProductSize.length > 0"></dq-button>
+                            :disabled="!(colorsProductSize && colorsProductSize.length > 0)"></dq-button>
                     </div>
                     <div class="payment-product"></div>
                 </div>

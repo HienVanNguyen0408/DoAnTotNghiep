@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-1" :class="serial || checkbox ? 'th-first' : ''">
-    <th v-if="serial" class=" w-100 text-center">
+    <th v-if="serial" class="w-100 text-center">
       {{ order }}
     </th>
     <th class="" v-else-if="checkbox">
@@ -12,6 +12,7 @@
     ]" :class="[col && col.align ? `text-${col.align}` : '']">
       {{ col.title }}
     </th>
+    <th v-if="widgetLeft" class="w-100"></th>
   </div>
 </template>
 
@@ -44,7 +45,8 @@ export default {
     checked: {
       default: false,
       typeof: Boolean
-    }
+    },
+    widgetLeft:{}
   },
   created() {
     const me = this;

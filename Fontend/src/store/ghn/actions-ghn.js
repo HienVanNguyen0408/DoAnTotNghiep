@@ -39,6 +39,19 @@ export default {
         }
         return res;
     },
+
+    getFeeInfoAsync: async function (context, payload) {
+        var res = await ghnClient.postAsync({
+            url : `${ghnClient.url}/calculatorfee`,
+            data : payload
+        });
+        
+        if(res && res.data){
+            context.commit('updateFeeInfo',res.data);
+            return res.data;
+        }
+        return res;
+    },
     
     
 }

@@ -49,6 +49,19 @@ namespace Web.AppCore.Services
             }
         }
 
+        public async Task<AddressInfo> GetAddressInfoDefault(string userId)
+        {
+            try
+            {
+                var addressInfo = await _addressInfoUoW.AddressInfos.GetOneAsync(x => x.user_id == userId && x.is_default);
+                return addressInfo;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<List<AddressInfo>> GetAddressInfos(string userId)
         {
             try
@@ -70,6 +83,36 @@ namespace Web.AppCore.Services
             {
                 var resInsert = await _addressInfoUoW.AddressInfos.InsertOneAsync(addressInfo);
                 return resInsert != null;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> SetDefaultAddress(string userId, string id, bool isDefault)
+        {
+            try
+            {
+                //Bỏ mặc định
+                if (isDefault)
+                {
+                    var addressInfo = await _addressInfoUoW.AddressInfos.GetOneAsync(x => x.user_id == userId && x.id == id);
+                    if (addressInfo == null) return false;
+                    addressInfo.is_default = false;
+                    await _addressInfoUoW.AddressInfos.UpdateOneAsync(addressInfo);
+                    return true;
+                }
+
+                var addressInfos = await _addressInfoUoW.AddressInfos.GetAllAsync(x => x.user_id == userId);
+                if (addressInfos.CountExt() <= 0) return false;
+                foreach (var addressInfo in addressInfos)
+                {
+                    if (addressInfo.id == id) addressInfo.is_default = true;
+                    else addressInfo.is_default = false;
+                }
+                await _addressInfoUoW.AddressInfos.UpdateManyAsync(addressInfos);
+                return true;
             }
             catch (Exception ex)
             {

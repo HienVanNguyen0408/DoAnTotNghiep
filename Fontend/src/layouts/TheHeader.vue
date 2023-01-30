@@ -33,7 +33,8 @@
                     </dq-input>
                   </div>
                   <div class="mt-6">
-                    <dq-input v-model="user.password" :type="'password'" placeholder="Mật khẩu" :title="'Mật khẩu'"></dq-input>
+                    <dq-input v-model="user.password" :type="'password'" placeholder="Mật khẩu"
+                      :title="'Mật khẩu'"></dq-input>
                   </div>
                 </div>
                 <div class="mt-4">
@@ -95,6 +96,10 @@ export default {
   },
   created() {
     const me = this;
+    let user = me.$commonFunc.getUserInfo();
+    if (user) {
+      me.user = user;
+    }
     me.initData();
   },
   methods: {
@@ -138,12 +143,13 @@ export default {
       ]
     },
     /**
-     * Lấy đanh sách đơn hàng trrong giỏ
-     */
+         * Lấy đanh sách đơn hàng trrong giỏ
+         */
     async getOrders() {
       const me = this;
-      let userName = me.$commonFunc.getUserName();
-      await me.getCartByUser(userName);
+      if (me.user && me.user.user_name) {
+        await me.getCartByUser(me.user.user_name);
+      }
     },
     showFormSearch() {
       const me = this;
@@ -164,7 +170,7 @@ export default {
       me.$router.push(`${menu.router}`);
     },
 
-    closeFormLogin(){
+    closeFormLogin() {
       const me = this;
       me.isShowLogin = false;
     },

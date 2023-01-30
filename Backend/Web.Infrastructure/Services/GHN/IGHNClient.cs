@@ -75,6 +75,8 @@ namespace Web.Infrastructure.Services.GHN
         /// <returns></returns>
         Task<OrderRespone> PreviewOrderAsync(OrderRequest request);
 
+        Task<FeeInfo> GetFeeInfoAsync(FeeInfoRequest request);
+
 
 
         #region Get Info Address

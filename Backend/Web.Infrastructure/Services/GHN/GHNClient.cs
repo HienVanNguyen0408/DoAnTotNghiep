@@ -16,6 +16,7 @@ namespace Web.Infrastructure.Services.GHN
         #region Declaration
         protected Dictionary<string, string> _header = null;
         protected GHNSettings _ghnSettings = null;
+        protected StoreInfo storeInfo = null;
         #endregion
 
         #region Contructor
@@ -26,6 +27,7 @@ namespace Web.Infrastructure.Services.GHN
             {
                 {"Token",_ghnSettings.Token },
             };
+            storeInfo = new StoreInfo();
         }
         #endregion
 
@@ -292,6 +294,32 @@ namespace Web.Infrastructure.Services.GHN
         public async Task<bool> PrintOrderAsync()
         {
             return false;
+        }
+
+        public async Task<FeeInfo> GetFeeInfoAsync(FeeInfoRequest request)
+        {
+            var jsonBody = new
+            {
+                shop_id = storeInfo.shop_id,
+                service_type_id = 2,
+                from_district_id = storeInfo.district_id,
+                to_ward_code = request.to_ward_code,
+                to_district_id = request.to_district_id,
+                weight = request.weight,
+                length = request.length,
+                width = request.width,
+                height = request.height,
+                cod_value = request.cod_value
+            };
+            var resultSvc = await StandardHttpClient.DoPostOrPutJsonAsync($"{_ghnSettings.ApiFee}", HttpMethod.Post, jsonBody, headers: _header);
+            if (resultSvc.IsNullOrEmpty()) return null;
+
+            var feeResult = resultSvc.ContentResult.Deserialize<GHNResult<FeeInfo>>();
+            if (feeResult?.data != null)
+            {
+                return feeResult.data;
+            }
+            return null;
         }
         #endregion
     }

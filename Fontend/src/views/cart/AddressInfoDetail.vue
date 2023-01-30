@@ -157,13 +157,20 @@ export default {
                     let payload = {
                         district_id: district.districtID
                     };
+                    me.addressInfo.district_id = district.districtID;
                     await me.getWardsAsync(payload);
                 }
             }
         },
 
-        changeWard() {
+        async changeWard(value) {
             const me = this;
+            if (me.Wards && me.Wards.length > 0) {
+                let ward = me.Wards.find(x => x.wardName == value);
+                if (ward) {
+                    me.addressInfo.ward_code = ward.wardCode;
+                }
+            }
         },
 
         async saveDataAsync() {
@@ -182,6 +189,7 @@ export default {
             else{ //Sửa
                 await me.updateAddressInfoAsync(payload);
             }
+            me.$emit("loadData");
             me.closePopup();
         }
 
