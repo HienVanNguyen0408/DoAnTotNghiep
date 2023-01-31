@@ -1,6 +1,6 @@
 <template>
     <div class="cart-products">
-        <div class="flex justify-center align-center font-bold">Giỏ hàng của bạn</div>
+        <div class="flex justify-center align-center font-bold text-cart">Giỏ hàng của bạn</div>
         <div v-if="selected && selected.length > 0" class="text-select mb-5">
             <div>
                 Đã chọn <span class="font-bold">{{ selected.length }}</span> sản phẩm
@@ -275,9 +275,16 @@ export default {
          */
         confirmPayment() {
             const me = this;
-            if (me.totalMoney != 0) {
-                me.$router.push("/cart-pay");
-                me.updateCart();
+            if (me.selected && me.selected.length > 0) {
+                let paymentOrder = {
+                    products : me.selected,
+                    order_fee : me.totalFeeShip,
+                    total_amount : me.totalMoney,
+                    address_info : me.AddressInfo
+                }
+                me.$commonFunc.addOrderPayment(paymentOrder);
+                me.$router.push("/cartpay");
+                // me.updateCart();
             }
         },
         clickMultiple() {
@@ -342,6 +349,9 @@ export default {
 </script>
 
 <style scoped>
+.text-cart{
+    font-size: 30px;
+}
 .text-select {
     font-size: 20px;
     display: flex;

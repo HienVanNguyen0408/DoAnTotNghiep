@@ -14,6 +14,7 @@ const keyPartListen = "PartListens";
 const keyExamResult = "ExamResult";
 
 const keyUserInfo = "UserInfo";
+const keyOrderPayment = "OrderPayment";
 // path Storage vật lý
 // const prefixPathDefault = "C:\\Users\\ADMIN\\Desktop\\CLient serve\\english-test\\Fontend\\dq-fontend\\src";
 class CommonFunc {
@@ -91,6 +92,20 @@ class CommonFunc {
         localStorage.setItem(`${keyOrderStorage}`, JSON.stringify(orderStorage));
     }
 
+    addOrderPayment(orderPayment){
+        if(!orderPayment) return;
+        localStorage.setItem(`${keyOrderPayment}`, JSON.stringify(orderPayment));
+    }
+
+    getOrderPayment(){
+        let orderPayment = localStorage.getItem(keyOrderPayment)
+        orderPayment = !orderPayment ? {} : JSON.parse(orderPayment);
+        return orderPayment;
+    }
+
+    removeOrderPayment(){
+        localStorage.removeItem(`${keyOrderPayment}`);
+    }
     /**
      * Lấy thông tin giỏ hàng của user
      */

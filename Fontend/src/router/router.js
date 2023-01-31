@@ -8,6 +8,7 @@ import Home from '@/views/home/Home.vue';
 import ProductList from '@/views/product/ProductList.vue';
 import ProductDetail from '@/views/product/ProductDetail.vue';
 import Cart from '@/views/cart/Cart.vue';
+import CartPay from '@/views/cart/CartPay.vue';
 import AddressInfos from '@/views/cart/AddressInfos.vue';
 
 import Admin from '@/views/admin/Admin.vue';
@@ -59,6 +60,12 @@ export const router = new VueRouter({
                     name: 'cart',
                     path: '/cart',
                     component: Cart,
+                    props:true
+                },
+                {
+                    name: 'cartpay',
+                    path: '/cartpay',
+                    component: CartPay,
                     props:true
                 },
                 {
