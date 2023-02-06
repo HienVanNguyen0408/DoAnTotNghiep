@@ -24,6 +24,9 @@
 .menu-header:hover{
     color: #e85205;
 }
+.menu-header-active{
+    color: #e85205;
+}
 
 .form-search-product{
     position: absolute;
@@ -84,5 +87,8 @@
 }
 
 .action-form:hover{
+    color: orange;
+}
+.action-form-active{
     color: orange;
 }

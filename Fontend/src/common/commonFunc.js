@@ -77,7 +77,7 @@ class CommonFunc {
             }
         } else {
             let exist = order && orderStorage[`${userName}`].orders.filter(x => x.id == order.id) && orderStorage[`${userName}`]
-                                    .orders.filter(x => x.id == order.id && x.color_name == order.color_name && x.size_name && order.size_name).length > 0;
+                .orders.filter(x => x.id == order.id && x.color_name == order.color_name && x.size_name && order.size_name).length > 0;
             if (exist) {
                 let index = orderStorage[`${userName}`].orders.findIndex((obj => obj.id == order.id));
                 orderStorage[`${userName}`].orders[index].total_amount += order.total_amount;
@@ -92,18 +92,18 @@ class CommonFunc {
         localStorage.setItem(`${keyOrderStorage}`, JSON.stringify(orderStorage));
     }
 
-    addOrderPayment(orderPayment){
-        if(!orderPayment) return;
+    addOrderPayment(orderPayment) {
+        if (!orderPayment) return;
         localStorage.setItem(`${keyOrderPayment}`, JSON.stringify(orderPayment));
     }
 
-    getOrderPayment(){
+    getOrderPayment() {
         let orderPayment = localStorage.getItem(keyOrderPayment)
         orderPayment = !orderPayment ? {} : JSON.parse(orderPayment);
         return orderPayment;
     }
 
-    removeOrderPayment(){
+    removeOrderPayment() {
         localStorage.removeItem(`${keyOrderPayment}`);
     }
     /**
@@ -126,7 +126,7 @@ class CommonFunc {
         }
         return orderUserName;
     }
-    
+
     /**
      * reset dữ liệu trên storage của user
      */
@@ -152,7 +152,7 @@ class CommonFunc {
         orderStorage[`${userName}`].orders = [];
         localStorage.setItem(`${keyOrderStorage}`, JSON.stringify(orderStorage));
     }
-    
+
     /**
      * Lấy tên tài khoản
      */
@@ -164,18 +164,18 @@ class CommonFunc {
         return name;
     }
 
-    updateUserInfo(user){
-        if(!user) return;
+    updateUserInfo(user) {
+        if (!user) return;
         localStorage.setItem(`${keyUserInfo}`, JSON.stringify(user));
     }
 
-    getUserInfo(){
+    getUserInfo() {
         let userInfo = localStorage.getItem(keyUserInfo)
         userInfo = !userInfo ? {} : JSON.parse(userInfo);
         return userInfo;
     }
 
-    logoutUserInfo(){
+    logoutUserInfo() {
         localStorage.removeItem(keyUserInfo);
     }
 
@@ -244,30 +244,51 @@ class CommonFunc {
                 break;
             case Enum.Format.PaymentMethods:
                 switch (data) {
+                    case Enum.PaymentMethods.None:
+                        res = "Mặc định";
+                        break;
                     case Enum.PaymentMethods.Cash:
                         res = "Tiền mặt";
                         break;
-                    case Enum.PaymentMethods.Transfer:
-                        res = "Chuyển khoản";
+                    case Enum.PaymentMethods.TransferBank:
+                        res = "Chuyển khoản ngân hàng";
+                        break;
+                    case Enum.PaymentMethods.TransferMomo:
+                        res = "Thanh toán Momo";
+                        break;
+                    case Enum.PaymentMethods.TransferVNPay:
+                        res = "Thanh toán VNPay";
+                        break;
+                    case Enum.PaymentMethods.TransferCoin:
+                        res = "Thanh toán tiền ảo";
+                        break;
+                    case Enum.PaymentMethods.InternationalTransfer:
+                        res = "Thanh toán quốc tế";
                         break;
                 }
                 break;
             case Enum.Format.OrderStatus:
                 switch (data) {
-                    case Enum.OrderStatus.WaitConfirm:
-                        res = "Chờ xác nhận";
+                    case Enum.OrderStatus.None:
+                        res = "Mặc định của đơn hàng";
                         break;
-                    case Enum.OrderStatus.WaitProduct:
-                        res = "Đang lấy hàng";
+                    case Enum.OrderStatus.Order:
+                        res = "Đặt hàng";
                         break;
-                    case Enum.OrderStatus.Delivering:
-                        res = "Đang giao hàng";
+                    case Enum.OrderStatus.Transfering:
+                        res = "Đang đóng gói vận chuyển";
+                        break;
+                    case Enum.OrderStatus.Success:
+                        res = "Giao hàng thành công";
                         break;
                     case Enum.OrderStatus.Fail:
                         res = "Giao hàng thất bại";
                         break;
-                    case Enum.OrderStatus.Success:
-                        res = "Giao hàng thành công";
+                    case Enum.OrderStatus.Cancel:
+                        res = "Đơn hàng bị hủy";
+                        break;
+                    default:
+                        res = col;
                         break;
                 }
         }

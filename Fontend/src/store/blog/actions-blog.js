@@ -47,12 +47,13 @@ export default {
      * @param {*} payload 
      * @returns 
      */
-    getBLogAsync: async function (context, payload) {
+    getBlogAsync: async function (context, payload) {
         var res = await blogClient.getAsync({
-            url: `${blogClient.url}/${payload}`,
+            url: `${blogClient.url}/${payload.id}`,
         });
 
         if (res) {
+            context.commit("updateBlog", res.data);
             return res.data;
         }
         return res;

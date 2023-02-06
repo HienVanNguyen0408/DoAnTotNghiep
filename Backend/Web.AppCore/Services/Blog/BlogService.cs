@@ -129,16 +129,15 @@ namespace Web.AppCore.Services
         {
             var blogRespone = new BlogRespone();
             var blog = await _blogUoW.Blogs.GetByIdAsync(blogId);
-            if (blog != null)
+            if (blog == null) return null;
+            //Map dữ liệu
+            blogRespone = MapperExtensions.MapperData<Blog, BlogRespone>(blog);
+            var pathImages = await GetBase64ImagesBlogAsync(blogId);
+            if (pathImages != null && pathImages.CountExt() > 0)
             {
-                blogRespone = (BlogRespone)blog;
-
-                var pathImages = await GetBase64ImagesBlogAsync(blogId);
-                if (pathImages != null && pathImages.CountExt() > 0)
-                {
-                    blogRespone.files = pathImages.SelectExt(x => new FileInfo { path = x }).ToList();
-                }
+                blogRespone.files = pathImages.SelectExt(x => new FileInfo { path = x }).ToList();
             }
+
             return blogRespone;
         }
 

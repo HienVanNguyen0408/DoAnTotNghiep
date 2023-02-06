@@ -12,6 +12,11 @@ namespace Web.Models.Entities
         public string product_id { get; set; }
 
         /// <summary>
+        /// Tên sản phẩm
+        /// </summary>
+        public string product_name { get; set; }
+
+        /// <summary>
         /// Id của đơn hàng
         /// </summary>
         public string order_id { get; set; }

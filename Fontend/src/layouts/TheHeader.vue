@@ -5,7 +5,7 @@
         VHSTORE
       </div>
       <div class="flex-3 menus-header flex h-full">
-        <div class="menu-header font-bold cursor-pointer" v-for="(menu, index) in menus" :key="index"
+        <div class="menu-header font-bold cursor-pointer" v-for="(menu, index) in menus" :key="index" :class="menuIndex == index ? 'menu-header-active' : ''"
           @click="changeMenu(menu)">
           <div>{{ (menu.title) }}</div>
         </div>
@@ -28,22 +28,63 @@
               <div v-if="!User || !User.user_name">
                 <div>
                   <div class="title-search">ĐĂNG NHẬP TÀI KHOẢN</div>
-                  <div class="mt-3">
-                    <dq-input v-model="user.user_name" placeholder="Tài khoản" :title="'Tài khoản'">
-                    </dq-input>
-                  </div>
-                  <div class="mt-6">
-                    <dq-input v-model="user.password" :type="'password'" placeholder="Mật khẩu"
-                      :title="'Mật khẩu'"></dq-input>
-                  </div>
-                </div>
-                <div class="mt-4">
-                  <dq-button :title="'Đăng nhập'" @click="loginUser"></dq-button>
+                  <a-form id="components-form-demo-normal-login" :form="form" class="login-form" @submit="handleSubmit">
+                    <div class="mt-3">
+                      <a-form-item>
+                        <a-input v-decorator="[
+                          'UserName',
+                          {
+                            initialValue: user.user_name && user ? user.user_name : '',
+                            rules: [
+                              {
+                                required: true,
+                                message:
+                                  'Vui lòng nhập tên tài khoản! Tài khoản không được để chống',
+                              },
+                            ],
+                          },
+                        ]" placeholder="Tài khoản">
+                          <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
+                        </a-input>
+                      </a-form-item>
+                    </div>
+                    <div class="mt-6">
+                      <a-form-item>
+                        <a-input-password v-decorator="[
+                          'Password',
+                          {
+                            initialValue: user && user.password ? user.password : '',
+                            rules: [
+                              {
+                                required: true,
+                                message:
+                                  'Vui lòng nhập mật khẩu! Mật khẩu không được để chống!',
+                              },
+                            ],
+                          },
+                        ]" type="password" placeholder="Mật khẩu">
+                          <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
+                        </a-input-password>
+                        <div class="text-error-password" style="color: red" v-if="checkExistUserName"
+                          :class="registerSuccess ? 'color-success' : ''">
+                          {{ checkExistUserName }}
+                        </div>
+                      </a-form-item>
+                    </div>
+                    <a-form-item style="margin-top: 15px" class="jus-center">
+                      <div class="mt-4">
+                        <dq-button :title="isRegister ? 'Đăng ký' : 'Đăng nhập'" html-type="submit"></dq-button>
+                      </div>
+                    </a-form-item>
+                  </a-form>
                 </div>
                 <div class="mt-4 flex justify-center align-center">
                   <div>
-                    <div>Khách hàng mới? <span class="color-orange cursor-pointer" @click="registerUser">Tạo tài
+                    <div v-if="!isRegister">Khách hàng mới? <span class="color-orange cursor-pointer"
+                        @click="registerUser">Tạo tài
                         khoản</span></div>
+                    <div v-if="isRegister">Đã có tài khoản. <span class="color-orange cursor-pointer"
+                        @click="loginNow">Đăng nhập ngay</span></div>
                     <div>Quên mật khẩu? <span class="color-orange cursor-pointer" @click="resetPassword">Khôi phục mật
                         khẩu</span></div>
                   </div>
@@ -85,7 +126,12 @@ export default {
       isShowSearch: false,
       isShowLogin: false,
       params: {},
-      user: {}
+      user: {},
+      checkExistUserName: false,
+      registerSuccess: false,
+      isRegister: false,
+      form: this.$form.createForm(this, { name: "coordinated" }),
+      menuIndex : 0
     };
   },
   computed: {
@@ -96,10 +142,6 @@ export default {
   },
   created() {
     const me = this;
-    let user = me.$commonFunc.getUserInfo();
-    if (user) {
-      me.user = user;
-    }
     me.initData();
   },
   methods: {
@@ -110,8 +152,9 @@ export default {
     ]),
 
     ...mapMutations(ModuleUser, [
-      'updateUserLogin'
+      'updateUserLogin',
     ]),
+    ...mapMutations(['updateCart']),
     initData() {
       const me = this;
       me.initDataStatic();
@@ -125,31 +168,64 @@ export default {
           router: '/home'
         },
         {
-          title: 'Bài viết',
-          router: '/blogs'
-        },
-        {
           title: 'Quần áo',
           router: '/product'
         },
         {
-          title: 'Địa chỉ cửa hàng',
-          router: '/address-store'
+          title: 'Bài viết',
+          router: '/blog'
         },
+        // {
+        //   title: 'Địa chỉ cửa hàng',
+        //   router: '/address-store'
+        // },
         {
-          title: 'Chính sách',
+          title: 'Chính sách đổi trả',
           router: '/policy'
         },
       ]
     },
+    async handleSubmit(e) {
+      e.preventDefault();
+      this.form.validateFields(async (err, values) => {
+        const me = this;
+        let user = {
+          user_name: values.UserName,
+          password: values.Password
+        }
+        if (!err) {
+          if (!me.isRegister) {
+            let res = await me.loginUserAsync(user);
+            if (me.User) {
+              delete me.User.password;
+              me.$commonFunc.updateUserInfo(me.User);
+              me.checkExistUserName = res.message;
+              me.getOrders();
+              me.closeFormLogin();
+            }
+          } else {
+            if (user) {
+              let res = await me.registerUserAsync(user);
+              me.checkExistUserName = res.message;
+            }
+          }
+        }
+      });
+    },
+    registerUser() {
+      const me = this;
+      me.isRegister = true;
+    },
     /**
          * Lấy đanh sách đơn hàng trrong giỏ
          */
-    async getOrders() {
+    async getOrders(userName) {
       const me = this;
-      if (me.user && me.user.user_name) {
-        await me.getCartByUser(me.user.user_name);
+      await me.getCartByUser(me.User.user_name);
+      if(userName){
+        me.updateCart([]);
       }
+      
     },
     showFormSearch() {
       const me = this;
@@ -167,29 +243,18 @@ export default {
 
     changeMenu(menu) {
       const me = this;
+      let index = me.menus.findIndex(x => x.router == menu.router);
+      if(index >= 0){
+        me.menuIndex = index;
+      }
       me.$router.push(`${menu.router}`);
     },
 
     closeFormLogin() {
       const me = this;
       me.isShowLogin = false;
-    },
-    async loginUser() {
-      const me = this;
-      let payload = {
-        user_name: me.user.user_name,
-        password: me.user.password
-      }
-      await me.loginUserAsync(me.user);
-      if (me.User) {
-        delete me.User.password;
-        me.$commonFunc.updateUserInfo(me.User);
-        me.closeFormLogin();
-      }
-    },
-
-    registerUser() {
-      const me = this;
+      me.isRegister = false;
+      me.checkExistUserName = "";
     },
 
     resetPassword() {
@@ -197,10 +262,18 @@ export default {
     },
     logout() {
       const me = this;
+      if(me.User && me.User.user_name){
+        me.getOrders(me.User.user_name);
+      }
       me.$commonFunc.logoutUserInfo();
       me.updateUserLogin({});
       me.closeFormLogin();
       me.user = {};
+    },
+    loginNow() {
+      const me = this;
+      me.isRegister = false;
+      me.checkExistUserName = "";
     }
   },
 

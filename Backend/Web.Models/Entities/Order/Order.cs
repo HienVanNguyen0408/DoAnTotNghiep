@@ -15,12 +15,37 @@ namespace Web.Models.Entities
         /// <summary>
         /// Trạng thái của đơn hàng
         /// </summary>
-        public OrderStatus order_status { get; set; } = OrderStatus.None;
+        public OrderStatus order_status { get; set; } = OrderStatus.Order;
 
         /// <summary>
-        /// Tổng tiền hàng của đơn
+        /// Tổng tiền hàng của đơn(chưa tính ship)
         /// </summary>
-        public decimal? total_amount { get; set; }
+        public decimal total_amount { get; set; }
+        /// <summary>
+        /// Tổng tiền giao hàng
+        /// </summary>
+        public decimal total_ship { get; set; }
+
+        /// <summary>
+        /// Tổng tiền thanh toán
+        /// </summary>
+        public decimal total_order
+        {
+            get
+            {
+                decimal vatAmount = 0;
+                decimal discoutAmount = 0;
+                if (vat_amount != null)
+                {
+                    vatAmount = vat_amount.Value;
+                }
+                if (discount_amount != null)
+                {
+                    discoutAmount = discount_amount.Value;
+                }
+                return total_amount + total_ship + vatAmount - discoutAmount;
+            }
+        }
 
         /// <summary>
         /// Tổng tiền thuế
@@ -49,12 +74,12 @@ namespace Web.Models.Entities
         /// <summary>
         /// Thời gian dự tính giao hàng
         /// </summary>
-        public DateTime? estimated_date{ get; set; }
+        public DateTime? estimated_date { get; set; }
 
         /// <summary>
         /// Thời gian cập nhật quá trình vận chuyển
         /// </summary>
-        public DateTime? delivery_update_date{ get; set; }
+        public DateTime? delivery_update_date { get; set; }
 
         #region Thông tin của người nhận hàng
         /// <summary>
@@ -88,7 +113,7 @@ namespace Web.Models.Entities
         /// <summary>
         /// Đơn vị vận chuyển
         /// </summary>
-        public UnitTransport unit_transport { get; set; }
+        public UnitTransport unit_transport { get; set; } = UnitTransport.GHN;
         #endregion
     }
 }

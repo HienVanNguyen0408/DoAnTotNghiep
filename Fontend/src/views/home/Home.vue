@@ -1,12 +1,18 @@
 <template>
   <div class="">
-    
+      <ProductList />
+      <BlogList/>
   </div>
 </template>
 <script>
+import ProductList from '@/views/product/ProductList.vue';
+import BlogList from '@/views/blog/BlogList.vue';
 export default {
   name: "Home",
-  components: {},
+  components: {
+    ProductList,
+    BlogList
+  },
   data() {
     return {};
   },

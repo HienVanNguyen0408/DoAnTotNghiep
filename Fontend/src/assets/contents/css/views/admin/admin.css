@@ -23,6 +23,7 @@
     height: calc(100vh - 60px);
     background: #f4f5f8;
     padding: 16px;
+    overflow: auto;
 }
 
 

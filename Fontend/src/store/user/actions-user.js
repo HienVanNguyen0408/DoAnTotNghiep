@@ -85,9 +85,6 @@ export default {
             url : `${userClient.url}/register`,
             data: payload
         });
-        if(res && res.data){
-            return res.data;
-        }
         return res;
     },
 
@@ -104,7 +101,6 @@ export default {
         });
         if(res && res.data){
             context.commit('updateUserLogin', res.data);
-            return res.data;
         }
         return res;
     },

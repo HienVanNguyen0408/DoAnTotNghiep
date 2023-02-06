@@ -99,6 +99,10 @@ namespace Web.AppCore.Services
                 //Thêm chi tiết đơn hàng
                 if (orderRequest.order_items != null && orderRequest.order_items.Count > 0)
                 {
+                    foreach (var orderItem in orderRequest.order_items)
+                    {
+                        orderItem.order_id = orderRequest.id;
+                    }
                     await _orderItemUoW.OrderItems.InsertManyAsync(orderRequest.order_items);
                 }
                 return true;

@@ -9,6 +9,7 @@ using Web.AppCore.Entities;
 using Web.AppCore.Interfaces.Services;
 using Web.Caching;
 using Web.Models.Entities;
+using Web.Models.Enums.Subcribers;
 using Web.Models.Request;
 using Web.Models.Respone;
 using Web.Storage;
@@ -208,11 +209,20 @@ namespace Web.Api.Controllers
             try
             {
                 var authen = await _jwtAuthencation.Autheticate(request);
-                if (authen.IsNullOrEmptyOrWhiteSpace()) return svcResult;
+                if (authen.IsNullOrEmptyOrWhiteSpace())
+                {
+                    svcResult.Status = ServiceResultStatus.Authorized;
+                    svcResult.Message = "Tài khoản hoặc mật khẩu không đúng";
+                    return svcResult;
+                }
 
                 var userRespone = new UserRespone();
                 var user = await _userService.GetUserByUserNameAsync(request.user_name);
-                if (user == null) return svcResult;
+                if (user == null)
+                {
+                    svcResult.Message = "Đăng nhập thất bại";
+                    return svcResult;
+                }
 
                 userRespone = MapperExtensions.MapperData<User, UserRespone>(user);
                 userRespone.key_auth = authen;
@@ -220,12 +230,14 @@ namespace Web.Api.Controllers
                 {
                     Data = userRespone,
                     Success = true,
-                    Status = ServiceResultStatus.Ok
+                    Status = ServiceResultStatus.Ok,
+                    Message = "Đăng nhập thành công"
                 };
                 return svcResult;
             }
             catch (Exception ex)
             {
+                svcResult.Message = "Vui lòng liên hệ VHSTORE để được hỗ trợ";
                 _logger.LogError($"{TAG}::Lỗi hàm LoginUser::Exception::{ex.Message}");
                 return svcResult;
             }
@@ -237,25 +249,35 @@ namespace Web.Api.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("register")]
-        public async Task<ServiceResult<bool>> RegiterUserAsync([FromBody] UserRequest request)
+        public async Task<ServiceResult<InsertStatus>> RegiterUserAsync([FromBody] UserRequest request)
         {
-            var svcResult = new ServiceResult<bool>();
+            var svcResult = new ServiceResult<InsertStatus>();
             try
             {
-                var resRegister = await _userService.InsertUserAsync(user: request);
-                svcResult = new ServiceResult<bool>
+                var user = await _userService.GetUserByUserNameAsync(request.user_name);
+                if (user != null)
                 {
-                    Data = resRegister,
+                    svcResult.Data = InsertStatus.Duplicate;
+                    svcResult.Message = "Tài khoản đã tồn tại";
+                    return svcResult;
+                }
+                var resRegister = await _userService.InsertUserAsync(user: request);
+
+                svcResult = new ServiceResult<InsertStatus>
+                {
+                    Data = resRegister ? InsertStatus.Success : InsertStatus.Fail,
                     Success = true,
-                    Status = ServiceResultStatus.Ok
+                    Status = ServiceResultStatus.Ok,
+                    Message = resRegister ? "Đăng ký thành công" : "Đăng ký thất bại"
                 };
-                return svcResult;
             }
             catch (Exception ex)
             {
+                svcResult.Data = InsertStatus.Unknow;
                 _logger.LogError($"{TAG}::Lỗi hàm RegiterUserAsync::Exception::{ex.Message}");
-                return svcResult;
+                svcResult.Message = "Vui lòng liên hệ VHSTORE để được hỗ trợ";
             }
+            return svcResult;
         }
 
         [HttpPost("testminio")]

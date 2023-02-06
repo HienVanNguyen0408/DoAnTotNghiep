@@ -33,10 +33,10 @@
                     <div class="mt-5">
                         <div class="font-bold">Tùy chọn giao hàng</div>
                         <div class="info-org-transfer mt-2">
-                            <div>Phí vận chuyển: <span class="font-bold mr-2">{{ order_fee | formatMoney }} đ</span>
+                            <div>Phí vận chuyển: <span class="font-bold mr-2">{{ total_ship | formatMoney }} đ</span>
                             </div>
                             <div>Đơn vị vận chuyển: <span class="font-bold">Giao hàng nhanh</span></div>
-                            <div>Nhận vào: <span class="font-bold">2 tháng 2</span></div>
+                            <!-- <div>Nhận vào: <span class="font-bold">2 tháng 2</span></div> -->
                         </div>
                     </div>
                     <div v-if="products && products.length > 0">
@@ -77,12 +77,12 @@
                         </div>
                         <div class="flex justify-between mt-4">
                             <div>Phí vận chuyển</div>
-                            <div class="font-bold">{{ order_fee | formatMoney }} đ</div>
+                            <div class="font-bold">{{ total_ship | formatMoney }} đ</div>
                         </div>
                         <div class="border-b1 mt-2"></div>
                         <div class="flex justify-between mt-6">
                             <div>Tổng cộng</div>
-                            <div class="font-bold color-totalamount ">{{ total_amount + order_fee | formatMoney}} đ
+                            <div class="font-bold color-totalamount ">{{ total_amount + total_ship | formatMoney}} đ
                             </div>
                         </div>
                     </div>
@@ -100,42 +100,38 @@
 import {
     mapActions, mapGetters
 } from 'vuex';
-import { ModuleUser, ModuleGHN } from '@/store/module-const';
+import { ModuleUser, ModuleGHN, ModuleOrder } from '@/store/module-const';
 export default {
     name: "CartPay",
     data() {
         return {
             addressInfo: {},
             products: [],
-            userInfo: {},
-            order_fee: 0,
-            total_amount : 0
+            total_ship: 0,
+            total_amount: 0
         }
     },
     created() {
         const me = this;
-        let user = me.$commonFunc.getUserInfo();
-        if (user) {
-            me.userInfo = user;
-        }
-
         let orderPayment = me.$commonFunc.getOrderPayment();
         if (orderPayment && orderPayment.products) {
             me.addressInfo = orderPayment.address_info;
             me.products = orderPayment.products;
-            me.order_fee = orderPayment.order_fee;
+            me.total_ship = orderPayment.total_ship;
             me.total_amount = orderPayment.total_amount;
         } else {
             me.$router.push("/cart");
         }
     },
-    beforeDestroy(){
+    beforeDestroy() {
         const me = this;
         me.$commonFunc.removeOrderPayment();
     },
     computed: {
+        ...mapGetters(["CartProducts"]),
         ...mapGetters(ModuleUser, [
-            "AddressInfo"
+            "AddressInfo",
+            "User"
         ]),
         ...mapGetters(ModuleGHN, [
             "Fee"
@@ -148,14 +144,17 @@ export default {
         ...mapActions(ModuleGHN, [
             "getFeeInfoAsync"
         ]),
+        ...mapActions(ModuleOrder, [
+            "insertOrderAsync"
+        ]),
         /**
          * Lấy thông tin địa chỉ mặc định
          */
         async getAddressInfoDefault() {
             const me = this;
-            if (me.userInfo && me.userInfo.id) {
+            if (me.User && me.User.id) {
                 let payload = {
-                    user_id: me.userInfo.id
+                    user_id: me.User.id
                 };
                 await me.getAddressInfoDefaultAsync(payload);
                 //Tính fee đơn hàng
@@ -178,9 +177,36 @@ export default {
         /**
          * Order đơn hàng
          */
-        orderNow() {
+        async orderNow() {
             const me = this;
+            if (me.User && me.User.id && me.CartProducts && me.CartProducts.length > 0) {
+                let order_items = [];
+                order_items = me.CartProducts.map(x => ({
+                    product_id : x.id,
+                    product_name : x.product_name,
+                    quantity : x.number,
+                    unit_price : x.sale_price
+                }));
+                let payload = {
+                    user_id: me.User.id,
+                    order_status: 0,
+                    total_amount : me.total_amount,
+                    total_ship : me.total_ship,
+                    estimated_date : null,
+                    delivery_update_date : null,
+                    address : me.AddressInfo.address_info,
+                    phone_number : me.AddressInfo.phone_number,
+                    receiver_name : me.AddressInfo.full_name,
+                    content : "",
+                    order_items : order_items
+                };
+                await me.insertOrder(payload);
+            }
+        },
 
+        async insertOrder(order) {
+            const me = this;
+            await me.insertOrderAsync(order);
         }
     }
 }

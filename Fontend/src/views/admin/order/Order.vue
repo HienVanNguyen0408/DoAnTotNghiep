@@ -8,11 +8,11 @@
                         </dq-input>
                     </div>
                 </div>
-                <div class="flex-1 flex jus-right">
+                <!-- <div class="flex-1 flex jus-right">
                     <div class="btn-add">
                         <dq-button :title="'Thêm đơn hàng'"></dq-button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="dq-grid mt-5">
@@ -97,22 +97,16 @@ export default {
                 {
                     title: 'Tổng tiền đơn hàng',
                     dataField: 'total_amount',
-                },
-                {
-                    title: 'Tổng tiền thuế',
-                    dataField: 'total_amount',
-                },
-                {
-                    title: 'Tiền chiết khấu',
-                    dataField: 'discount_amount',
+                    format: me.$enum.Format.Money
                 },
                 {
                     title: 'Phương phức thanh toán',
-                    dataField: 'original_price',
+                    dataField: 'payment_method',
+                    format: me.$enum.Format.PaymentMethods
                 },
                 {
                     title: 'Thời gian dự tính giao hàng',
-                    dataField: 'sale_price',
+                    dataField: 'estimated_date'
                 },
                 {
                     title: 'Thời gian cập nhật quá trình vận chuyển',
@@ -121,6 +115,7 @@ export default {
                 {
                     title: 'Trạng thái đơn hàng',
                     dataField: 'order_status',
+                    format: me.$enum.Format.OrderStatus
                 },
                 {
                     title: 'Ghi chú đơn hàng',

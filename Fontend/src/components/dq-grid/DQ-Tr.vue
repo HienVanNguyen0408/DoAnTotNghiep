@@ -22,6 +22,12 @@
       <div v-else-if="(col.format == $enum.Format.Money)">
         {{ data[`${col.dataField}`] | formatMoney }}
       </div>
+      <div v-else-if="(col.format == $enum.Format.OrderStatus)">
+        {{ data[`${col.dataField}`] | orderStatus }}
+      </div>
+      <div v-else-if="(col.format == $enum.Format.PaymentMethods)">
+        {{ data[`${col.dataField}`] | paymentMethods }}
+      </div>
       <div v-else-if="col.enum != null">
         {{ $commonFunc.getValueStringByEnum(col.enum, data[`${col.dataField}`]) }}
       </div>

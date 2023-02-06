@@ -92,15 +92,10 @@ export default {
                 totalPages: 0
             },
             selected: [],
-            userInfo :{}
         }
     },
     created() {
         const me = this;
-        let user = me.$commonFunc.getUserInfo();
-        if (user) {
-            me.userInfo = user;
-        }
         me.initData();
         me.getOrders();
     },
@@ -113,7 +108,8 @@ export default {
     computed: {
         ...mapGetters(["CartProducts"]),
         ...mapGetters(ModuleUser, [
-            "AddressInfo"
+            "AddressInfo",
+            "User"
         ]),
         ...mapGetters(ModuleGHN, [
             "Fee"
@@ -192,9 +188,9 @@ export default {
          */
         async getAddressInfoDefault(){
             const me = this;
-            if (me.userInfo && me.userInfo.id) {
+            if (me.User && me.User.id) {
                 let payload = {
-                    user_id: me.userInfo.id
+                    user_id: me.User.id
                 };
                 await me.getAddressInfoDefaultAsync(payload);
                 //Tính fee đơn hàng
@@ -212,8 +208,8 @@ export default {
          */
         async getOrders() {
             const me = this;
-            if(me.userInfo && me.userInfo.user_name){
-                await me.getCartByUser(me.userInfo.user_name);
+            if(me.User && me.User.user_name){
+                await me.getCartByUser(me.User.user_name);
             }
         },
         /**
@@ -278,7 +274,7 @@ export default {
             if (me.selected && me.selected.length > 0) {
                 let paymentOrder = {
                     products : me.selected,
-                    order_fee : me.totalFeeShip,
+                    total_ship : me.totalFeeShip,
                     total_amount : me.totalMoney,
                     address_info : me.AddressInfo
                 }

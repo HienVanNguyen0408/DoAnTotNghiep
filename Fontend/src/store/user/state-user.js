@@ -7,5 +7,6 @@ export default{
     User: {},
 
     AddressInfos : [],
-    AddressInfo : {}
+    AddressInfo : {},
+    
 }

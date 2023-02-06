@@ -64,12 +64,11 @@
 </template>
 
 <script>
-import * as fs from 'fs-web';
 import {
     mapActions,
     mapGetters
 } from 'vuex';
-import { ModuleProduct } from '@/store/module-const';
+import { ModuleProduct, ModuleUser } from '@/store/module-const';
 export default {
     name: "ProductDetailUser",
     data() {
@@ -87,6 +86,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(ModuleUser, [
+            'User',
+        ]),
         ...mapGetters(ModuleProduct, [
             'ProductUser',
         ]),
@@ -174,11 +176,10 @@ export default {
                 total_amount: me.product.number * me.ProductUser.sale_price
             }
             me.product = { ...me.product, ...product };
-            let user = me.$commonFunc.getUserInfo();
-            if (user && user.id) {
-                me.$commonFunc.addCart(user.user_name, me.product);
+            if (me.User && me.User.id) {
+                me.$commonFunc.addCart(me.User.user_name, me.product);
                 //load lại giỏ hàng
-                await me.getCartByUser(user.user_name);
+                await me.getCartByUser(me.User.user_name);
             } else {
                 me.$router.push("/login");
             }

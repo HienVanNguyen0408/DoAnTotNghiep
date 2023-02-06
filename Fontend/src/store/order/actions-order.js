@@ -62,7 +62,7 @@ export default {
      * @returns 
      */
     insertOrderAsync: async function (context, payload) {
-        var res = await orderClient.getAsync({
+        var res = await orderClient.postAsync({
             url : `${orderClient.url}/insert`,
             data: payload
         });
@@ -79,7 +79,7 @@ export default {
      * @returns 
      */
     updateOrderAsync: async function (context, payload) {
-        var res = await orderClient.getAsync({
+        var res = await orderClient.postAsync({
             url : `${orderClient.url}/update`,
             data : payload
         });
@@ -96,7 +96,7 @@ export default {
      * @returns 
      */
     deleteOrderAsync: async function (context, payload) {
-        var res = await orderClient.getAsync({
+        var res = await orderClient.postAsync({
             url : `${orderClient.url}/delete/${payload}`,
         });
         if(res && res.data){
@@ -112,7 +112,7 @@ export default {
      * @returns 
      */
     deleteManyOrderAsync: async function (context, payload) {
-        var res = await orderClient.getAsync({
+        var res = await orderClient.postAsync({
             url : `${orderClient.url}/delete-many`,
             data : payload
         });

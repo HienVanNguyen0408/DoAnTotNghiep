@@ -1,17 +1,15 @@
 <template>
-    <div v-if="Products && Products.length > 0">
-        <div class="flex justify-center font-bold productlist-title">QUẦN ÁO VHSTORE</div>
-        <div class="product-filter">
-        </div>
-        <div class="products flex flex-wrap">
-            <div class="product w-1/5" v-for="(product, index) in Products" :key="index">
-                <Product :product="product"/>
+    <div v-if="Blogs && Blogs.length > 0">
+        <div class="flex justify-center blog-title font-bold">VHSTORE BLOG</div>
+        <div class="blogs flex flex-wrap">
+            <div class="blog w-1/5 mt-8" v-for="(blog, index) in Blogs" :key="index">
+                <Blog :blog="blog"/>
             </div>
         </div>
-        <div class="product-page">
+        <div class="blog-page">
             <dq-pagination ref="pagination" :totalRecord="params.totalRecord"
                 :pageSize="params.pageSize" :totalPages="params.totalPages"
-                :pageIndex="params.pageIndex" :filter="params.filter" :textTotal="'Sản phẩm'">
+                :pageIndex="params.pageIndex" :filter="params.filter" :textTotal="'Bài viết'">
             </dq-pagination>
         </div>
     </div>
@@ -24,20 +22,20 @@ import {
     mapActions,
     mapGetters
 } from 'vuex';
-import { ModuleProduct } from '@/store/module-const';
-import Product from './Product.vue';
+import { ModuleBlog } from '@/store/module-const';
+import Blog from './Blog.vue';
 export default {
-    name: "ProductList",
+    name: "BlogList",
     components: {
-        Product
+        Blog
     },
     props: {
 
     },
     computed: {
-        ...mapGetters(ModuleProduct, [
-            'ProductPage',
-            'Products',
+        ...mapGetters(ModuleBlog, [
+            'BlogPage',
+            'Blogs',
             'TotalPage',
             'TotalRecords'
         ]),
@@ -57,28 +55,27 @@ export default {
         me.initData();
     },
     methods: {
-        ...mapActions(ModuleProduct, [
-            'getUsers',
-            'getProductPageAsync',
+        ...mapActions(ModuleBlog, [
+            'getBlogPageAsync',
         ]),
 
         async initData() {
             const me = this;
             me.initDataStatic();
-            await me.loadDataProducts();
+            await me.loadDataBlogs();
         },
         initDataStatic(){
             const me = this;
         },
-        async loadDataProducts() {
+        async loadDataBlogs() {
             const me = this;
             let params = me.getPayload()
-            await me.getProductPageAsync(params);
-            if (me.ProductPage) {
-                me.params.pageIndex = me.ProductPage.pageIndex;
-                me.params.pageSize = me.ProductPage.pageSize;
-                me.params.totalRecord = me.ProductPage.totalRecord;
-                me.params.totalPages = me.ProductPage.totalPages;
+            await me.getBlogPageAsync(params);
+            if (me.BlogPage) {
+                me.params.pageIndex = me.BlogPage.pageIndex;
+                me.params.pageSize = me.BlogPage.pageSize;
+                me.params.totalRecord = me.BlogPage.totalRecord;
+                me.params.totalPages = me.BlogPage.totalPages;
             }
         },
         getPayload() {
@@ -96,14 +93,16 @@ export default {
             me.params.filter = params.filter;
             me.params.totalRecord = params.totalRecord;
             me.params.totalPages = params.totalPages;
-            await me.getProductPageAsync(params);
+            await me.getBlogPageAsync(params);
         }, 300),
     }
 }
 </script>
 
 <style scoped>
-.productlist-title{
-    font-size: 24px;
+.blogs .blog{
+}
+.blog-title{
+    font-size: 22px;
 }
 </style>

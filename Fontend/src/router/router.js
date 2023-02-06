@@ -7,9 +7,13 @@ import Login from '@/views/user/Login.vue';
 import Home from '@/views/home/Home.vue';
 import ProductList from '@/views/product/ProductList.vue';
 import ProductDetail from '@/views/product/ProductDetail.vue';
+import BlogList from '@/views/blog/BlogList.vue';
+import BlogDetail from '@/views/blog/BlogDetail.vue';
 import Cart from '@/views/cart/Cart.vue';
 import CartPay from '@/views/cart/CartPay.vue';
 import AddressInfos from '@/views/cart/AddressInfos.vue';
+import Policy from '@/views/policy/Policy.vue';
+
 
 import Admin from '@/views/admin/Admin.vue';
 import AdminUser from '@/views/admin/user/User.vue';
@@ -40,7 +44,7 @@ export const router = new VueRouter({
             children: [
                 {
                     name: 'home',
-                    path: '/',
+                    path: '/home',
                     component: Home,
                     props: true
                 },
@@ -51,9 +55,21 @@ export const router = new VueRouter({
                     props:true
                 },
                 {
+                    name: 'blog',
+                    path: '/blog',
+                    component: BlogList,
+                    props:true
+                },
+                {
                     name: 'productdetail',
                     path: '/product-detail',
                     component: ProductDetail,
+                    props:true
+                },
+                {
+                    name: 'blogdetail',
+                    path: '/blog-detail',
+                    component: BlogDetail,
                     props:true
                 },
                 {
@@ -72,6 +88,12 @@ export const router = new VueRouter({
                     name: 'address',
                     path: '/address-info',
                     component: AddressInfos,
+                    props:true
+                },
+                {
+                    name: 'policy',
+                    path: '/policy',
+                    component: Policy,
                     props:true
                 },
             ],

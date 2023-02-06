@@ -2,25 +2,40 @@ import Vue from 'vue';
 import Enum from '@/enum/enum';
 import moment from 'moment';
 const formatMoney = Vue.filter('formatMoney', function (money) {
-    return new Intl.NumberFormat().format(money).replaceAll(",",".");
+    return new Intl.NumberFormat().format(money).replaceAll(",", ".");
 });
- 
-const paymentMethods = Vue.filter('paymentMethods', function(payment){
+
+const paymentMethods = Vue.filter('paymentMethods', function (payment) {
     var methods = "";
-    switch(payment){
+    switch (payment) {
+        case Enum.PaymentMethods.None:
+            methods = "Mặc định";
+            break;
         case Enum.PaymentMethods.Cash:
             methods = "Tiền mặt";
             break;
-        case Enum.PaymentMethods.Transfer:
-            methods = "Chuyển khoản";
+        case Enum.PaymentMethods.TransferBank:
+            methods = "Chuyển khoản ngân hàng";
+            break;
+        case Enum.PaymentMethods.TransferMomo:
+            methods = "Thanh toán Momo";
+            break;
+        case Enum.PaymentMethods.TransferVNPay:
+            methods = "Thanh toán VNPay";
+            break;
+        case Enum.PaymentMethods.TransferCoin:
+            methods = "Thanh toán tiền ảo";
+            break;
+        case Enum.PaymentMethods.InternationalTransfer:
+            methods = "Thanh toán quốc tế";
             break;
     }
     return methods;
 });
 
-const color = Vue.filter('color', function(col){
+const color = Vue.filter('color', function (col) {
     var color = "";
-    switch(col){
+    switch (col) {
         case Enum.Color.Green:
             color = "Màu xanh";
             break;
@@ -44,24 +59,27 @@ const formatDate = Vue.filter('formatDate', function (date) {
     return moment(date).format("DD/MM/YYYY")
 });
 
-const orderStatus = Vue.filter('orderStatus', function(col){
+const orderStatus = Vue.filter('orderStatus', function (col) {
     let status = null;
-    switch(col){
-        case Enum.OrderStatus.WaitConfirm:
-            status = "Chờ xác nhận";
+    switch (col) {
+        case Enum.OrderStatus.None:
+            status = "Mặc định của đơn hàng";
             break;
-        case Enum.OrderStatus.WaitProduct:
-            status = "Đang lấy hàng";
+        case Enum.OrderStatus.Order:
+            status = "Đặt hàng";
             break;
-        case Enum.OrderStatus.Delivering:
-            status = "Đang giao hàng";
+        case Enum.OrderStatus.Transfering:
+            status = "Đang đóng gói vận chuyển";
+            break;
+        case Enum.OrderStatus.Success:
+            status = "Giao hàng thành công";
             break;
         case Enum.OrderStatus.Fail:
             status = "Giao hàng thất bại";
             break;
-        case Enum.OrderStatus.Success:
-            status = "Giao hàng thành công";
-        break;
+        case Enum.OrderStatus.Cancel:
+            status = "Đơn hàng bị hủy";
+            break;
         default:
             status = col;
             break;
@@ -69,9 +87,9 @@ const orderStatus = Vue.filter('orderStatus', function(col){
     return status;
 });
 
-const workPriority = Vue.filter('workPriority', function(col){
+const workPriority = Vue.filter('workPriority', function (col) {
     let status = null;
-    switch(col){
+    switch (col) {
         case Enum.WorkPriority.Work1:
             status = 'Quan trọng, khẩn cấp';
             break;
@@ -90,5 +108,5 @@ const workPriority = Vue.filter('workPriority', function(col){
     }
     return status;
 });
-export default { formatMoney ,paymentMethods,color,formatDate,orderStatus,workPriority}
+export default { formatMoney, paymentMethods, color, formatDate, orderStatus, workPriority }
 

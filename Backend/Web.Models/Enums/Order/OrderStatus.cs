@@ -9,23 +9,22 @@ namespace Web.Models.Enums
     /// </summary>
     public enum OrderStatus
     {
-       /// <summary>
-       /// Trạng thái mặc định của đơn hàng
-       /// </summary>
-        None = 0,
+        /// <summary>
+        /// Trạng thái mặc định của đơn hàng
+        /// </summary>
+        Order = 0,
         /// <summary>
         /// Đặt hàng
         /// </summary>
-        Order = 1,
+        ConfirmOrder = 1,
         /// <summary>
-        /// Đang giao dịch
+        /// Đang vẩn chuyên
         /// </summary>
-        Ordering = 2,
+        Transfering = 2,
         /// <summary>
         /// Thành công
         /// </summary>
         Success = 3,
-
         /// <summary>
         /// Thất bại
         /// </summary>

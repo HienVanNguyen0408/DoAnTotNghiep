@@ -12,6 +12,7 @@ using Web.Models.Request;
 using Web.Models.Respone;
 using Web.Storage;
 using Web.Utils;
+using SixLabors.ImageSharp.Processing;
 
 namespace Web.AppCore.Services
 {

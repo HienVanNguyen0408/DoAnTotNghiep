@@ -5,13 +5,38 @@ export default {
     },
     PaymentMethods: {
         /// <summary>
-        /// Chuyển khoản
+        /// Mặc định
         /// </summary>
-        Transfer: 0,
+        None: 1,
+
+        /// Tiền mặt
+        /// </summary>
+        Cash: 2,
+
         /// <summary>
-        /// Tiền mặt, thanh toán khi nhận hàng
+        /// Ck ngân hàng
         /// </summary>
-        Cash: 1,
+        TransferBank: 3,
+
+        /// <summary>
+        /// Thanh toán Momo
+        /// </summary>
+        TransferMomo: 4,
+
+        /// <summary>
+        /// Thanh toán VNPay
+        /// </summary>
+        TransferVNPay: 5,
+
+        /// <summary>
+        /// Thanh toán tiền ảo
+        /// </summary>
+        TransferCoin: 6,
+
+        /// <summary>
+        /// Thanh toán quốc tế
+        /// </summary>
+        InternationalTransfer: 7
     },
 
     Color: {
@@ -28,7 +53,7 @@ export default {
         Color: 4,
         PaymentMethods: 5,
         OrderStatus: 6,
-        Gender : 7
+        Gender: 7
     },
 
     SortStatus: {
@@ -38,15 +63,30 @@ export default {
     },
 
     OrderStatus: {
-        // chờ xác nhận
-        WaitConfirm: 5,
-        // chờ lấy hàng
-        WaitProduct: 1,
-        // Đang giao
-        Delivering: 2,
-        // Đã giao
-        Fail: 3,
-        Success: 4,
+        /// <summary>
+        /// Trạng thái mặc định của đơn hàng
+        /// </summary>
+        None: 0,
+        /// <summary>
+        /// Đặt hàng
+        /// </summary>
+        Order: 1,
+        /// <summary>
+        /// Đang vẩn chuyên
+        /// </summary>
+        Transfering: 2,
+        /// <summary>
+        /// Thành công
+        /// </summary>
+        Success: 3,
+        /// <summary>
+        /// Thất bại
+        /// </summary>
+        Fail: 4,
+        /// <summary>
+        /// Hủy
+        /// </summary>
+        Cancel: 5
     },
     Part: {
         Part1: "Part1",
@@ -57,52 +97,52 @@ export default {
         Part6: "Part6",
         Part7: "Part7",
     },
-    UpdateType:{
+    UpdateType: {
         Insert: 1,
-        Edit : 2
+        Edit: 2
     },
 
-    Mode:{
+    Mode: {
         // Thêm
-        Add : 1,
+        Add: 1,
         //Sửa 
-        Edit : 2
+        Edit: 2
     },
-    ExamForm :{
-        SelectOne : 1,
-        SelectMany : 2,
-        TrueFalse : 3,
+    ExamForm: {
+        SelectOne: 1,
+        SelectMany: 2,
+        TrueFalse: 3,
     },
-    Question :{
-        All : 2,
-        Read : 0,
-        Listen : 1
+    Question: {
+        All: 2,
+        Read: 0,
+        Listen: 1
     },
-    Status : {
-        Ok : 200,
-        Created : 201,
-        Accepted : 202,
-        NoContent  : 204,
-        BadRequest : 400,
-        Authorized : 401,
-        NotFound : 404,
-        ServerError : 500,
-        BadGateway : 502,
+    Status: {
+        Ok: 200,
+        Created: 201,
+        Accepted: 202,
+        NoContent: 204,
+        BadRequest: 400,
+        Authorized: 401,
+        NotFound: 404,
+        ServerError: 500,
+        BadGateway: 502,
     },
-    LevelNumber :{
-        Beginner : 0,
-        HighBeginner :200,
-        LowIntermediate :350,
-        Intermediate :400,
-        HighIntermediate :550,
-        LowAdvanced :650,
-        Advanced :800,
+    LevelNumber: {
+        Beginner: 0,
+        HighBeginner: 200,
+        LowIntermediate: 350,
+        Intermediate: 400,
+        HighIntermediate: 550,
+        LowAdvanced: 650,
+        Advanced: 800,
     },
-    PeriodFilter:{
+    PeriodFilter: {
         //Ngày hôm nay
-        ToDay : 1,
+        ToDay: 1,
         //Tuần này
-        ThisWeek : 7,
+        ThisWeek: 7,
         //Tháng trước
         LastMonth: 29,
         //Tháng này
@@ -110,86 +150,86 @@ export default {
         //Tháng sau
         NextMonth: 31,
         //Quý này 
-        ThisQuarter : 90,
+        ThisQuarter: 90,
         //Quý 1
-        QuarterI : 91,
+        QuarterI: 91,
         //Quý 2
-        QuarterII : 92,
+        QuarterII: 92,
         //Quý 3
-        QuarterIII : 93,
+        QuarterIII: 93,
         //Quý 4
-        QuarterIV : 94,
+        QuarterIV: 94,
         //Năm trước
-        LastYear : 364,
+        LastYear: 364,
         //Năm nay
-        ThisYear : 365,
+        ThisYear: 365,
         //Năm sau
-        NextYear : 366,
+        NextYear: 366,
         //6 tháng đầu năm
-        FirstSixMonth : 188,
+        FirstSixMonth: 188,
         //6 tháng cuối năm
-        LastSixMonth : 189,
+        LastSixMonth: 189,
         //Tùy chọn
-        Option : 999
+        Option: 999
     },
-    Time : {
-        Day:1,
-        Week : 2,
-        Month : 3,
-        Quarter : 4,
-        Year : 5
+    Time: {
+        Day: 1,
+        Week: 2,
+        Month: 3,
+        Quarter: 4,
+        Year: 5
     },
-    StatusTime : {
+    StatusTime: {
         //Quá khứ
-        Last : 1,
+        Last: 1,
         //Hiện tại
         Present: 2,
         //tương lai
-        Future : 3
+        Future: 3
     },
-    WorkStatus:{
+    WorkStatus: {
         /// <summary>
         /// Việc chưa thực hiện/ chưa làm
         /// </summary>
-        YetProcess : 1,
+        YetProcess: 1,
         /// <summary>
         /// Đang làm
         /// </summary>
-        Doing : 2,
+        Doing: 2,
         /// <summary>
         /// Hoàn thành
         /// </summary>
-        Success : 3,
+        Success: 3,
     },
-    WorkPriority:{
+    WorkPriority: {
         /// <summary>
         /// Quan trọng, khẩn cấp 
         /// </summary>
-        Work1 : 1,
+        Work1: 1,
         /// <summary>
         ///  Quan trọng, không khẩn cấp
         /// </summary>
-        Work2 : 2,
+        Work2: 2,
         /// <summary>
         /// Không quan trọng, khẩn cấp
         /// </summary>
-        Work3 : 3,
+        Work3: 3,
         /// <summary>
         /// Không quan trọng, không khẩn cấp
         /// </summary>
-        Work4 : 4,
+        Work4: 4,
     },
-    ProductSizeType :{
+    ProductSizeType: {
         //Size bằng chữ: S, M , XL, XXL
-        SizeLetter : 1,
+        SizeLetter: 1,
         //Size bằng số: 29,30...
-        SizeNumber : 2
+        SizeNumber: 2
     },
     Action: {
-        Edit : 1,
-        Delete : 2,
-        SetDefault : 3,
-        UnSetDefault : 4
+        Edit: 1,
+        Delete: 2,
+        SetDefault: 3,
+        UnSetDefault: 4
     }
 
 }

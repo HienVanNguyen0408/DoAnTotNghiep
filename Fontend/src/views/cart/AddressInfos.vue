@@ -17,7 +17,7 @@
         </div>
         <div v-if="showFormAddress">
             <AddressInfoDetail @closePopup="setStateFormAddress(false)" @resetData="resetData" :mode="mode"
-                :userInfo="userInfo" :addressInfo="addressInfo" @loadData="loadData"/>
+                :userInfo="User" :addressInfo="addressInfo" @loadData="loadData"/>
         </div>
     </div>
 </template>
@@ -45,15 +45,12 @@ export default {
     computed: {
         ...mapGetters(ModuleUser, [
             "AddressInfos",
-            "AddressInfo"
+            "AddressInfo",
+            "User"
         ])
     },
     created() {
         const me = this;
-        let user = me.$commonFunc.getUserInfo();
-        if (user) {
-            me.userInfo = user;
-        }
         me.initData();
     },
     methods: {
@@ -71,9 +68,9 @@ export default {
 
         async loadData() {
             const me = this;
-            if (me.userInfo && me.userInfo.id) {
+            if (me.User && me.User.id) {
                 let payload = {
-                    user_id: me.userInfo.id
+                    user_id: me.User.id
                 };
                 await me.getAddressInfosAsync(payload);
             }
@@ -124,9 +121,9 @@ export default {
 
         async setAddressInfo(params) {
             const me = this;
-            if (me.userInfo && me.userInfo.id) {
+            if (me.User && me.User.id) {
                 let payload = {
-                    user_id: me.userInfo.id,
+                    user_id: me.User.id,
                     id: params.id,
                     is_default: params.is_default
                 };
@@ -136,7 +133,7 @@ export default {
 
         async deleteAddressInfo(id) {
             const me = this;
-            if (me.userInfo && me.userInfo.id) {
+            if (me.User && me.User.id) {
                 let payload = {
                     id: id
                 };
