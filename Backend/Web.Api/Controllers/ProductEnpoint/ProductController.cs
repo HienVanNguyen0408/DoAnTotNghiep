@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections;
@@ -13,6 +14,7 @@ using Web.Models.Respone;
 
 namespace Web.Api.Controllers
 {
+    [Authorize]
     public class ProductController : BaseAuthController<ProductController>
     {
         private const string TAG = "ProductController";
@@ -109,7 +111,7 @@ namespace Web.Api.Controllers
             }
         }
 
-
+        [AllowAnonymous]
         /// <summary>
         /// Lấy danh sách phân trang loại sản phẩm
         /// </summary>
@@ -137,6 +139,7 @@ namespace Web.Api.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("productcategories")]
         public async Task<ServiceResult<IEnumerable<ProductCategory>>> GetProductCategoriesAsync()
         {
@@ -159,6 +162,7 @@ namespace Web.Api.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("productcategory/{productCategoryId}")]
         public async Task<ServiceResult<ProductCategory>> GetProductCategoryAsync(string productCategoryId)
         {
@@ -298,6 +302,7 @@ namespace Web.Api.Controllers
             }
         }
 
+        [AllowAnonymous]
         /// <summary>
         /// Lấy danh sách sản phẩm phân trang
         /// Hiển thị người dùng
@@ -326,7 +331,6 @@ namespace Web.Api.Controllers
             }
         }
 
-
         /// <summary>
         /// Danh sách sản phẩm hiển thị cho quản trị
         /// </summary>
@@ -354,6 +358,7 @@ namespace Web.Api.Controllers
             }
         }
 
+        [AllowAnonymous]
         /// <summary>
         /// Lấy thông tin sản phẩm
         /// </summary>

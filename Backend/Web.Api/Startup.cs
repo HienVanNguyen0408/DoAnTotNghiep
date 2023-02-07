@@ -60,7 +60,7 @@ namespace Web.Api
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Jwt:Key"])),
-                    RequireSignedTokens = true,
+                    RequireSignedTokens = true
                 };
             });
             ////Google

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ using Web.Utils;
 
 namespace Web.Api.Controllers
 {
-
+    [Authorize]
     public class UserInfoController : BaseAuthController<UserInfoController>
     {
         #region Declaration
@@ -202,6 +203,7 @@ namespace Web.Api.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ServiceResult<UserRespone>> LoginUser([FromBody] UserRequest request)
         {
@@ -243,6 +245,7 @@ namespace Web.Api.Controllers
             }
         }
 
+        [AllowAnonymous]
         /// <summary>
         /// Đăng kí tài khoản
         /// </summary>

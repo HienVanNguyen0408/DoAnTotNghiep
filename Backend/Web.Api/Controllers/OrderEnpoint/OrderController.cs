@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,6 +13,7 @@ using Web.Models.Request;
 
 namespace Web.Api.Controllers
 {
+    [Authorize]
     public class OrderController : BaseAuthController<OrderController>
     {
         private const string TAG = "OrderController";
@@ -32,7 +34,7 @@ namespace Web.Api.Controllers
 
         #region Methods
         #region Product
-
+        
         /// <summary>
         /// Thêm đơn hàng
         /// </summary>
@@ -144,7 +146,6 @@ namespace Web.Api.Controllers
                 return svcResult;
             }
         }
-
         /// <summary>
         /// Lấy danh sách sản phẩm phân trang
         /// </summary>

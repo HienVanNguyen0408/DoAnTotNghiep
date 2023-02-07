@@ -90,8 +90,6 @@
 </template>
 
 <script>
-import * as fs from '@/utils/file-extensions/fs-vh.js';
-
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { ModuleProduct } from "@/store/module-const";
 import ProductColorInfo from './ProductColorInfo.vue';
@@ -205,16 +203,6 @@ export default {
         async changeImage(files) {
             const me = this;
             await me.updateProduct({ ...me.product, files: files });
-            // if(files && files.length > 0){
-            //     await fs.writeFile('product/product-file1.png', files[0])
-            //         .then(function(res){
-            //             console.log(res);
-            //             return fs.readdir('product');
-            //         })
-            //         .then(function(files){
-            //             files // -> [ {some-file.txt} ]
-            //         });
-            // }
         },
 
         async updateProduct(product) {

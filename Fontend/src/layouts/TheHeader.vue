@@ -131,7 +131,7 @@ export default {
       registerSuccess: false,
       isRegister: false,
       form: this.$form.createForm(this, { name: "coordinated" }),
-      menuIndex : 0
+      menuIndex : -1
     };
   },
   computed: {
@@ -198,6 +198,7 @@ export default {
             let res = await me.loginUserAsync(user);
             if (me.User) {
               delete me.User.password;
+              await me.$auth.setToken(me.User.key_auth);
               me.$commonFunc.updateUserInfo(me.User);
               me.checkExistUserName = res.message;
               me.getOrders();
@@ -265,7 +266,7 @@ export default {
       if(me.User && me.User.user_name){
         me.getOrders(me.User.user_name);
       }
-      me.$commonFunc.logoutUserInfo();
+      me.$auth.logout();
       me.updateUserLogin({});
       me.closeFormLogin();
       me.user = {};

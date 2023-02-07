@@ -1,8 +1,7 @@
 import { BASE_URL } from '@/api/url';
 import axios from 'axios';
 const keyJwt = "Jwt";
-const keyUser = "User";
-const keyLevel = "LevelNumber";
+const keyUser = "UserInfo";
 class Auth {
     setUser(user) {
         if (user) {
@@ -58,9 +57,6 @@ class Auth {
     }
     async loginUser(params) {
         let url = BASE_URL + '/UserInfo/login';
-        // if(params.isLoginGoogle){
-        //     this.setToken(params.token);
-        // }
         let resToken = this.getTokenStorage();
         let dataRes = null;
         if (!resToken) {
@@ -88,20 +84,6 @@ class Auth {
     logout() {
         this.deleteTokenStorage();
         this.deleteUserStorage();
-        this.deleteLevelStorage();
-        const keyCountdown = "examTimer";
-        const keySelection = "questions";
-        const keyStatusExam = "Examming";
-        const keyQuestionReads = "QuestioReads";
-        const keyPartListen = "PartListens";
-        localStorage.removeItem(keyCountdown);
-        localStorage.removeItem(keySelection);
-        localStorage.removeItem(keyStatusExam);
-        localStorage.removeItem(keyQuestionReads);
-        localStorage.removeItem(keyCountdown);
-        localStorage.removeItem(keyPartListen);
-        localStorage.removeItem("ExamResult");
-        localStorage.removeItem("examId");
     }
     async registerUser(params) {
         let dataRes = null;
@@ -119,62 +101,6 @@ class Auth {
         let token = this.getTokenStorage();
         let user = this.getUserStorage();
         return token && user;
-    }
-
-    setLevelNumber(levelNumber) {
-        if (levelNumber >= 0) {
-            localStorage.setItem(keyLevel, JSON.stringify(levelNumber));
-        }
-    }
-    deleteLevelStorage() {
-        localStorage.removeItem(keyLevel);
-    }
-    getLevelStorage() {
-        let levelNumber = localStorage.getItem(keyLevel);
-        if (levelNumber >= 0) {
-            levelNumber = JSON.parse(levelNumber);
-            return levelNumber;
-        }
-        return levelNumber;
-    }
-    async getPartListensByIds(params) {
-        let url = BASE_URL + '/PartListen/get-part-listens';
-        let resToken = this.getTokenStorage();
-        let dataRes = null;
-        if (resToken) {
-            let config = {
-                headers: {
-                    'Authorization': `Bearer ${resToken}`
-                }
-            }
-            await axios.post(url, params, config)
-                .then(res => {
-                    dataRes = res.data;
-                })
-                .catch(err => Promise.reject(err)
-                );
-        }
-        return dataRes;
-    }
-
-    async SubmitExam(params) {
-        let url = BASE_URL + '/Exam/submit-exam'
-        let resToken = this.getTokenStorage();
-        let dataRes = null;
-        if (resToken) {
-            let config = {
-                headers: {
-                    'Authorization': `Bearer ${resToken}`
-                }
-            }
-            await axios.post(url, params, config)
-                .then(res => {
-                    dataRes = res.data;
-                })
-                .catch(err => Promise.reject(err)
-                );
-        }
-        return dataRes;
     }
 }
 export default new Auth();

@@ -57,7 +57,7 @@ namespace Web.Api.Auth
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name,user.user_name),
-                    new Claim(ClaimTypes.Expired, $"{_jwtSettings.ExpireDate}")
+                    new Claim(ClaimTypes.Role,user.user_name)
                 }),
                 Expires = DateTime.UtcNow.AddHours(_jwtSettings.ExpireDate),
                 SigningCredentials = new SigningCredentials(

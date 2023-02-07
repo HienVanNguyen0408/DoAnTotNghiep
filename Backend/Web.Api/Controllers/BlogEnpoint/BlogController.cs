@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using Web.Models.Respone;
 
 namespace Web.Api.Controllers.BlogEnpoint
 {
+    [Authorize]
     public class BlogController : BaseAuthController<BlogController>
     {
         private const string TAG = "BlogController";
@@ -25,11 +27,11 @@ namespace Web.Api.Controllers.BlogEnpoint
 
         #region BlogCategory
 
-
         /// <summary>
         /// Danh sách loại bài viết
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet("categories")]
         public async Task<ServiceResult<IEnumerable<BlogCategory>>> GetBlogCategoriesAsync()
         {
@@ -53,12 +55,12 @@ namespace Web.Api.Controllers.BlogEnpoint
             }
         }
 
-
         /// <summary>
         /// Lấy danh sách loại bài viết phân trang
         /// </summary>
         /// <param name="pagination"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost("category-pagging")]
         public async Task<ServiceResult<Pagging<BlogCategory>>> GetBlogCategoryPaggingAsync([FromBody] Pagination pagination)
         {
@@ -161,12 +163,12 @@ namespace Web.Api.Controllers.BlogEnpoint
                 return svcResult;
             }
         }
-
         /// <summary>
         /// Chi tiết loại bài viết
         /// </summary>
         /// <param name="blogCategoryId"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet("category/{blogCategoryId}")]
         public async Task<ServiceResult<BlogCategory>> GetBlogCategoryAsync(string blogCategoryId)
         {
@@ -195,6 +197,7 @@ namespace Web.Api.Controllers.BlogEnpoint
         /// Lấy danh bài viết
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<Blog>> GetBlogsAsync()
         {
@@ -215,6 +218,7 @@ namespace Web.Api.Controllers.BlogEnpoint
         /// Chi tiết bài viết
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet("{blogId}")]
         public async Task<ServiceResult<BlogRespone>> GetBlogAsync(string blogId)
         {
@@ -237,6 +241,7 @@ namespace Web.Api.Controllers.BlogEnpoint
             }
         }
 
+        [AllowAnonymous]
         /// <summary>
         /// Danh sách bài viết theo phân trang
         /// </summary>
