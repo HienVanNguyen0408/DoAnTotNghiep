@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  dqfontend:
+  webapp:
     container_name: container_dqfontend
     image: hienvannguyen0408/web-app
     build:
