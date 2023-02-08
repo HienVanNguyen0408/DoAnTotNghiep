@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 // import Auth from '@/auth/auth';
 
 import Page from '@/pages/Page.vue';
-import Login from '@/views/user/Login.vue';
 import Home from '@/views/home/Home.vue';
 import ProductList from '@/views/product/ProductList.vue';
 import ProductDetail from '@/views/product/ProductDetail.vue';
@@ -100,26 +99,14 @@ export const router = new VueRouter({
             props: true
         },
         {
-            name: 'login',
-            path: '/login',
-            component: Login,
-            props: true
-        },
-        {
             name: 'admin',
             path: '/admin',
             component: Admin,
             props: true,
             children: [
                 {
-                    name: 'dashboard',
-                    path: '/dashboard',
-                    component: Dashboard,
-                    props: true
-                },
-                {
                     name: 'adminuser',
-                    path: '/admin-user',
+                    path: '/admin',
                     component: AdminUser,
                     props: true
                 },

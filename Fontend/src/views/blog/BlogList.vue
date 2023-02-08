@@ -13,7 +13,10 @@
             </dq-pagination>
         </div>
     </div>
-    <div v-else></div>
+    <div v-else class="w-96 justify-center">
+        <div class="flex justify-center font-bold productlist-title">VHSTORE BLOG</div>
+        <div class="flex justify-center mt-10">Chưa có dữ liệu</div>
+    </div>
 </template>
 
 <script>

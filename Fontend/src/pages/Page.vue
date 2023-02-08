@@ -7,21 +7,36 @@
 </template>
 
 <script>
-    export default {
-        name : "Page",
-        prop:{},
-        computed:{},
-        data(){
-            return{
+import {
+    mapGetters
+} from 'vuex';
+import { ModuleUser } from '@/store/module-const';
+export default {
+    name: "Page",
+    prop: {},
+    computed: {
+        ...mapGetters(ModuleUser, [
+            'User'
+        ])
+    },
+    created() {
+        const me = this;
+        let checkAdmin = me.User && me.User.id && me.User.role == me.$enum.Role.Admin;
+        if (checkAdmin) {
+            me.$router.push("/admin");
+        }
+    },
+    data() {
+        return {
 
-            }
-        },
-        method:{}
-    }
+        }
+    },
+    method: {}
+}
 </script>
 
 <style scoped>
-.ull-page-user{
+.ull-page-user {
     width: 100%;
     height: 100vh;
 }

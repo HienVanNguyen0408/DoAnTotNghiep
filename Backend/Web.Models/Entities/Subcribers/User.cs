@@ -27,5 +27,6 @@ namespace Web.Models.Entities
         /// Ngày sinh
         /// </summary>
         public DateTime? date_of_birth { get; set; }
+        public RoleType role { get; set; } = RoleType.User;
     }
 }

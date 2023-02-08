@@ -201,6 +201,10 @@ export default {
               await me.$auth.setToken(me.User.key_auth);
               me.$commonFunc.updateUserInfo(me.User);
               me.checkExistUserName = res.message;
+              let checkAdmin = me.User.role == me.$enum.Role.Admin;
+              if(checkAdmin){
+                me.$router.push("/admin");
+              }
               me.getOrders();
               me.closeFormLogin();
             }
