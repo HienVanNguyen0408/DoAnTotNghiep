@@ -52,7 +52,7 @@ namespace Web.Api.Controllers.BlogEnpoint
             {
                 _logger.LogError($"{TAG}::Lỗi hàm GetBlogCategoriesAsync::Exception::{ex.Message}");
                 svcResult.Message = $"{ex.Message}";
-                svcResult.Status = ServiceResultStatus.ServerError,
+                svcResult.Status = ServiceResultStatus.ServerError;
                 return svcResult;
             }
         }
