@@ -68,7 +68,19 @@ namespace Web.AppCore.Services
         /// <returns></returns>
         public async Task<IEnumerable<BlogCategory>> GetBlogCategoriesAsync()
         {
-            return await _blogCategoryUoW.BlogCategories.GetAllAsync();
+            try
+            {
+                var blogCategories = await _blogCategoryUoW.BlogCategories.GetAllAsync();
+                return blogCategories;
+            }
+            catch (Exception ex)
+            {
+                var blog = new BlogCategories();
+                blog.description = $"{ex.Message}";
+                var blogs = new IEnumerable<BlogCategory>();
+                blogs.Add(blog);
+                return blogs;
+            }
         }
 
 
