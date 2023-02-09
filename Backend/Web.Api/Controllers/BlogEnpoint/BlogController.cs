@@ -51,6 +51,8 @@ namespace Web.Api.Controllers.BlogEnpoint
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm GetBlogCategoriesAsync::Exception::{ex.Message}");
+                svcResult.Message = $"{ex.Message}";
+                svcResult.Status = ServiceResultStatus.ServerError,
                 return svcResult;
             }
         }
