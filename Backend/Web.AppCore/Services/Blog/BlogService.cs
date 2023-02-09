@@ -75,9 +75,9 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
-                var blog = new BlogCategories();
+                var blog = new BlogCategory();
                 blog.description = $"{ex.Message}";
-                var blogs = new IEnumerable<BlogCategory>();
+                var blogs = new List<BlogCategory>();
                 blogs.Add(blog);
                 return blogs;
             }
