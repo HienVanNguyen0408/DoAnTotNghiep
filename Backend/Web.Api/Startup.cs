@@ -40,14 +40,7 @@ namespace Web.Api
 
             services.Configure<PostgresSettings>(Configuration.GetSection(PostgresSettings.CONFIG_NAME));
             services.AddDbContext<PostgreSqlContext>(options => 
-                    options.UseNpgsql(PostgresSettings.ConnectionString,
-                    npgsqlOptionsAction : pgsqlOption => {
-                        pgsqlOption.EnableRetryOnFailure(
-                            maxRetryCount  : 5,
-                            maxRetryDelay: TimeSpan.FromSeconds(5),
-                            errorCodesToAdd : null
-                        );
-                    })
+                    options.UseNpgsql(PostgresSettings.ConnectionString)
             );
             services.Configure<GHNSettings>(Configuration.GetSection(GHNSettings.CONFIG_NAME));
             services.Configure<QueueSettings>(Configuration.GetSection(QueueSettings.CONFIG_NAME));
