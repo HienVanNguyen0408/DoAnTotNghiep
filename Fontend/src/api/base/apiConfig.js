@@ -1,7 +1,7 @@
 let host = process.env.VUE_APP_SERVERHOST
 let enpoint = process.env.VUE_APP_BASE_API
 const apiConfigDevLocal = {
-    api : `${host}:5001${enpoint}`
+    api : `${host}:5002${enpoint}`
 }
 
 
