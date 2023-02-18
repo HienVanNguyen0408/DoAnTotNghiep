@@ -9,9 +9,9 @@ namespace Web.Storage
     public class StorageSettings
     {
         public const string CONFIG_NAME = "StorageSettings";
-        public string SecretKey { get; set; }
-        public string Password { get; set; }
-        public string EndPoint { get; set; }
-        public string BucketName { get; set; }
+        public string SecretKey { get; set; } = "NVHIEN123";
+        public string Password { get; set; } = "NVHIEN123";
+        public string EndPoint { get; set; } = "http://127.0.0.1:9000";
+        public string BucketName { get; set; } = "webbanhang";
     }
 }

@@ -2,7 +2,7 @@
     <div class="blog-view p-3">
         <div>
             <div class="flex justify-center align-center">
-                <div class="image-blog-view flex items-center cursor-pointer" @mouseover="hoverImageView" v-if="blog.files[indexBlogView] && blog.files[indexBlogView].path"
+                <div class="image-blog-view flex items-center cursor-pointer" @mouseover="hoverImageView" v-if="blog.files && blog.files[indexBlogView] && blog.files[indexBlogView].path"
                     @click="viewDetailBlog(blog.id)">
                     <img class="w-full h-full" :src="blog.files[indexBlogView].path" />
                 </div>
