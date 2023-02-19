@@ -1,9 +1,8 @@
 <template>
     <div class="blog-view p-3">
-        <div>
-            <div class="flex justify-center align-center">
-                <div class="image-blog-view flex items-center cursor-pointer" @mouseover="hoverImageView" v-if="blog.files && blog.files[indexBlogView] && blog.files[indexBlogView].path"
-                    @click="viewDetailBlog(blog.id)">
+        <div @click="viewDetailBlog(blog.id)" class="cursor-pointer">
+            <div class="flex justify-center align-center" v-if="blog && blog.files && blog.files.length > 0">
+                <div class="image-blog-view flex items-center cursor-pointer" @mouseover="hoverImageView">
                     <img class="w-full h-full" :src="blog.files[indexBlogView].path" />
                 </div>
             </div>
@@ -54,7 +53,7 @@ export default {
         async viewDetailBlog(id) {
             const me = this;
             let payload = {
-                id : id
+                id: id
             };
             await me.getBlogAsync(payload);
             this.$router.push({ path: 'blog-detail', query: { blog: id } })

@@ -6,12 +6,13 @@
                     <div class="images-product mt-3">
                         <div class="image-product mr-2 cursor-pointer" v-for="(file, index) in ProductUser.files"
                             :key="index" @click="changeImageView(index)">
-                            <div class="mt-2">
+                            <div class="mt-2" v-if="file.path">
                                 <img class="w-44 h-32" :src="file.path" />
                             </div>
                         </div>
                     </div>
-                    <div class="ml-4 image-product-view flex items-center cursor-pointer">
+                    <div class="ml-4 image-product-view flex items-center cursor-pointer"
+                        v-if="ProductUser.files[indexProductView] && ProductUser.files[indexProductView].path">
                         <img class="image-product-view" :src="ProductUser.files[indexProductView].path" />
                     </div>
                 </div>
@@ -24,15 +25,14 @@
                 </div>
                 <div class="options-color mt-3 pb-4 border-bottom" v-if="ProductUser && ProductUser.colors">
                     <div class="colors flex">
-                        <div class="color cursor-pointer ml-2" v-for="(color_name, index) in getColorsProduct"
-                            :key="index" @click="selectColor(color_name)"
+                        <div class="color cursor-pointer ml-2" v-for="(color_name, index) in getColorsProduct" :key="index"
+                            @click="selectColor(color_name)"
                             :class="[colorNameSelect == color_name ? 'color-product-active' : '']">
                             <div class="color_name" :style="{ 'background-color': `${color_name}` }"></div>
                         </div>
                     </div>
                 </div>
-                <div class="options-size mt-3 pb-4 border-bottom"
-                    v-if="colorsProductSize && colorsProductSize.length > 0">
+                <div class="options-size mt-3 pb-4 border-bottom" v-if="colorsProductSize && colorsProductSize.length > 0">
                     <div class="sizes-product flex">
                         <div :class="[sizeSelect == color.size_name ? 'size-product-active' : '']"
                             class="size-product cursor-pointer mr-3" v-for="(color, index) in colorsProductSize"

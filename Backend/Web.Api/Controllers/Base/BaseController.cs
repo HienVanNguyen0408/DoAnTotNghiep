@@ -120,23 +120,5 @@ namespace Web.Api.Controllers
             }
             return true;    
         }
-
-        protected void WrapFuncAuditLog(string functionCall, Action callback)
-        {
-            try
-            {
-                callback.Invoke();
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError($"{nameof(T)}::Lỗi hàm::{functionCall}::Exception::{ex.Message}");
-            }
-        }
-
-        protected virtual ObjectResult GetPermissionError()
-        {
-            return Unauthorized(ErrorCode.NotPermission);
-        }
-
     }
 }

@@ -76,7 +76,7 @@ namespace Web.Storage
                     Key = fullPath,
                     Expires = DateTime.Now.AddMinutes(seconds)
                 });
-                return pathData.Replace("https","http");
+                return pathData.Replace("https", "http");
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace Web.Storage
                 };
                 using (GetObjectResponse response = await _awsClient.GetObjectAsync(request))
                 using (Stream stream = response.ResponseStream)
-                using(MemoryStream ms = new MemoryStream())
+                using (MemoryStream ms = new MemoryStream())
                 {
                     stream.CopyTo(ms);
                     return ms.ToArray();
@@ -127,7 +127,7 @@ namespace Web.Storage
                 {
                     stream.CopyTo(ms);
                     var byteFile = ms.ToArray();
-                    if(byteFile != null && byteFile.Length > 0)
+                    if (byteFile != null && byteFile.Length > 0)
                     {
                         return Convert.ToBase64String(byteFile);
                     }

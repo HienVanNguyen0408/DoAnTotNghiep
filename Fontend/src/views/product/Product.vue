@@ -1,11 +1,11 @@
 <template>
     <div class="product-view p-3">
-        <div>
+        <div @click="viewDetailProduct(product.id)" class="cursor-pointer">
             <div class="product-image">
                 <img src="" alt="">
             </div>
             <div class="mt-3" v-if="product && product.files && product.files.length > 0">
-                <div class="image-product-view flex items-center cursor-pointer" @mouseover="hoverImageView" @click="viewDetailProduct(product.id)"> 
+                <div class="image-product-view flex items-center cursor-pointer" @mouseover="hoverImageView">
                     <img class="w-60 w-full" :src="product.files[indexProductView].path" />
                 </div>
                 <div class="font-bold mt-3">{{ product.product_name }}</div>
@@ -43,9 +43,9 @@ export default {
             indexProductViewPrev: 0
         }
     },
-    created(){
+    created() {
         const me = this;
-        
+
     },
     methods: {
         ...mapActions(ModuleProduct, [
@@ -60,19 +60,19 @@ export default {
             me.indexProductViewPrev = me.indexProductView;
             me.indexProductView = Math.floor(Math.random() * me.product.files.length);
         },
-        
+
         /**
          * Xem thông tin chi tiết của sản phẩm
          */
-        async viewDetailProduct(productId){
+        async viewDetailProduct(productId) {
             const me = this;
             let payload = {
                 productId: productId,
-                isUser : true
+                isUser: true
             };
             await me.getProductAsync(payload);
 
-            this.$router.push({ path: 'product-detail', query: { product: productId }})
+            this.$router.push({ path: 'product-detail', query: { product: productId } })
             //load view detail
             // me.$router.push('product-detail');
         }

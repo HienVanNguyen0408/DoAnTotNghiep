@@ -27,11 +27,11 @@
                             <div class="icon dq-icon-24 icon-close absolute right-2 cursor-pointer"
                                 @click="removeFileSelect(file)"></div>
                             <!-- <div>
-                                <div class="font-20 mb-5 text-lg font-bold w-full text-ellipsis whitespace-nowrap overflow-hidden" v-if="file.file_name">
-                                    {{ file.file_name }}
-                                </div>
-                            </div> -->
-                            <div class="flex justify-center">
+                                    <div class="font-20 mb-5 text-lg font-bold w-full text-ellipsis whitespace-nowrap overflow-hidden" v-if="file.file_name">
+                                        {{ file.file_name }}
+                                    </div>
+                                </div> -->
+                            <div class="flex justify-center" v-if="file.path">
                                 <img class="w-24 h-24" :src="file.path" />
                             </div>
                         </div>
