@@ -2,10 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using PostgresDBData;
 using Web.AppCore.Interfaces.Repository;
+using Web.AppCore.Interfaces.Services.MessageQueue;
+using Web.AppCore.Services.MessageQueue;
 using Web.Infrastructure.Services;
 using Web.Infrastructure.Services.GHN;
 using Web.Infrastructure.Services.Momo;
 using Web.Infrastructure.UnitOfWork;
+using Web.MessageQ;
+using Web.MessageQ.Publisher;
 
 namespace Web.Infrastructure
 {
@@ -16,6 +20,7 @@ namespace Web.Infrastructure
             // add configure
             services.AddTransient(typeof(IBaseRepo<>), typeof(BaseRepo<>));
 
+            // add configure
             services.AddTransient<IUserUoW, UserUoW>();
             services.AddTransient<IProductUoW, ProductUoW>();
             services.AddTransient<IColorUoW, ColorUoW>();
@@ -32,16 +37,6 @@ namespace Web.Infrastructure
             services.AddTransient<IAddressInfoUoW, AddressInfoUoW>();
             //Service 
             services.AddServiceEmailClient();
-
-            return services;
-        }
-        public static IServiceCollection AddServiceCollectionInfrastructure(this IServiceCollection services)
-        {
-            return services;
-        }
-        
-        public static IServiceCollection AddSettingsInfrastructure(this IServiceCollection services, IConfiguration configuration)
-        {
             return services;
         }
         

@@ -95,8 +95,6 @@ namespace Web.Api
             services
                 .AddDataInfastructure(Configuration)
                 .AddAppCoreService()
-                .AddServiceCollectionInfrastructure()
-                .AddSettingsInfrastructure(Configuration)
                 .AddRedisCahedService()
                 .AddDataServiceWebStockets()
                 .AddStorageServiceExtension(Configuration);

@@ -3,6 +3,7 @@ using Web.AppCore.Interfaces.Services;
 using Web.AppCore.Interfaces.Services.MessageQueue;
 using Web.AppCore.Services;
 using Web.AppCore.Services.MessageQueue;
+using Web.MessageQ;
 using Web.MessageQ.Consumer;
 using Web.MessageQ.Publisher;
 
@@ -12,7 +13,6 @@ namespace Web.AppCore
     {
         public static IServiceCollection AddAppCoreService(this IServiceCollection services)
         {
-
             services.AddDataServiceAppCore()
                     .AddMessageQueueService();
             return services;
@@ -22,7 +22,6 @@ namespace Web.AppCore
         {
             services.AddTransient<IDownloadService, DowloadService>();
             services.AddTransient<IImportExcelService, ImportExcelService>();
-
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleAccessService, RoleAccessService>();
             services.AddTransient<ISupplierService, SupplierService>();
@@ -43,10 +42,10 @@ namespace Web.AppCore
 
         public static IServiceCollection AddMessageQueueService(this IServiceCollection services)
         {
-
             services.AddTransient(typeof(IConsumer<>), typeof(Consumer<>));
             services.AddTransient<IPublisher, Publisher>();
             services.AddTransient<IPublisherQueue, PublisherQueue>();
+            services.AddTransient<IConsumerQueue, ConsumerQueue>();
             return services;
         }
     }

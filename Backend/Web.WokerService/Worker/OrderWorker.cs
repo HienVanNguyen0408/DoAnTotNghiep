@@ -1,21 +1,25 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Services;
+using Web.AppCore.Interfaces.Services.MessageQueue;
 using Web.Utils.BackgroundServices;
 
-namespace Web.WorkerApp
+namespace Web.WokerService
 {
     public class OrderWorker : BackgroundService
     {
         #region Declaration
-        private readonly IOrderService _orderService;
+        private readonly IConsumerQueue _consumer;
+        //private readonly IOrderService _orderService;
         #endregion
         #region Contructor
-        public OrderWorker(IOrderService orderService)
+        public OrderWorker(IConsumerQueue consumer)
         {
-            _orderService = orderService;
+            _consumer = consumer;
+            //_orderService = orderService;
         }
         #endregion
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

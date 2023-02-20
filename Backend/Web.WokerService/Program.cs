@@ -1,8 +1,12 @@
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Web.Utils.Shared;
 
-namespace Web.Worker
+namespace Web.WokerService
 {
     public class Program
     {
@@ -18,6 +22,8 @@ namespace Web.Worker
                 {
                     var config = hostContext.Configuration;
                     AppConfiguaration.ConfigServices(services, config);
+                    //services.AddHostedService<Worker>();
                 });
+                
     }
 }

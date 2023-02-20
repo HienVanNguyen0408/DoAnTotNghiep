@@ -1,27 +1,35 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Services.MessageQueue;
 using Web.MessageQ.Consumer;
+using Web.Models.Entities;
 
 namespace Web.AppCore.Services.MessageQueue
 {
-    public class ConsumerQueue<T> : IConsumerQueue<T>
+    public class ConsumerQueue : IConsumerQueue
     {
         #region Declaration
         private const string _queueNameOrder = "OrderDataQueueName";
 
-        private readonly IConsumer<T> _consumer;
-        private readonly QueueNameSettings _queueNameSettings;
+        private MessageQ.QueueSettings _queueSettings;
+        private IConsumer<Order> _orderConsumer;
+        private QueueNameSettings _queueName;
+        #endregion
+
+
+        #region Properties
+        private IConsumer<Order> OrderConsumer => _orderConsumer ??= new Consumer<Order>(_queueSettings);
         #endregion
 
         #region Contructor
-        public ConsumerQueue(IConsumer<T> consumer, QueueNameSettings queueNameSettings)
+        public ConsumerQueue(IOptions<MessageQ.QueueSettings> optionsSettings, IOptions<QueueNameSettings> optionsName)
         {
-            _consumer = consumer;
-            _queueNameSettings = queueNameSettings;
+            _queueSettings = optionsSettings.Value;
+            _queueName = optionsName.Value;
         }
         #endregion
 
@@ -39,6 +47,11 @@ namespace Web.AppCore.Services.MessageQueue
         {
             await Task.CompletedTask;
             return true;
+        }
+
+        public async Task StartConsumeAsync(string queueName, Func<Order, IDictionary<string, object>, Task<bool>> onMessageHandle)
+        {
+            await OrderConsumer.StartConsumeAsync(queueName, onMessageHandle);
         }
         #endregion
     }
