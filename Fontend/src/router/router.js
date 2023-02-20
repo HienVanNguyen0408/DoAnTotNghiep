@@ -43,7 +43,7 @@ export const router = new VueRouter({
             children: [
                 {
                     name: 'home',
-                    path: '/home',
+                    path: '/',
                     component: Home,
                     props: true
                 },
