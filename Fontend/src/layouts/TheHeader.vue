@@ -165,7 +165,7 @@ export default {
       me.menus = [
         {
           title: 'Trang chủ',
-          router: '/home'
+          router: '/'
         },
         {
           title: 'Quần áo',
