@@ -9,6 +9,6 @@ namespace Web.AppCore.Interfaces.Services.MessageQueue
 {
     public interface IConsumerQueue
     {
-        Task StartConsumeAsync(string queueName, Func<Order, IDictionary<string, object>, Task<bool>> onMessageHandle);
+        Task StartConsumeAsync(Func<Order, IDictionary<string, object>, Task<bool>> onMessageHandle);
     }
 }

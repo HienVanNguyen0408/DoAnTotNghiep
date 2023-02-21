@@ -1,3 +1,4 @@
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -23,7 +24,7 @@ namespace Web.WokerService
                     var config = hostContext.Configuration;
                     AppConfiguaration.ConfigServices(services, config);
                     //services.AddHostedService<Worker>();
-                });
+                }).UseServiceProviderFactory(new AutofacServiceProviderFactory());
                 
     }
 }

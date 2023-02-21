@@ -6,7 +6,7 @@ namespace Web.Infrastructure.UnitOfWork
 {
     public class BlogCategoryUoW : BaseUnitOfWork<BlogCategoryUoW>, IBlogCategoryUoW
     {
-        public BlogCategoryUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
+        public BlogCategoryUoW(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }

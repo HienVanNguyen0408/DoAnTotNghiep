@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using PostgresDBData;
 using System;
@@ -31,41 +32,42 @@ namespace Web.Infrastructure.UnitOfWork
         private IBaseRepo<PermissionRelationship> _permission_relationships;
 
         protected readonly PostgreSqlContext _dbContext;
-        protected readonly PostgresSettings _postgresSettings;
         protected readonly AppSettings _appSettings;
         #endregion
 
         #region Contructor
-        public BaseUnitOfWork(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(serviceProvider)
+        public BaseUnitOfWork(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _dbContext = dbContext;
-            _postgresSettings = serviceProvider.GetRequiredService<IOptions<PostgresSettings>>().Value;
+            var contextOptions = new DbContextOptionsBuilder<PostgreSqlContext>()
+                .UseNpgsql(@$"{PostgresSettings.ConnectionString}")
+                .Options;
+            _dbContext = new PostgreSqlContext(contextOptions);
             _appSettings = serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
         }
 
         #endregion
 
         #region Properties
-        public IBaseRepo<User> Users => _user ??= new BaseRepo<User>(_dbContext);
-        public IBaseRepo<AddressInfo> AddressInfos => _address_infos ??= new BaseRepo<AddressInfo>(_dbContext);
-        public IBaseRepo<Avatar> Avatars => _avatar ??= new BaseRepo<Avatar>(_dbContext);
-        public IBaseRepo<Customer> Customers => _customers ??= new BaseRepo<Customer>(_dbContext);
-        public IBaseRepo<Color> Colors => _colors ??= new BaseRepo<Color>(_dbContext);
+        public IBaseRepo<User> Users => _user ??= new BaseRepo<User>();
+        public IBaseRepo<AddressInfo> AddressInfos => _address_infos ??= new BaseRepo<AddressInfo>();
+        public IBaseRepo<Avatar> Avatars => _avatar ??= new BaseRepo<Avatar>();
+        public IBaseRepo<Customer> Customers => _customers ??= new BaseRepo<Customer>();
+        public IBaseRepo<Color> Colors => _colors ??= new BaseRepo<Color>();
 
-        public IBaseRepo<Product> Products => _products ??= new BaseRepo<Product>(_dbContext);
+        public IBaseRepo<Product> Products => _products ??= new BaseRepo<Product>();
 
-        public IBaseRepo<ProductCategory> ProductCategories => _product_categories ??= new BaseRepo<ProductCategory>(_dbContext);
-        public IBaseRepo<Order> Orders => _orders ??= new BaseRepo<Order>(_dbContext);
-        public IBaseRepo<OrderItem> OrderItems => _orderItems ??= new BaseRepo<OrderItem>(_dbContext);
-        public IBaseRepo<Blog> Blogs => _blogs ??= new BaseRepo<Blog>(_dbContext);
-        public IBaseRepo<BlogCategory> BlogCategories => _blog_categories ??= new BaseRepo<BlogCategory>(_dbContext);
-        public IBaseRepo<Image> Images => _images ??= new BaseRepo<Image>(_dbContext);
+        public IBaseRepo<ProductCategory> ProductCategories => _product_categories ??= new BaseRepo<ProductCategory>();
+        public IBaseRepo<Order> Orders => _orders ??= new BaseRepo<Order>();
+        public IBaseRepo<OrderItem> OrderItems => _orderItems ??= new BaseRepo<OrderItem>();
+        public IBaseRepo<Blog> Blogs => _blogs ??= new BaseRepo<Blog>();
+        public IBaseRepo<BlogCategory> BlogCategories => _blog_categories ??= new BaseRepo<BlogCategory>();
+        public IBaseRepo<Image> Images => _images ??= new BaseRepo<Image>();
 
-        public IBaseRepo<Permission> Permissions => _permissions ??= new BaseRepo<Permission>(_dbContext);
+        public IBaseRepo<Permission> Permissions => _permissions ??= new BaseRepo<Permission>();
 
-        public IBaseRepo<PermissionDetail> PermissionDetails => _permission_details ??= new BaseRepo<PermissionDetail>(_dbContext);
+        public IBaseRepo<PermissionDetail> PermissionDetails => _permission_details ??= new BaseRepo<PermissionDetail>();
 
-        public IBaseRepo<PermissionRelationship> PermissionRelationships => _permission_relationships ??= new BaseRepo<PermissionRelationship>(_dbContext);
+        public IBaseRepo<PermissionRelationship> PermissionRelationships => _permission_relationships ??= new BaseRepo<PermissionRelationship>();
         #endregion
 
         #region Methods

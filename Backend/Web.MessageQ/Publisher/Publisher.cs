@@ -39,7 +39,12 @@ namespace Web.MessageQ.Publisher
         {
             _advancedBus = new ConnectionFactory()
             {
-                HostName = "localhost"
+                HostName = queueSettings.Host,
+                RequestedHeartbeat = TimeSpan.FromSeconds(queueSettings.RequestedHeartbeat),
+                ContinuationTimeout = TimeSpan.FromSeconds(queueSettings.Timeout),
+                Port = queueSettings.Port,
+                UserName = queueSettings.UserName,
+                Password = queueSettings.Password
             };
             var con = _advancedBus.CreateConnection();
             _connection = _advancedBus.CreateConnection();
@@ -67,9 +72,9 @@ namespace Web.MessageQ.Publisher
             var exchangeName = "order_exchange";
             // Create Exchange
             //_chanel.ExchangeDeclare(exchangeName, RabbitMQ.Client.ExchangeType.Direct);
-            _chanel.QueueDeclare(queue: "nvhien123", false, false, false, null);
+            _chanel.QueueDeclare(queue: queueName, false, false, false, null);
             //_chanel.QueueBind(queueName, exchangeName, queueName);
-            _chanel.BasicPublish(exchange: "", routingKey: "nvhien123", basicProperties: _properties, body: queueMessage);
+            _chanel.BasicPublish(exchange: "", routingKey: queueName, basicProperties: _properties, body: queueMessage);
             Console.WriteLine("Message Sent");
         }
 

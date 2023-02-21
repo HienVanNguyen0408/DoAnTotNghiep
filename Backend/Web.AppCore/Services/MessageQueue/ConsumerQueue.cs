@@ -49,9 +49,9 @@ namespace Web.AppCore.Services.MessageQueue
             return true;
         }
 
-        public async Task StartConsumeAsync(string queueName, Func<Order, IDictionary<string, object>, Task<bool>> onMessageHandle)
+        public async Task StartConsumeAsync(Func<Order, IDictionary<string, object>, Task<bool>> onMessageHandle)
         {
-            await OrderConsumer.StartConsumeAsync(queueName, onMessageHandle);
+            await OrderConsumer.StartConsumeAsync(_queueName.QueueNameOrder, onMessageHandle);
         }
         #endregion
     }

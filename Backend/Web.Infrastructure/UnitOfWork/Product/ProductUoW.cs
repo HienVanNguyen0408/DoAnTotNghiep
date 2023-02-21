@@ -6,7 +6,7 @@ namespace Web.Infrastructure.UnitOfWork
 {
     public class ProductUoW : BaseUnitOfWork<ProductUoW>, IProductUoW
     {
-        public ProductUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
+        public ProductUoW(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }

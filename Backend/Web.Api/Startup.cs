@@ -39,9 +39,9 @@ namespace Web.Api
         {
 
             services.Configure<PostgresSettings>(Configuration.GetSection(PostgresSettings.CONFIG_NAME));
-            services.AddDbContext<PostgreSqlContext>(options => 
-                    options.UseNpgsql(PostgresSettings.ConnectionString)
-            );
+            //services.AddDbContext<PostgreSqlContext>(options => 
+            //        options.UseNpgsql(PostgresSettings.ConnectionString)
+            //);
             services.Configure<GHNSettings>(Configuration.GetSection(GHNSettings.CONFIG_NAME));
             services.Configure<QueueSettings>(Configuration.GetSection(QueueSettings.CONFIG_NAME));
             services.Configure<AppSettings>(Configuration.GetSection(AppSettings.CONFIG_NAME));
@@ -97,6 +97,7 @@ namespace Web.Api
                 .AddAppCoreService()
                 .AddRedisCahedService()
                 .AddDataServiceWebStockets()
+                .AddMessageQueueService()
                 .AddStorageServiceExtension(Configuration);
 
 

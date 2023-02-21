@@ -10,11 +10,13 @@ namespace PostgresDBData
     public class BaseRepo<TEntity> : IBaseRepo<TEntity> where TEntity : class
     {
         protected readonly PostgreSqlContext _context;
-        private readonly PostgresSettings _postgresSettings;
         public DbSet<TEntity> entities { get; set; }
-        public BaseRepo(PostgreSqlContext context)
+        public BaseRepo()
         {
-            _context = context;
+            var contextOptions = new DbContextOptionsBuilder<PostgreSqlContext>()
+                .UseNpgsql(@$"{PostgresSettings.ConnectionString}")
+                .Options;
+            _context = new PostgreSqlContext(contextOptions);
         }
 
         public async Task<bool> DeleteManyAsync(IEnumerable<TEntity> entities)
@@ -196,9 +198,9 @@ namespace PostgresDBData
                     entities = entities.Where(predicate).ToList();
                 }
 
-                var pageResult = new Pagging<TEntity>() { PageIndex = pagination.PageIndex, PageSize = pagination.PageSize};
+                var pageResult = new Pagging<TEntity>() { PageIndex = pagination.PageIndex, PageSize = pagination.PageSize };
                 if (entities == null || entities.Count <= 0) return pageResult;
-                
+
 
                 long totalCount = 0;
                 if (predicate != null)
@@ -220,7 +222,7 @@ namespace PostgresDBData
                 return new Pagging<TEntity>();
             }
         }
-        
+
         public async Task<long> GetCountEntity(Func<TEntity, bool> predicate = null)
         {
             var entities = await _context.Set<TEntity>().ToListAsync();

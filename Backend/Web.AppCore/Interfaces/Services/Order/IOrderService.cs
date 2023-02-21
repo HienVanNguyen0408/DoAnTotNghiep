@@ -10,7 +10,6 @@ namespace Web.AppCore.Interfaces.Services
 {
     public interface IOrderService : IBaseDomainService
     {
-        Task<bool> UpdateOrderAsync();
         Task<bool> UpdatePaymentOrderAsync();
 
 
@@ -58,5 +57,7 @@ namespace Web.AppCore.Interfaces.Services
         /// <param name="pagination"></param>
         /// <returns></returns>
         Task<Order> GetOrderAsync(string orderId);
+
+        Task<bool> UpdateOrderOnQueueAsync(Order order, IDictionary<string, object> headers);
     }
 }

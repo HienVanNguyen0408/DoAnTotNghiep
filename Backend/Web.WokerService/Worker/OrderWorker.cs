@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Services;
 using Web.AppCore.Interfaces.Services.MessageQueue;
+using Web.AppCore.Services.MessageQueue;
 using Web.Utils.BackgroundServices;
 
 namespace Web.WokerService
@@ -13,29 +14,19 @@ namespace Web.WokerService
     {
         #region Declaration
         private readonly IConsumerQueue _consumer;
-        //private readonly IOrderService _orderService;
+        private readonly IOrderService _orderService;
         #endregion
         #region Contructor
-        public OrderWorker(IConsumerQueue consumer)
+        public OrderWorker(IConsumerQueue consumer, IOrderService orderService)
         {
             _consumer = consumer;
-            //_orderService = orderService;
+            _orderService = orderService;
         }
         #endregion
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                Console.WriteLine("Tao đang chạy");
-                ////Đợi 100 s
-                //// Đợi thời gian chạy
-                //TimeSpan timeWaitting = BackgroundServiceUtility.GetWaiting(100);
-                ////delay
-                //await Task.Delay(timeWaitting, stoppingToken);
-
-                ////Call đến service cần chạy
-                //await _orderService.UpdateOrderAsync();
-            }
+            await _consumer.StartConsumeAsync(_orderService.UpdateOrderOnQueueAsync);
+            Console.WriteLine("Tao đang chạy");
         }
     }
 }

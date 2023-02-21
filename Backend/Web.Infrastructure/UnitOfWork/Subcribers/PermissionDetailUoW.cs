@@ -6,7 +6,7 @@ namespace Web.Infrastructure.UnitOfWork
 {
     public class PermissionDetailUoW : BaseUnitOfWork<PermissionDetailUoW>, IPermissionDetailUoW
     {
-        public PermissionDetailUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
+        public PermissionDetailUoW(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }

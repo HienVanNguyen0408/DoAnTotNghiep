@@ -6,7 +6,7 @@ namespace Web.Infrastructure.UnitOfWork
 {
     public class ColorUoW : BaseUnitOfWork<ColorUoW>, IColorUoW
     {
-        public ColorUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
+        public ColorUoW(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }

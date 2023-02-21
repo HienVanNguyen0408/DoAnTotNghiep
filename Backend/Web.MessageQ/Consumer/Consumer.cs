@@ -7,15 +7,20 @@ using EasyNetQ;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Web.Utils;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 namespace Web.MessageQ.Consumer
 {
     public class Consumer<T> : IConsumer<T>
     {
         #region Declaration
-        private readonly IAdvancedBus _advancedBus;
+        ConnectionFactory _advancedBus;
         private readonly QueueSettings _queueSettings;
-
+        IConnection _connection;
+        IModel _channel;
+        IBasicProperties _properties;
+        private EventingBasicConsumer _consumer;
         Func<T, IDictionary<string, object>, Task<bool>> _onMessageHandleAsync;
         #endregion
 
@@ -23,15 +28,30 @@ namespace Web.MessageQ.Consumer
         public Consumer(IOptions<QueueSettings> options)
         {
             _queueSettings = options.Value;
-            _advancedBus = RabbitHutch.CreateBus(_queueSettings.ConnectionString).Advanced;
         }
 
         public Consumer(QueueSettings queueSettings)
         {
             _queueSettings = queueSettings;
-            _advancedBus = RabbitHutch.CreateBus(_queueSettings.ConnectionString).Advanced;
+            InitQueue(queueSettings);
         }
 
+        private void InitQueue(QueueSettings queueSettings)
+        {
+            _advancedBus = new ConnectionFactory()
+            {
+                HostName = queueSettings.Host,
+                RequestedHeartbeat = TimeSpan.FromSeconds(queueSettings.RequestedHeartbeat),
+                ContinuationTimeout = TimeSpan.FromSeconds(queueSettings.Timeout),
+                Port = queueSettings.Port,
+                UserName = queueSettings.UserName,
+                Password = queueSettings.Password
+            };
+            var con = _advancedBus.CreateConnection();
+            _connection = _advancedBus.CreateConnection();
+            _channel = _connection.CreateModel();
+            _properties = _channel.CreateBasicProperties();
+        }
         #endregion
 
         #region Properties
@@ -47,11 +67,29 @@ namespace Web.MessageQ.Consumer
         private void StartConsume(string queueName, Func<T, IDictionary<string, object>, Task<bool>> onMessageHandle)
         {
             _onMessageHandleAsync = onMessageHandle;
-            var consumeQueue = _advancedBus.QueueDeclare(queueName);
-            _advancedBus.Consume(consumeQueue, MessageHandleAsync, config =>
+            _channel.QueueDeclare(queueName, false, false, false, null);
+            _consumer = new EventingBasicConsumer(_channel);
+            _consumer.Received += async (model, result) =>
             {
-                config.WithPrefetchCount(_queueSettings.WithPrefecthCount);
-            });
+                var body = result.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                T queueObject = JsonUtils.Deserialize<T>(message);
+                var headers = result.BasicProperties.Headers;
+                if (!result.Redelivered)
+                {
+                    bool consumeResult = false;
+                    try
+                    {
+                        consumeResult = await onMessageHandle(queueObject, headers);
+                    }
+                    catch (Exception ex)
+                    {
+                        consumeResult = false;
+                    }
+                    Console.WriteLine($" [x] Received {message}");
+                }
+            };
+            _channel.BasicConsume(queueName, false, _consumer);
         }
         private async Task<bool> MessageHandleAsync(byte[] body, MessageProperties properties, MessageReceivedInfo messInfo)
         {

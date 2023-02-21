@@ -6,7 +6,7 @@ namespace Web.Infrastructure.UnitOfWork
 {
     public class SizeUoW : BaseUnitOfWork<SizeUoW>, ISizeUoW
     {
-        public SizeUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
+        public SizeUoW(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }

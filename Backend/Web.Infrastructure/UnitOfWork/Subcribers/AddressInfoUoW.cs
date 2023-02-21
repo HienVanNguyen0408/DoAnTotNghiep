@@ -10,7 +10,7 @@ namespace Web.Infrastructure.UnitOfWork
 {
     class AddressInfoUoW : BaseUnitOfWork<AddressInfoUoW>, IAddressInfoUoW
     {
-        public AddressInfoUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
+        public AddressInfoUoW(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }

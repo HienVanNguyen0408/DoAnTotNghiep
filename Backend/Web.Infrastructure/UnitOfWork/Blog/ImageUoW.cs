@@ -6,7 +6,7 @@ namespace Web.Infrastructure.UnitOfWork
 {
     public class ImageUoW : BaseUnitOfWork<ImageUoW>, IImageUoW
     {
-        public ImageUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
+        public ImageUoW(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }

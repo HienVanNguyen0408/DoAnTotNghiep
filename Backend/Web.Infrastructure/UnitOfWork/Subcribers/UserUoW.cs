@@ -13,9 +13,8 @@ namespace Web.Infrastructure.UnitOfWork
     {
         private const string Query = "Npgsql";
         protected readonly PostgreSqlContext _context;
-        public UserUoW(PostgreSqlContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
+        public UserUoW(IServiceProvider serviceProvider) : base( serviceProvider)
         {
-            _context = dbContext;
         }
     }
 }

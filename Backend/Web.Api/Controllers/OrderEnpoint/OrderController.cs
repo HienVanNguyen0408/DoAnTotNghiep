@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Web.AppCore.Entities;
 using Web.AppCore.Interfaces.Services;
+using Web.AppCore.Interfaces.Services.MessageQueue;
 using Web.Models.Entities;
 using Web.Models.Enums;
 using Web.Models.Request;
@@ -19,22 +20,17 @@ namespace Web.Api.Controllers
         private const string TAG = "OrderController";
         private readonly IOrderService _orderService;
         private readonly IOrderItemService _orderItemService;
+        private readonly IPublisherQueue _publisher;
         public OrderController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             _orderService = serviceProvider.GetRequiredService<IOrderService>();
             _orderItemService = serviceProvider.GetRequiredService<IOrderItemService>();
-        }
-
-        [HttpGet]
-        public async Task<bool> UpdateOrderAsync()
-        {
-            var res = await _orderService.UpdateOrderAsync();
-            return res;
+            _publisher = serviceProvider.GetRequiredService<IPublisherQueue>();
         }
 
         #region Methods
         #region Product
-        
+
         /// <summary>
         /// Thêm đơn hàng
         /// </summary>
@@ -199,6 +195,30 @@ namespace Web.Api.Controllers
                 return svcResult;
             }
         }
+
+        [AllowAnonymous]
+        [HttpPost("testorrder")]
+        public async Task<ServiceResult<bool>> TestOrderAsync([FromBody] Order order)
+        {
+            var svcResult = new ServiceResult<bool>();
+            try
+            {
+                var res = await _publisher.PublishUpdateOrderAsync(order, null);
+                svcResult = new ServiceResult<bool>
+                {
+                    Data = res,
+                    Success = res,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm TestOrderAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
+
 
         #endregion
         #endregion

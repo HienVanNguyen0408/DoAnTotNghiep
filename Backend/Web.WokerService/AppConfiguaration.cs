@@ -24,9 +24,6 @@ namespace Web.WokerService
         public static void ConfigServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<PostgresSettings>(configuration.GetSection(PostgresSettings.CONFIG_NAME));
-            services.AddDbContext<PostgreSqlContext>(options =>
-                    options.UseNpgsql(PostgresSettings.ConnectionString)
-            );
             services.Configure<GHNSettings>(configuration.GetSection(GHNSettings.CONFIG_NAME));
             services.Configure<QueueSettings>(configuration.GetSection(QueueSettings.CONFIG_NAME));
             services.Configure<AppSettings>(configuration.GetSection(AppSettings.CONFIG_NAME));
@@ -36,15 +33,14 @@ namespace Web.WokerService
             {
                 options.Configuration = configuration.GetSection("RedisConfig")["ConnectionString"];
             });
-            
-            services.AddTransient<IOrderService, OrderService>();
-            services.AddTransient<IOrderUoW, OrderUoW>();
 
-            // Register IServiceScopeFactory
+            //Config services
             services
-                .AddMessageQueueService()
+                .AddDataInfastructure(configuration)
+                .AddAppCoreService()
                 .AddRedisCahedService()
                 .AddDataServiceWebStockets()
+                .AddMessageQueueService()
                 .AddStorageServiceExtension(configuration);
 
             //Chạy worker

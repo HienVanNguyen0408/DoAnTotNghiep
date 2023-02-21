@@ -136,5 +136,10 @@ namespace Web.AppCore.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<bool> UpdateOrderOnQueueAsync(Order order, IDictionary<string, object> headers)
+        {
+            return await _orderUoW.Orders.UpdateOneAsync(order);
+        }
     }
 }
