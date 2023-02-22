@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Web.Models\Web.Models.csproj" />
+    <ProjectReference Include="..\Web.Utils\Web.Utils.csproj" />
   </ItemGroup>
 
 </Project>

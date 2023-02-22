@@ -189,7 +189,7 @@ export default {
                 }));
                 let payload = {
                     user_id: me.User.id,
-                    order_status: 0,
+                    order_status: 1,
                     total_amount : me.total_amount,
                     total_ship : me.total_ship,
                     estimated_date : null,

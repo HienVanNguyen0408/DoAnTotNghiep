@@ -13,7 +13,7 @@ namespace Web.Models.Entities
 
         public string Filter { get; set; }
 
-        public string OrderBy { get; set; }
+        public string OrderBy { get; set; } = "created_date";
 
         public string FieldSearch { get; set; }
         public List<string> ListFieldSeach { get; set; }

@@ -108,6 +108,9 @@
               <span v-else>0</span>
             </div>
           </div>
+          <div class="order-user" v-if="User && User.id">
+            <div class="font-bold cursor-pointer ml-5 text-order-user" @click="viewOrders">Đơn hàng của tôi</div>
+          </div>
         </div>
       </div>
     </div>
@@ -279,6 +282,11 @@ export default {
       const me = this;
       me.isRegister = false;
       me.checkExistUserName = "";
+    },
+
+    viewOrders(){
+      const me = this;
+      me.$router.push("/order")
     }
   },
 
@@ -291,5 +299,9 @@ export default {
 .number-cart {
   right: 17px;
   top: 11px;
+}
+
+.text-order-user:hover{
+  color: orange;
 }
 </style>

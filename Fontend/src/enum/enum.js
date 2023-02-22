@@ -87,7 +87,9 @@ export default {
         /// <summary>
         /// Hủy
         /// </summary>
-        Cancel: 5
+        Cancel: 5,
+
+        All : 100
     },
     Part: {
         Part1: "Part1",

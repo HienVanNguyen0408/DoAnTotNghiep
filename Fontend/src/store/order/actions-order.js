@@ -37,6 +37,17 @@ export default {
         return res;
     },
 
+    getOrderUserPageAsync: async function (context, payload) {
+        var res = await orderClient.postAsync({
+            url : `${orderClient.url}/orderuser/${payload.user_id}/${payload.status}`,
+            data : payload
+        });
+
+        if(res && res.data){
+            context.commit('updateOrderPage',res.data);
+        }
+        return res;
+    },
     /**
      * Thông tin đơn hàng theo Id
      * @param {*} context 

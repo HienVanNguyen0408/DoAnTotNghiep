@@ -56,7 +56,7 @@ namespace Web.AppCore.Interfaces.Services
         /// </summary>
         /// <param name="pagination"></param>
         /// <returns></returns>
-        Task<Pagging<Order>> GetOrderPageAsync(Pagination pagination);
+        Task<Pagging<Order>> GetOrderPageAsync(Pagination pagination, Func<Order, bool> predicate = null);
 
 
         /// <summary>

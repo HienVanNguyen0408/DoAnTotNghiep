@@ -32,6 +32,8 @@ namespace Web.Models.Enums
         /// <summary>
         /// Hủy
         /// </summary>
-        Cancel = 5
+        Cancel = 5,
+
+        All = 100
     }
 }

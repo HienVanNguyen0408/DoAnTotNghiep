@@ -219,7 +219,35 @@ namespace Web.Api.Controllers
             }
         }
 
-
+        [HttpPost("orderuser/{userId}/{orderStatus}")]
+        public async Task<ServiceResult<Pagging<Order>>> GetPageOrderByUserAsync([FromBody] Pagination pagination, string userId, OrderStatus orderStatus)
+        {
+            var svcResult = new ServiceResult<Pagging<Order>>();
+            try
+            {
+                var orderPage = new Pagging<Order>();
+                if (orderStatus == OrderStatus.All)
+                {
+                    orderPage = await _orderService.GetOrderPageAsync(pagination, x => x.user_id == userId);
+                }
+                else
+                {
+                    orderPage = await _orderService.GetOrderPageAsync(pagination, x => x.user_id == userId && x.order_status == orderStatus);
+                }
+                svcResult = new ServiceResult<Pagging<Order>>
+                {
+                    Data = orderPage,
+                    Success = true,
+                    Status = ServiceResultStatus.Ok
+                };
+                return svcResult;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{TAG}::Lỗi hàm GetPageOrderByUserAsync::Exception::{ex.Message}");
+                return svcResult;
+            }
+        }
         #endregion
         #endregion
     }

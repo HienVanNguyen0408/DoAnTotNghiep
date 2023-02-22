@@ -79,9 +79,9 @@ namespace Web.AppCore.Services
             return await _orderUoW.Orders.GetByIdAsync(orderId);
         }
 
-        public async Task<Pagging<Order>> GetOrderPageAsync(Pagination pagination)
+        public async Task<Pagging<Order>> GetOrderPageAsync(Pagination pagination, Func<Order, bool> predicate)
         {
-            return await _orderUoW.Orders.GetPaggingAsync(pagination);
+            return await _orderUoW.Orders.GetPaggingAsync(pagination, predicate);
         }
 
         /// <summary>

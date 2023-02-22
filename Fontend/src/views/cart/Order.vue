@@ -1,19 +1,14 @@
 <template>
     <div class="dq-content">
-        <div class="dq-content-header">
-            <div class="flex">
-                <div class="flex-1">
-                    <div class="filter-search">
-                        <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterOrders">
-                        </dq-input>
-                    </div>
-                </div>
+        <div class="menus-order flex">
+            <div class="menu-order" v-for="(menu,index) in menus" :key="index" :class="menuIndex == index ? 'menu-order-active' : ''" @click="changeMenu(menu)">
+                <div>{{ menu.title }}</div>
             </div>
         </div>
         <div class="dq-grid mt-5">
-            <dq-grid ref="gridOrder" :data="Orders" :columns="columns" serial="true" checkbox="true"
-                pagination="true" :dataPagination="params" :textPage="'Đơn hàng'" @dbclick="editDataOrder"
-                @getData="getDataPagging" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti">
+            <dq-grid ref="gridOrder" :data="Orders" :columns="columns" serial="true" pagination="true"
+                :dataPagination="params" :textPage="'Đơn hàng'" @getData="getDataPagging"
+                >
             </dq-grid>
         </div>
     </div>
@@ -25,9 +20,9 @@ import {
     mapActions,
     mapGetters
 } from 'vuex';
-import { ModuleOrder } from '@/store/module-const';
+import { ModuleOrder, ModuleUser } from '@/store/module-const';
 export default {
-    name: "AdminOrder",
+    name: "OrderUser",
     components: {},
     props: {},
     data() {
@@ -35,15 +30,18 @@ export default {
             params: {
                 fromDate: this.$dateRange.getDateDefault(),
                 toDate: this.$dateRange.getDateDefault(),
-                pageSize: 10,
+                pageSize: 20,
                 pageIndex: 1,
                 filter: "",
-                totalPages: 0
+                totalPages: 0,
+                status : this.$enum.OrderStatus.All
             },
             columns: [],
             isShow: false,
             mode: this.$enum.Mode.Add,
-            selected: []
+            selected: [],
+            menus: [],
+            menuIndex : 0
         }
     },
     computed: {
@@ -53,6 +51,9 @@ export default {
             'TotalPage',
             'TotalRecords'
         ]),
+        ...mapGetters(ModuleUser, [
+            'User',
+        ]),
     },
     created() {
         const me = this;
@@ -61,12 +62,11 @@ export default {
     methods: {
         ...mapActions(ModuleOrder, [
             'getOrders',
-            'getOrderPageAsync',
+            'getOrderUserPageAsync',
             'getOrderAsync',
             'insertOrderAsync',
             'updateOrderAsync',
             'deleteOrderAsync',
-            'deleteManyOrderAsync'
         ]),
 
         initData() {
@@ -100,14 +100,6 @@ export default {
                     format: me.$enum.Format.PaymentMethods
                 },
                 {
-                    title: 'Thời gian dự tính giao hàng',
-                    dataField: 'estimated_date'
-                },
-                {
-                    title: 'Thời gian cập nhật quá trình vận chuyển',
-                    dataField: 'delivery_update_date',
-                },
-                {
                     title: 'Trạng thái đơn hàng',
                     dataField: 'order_status',
                     format: me.$enum.Format.OrderStatus
@@ -115,7 +107,35 @@ export default {
                 {
                     title: 'Thời gian tạo đơn',
                     dataField: 'created_date',
-                    format : me.$enum.Format.Date
+                    format: me.$enum.Format.Date
+                },
+            ];
+
+            me.menus = [
+                {
+                    id: "all",
+                    title: "Tất cả",
+                    status: me.$enum.OrderStatus.All
+                },
+                {
+                    id: "success",
+                    title: "Giao hàng thành công",
+                    status: me.$enum.OrderStatus.Success
+                },
+                {
+                    id: "fail",
+                    title: "Giao hàng thất bại",
+                    status: me.$enum.OrderStatus.Transfering
+                },
+                {
+                    id: "transfer",
+                    title: "Đang gói vận chuyển",
+                    status: me.$enum.OrderStatus.Success
+                },
+                {
+                    id: "order",
+                    title: "Đặt hàng",
+                    status: me.$enum.OrderStatus.Order
                 },
             ]
         },
@@ -123,12 +143,13 @@ export default {
         async loadDataOrders() {
             const me = this;
             let params = me.getPayload()
-            await me.getOrderPageAsync(params);
+            await me.getOrderUserPageAsync(params);
             if (me.OrderPage) {
                 me.params.pageIndex = me.OrderPage.pageIndex;
                 me.params.pageSize = me.OrderPage.pageSize;
                 me.params.totalRecord = me.OrderPage.totalRecord;
                 me.params.totalPages = me.OrderPage.totalPages;
+                me.params.status = me.$enum.OrderStatus.All
             }
         },
         getPayload() {
@@ -136,7 +157,9 @@ export default {
             return {
                 PageIndex: me.params.pageIndex,
                 PageSize: me.params.pageSize,
-                Filter: me.params.filter
+                Filter: me.params.filter,
+                user_id: me.User.id,
+                status : me.$enum.OrderStatus.All
             };
         },
 
@@ -147,57 +170,27 @@ export default {
             me.params.filter = params.filter;
             me.params.totalRecord = params.totalRecord;
             me.params.totalPages = params.totalPages;
-            await me.getOrderPageAsync(params);
+            params.user_id = me.User.id;
+            params.status = me.$enum.OrderStatus.All;
+            await me.getOrderUserPageAsync(params);
         },
-
-        /*
-        *Hàm lọc danh sách
-        */
-        filterOrders: _.debounce(async function () {
+            
+        async changeMenu(menu) {
             const me = this;
-            await me.loadDataOrders();
-        }, 1000),
-        /**
-         * Xóa nhiều
-         */
-        async deleteManyOrder() {
-            const me = this;
-            if (me.selected && me.selected.length > 0) {
-                let params = {
-                    orderIds: me.selected.map(x => x.order_id)
-                }
-                let res = await me.deleteManyOrderAsync(params);
-                if (res) {
-                    me.loadDataOrders();
-                    me.selected = [];
-                    if (me.$refs && me.$refs.gridCustomer) {
-                        me.$refs.gridCustomer.resetSelect();
-                    }
-                }
+            let index = me.menus.findIndex(x => x.id == menu.id);
+            if(index >= 0){
+                me.menuIndex = index;
             }
-        },
-
-        editDataOrder() {
-            const me = this;
-        },
-
-        /**
-        * Check row grid
-        */
-        checkboxOne(seleteds) {
-            const me = this;
-            if (!seleteds || seleteds.length <= 0) me.selected = [];
-            me.selected = [...seleteds];
-        },
-
-        /**
-         * Check all data in grid
-         * @param {*} selecteds 
-         */
-        checkboxMulti(seleteds) {
-            const me = this;
-            if (!seleteds || seleteds.length <= 0) me.selected = [];
-            me.selected = [...seleteds];
+            let params = me.getPayload();
+            params.status = menu.status;
+            await me.getOrderUserPageAsync(params);
+            if (me.OrderPage) {
+                me.params.pageIndex = me.OrderPage.pageIndex;
+                me.params.pageSize = me.OrderPage.pageSize;
+                me.params.totalRecord = me.OrderPage.totalRecord;
+                me.params.totalPages = me.OrderPage.totalPages;
+                me.params.status = menu.status;
+            }
         },
 
 
@@ -206,5 +199,20 @@ export default {
 </script>
 
 <style scoped>
+.menu-order{
+    padding: 15px;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #000;
+    font-weight: bold;
+}
+.menu-order:hover, .menu-order:active{
+    color: orange;
+}
 
+.menu-order-active{
+    color: orange;
+}
 </style>

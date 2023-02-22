@@ -3,11 +3,39 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Web.Models.Entities;
+using Web.Utils;
+
 namespace PostgresDBData
 {
-    public class BaseRepo<TEntity> : IBaseRepo<TEntity> where TEntity : class
+    public class BaseRepo<TEntity> : 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        IBaseRepo<TEntity> where TEntity : class
     {
         protected readonly PostgreSqlContext _context;
         public DbSet<TEntity> entities { get; set; }
@@ -192,7 +220,10 @@ namespace PostgresDBData
                 var skip = (pagination.PageIndex - 1) * pagination.PageSize;
                 var take = pagination.PageSize;
                 var entities = await _context.Set<TEntity>().Skip(skip).Take(take).ToListAsync();
-
+                if (!pagination.OrderBy.IsNullOrEmptyOrWhiteSpace())
+                {
+                    entities = entities.AsQueryable().OrderByDescendingCustom(pagination.OrderBy).ToList();
+                }
                 if (predicate != null)
                 {
                     entities = entities.Where(predicate).ToList();

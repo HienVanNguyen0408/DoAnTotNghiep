@@ -10,6 +10,7 @@ import BlogList from '@/views/blog/BlogList.vue';
 import BlogDetail from '@/views/blog/BlogDetail.vue';
 import Cart from '@/views/cart/Cart.vue';
 import CartPay from '@/views/cart/CartPay.vue';
+import Order from '@/views/cart/Order.vue';
 import AddressInfos from '@/views/cart/AddressInfos.vue';
 import Policy from '@/views/policy/Policy.vue';
 
@@ -81,6 +82,12 @@ export const router = new VueRouter({
                     name: 'cartpay',
                     path: '/cartpay',
                     component: CartPay,
+                    props:true
+                },
+                {
+                    name: 'order',
+                    path: '/order',
+                    component: Order,
                     props:true
                 },
                 {
