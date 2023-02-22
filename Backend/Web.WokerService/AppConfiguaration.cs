@@ -45,7 +45,7 @@ namespace Web.WokerService
 
             //Chạy worker
             services.AddHostedService<OrderWorker>();
-            services.AddHostedService<Worker>();
+            services.AddHostedService<InsertOrderWorker>();
         }
     }
 }

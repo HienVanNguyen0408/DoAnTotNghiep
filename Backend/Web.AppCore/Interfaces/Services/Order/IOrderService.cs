@@ -21,6 +21,14 @@ namespace Web.AppCore.Interfaces.Services
         Task<bool> InsertOrderAsync(OrderRequest order);
 
         /// <summary>
+        /// Insert đơn hàng từ queue
+        /// </summary>
+        /// <param name="order"></param>
+        /// <param name="headers"></param>
+        /// <returns></returns>
+        Task<bool> InsertOrderOnQueueAsync(OrderRequest order, IDictionary<string, object> headers);
+
+        /// <summary>
         /// Xóa đơn hàng
         /// </summary>
         /// <param name="orderId"></param>

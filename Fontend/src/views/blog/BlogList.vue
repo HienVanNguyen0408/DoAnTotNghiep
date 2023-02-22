@@ -2,7 +2,7 @@
     <div v-if="Blogs && Blogs.length > 0">
         <div class="flex justify-center blog-title font-bold">VHSTORE BLOG</div>
         <div class="blogs flex flex-wrap">
-            <div class="blog w-1/5 mt-8" v-for="(blog, index) in Blogs" :key="index">
+            <div class="blog w-1/3 mt-8" v-for="(blog, index) in Blogs" :key="index">
                 <Blog :blog="blog"/>
             </div>
         </div>
@@ -46,7 +46,7 @@ export default {
     data() {
         return {
             params: {
-                pageSize: 20,
+                pageSize: 6,
                 pageIndex: 1,
                 filter: "",
                 totalPages: 0

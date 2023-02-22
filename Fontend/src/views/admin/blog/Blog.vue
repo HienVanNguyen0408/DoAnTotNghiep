@@ -48,7 +48,7 @@ export default {
             params: {
                 fromDate: this.$dateRange.getDateDefault(),
                 toDate: this.$dateRange.getDateDefault(),
-                pageSize: 20,
+                pageSize: 10,
                 pageIndex: 1,
                 filter: "",
                 totalPages: 0

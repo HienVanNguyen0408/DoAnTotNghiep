@@ -191,7 +191,7 @@ namespace PostgresDBData
             {
                 var skip = (pagination.PageIndex - 1) * pagination.PageSize;
                 var take = pagination.PageSize;
-                var entities = await _context.Set<TEntity>().Take(take).Skip(skip).ToListAsync();
+                var entities = await _context.Set<TEntity>().Skip(skip).Take(take).ToListAsync();
 
                 if (predicate != null)
                 {

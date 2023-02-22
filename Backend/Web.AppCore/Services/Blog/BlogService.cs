@@ -144,7 +144,7 @@ namespace Web.AppCore.Services
             if (blog == null) return null;
             //Map dữ liệu
             blogRespone = MapperExtensions.MapperData<Blog, BlogRespone>(blog);
-            var pathImages = await GetBase64ImagesBlogAsync(blogId);
+            var pathImages = await GetBase64ImagesBlogAsync(blogId, true);
             if (pathImages != null && pathImages.CountExt() > 0)
             {
                 blogRespone.files = pathImages.SelectExt(x => new FileInfo { path = x }).ToList();
@@ -385,7 +385,7 @@ namespace Web.AppCore.Services
         /// </summary>
         /// <param name="blogId">Id bài viết</param>
         /// <returns></returns>
-        private async Task<List<string>> GetBase64ImagesBlogAsync(string blogId)
+        private async Task<List<string>> GetBase64ImagesBlogAsync(string blogId, bool isGetAllImage = false)
         {
             try
             {
@@ -412,11 +412,27 @@ namespace Web.AppCore.Services
                 await _cached.SetAsync(cachedKeyImages, pathDbImages, timeCached);
 
                 var base64Images = new List<string>();
-                //Lấy thông tin path image trên storage
-                foreach (var path in pathDbImages)
-                {
 
-                    var byteImage = await _storageClient.DownloadFileAsync(path);
+                if (isGetAllImage)
+                {
+                    foreach (var path in pathDbImages)
+                    {
+                        var byteImage = await _storageClient.DownloadFileAsync(path);
+                        if (byteImage != null && byteImage.Length > 0)
+                        {
+                            var base64Image = Convert.ToBase64String(byteImage);
+                            base64Image = $"data:image/jpeg;base64,{base64Image}";
+                            if (!base64Image.IsNullOrEmptyOrWhiteSpace()) base64Images.Add(base64Image);
+                        }
+                    }
+                }
+                else
+                {
+                    //Lấy ngẫu nhiên 1 ảnh
+                    //Lấy thông tin path image trên storage
+                    var random = new Random();
+                    int imageRandom = random.Next(pathDbImages.CountExt());
+                    var byteImage = await _storageClient.DownloadFileAsync(pathDbImages[imageRandom]);
                     if (byteImage != null && byteImage.Length > 0)
                     {
                         var base64Image = Convert.ToBase64String(byteImage);
@@ -424,7 +440,6 @@ namespace Web.AppCore.Services
                         if (!base64Image.IsNullOrEmptyOrWhiteSpace()) base64Images.Add(base64Image);
                     }
                 }
-
                 return base64Images;
             }
             catch (Exception ex)

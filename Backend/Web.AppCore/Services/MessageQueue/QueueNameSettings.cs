@@ -9,5 +9,6 @@ namespace Web.AppCore.Services.MessageQueue
     public class QueueNameSettings
     {
         public string QueueNameOrder { get; set; } = "OrderDataQueueName";
+        public string QueueNameInsertOrder { get; set; } = "InsertOrderDataQueueName";
     }
 }

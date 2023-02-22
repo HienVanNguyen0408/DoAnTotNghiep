@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Web.AppCore.Interfaces.Services.MessageQueue;
 using Web.MessageQ.Consumer;
 using Web.Models.Entities;
+using Web.Models.Request;
 
 namespace Web.AppCore.Services.MessageQueue
 {
@@ -17,12 +18,14 @@ namespace Web.AppCore.Services.MessageQueue
 
         private MessageQ.QueueSettings _queueSettings;
         private IConsumer<Order> _orderConsumer;
+        private IConsumer<OrderRequest> _orderConsumerR;
         private QueueNameSettings _queueName;
         #endregion
 
 
         #region Properties
         private IConsumer<Order> OrderConsumer => _orderConsumer ??= new Consumer<Order>(_queueSettings);
+        private IConsumer<OrderRequest> OrderInsertConsumer => _orderConsumerR ??= new Consumer<OrderRequest>(_queueSettings);
         #endregion
 
         #region Contructor
@@ -52,6 +55,11 @@ namespace Web.AppCore.Services.MessageQueue
         public async Task StartConsumeAsync(Func<Order, IDictionary<string, object>, Task<bool>> onMessageHandle)
         {
             await OrderConsumer.StartConsumeAsync(_queueName.QueueNameOrder, onMessageHandle);
+        }
+
+        public async Task StartConsumeAsync(Func<OrderRequest, IDictionary<string, object>, Task<bool>> onMessageHandle)
+        {
+            await OrderInsertConsumer.StartConsumeAsync(_queueName.QueueNameInsertOrder, onMessageHandle);
         }
         #endregion
     }

@@ -113,6 +113,11 @@ namespace Web.AppCore.Services
             }
         }
 
+        public async Task<bool> InsertOrderOnQueueAsync(OrderRequest order, IDictionary<string, object> headers)
+        {
+            return await InsertOrderAsync(order);
+        }
+
         /// <summary>
         /// Cập nhật đơn hàng
         /// </summary>

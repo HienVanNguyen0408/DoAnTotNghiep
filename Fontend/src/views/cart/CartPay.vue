@@ -200,14 +200,13 @@ export default {
                     content : "",
                     order_items : order_items
                 };
-                await me.insertOrder(payload);
+                let res = await me.insertOrderAsync(payload);
+                if(res){
+                    me.$commonFunc.updateCartByUserAfterPayment(me.User.user_name, me.products.map(x => x.id));
+                    me.$router.push("/cart");
+                }
             }
         },
-
-        async insertOrder(order) {
-            const me = this;
-            await me.insertOrderAsync(order);
-        }
     }
 }
 </script>

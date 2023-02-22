@@ -42,7 +42,7 @@ namespace Web.Api.Controllers
             var svcResult = new ServiceResult<bool>();
             try
             {
-                var res = await _orderService.InsertOrderAsync(order);
+                var res = await _publisher.PublishInsertOrderAsync(order, null);
                 svcResult = new ServiceResult<bool>
                 {
                     Data = res,

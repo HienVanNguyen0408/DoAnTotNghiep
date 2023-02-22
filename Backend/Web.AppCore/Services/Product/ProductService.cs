@@ -372,10 +372,10 @@ namespace Web.AppCore.Services
             if (productRespone.files == null) productRespone.files = new List<FileInfo>();
 
             var pathImagesProduct = FileExtensions.GetPathProductLocal();
-            var base64Images = await GetBase64ImagesProductLocalAsync(productId: product.id);
+            var base64Images = await GetBase64ImagesProductLocalAsync(productId: product.id, true);
             if (base64Images.CountExt() <= 0)
             {
-                base64Images = await GetBase64ImagesProductAsync(product.id);
+                base64Images = await GetBase64ImagesProductAsync(product.id, true);
                 if (base64Images != null && base64Images.CountExt() > 0)
                 {
                     productRespone.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
@@ -505,7 +505,7 @@ namespace Web.AppCore.Services
             return false;
         }
 
-        private async Task<List<string>> GetBase64ImagesProductLocalAsync(string productId)
+        private async Task<List<string>> GetBase64ImagesProductLocalAsync(string productId, bool isGetAllImage = false)
         {
             var images = new List<string>();
             var pathImagesProduct = $"{FileExtensions.GetPathProductLocal()}\\{productId}";
@@ -516,17 +516,32 @@ namespace Web.AppCore.Services
 
             var filesInfolder = dir.GetFiles("*.jpeg");
             if (filesInfolder == null || filesInfolder.CountExt() <= 0) return images;
-            foreach (var file in filesInfolder)
+
+            if (isGetAllImage)
             {
-                byte[] fileData = FileExtensions.GetDataFile(file.FullName);
+                //Lấy ngẫu nhiên 1 ảnh
+                var random = new Random();
+                int imageRandom = random.Next(filesInfolder.Length);
+                byte[] fileData = FileExtensions.GetDataFile(filesInfolder[imageRandom].FullName);
                 var base64Image = Convert.ToBase64String(fileData);
                 base64Image = $"data:image/jpeg;base64,{base64Image}";
                 if (!base64Image.IsNullOrEmptyOrWhiteSpace()) images.Add(base64Image);
             }
+            else
+            {
+                foreach (var file in filesInfolder)
+                {
+                    byte[] fileData = FileExtensions.GetDataFile(file.FullName);
+                    var base64Image = Convert.ToBase64String(fileData);
+                    base64Image = $"data:image/jpeg;base64,{base64Image}";
+                    if (!base64Image.IsNullOrEmptyOrWhiteSpace()) images.Add(base64Image);
+                }
+            }
+            
             return images;
         }
 
-        private async Task<List<string>> GetBase64ImagesProductAsync(string productId)
+        private async Task<List<string>> GetBase64ImagesProductAsync(string productId, bool isGetAllImage = false)
         {
             try
             {
@@ -553,10 +568,37 @@ namespace Web.AppCore.Services
                 await _cached.SetAsync(cachedKeyImages, pathDbImages, timeCached);
 
                 var base64Images = new List<string>();
-                //Lấy thông tin path image trên storage
-                foreach (var path in pathDbImages)
+
+                if (isGetAllImage)
                 {
-                    var byteImage = await _storageClient.DownloadFileAsync(path);
+                    //Lấy thông tin path image trên storage
+                    foreach (var path in pathDbImages)
+                    {
+                        var byteImage = await _storageClient.DownloadFileAsync(path);
+                        if (byteImage != null && byteImage.Length > 0)
+                        {
+                            var base64Image = Convert.ToBase64String(byteImage);
+                            base64Image = $"data:image/jpeg;base64,{base64Image}";
+                            if (!base64Image.IsNullOrEmptyOrWhiteSpace())
+                            {
+                                base64Images.Add(base64Image);
+                                var pathProductLocal = $"{FileExtensions.GetPathProductLocal()}\\{productId}";
+                                if (!FileExtensions.CheckFolderExist(pathProductLocal))
+                                {
+                                    FileExtensions.CreateFolder(pathProductLocal);
+                                }
+                                //Write filde to local
+                                System.IO.File.WriteAllBytes($"{pathProductLocal}\\{FileExtensions.GetFileNameByPathProduct(path)}.jpeg", byteImage);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    //Lấy ngẫu nhiên 1 ảnh
+                    var random = new Random();
+                    int imageRandom = random.Next(pathDbImages.CountExt());
+                    var byteImage = await _storageClient.DownloadFileAsync(pathDbImages[imageRandom]);
                     if (byteImage != null && byteImage.Length > 0)
                     {
                         var base64Image = Convert.ToBase64String(byteImage);
@@ -570,11 +612,10 @@ namespace Web.AppCore.Services
                                 FileExtensions.CreateFolder(pathProductLocal);
                             }
                             //Write filde to local
-                            System.IO.File.WriteAllBytes($"{pathProductLocal}\\{FileExtensions.GetFileNameByPathProduct(path)}.jpeg", byteImage);
+                            System.IO.File.WriteAllBytes($"{pathProductLocal}\\{FileExtensions.GetFileNameByPathProduct(pathDbImages[imageRandom])}.jpeg", byteImage);
                         }
                     }
                 }
-
                 return base64Images;
             }
             catch (Exception ex)

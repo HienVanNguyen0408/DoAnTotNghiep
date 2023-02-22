@@ -86,7 +86,7 @@ export default {
             ordersSelect: [],
             columns: [],
             params: {
-                pageSize: 20,
+                pageSize: 10,
                 pageIndex: 1,
                 filter: "",
                 totalPages: 0
@@ -271,6 +271,16 @@ export default {
          */
         confirmPayment() {
             const me = this;
+            if(!me.AddressInfo || !me.AddressInfo.address_info){
+                alert("Bạn chưa thêm địa chỉ nhận hàng");
+                return;
+            }
+
+            if (!me.selected || me.selected.length <= 0) {
+                alert("Bạn chưa chọn đơn hàng để xác nhận thanh toán");
+                return;
+            }
+            
             if (me.selected && me.selected.length > 0) {
                 let paymentOrder = {
                     products : me.selected,

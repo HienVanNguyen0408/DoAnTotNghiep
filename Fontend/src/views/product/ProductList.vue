@@ -4,14 +4,15 @@
         <div class="product-filter">
         </div>
         <div class="products flex flex-wrap">
-            <div class="product w-1/5" v-for="(product, index) in Products" :key="index">
+            <div class="product w-1/3" v-for="(product, index) in Products" :key="index">
                 <Product :product="product"/>
             </div>
         </div>
         <div class="product-page">
             <dq-pagination ref="pagination" :totalRecord="params.totalRecord"
                 :pageSize="params.pageSize" :totalPages="params.totalPages"
-                :pageIndex="params.pageIndex" :filter="params.filter" :textTotal="'Sản phẩm'">
+                :pageIndex="params.pageIndex" :filter="params.filter" :textTotal="'Sản phẩm'"
+                @getData="getDataProduct">
             </dq-pagination>
         </div>
     </div>
@@ -48,7 +49,7 @@ export default {
     data() {
         return {
             params: {
-                pageSize: 20,
+                pageSize: 6,
                 pageIndex: 1,
                 filter: "",
                 totalPages: 0
@@ -84,6 +85,20 @@ export default {
                 me.params.totalPages = me.ProductPage.totalPages;
             }
         },
+        
+        async getDataProduct(params){
+            const me = this;
+            let payload = {
+                pageIndex : params.pageIndex,
+                pageSize : params.pageSize,
+                filter : params.filter
+            }
+            me.params.pageIndex = params.pageIndex;
+            me.params.pageSize = params.pageSize;
+            me.params.filter = params.filter;
+            await me.getProductPageAsync(payload);
+        },
+
         getPayload() {
             const me = this;
             return {

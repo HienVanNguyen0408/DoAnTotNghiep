@@ -181,7 +181,7 @@ export default {
                 //load lại giỏ hàng
                 await me.getCartByUser(me.User.user_name);
             } else {
-                me.$router.push("/login");
+                // me.$router.push("/login");
             }
         }
     }

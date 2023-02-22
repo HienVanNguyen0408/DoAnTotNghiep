@@ -106,6 +106,14 @@ class CommonFunc {
     removeOrderPayment() {
         localStorage.removeItem(`${keyOrderPayment}`);
     }
+
+    removeOrderPaymentById(id){
+        let orderPayment = localStorage.getItem(keyOrderPayment)
+        orderPayment = !orderPayment ? {} : JSON.parse(orderPayment);
+        if(orderPayment)
+        return orderPayment;
+    }
+
     /**
      * Lấy thông tin giỏ hàng của user
      */
@@ -151,6 +159,28 @@ class CommonFunc {
         orderStorage[`${userName}`] = {};
         orderStorage[`${userName}`].orders = [];
         localStorage.setItem(`${keyOrderStorage}`, JSON.stringify(orderStorage));
+    }
+
+    updateCartByUserAfterPayment(userName, ids){
+        let orderUserName = {};
+        // Lấy dữ liệu trên storgare
+        let store = localStorage.getItem(keyOrderStorage);
+        if (!store) return orderUserName;
+
+        // convert dữ liệu
+        let orderStorage = JSON.parse(store);
+        if (!orderStorage) return orderUserName;
+
+        if (orderStorage[userName]) {
+            let orders = orderStorage[userName].orders;
+            if(ids && ids.length > 0){
+                orders = orderStorage[userName].orders.filter(x => !ids.includes(x.id));
+            }
+            orderUserName = {
+                orders: orders
+            };
+        }
+        localStorage.setItem(`${keyOrderStorage}`, JSON.stringify(orderUserName));
     }
 
     /**

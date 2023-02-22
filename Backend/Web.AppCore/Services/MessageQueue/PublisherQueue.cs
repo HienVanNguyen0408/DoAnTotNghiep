@@ -29,10 +29,29 @@ namespace Web.AppCore.Services.MessageQueue
 
         #endregion
         #region Methods
+
+        /// <summary>
+        /// Cập nhật đơn hàng
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="headers"></param>
+        /// <returns></returns>
         public async Task<bool> PublishUpdateOrderAsync(object data, IDictionary<string, object> headers = null)
         {
             await Task.CompletedTask;
             return _publisher.Publish(_queueNameSettings.QueueNameOrder, data, headers);
+        }
+        
+        /// <summary>
+        /// Thêm đơn hàng
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="headers"></param>
+        /// <returns></returns>
+        public async Task<bool> PublishInsertOrderAsync(object data, IDictionary<string, object> headers = null)
+        {
+            await Task.CompletedTask;
+            return _publisher.Publish(_queueNameSettings.QueueNameInsertOrder, data, headers);
         }
         #endregion
     }

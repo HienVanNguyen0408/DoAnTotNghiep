@@ -10,14 +10,14 @@ using Web.Utils.BackgroundServices;
 
 namespace Web.WokerService
 {
-    public class OrderWorker : BackgroundService
+    public class InsertOrderWorker : BackgroundService
     {
         #region Declaration
         private readonly IConsumerQueue _consumer;
         private readonly IOrderService _orderService;
         #endregion
         #region Contructor
-        public OrderWorker(IConsumerQueue consumer, IOrderService orderService)
+        public InsertOrderWorker(IConsumerQueue consumer, IOrderService orderService)
         {
             _consumer = consumer;
             _orderService = orderService;
@@ -25,7 +25,7 @@ namespace Web.WokerService
         #endregion
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _consumer.StartConsumeAsync(_orderService.UpdateOrderOnQueueAsync);
+            await _consumer.StartConsumeAsync(_orderService.InsertOrderOnQueueAsync);
         }
     }
 }
