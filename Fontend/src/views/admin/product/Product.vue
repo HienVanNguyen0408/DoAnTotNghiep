@@ -239,10 +239,7 @@ export default {
         async deleteProduct(){
             const me = this;
             await me.deleteManyProductAsync(me.selected);
-        }, 
-        
-       
-
+        },
 
     }
 }

@@ -125,4 +125,10 @@ namespace Web.Models.Entities.GHN
         public int deliver_remote_areas_fee { get; set; }
         public int cod_failed_fee { get; set; }
     }
+    
+    public class LeadTimeInfo
+    {
+        public int leadtime { get; set; }
+        public int order_date { get; set; }
+    }
 }

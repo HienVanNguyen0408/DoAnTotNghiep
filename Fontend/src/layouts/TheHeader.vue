@@ -277,6 +277,7 @@ export default {
       me.updateUserLogin({});
       me.closeFormLogin();
       me.user = {};
+      me.$router.push("/");
     },
     loginNow() {
       const me = this;

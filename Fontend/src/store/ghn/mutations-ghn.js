@@ -11,4 +11,7 @@ export default{
     updateFeeInfo : async function(state,res){
         state.Fee = {...res};
     },
+    updateLeadTimeInfo : async function(state,res){
+        state.LeadTime = {...res};
+    },
 }

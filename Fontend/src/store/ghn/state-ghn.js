@@ -2,5 +2,6 @@ export default{
     Provinces : [],
     Districts : [],
     Wards : [],
-    Fee : {}
+    Fee : {},
+    LeadTime : {}
 }

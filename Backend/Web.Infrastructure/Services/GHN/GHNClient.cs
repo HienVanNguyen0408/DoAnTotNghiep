@@ -321,6 +321,29 @@ namespace Web.Infrastructure.Services.GHN
             }
             return null;
         }
+        public async Task<LeadTimeInfo> GetLeadTimeOrderAsync(LeadTimeOrderRequest request)
+        {
+            var jsonBody = new
+            {
+                shop_id = storeInfo.shop_id,
+                from_district_id = storeInfo.district_id,
+                from_ward_code = storeInfo.ward_code,
+                to_ward_code = request.to_ward_code,
+                to_district_id = request.to_district_id,
+                service_id = 1000
+            };
+            var resultSvc = await StandardHttpClient.DoPostOrPutJsonAsync($"{_ghnSettings.ApiLeadTime}", HttpMethod.Post, jsonBody, headers: _header);
+            if (resultSvc.IsNullOrEmpty()) return null;
+
+            var feeResult = resultSvc.ContentResult.Deserialize<GHNResult<LeadTimeInfo>>();
+            if (feeResult?.data != null)
+            {
+                return feeResult.data;
+            }
+            return null;
+        }
+
+
         #endregion
     }
 }

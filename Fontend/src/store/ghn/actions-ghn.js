@@ -53,5 +53,17 @@ export default {
         return res;
     },
     
+    getLeadTimeInfoAsync: async function (context, payload) {
+        var res = await ghnClient.postAsync({
+            url : `${ghnClient.url}/calculatorleadtime`,
+            data : payload
+        });
+        
+        if(res && res.data){
+            context.commit('updateLeadTimeInfo',res.data);
+            return res.data;
+        }
+        return res;
+    },
     
 }

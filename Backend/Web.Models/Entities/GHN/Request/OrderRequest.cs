@@ -160,8 +160,8 @@ namespace Web.Models.Entities.GHN
         /// </summary>
         public string ServiceId { get; set; }
     }
-    
-   public class FeeInfoRequest
+
+    public class FeeInfoRequest
     {
         public string shop_id { get; set; }
         public int service_type_id { get; set; }
@@ -173,5 +173,15 @@ namespace Web.Models.Entities.GHN
         public int width { get; set; } = 60;
         public int height { get; set; } = 1;
         public int cod_value { get; set; }
+    }
+
+    public class LeadTimeOrderRequest
+    {
+        public int service_id { get; set; }
+        public int from_district_id { get; set; }
+        public string from_ward_code { get; set; }
+        public string to_ward_code { get; set; }
+        public int to_district_id { get; set; }
+        
     }
 }

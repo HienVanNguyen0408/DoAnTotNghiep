@@ -16,10 +16,13 @@
                 @getData="getDataPagging" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti">
             </dq-grid>
         </div>
+        <OrderDetail :isShow="isShow" :order="order" :mode="mode" @closePopup="setStateDetail(false)"
+            @showPopup="setStateDetail(true)" @resetData="resetDataDetail" @loadData="loadDataOrders" />
     </div>
 </template>
 
 <script>
+import OrderDetail from './OrderDetail.vue';
 import _ from 'lodash';
 import {
     mapActions,
@@ -28,7 +31,9 @@ import {
 import { ModuleOrder } from '@/store/module-const';
 export default {
     name: "AdminOrder",
-    components: {},
+    components: {
+        OrderDetail
+    },
     props: {},
     data() {
         return {
@@ -43,7 +48,8 @@ export default {
             columns: [],
             isShow: false,
             mode: this.$enum.Mode.Add,
-            selected: []
+            selected: [],
+            order : {}
         }
     },
     computed: {
@@ -101,12 +107,14 @@ export default {
                 },
                 {
                     title: 'Thời gian dự tính giao hàng',
-                    dataField: 'estimated_date'
+                    dataField: 'estimated_date',
+                    format : me.$enum.Format.Date
                 },
-                {
-                    title: 'Thời gian cập nhật quá trình vận chuyển',
-                    dataField: 'delivery_update_date',
-                },
+                // {
+                //     title: 'Thời gian cập nhật quá trình vận chuyển',
+                //     dataField: 'delivery_update_date',
+                //     format : me.$enum.Format.Date
+                // },
                 {
                     title: 'Trạng thái đơn hàng',
                     dataField: 'order_status',
@@ -177,8 +185,18 @@ export default {
             }
         },
 
-        editDataOrder() {
+        async editDataOrder(item) {
             const me = this;
+            if(!item) return;
+            let payload = {
+                id : item.id
+            };
+            let orderDb = await me.getOrderAsync(payload);
+            if(orderDb){
+                me.setStateDetail(true);
+                me.mode = me.$enum.Mode.Edit;
+                me.order = {...orderDb};
+            }
         },
 
         /**
@@ -200,7 +218,15 @@ export default {
             me.selected = [...seleteds];
         },
 
+        setStateDetail(isShow) {
+            const me = this;
+            me.isShow = isShow;
+        },
 
+        resetDataDetail(){
+            const me = this;
+            me.order = {};
+        },
     }
 }
 </script>

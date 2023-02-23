@@ -21,5 +21,7 @@ export default {
     ManageOrder : 'Quản lý đơn hàng',
     ManageBlogCategory : 'Quản lý loại bài viết',
     ManageBlog : 'Quản lý bài viết',
+    AddOrder :'Thêm đơn hàng',
+    EditOrder : 'Cập nhật đơn hàng',
 
 }

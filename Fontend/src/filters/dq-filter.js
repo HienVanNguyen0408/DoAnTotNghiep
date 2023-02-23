@@ -56,6 +56,7 @@ const color = Vue.filter('color', function (col) {
 });
 
 const formatDate = Vue.filter('formatDate', function (date) {
+    if(!date) return null;
     return moment(date).format("DD/MM/YYYY")
 });
 

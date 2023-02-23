@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -118,9 +119,9 @@ namespace Web.Api.Controllers.GHNEnpoint
         }
 
         /// <summary>
-        /// Các Xã/Phường theo Quận/Huyện
+        /// Tính phí đơn hàng
         /// </summary>
-        /// <param name="districtId">Id quận huyện</param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("calculatorfee")]
         public async Task<ServiceResult<FeeInfo>> GetFeeOrderAsync([FromBody] FeeInfoRequest request)
@@ -137,6 +138,31 @@ namespace Web.Api.Controllers.GHNEnpoint
             }
             catch (Exception ex)
             {
+            }
+            return svcResult;
+        }
+
+        /// <summary>
+        /// Thời gian dự kiến đơn hàng
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("calculatorleadtime")]
+        public async Task<ServiceResult<LeadTimeInfo>> GetLeadTimeOrderAsync([FromBody] LeadTimeOrderRequest request)
+        {
+            var svcResult = new ServiceResult<LeadTimeInfo>();
+            try
+            {
+                var feeInfo = await _ghn.GetLeadTimeOrderAsync(request);
+                if (feeInfo != null)
+                {
+                    svcResult.Data = feeInfo;
+                    svcResult.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{TAG}::Lỗi GetLeadTimeOrderAsync::Exception::{ex.Message}");
             }
             return svcResult;
         }

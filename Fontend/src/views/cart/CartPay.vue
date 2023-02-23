@@ -134,7 +134,8 @@ export default {
             "User"
         ]),
         ...mapGetters(ModuleGHN, [
-            "Fee"
+            "Fee",
+            "LeadTime"
         ]),
     },
     methods: {
@@ -142,7 +143,8 @@ export default {
             "getAddressInfoDefaultAsync"
         ]),
         ...mapActions(ModuleGHN, [
-            "getFeeInfoAsync"
+            "getFeeInfoAsync",
+            "getLeadTimeInfoAsync"
         ]),
         ...mapActions(ModuleOrder, [
             "insertOrderAsync"
@@ -198,7 +200,8 @@ export default {
                     phone_number : me.AddressInfo.phone_number,
                     receiver_name : me.AddressInfo.full_name,
                     content : "",
-                    order_items : order_items
+                    order_items : order_items,
+                    estimated_date : me.LeadTime && me.LeadTime.leadtime ? new Date(me.LeadTime.leadtime*1000) : null
                 };
                 let res = await me.insertOrderAsync(payload);
                 if(res){

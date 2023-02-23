@@ -77,6 +77,12 @@ namespace Web.Infrastructure.Services.GHN
 
         Task<FeeInfo> GetFeeInfoAsync(FeeInfoRequest request);
 
+        /// <summary>
+        /// Thời gian dự tính giao hàng
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<LeadTimeInfo> GetLeadTimeOrderAsync(LeadTimeOrderRequest request);
 
 
         #region Get Info Address

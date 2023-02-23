@@ -12,4 +12,7 @@ export default{
     Fee(state){
         return state.Fee;
     },
+    LeadTime(state){
+        return state.LeadTime;
+    }
 }

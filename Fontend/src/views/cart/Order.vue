@@ -125,12 +125,12 @@ export default {
                 {
                     id: "fail",
                     title: "Giao hàng thất bại",
-                    status: me.$enum.OrderStatus.Transfering
+                    status: me.$enum.OrderStatus.Fail
                 },
                 {
                     id: "transfer",
                     title: "Đang gói vận chuyển",
-                    status: me.$enum.OrderStatus.Success
+                    status: me.$enum.OrderStatus.Transfering
                 },
                 {
                     id: "order",

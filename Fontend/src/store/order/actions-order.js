@@ -56,7 +56,7 @@ export default {
      */
     getOrderAsync: async function (context, payload) {
         var res = await orderClient.getAsync({
-            url : `${orderClient.url}/${payload}`,
+            url : `${orderClient.url}/${payload.id}`,
         });
 
         if(res && res.data){

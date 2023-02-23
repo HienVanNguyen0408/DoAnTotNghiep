@@ -43,6 +43,13 @@
                                 </div>
                                 <div>{{ totalFeeShip | formatMoney}}đ</div>
                             </div>
+                            <div class="flex align-center justify-between mb-4" v-if="LeadTime && LeadTime.leadtime">
+                                <div>
+                                    <div>Thời gian dự tính đơn hàng</div>
+                                    <div>(Đơn vị vận chuyển: GHN)</div>
+                                </div>
+                                <div>{{ new Date(LeadTime.leadtime*1000) | formatDate}}</div>
+                            </div>
                             <div class="flex align-center justify-between mb-4">
                                 <div>Tổng cộng</div>
                                 <div class="color-totalamount">{{ totalFeeShip + totalMoney | formatMoney}}đ</div>
@@ -112,7 +119,8 @@ export default {
             "User"
         ]),
         ...mapGetters(ModuleGHN, [
-            "Fee"
+            "Fee",
+            "LeadTime"
         ]),
         totalAmount() {
             const me = this;
@@ -152,12 +160,14 @@ export default {
             "getAddressInfoDefaultAsync",
         ]),
         ...mapActions(ModuleGHN, [
-            "getFeeInfoAsync"
+            "getFeeInfoAsync",
+            "getLeadTimeInfoAsync"
         ]),
         async initData() {
             const me = this;
             me.initDataStatic();
             await me.getAddressInfoDefault();
+            await me.getLeadTimeInfo();
         },
         initDataStatic() {
             const me = this;
@@ -202,6 +212,15 @@ export default {
                     await me.getFeeInfoAsync(payload);
                 }
             }
+        },
+
+        async getLeadTimeInfo(){
+            const me = this;
+            let payload = {
+                to_ward_code : me.AddressInfo.ward_code,
+                to_district_id : me.AddressInfo.district_id
+            }
+            await me.getLeadTimeInfoAsync(payload);
         },
         /**
          * Lấy đanh sách đơn hàng trrong giỏ
