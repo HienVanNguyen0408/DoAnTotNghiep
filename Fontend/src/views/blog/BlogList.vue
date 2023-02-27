@@ -1,6 +1,6 @@
 <template>
     <div v-if="Blogs && Blogs.length > 0">
-        <div class="flex justify-center blog-title font-bold">VHSTORE BLOG</div>
+        <div class="flex justify-start blog-title font-bold">VHSTORE BLOG</div>
         <div class="blogs flex flex-wrap">
             <div class="blog w-1/3 mt-8" v-for="(blog, index) in Blogs" :key="index">
                 <Blog :blog="blog"/>
@@ -12,10 +12,6 @@
                 :pageIndex="params.pageIndex" :filter="params.filter" :textTotal="'Bài viết'">
             </dq-pagination>
         </div>
-    </div>
-    <div v-else class="h-96 justify-center">
-        <div class="flex justify-center font-bold productlist-title">VHSTORE BLOG</div>
-        <div class="flex justify-center mt-10">Chưa có dữ liệu</div>
     </div>
 </template>
 
@@ -106,6 +102,6 @@ export default {
 .blogs .blog{
 }
 .blog-title{
-    font-size: 22px;
+    font-size: 24px;
 }
 </style>

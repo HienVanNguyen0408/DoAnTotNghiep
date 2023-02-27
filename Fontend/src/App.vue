@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <FullPage/>
+    <dq-loading></dq-loading>
   </div>
 </template>
 
@@ -38,6 +39,9 @@ import { ModuleUser } from '@/store/module-const';
 <style scoped>
  @import url('./tailwind.css');
  @import url('@/assets/contents/css/common/common.css');
+ *, *::before, *::after {
+   box-sizing: border-box;
+}
   #app {
     width:100%;
     height: 100vh;;

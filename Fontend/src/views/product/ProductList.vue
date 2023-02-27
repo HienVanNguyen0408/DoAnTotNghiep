@@ -1,10 +1,12 @@
 <template>
-    <div v-if="Products && Products.length > 0">
-        <div class="flex justify-center font-bold productlist-title">QUẦN ÁO VHSTORE</div>
+    <div v-if="Products && Products.length > 0" class="products">
+        <div class="flex title-product-list relative container-fluid">
+            <div class="flex justify-start font-bold productlist-title">QUẦN ÁO VHSTORE</div>
+        </div>
         <div class="product-filter">
         </div>
-        <div class="products flex flex-wrap">
-            <div class="product w-1/3" v-for="(product, index) in Products" :key="index">
+        <div class="flex flex-wrap">
+            <div class="product w-1/4" v-for="(product, index) in Products" :key="index">
                 <Product :product="product"/>
             </div>
         </div>
@@ -15,10 +17,6 @@
                 @getData="getDataProduct">
             </dq-pagination>
         </div>
-    </div>
-    <div v-else class="h-96">
-        <div class="flex justify-center font-bold productlist-title">QUẦN ÁO VHSTORE</div>
-        <div class="flex justify-center mt-10">Chưa có dữ liệu</div>
     </div>
 </template>
 
@@ -49,7 +47,7 @@ export default {
     data() {
         return {
             params: {
-                pageSize: 6,
+                pageSize: 8,
                 pageIndex: 1,
                 filter: "",
                 totalPages: 0
@@ -121,7 +119,22 @@ export default {
 </script>
 
 <style scoped>
+.products{
+    width: 90%;
+    margin-left: 5%;
+}
 .productlist-title{
     font-size: 24px;
+}
+
+.title-product-list::after{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 50%;
+    left: 0;
+    border-top: 1px dashed #bec5cb;
+    z-index: -1;
 }
 </style>

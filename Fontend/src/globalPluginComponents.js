@@ -86,3 +86,6 @@ Vue.component('dq-color-picker',DQColorPicker);
 //fb login 
 import FBLogin from '@/views/user/FacebookLogin';
 Vue.component('dq-facebook-login',FBLogin);
+
+import DQLoading from '@/components/dq-loading/DQLoading';
+Vue.component('dq-loading',DQLoading);

@@ -3,7 +3,7 @@
         <div @click="viewDetailBlog(blog.id)" class="cursor-pointer">
             <div class="flex justify-center align-center" v-if="blog && blog.files && blog.files.length > 0">
                 <div class="image-blog-view flex items-center cursor-pointer" @mouseover="hoverImageView">
-                    <img class="w-full h-full" :src="blog.files[indexBlogView].path" />
+                    <img class="image-transition" :src="blog.files[indexBlogView].path" />
                 </div>
             </div>
             <div class="content-info mt-3">
@@ -73,8 +73,8 @@ export default {
     text-overflow: ellipsis; */
 }
 
-.image-blog-view {
+/* .image-blog-view {
     height: 250px;
     width: 250px;
-}
+} */
 </style>

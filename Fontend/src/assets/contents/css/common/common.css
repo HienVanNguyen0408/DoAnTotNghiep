@@ -240,3 +240,7 @@ margin-left: 20px !important;
 .cursor-pointer{
     cursor: pointer;
 }
+
+.image-transition{
+    transition: .5s;
+}
