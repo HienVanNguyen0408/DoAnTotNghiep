@@ -1,13 +1,14 @@
 <template>
-    <div class="blog-view p-3">
+    <div class="blog-view p-3 w-full">
         <div @click="viewDetailBlog(blog.id)" class="cursor-pointer">
             <div class="flex justify-center align-center" v-if="blog && blog.files && blog.files.length > 0">
                 <div class="image-blog-view flex items-center cursor-pointer" @mouseover="hoverImageView">
-                    <img class="image-transition" :src="blog.files[indexBlogView].path" />
+                    <img class="image-blog image-transition" :src="blog.files[indexBlogView].path" />
                 </div>
             </div>
             <div class="content-info mt-3">
-                <div class="font-bold mr-3 blog-title flex justify-center">{{ blog.title }}</div>
+                <div class="font-bold blog-title flex justify-center align-center">{{ blog.title }}</div>
+                <div class="mt-4 flex justify-center" v-html="blog.summary"></div>
             </div>
         </div>
     </div>
@@ -63,6 +64,20 @@ export default {
 </script>
 
 <style scoped>
+
+.blog-view{
+    /* border: 1px solid; */
+    padding: 20px;
+    min-height: 550px;
+}
+.image-blog{
+    width: 80%;
+    margin-left: 10%;
+    height: 300px;
+}
+.blog-title{
+    min-height: 50px;
+}
 .price-sale {
     color: #f94c43;
 }

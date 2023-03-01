@@ -15,7 +15,7 @@ export default {
         var res = await productClient.postAsync({
             url: `${productClient.url}/pagging`,
             data: payload
-        });
+        },true);
 
         if (res) {
             context.commit('updateProductPage', res.data);
@@ -34,7 +34,7 @@ export default {
         var res = await productClient.postAsync({
             url: `${productClient.url}/pagging-admin`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             context.commit('updateProductPage', res.data);
@@ -53,7 +53,7 @@ export default {
     getProductAsync: async function (context, payload) {
         var res = await productClient.getAsync({
             url: `${productClient.url}/${payload.productId}`,
-        });
+        }, true);
 
         if (res) {
             if(payload.isUser){
@@ -78,7 +78,7 @@ export default {
         var res = await productClient.postAsync({
             url: `${productClient.url}/insert`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             return res.data;
@@ -96,7 +96,7 @@ export default {
         var res = await productClient.postAsync({
             url: `${productClient.url}/update`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             return res.data;
@@ -114,7 +114,7 @@ export default {
         var res = await productClient.postAsync({
             url: `${productClient.url}/delete`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             return res.data;
@@ -132,7 +132,7 @@ export default {
         var res = await productClient.postAsync({
             url: `${productClient.url}/delete-many`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             return res.data;

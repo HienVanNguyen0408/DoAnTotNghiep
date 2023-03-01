@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '@/api/url';
+import store from '@/store/store';
 export default class HttpClient{
     controllerName = '';
     url = '';
@@ -21,7 +22,8 @@ export default class HttpClient{
         }
     }
     
-    async getAsync(params) {
+    async getAsync(params, Loading = false) {
+        store.commit('changeLoadingStatus', Loading);
         this.setIntance();
         if(!params.url) params.url = this.url;
         let me = this;
@@ -35,15 +37,19 @@ export default class HttpClient{
             };
         }
         let res = await this.intance.get(params.url,config).then(res => {
+            Loading = false;
+            store.commit('changeLoadingStatus', Loading);
             return Promise.resolve(res.data);
         }).catch(err => Promise.reject(err));
+        store.commit('changeLoadingStatus', Loading);
         if(res){
             return res;
         }
         return null;
     }
 
-    async postAsync(params) {
+    async postAsync(params, Loading = false) {
+        store.commit('changeLoadingStatus', Loading);
         this.setIntance();
         if(!params) return null;
         if(!params.url) params.url = this.url;
@@ -59,10 +65,13 @@ export default class HttpClient{
         }
         let res = await this.intance.post(params.url, params.data,config)
         .then(res => {
+            Loading = false;
+            store.commit('changeLoadingStatus', Loading);
             return Promise.resolve(res.data);
         })
         .catch(err => Promise.reject(err)
         );
+        store.commit('changeLoadingStatus', Loading);
         return res;
     }
 

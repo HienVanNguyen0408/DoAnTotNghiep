@@ -89,3 +89,9 @@ Vue.component('dq-facebook-login',FBLogin);
 
 import DQLoading from '@/components/dq-loading/DQLoading';
 Vue.component('dq-loading',DQLoading);
+
+import DQMultipleRangeSlider from '@/components/dq-input-slider/DQMultipleRangeSlider';
+Vue.component('dq-multiple-slider',DQMultipleRangeSlider);
+
+import DQRangeSlider from '@/components/dq-input-slider/DQRangeSlider';
+Vue.component('dq-range-slider',DQRangeSlider);

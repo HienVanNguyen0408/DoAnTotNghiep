@@ -1,7 +1,7 @@
 <template>
     <div v-if="Products && Products.length > 0" class="products">
-        <div class="flex title-product-list relative container-fluid">
-            <div class="flex justify-start font-bold productlist-title">QUẦN ÁO VHSTORE</div>
+        <div class="flex title-product-list justify-center relative container-fluid">
+            <div class="flex justify-center font-bold productlist-title">QUẦN ÁO VHSTORE</div>
         </div>
         <div class="product-filter">
         </div>

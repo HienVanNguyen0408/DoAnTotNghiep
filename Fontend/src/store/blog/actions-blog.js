@@ -14,7 +14,7 @@ export default {
         var res = await blogClient.getAsync({
             url: blogClient.url,
             queries: payload
-        });
+        }, true);
 
         if (res) {
             return res.data;
@@ -32,7 +32,7 @@ export default {
         var res = await blogClient.postAsync({
             url: `${blogClient.url}/pagging`,
             data: payload
-        });
+        }, true);
 
         if (res && res.data) {
             context.commit('updateBlogPage', res.data);
@@ -50,7 +50,7 @@ export default {
     getBlogAsync: async function (context, payload) {
         var res = await blogClient.getAsync({
             url: `${blogClient.url}/${payload.id}`,
-        });
+        }, true);
 
         if (res) {
             context.commit("updateBlog", res.data);
@@ -69,7 +69,7 @@ export default {
         var res = await blogClient.postAsync({
             url: `${blogClient.url}/insert`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             return res.data;
@@ -87,7 +87,7 @@ export default {
         var res = await blogClient.postAsync({
             url: `${blogClient.url}/update`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             return res.data;
@@ -105,7 +105,7 @@ export default {
         var res = await blogClient.postAsync({
             url: `${blogClient.url}/delete`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             return res.data;
@@ -123,7 +123,7 @@ export default {
         var res = await blogClient.postAsync({
             url: `${blogClient.url}/delete-many`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             return res.data;

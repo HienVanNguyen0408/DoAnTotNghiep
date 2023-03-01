@@ -251,19 +251,8 @@ namespace Web.AppCore.Services
                                 //// Lấy thông tin file
                                 if (product.files == null) product.files = new List<FileInfo>();
 
-                                var pathImagesProduct = FileExtensions.GetPathProductLocal();
-                                var base64Images = await GetBase64ImagesProductLocalAsync(productId: product.id);
-                                if (base64Images.CountExt() <= 0)
-                                {
-                                    base64Images = await GetBase64ImagesProductAsync(product.id);
-                                    if (base64Images != null && base64Images.CountExt() > 0)
-                                    {
-                                        product.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
-                                        if (product.files.CountExt() <= 0) continue;
-                                        pageResult.Data[index].files = product.files;
-                                    }
-                                }
-                                else
+                                var base64Images = await GetBase64ImagesProductAsync(product.id);
+                                if (base64Images != null && base64Images.CountExt() > 0)
                                 {
                                     product.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
                                     if (product.files.CountExt() <= 0) continue;
@@ -372,16 +361,8 @@ namespace Web.AppCore.Services
             if (productRespone.files == null) productRespone.files = new List<FileInfo>();
 
             var pathImagesProduct = FileExtensions.GetPathProductLocal();
-            var base64Images = await GetBase64ImagesProductLocalAsync(productId: product.id, true);
-            if (base64Images.CountExt() <= 0)
-            {
-                base64Images = await GetBase64ImagesProductAsync(product.id, true);
-                if (base64Images != null && base64Images.CountExt() > 0)
-                {
-                    productRespone.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
-                }
-            }
-            else
+            var base64Images = await GetBase64ImagesProductAsync(product.id, true);
+            if (base64Images != null && base64Images.CountExt() > 0)
             {
                 productRespone.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
             }
@@ -537,7 +518,7 @@ namespace Web.AppCore.Services
                     if (!base64Image.IsNullOrEmptyOrWhiteSpace()) images.Add(base64Image);
                 }
             }
-            
+
             return images;
         }
 

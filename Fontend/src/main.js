@@ -40,8 +40,10 @@ new Vue({
   router,
   store,
   i18n:i18n,
-  i18n,
   filters,
   render: h => h(App),
 }).$mount('#app')
 
+
+
+//EAAMoB3ZCmVGkBAKFUIkfLZCqd8Uy15fZA2YYm2rhSVPFkuHFaobXF1pyHeeinZClLGtM1iTtYcsClM65dHQF8eWK4fTAx5GbhehxeTbeYJKLu3QXkdDZAwCiGHmhJpiVV9GOgUxZCmuc6BmIpoiWkOa8yf1dNKeQi23UMfeUOyjP9sxpTto2Ov

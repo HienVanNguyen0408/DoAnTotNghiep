@@ -11,7 +11,7 @@ namespace Web.Storage
         public const string CONFIG_NAME = "StorageSettings";
         public string SecretKey { get; set; } = "NVHIEN123";
         public string Password { get; set; } = "NVHIEN123";
-        public string EndPoint { get; set; } = "http://vanhien.online:9000";
+        public string EndPoint { get; set; } = "http://localhost:9000";
         public string BucketName { get; set; } = "webbanhang";
     }
 }

@@ -1,28 +1,5 @@
 <template>
     <div class="product-view p-3">
-        <!-- <div @click="viewDetailProduct(product.id)" class="cursor-pointer">
-            <div class="product-image">
-                <img src="" alt="">
-            </div>
-            <div class="mt-3" v-if="product && product.files && product.files.length > 0">
-                <div class="image-product-view flex items-center cursor-pointer" @mouseover="hoverImageView">
-                    <img class="image-transition" :src="product.files[indexProductView].path" />
-                </div>
-                <div class="font-bold mt-3">{{ product.product_name }}</div>
-                <div class="images-product flex mt-3">
-                    <div class="image-product mr-2 cursor-pointer" v-for="(file, index) in product.files" :key="index"
-                        @click="changeImageView(index)">
-                        <img class="w-8 h-8 image-transition" :src="file.path" />
-                    </div>
-                </div>
-            </div>
-            <div class="prices mt-3">
-                <div class="flex">
-                    <div class="font-bold mr-3 price-sale">{{ product.sale_price | formatMoney }} đ</div>
-                    <div class="line-through">{{ product.original_price | formatMoney }} đ</div>
-                </div>
-            </div>
-        </div> -->
         <div class="product-container cursor-pointer" @click="viewDetailProduct(product.id)">
             <div class="product-image">
                 <span class="hover-link"></span>

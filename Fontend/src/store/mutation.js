@@ -5,5 +5,9 @@ export default {
         } else {
             state.CartProducts = [...res];
         }
+    },
+
+    changeLoadingStatus: async function(state, res){
+        state.Loading = res;
     }
 }

@@ -1,4 +1,5 @@
 export default{
     amountOrder : 0,
-    CartProducts : []
+    CartProducts : [],
+    Loading : false
 }

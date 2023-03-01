@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 
 import Page from '@/pages/Page.vue';
 import Home from '@/views/home/Home.vue';
-import ProductList from '@/views/product/ProductList.vue';
+import ProductPage from '@/views/product/ProductPage.vue';
 import ProductDetail from '@/views/product/ProductDetail.vue';
 import BlogList from '@/views/blog/BlogList.vue';
 import BlogDetail from '@/views/blog/BlogDetail.vue';
@@ -51,7 +51,7 @@ export const router = new VueRouter({
                 {
                     name: 'product',
                     path: '/product',
-                    component: ProductList,
+                    component: ProductPage,
                     props:true
                 },
                 {
