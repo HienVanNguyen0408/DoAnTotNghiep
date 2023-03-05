@@ -10,32 +10,7 @@ using Web.Utils;
 
 namespace PostgresDBData
 {
-    public class BaseRepo<TEntity> : 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        IBaseRepo<TEntity> where TEntity : class
+    public class BaseRepo<TEntity> : IBaseRepo<TEntity> where TEntity : class
     {
         protected readonly PostgreSqlContext _context;
         public DbSet<TEntity> entities { get; set; }
@@ -222,7 +197,14 @@ namespace PostgresDBData
                 var entities = await _context.Set<TEntity>().Skip(skip).Take(take).ToListAsync();
                 if (!pagination.OrderBy.IsNullOrEmptyOrWhiteSpace())
                 {
-                    entities = entities.AsQueryable().OrderByDescendingCustom(pagination.OrderBy).ToList();
+                    if (pagination.SortType == SortType.DESC)
+                    {
+                        entities = entities.AsQueryable().OrderByDescendingCustom(pagination.OrderBy).ToList();
+                    }
+                    else
+                    {
+                        entities = entities.AsQueryable().OrderByCustom(pagination.OrderBy).ToList();
+                    }
                 }
                 if (predicate != null)
                 {

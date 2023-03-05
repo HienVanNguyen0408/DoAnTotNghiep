@@ -310,12 +310,12 @@ namespace Web.Api.Controllers
         /// <param name="pagination"></param>
         /// <returns></returns>
         [HttpPost("pagging")]
-        public async Task<ServiceResult<Pagging<ProductRespone>>> GetPageProductAsync([FromBody] Pagination pagination)
+        public async Task<ServiceResult<Pagging<ProductRespone>>> GetPageProductAsync([FromBody] ProductFilterRequest request)
         {
             var svcResult = new ServiceResult<Pagging<ProductRespone>>();
             try
             {
-                var productPage = await _productService.GetProductsPaggingAsync(pagination);
+                var productPage = await _productService.GetProductsPaggingAsync(request);
                 svcResult = new ServiceResult<Pagging<ProductRespone>>
                 {
                     Data = productPage,
@@ -334,15 +334,15 @@ namespace Web.Api.Controllers
         /// <summary>
         /// Danh sách sản phẩm hiển thị cho quản trị
         /// </summary>
-        /// <param name="pagination"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("pagging-admin")]
-        public async Task<ServiceResult<Pagging<ProductRespone>>> GetPageProductClientAsync([FromBody] Pagination pagination)
+        public async Task<ServiceResult<Pagging<ProductRespone>>> GetPageProductClientAsync([FromBody] ProductFilterRequest request)
         {
             var svcResult = new ServiceResult<Pagging<ProductRespone>>();
             try
             {
-                var productPage = await _productService.GetProductsPaggingAsync(pagination, isAdmin: true);
+                var productPage = await _productService.GetProductsPaggingAsync(request, isAdmin: true);
                 svcResult = new ServiceResult<Pagging<ProductRespone>>
                 {
                     Data = productPage,

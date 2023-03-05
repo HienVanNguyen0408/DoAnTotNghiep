@@ -43,11 +43,11 @@ export default {
 @import url('./tailwind.css');
 @import url('@/assets/contents/css/common/common.css');
 
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
+} */
 
 #app {
   width: 100%;

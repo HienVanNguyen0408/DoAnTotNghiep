@@ -212,23 +212,15 @@ namespace Web.AppCore.Services
         /// <summary>
         /// Danh sách sản phẩm phân trang
         /// </summary>
-        /// <param name="pagination"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<Pagging<ProductRespone>> GetProductsPaggingAsync(Pagination pagination, bool isAdmin)
+        public async Task<Pagging<ProductRespone>> GetProductsPaggingAsync(ProductFilterRequest request, bool isAdmin)
         {
             var pageResult = new Pagging<ProductRespone>();
             try
             {
-                var productPage = new Pagging<Product>();
-                if (pagination.Filter.IsNullOrEmptyOrWhiteSpace())
-                {
-                    productPage = await _productUoW.Products.GetPaggingAsync(pagination);
-                }
-                else
-                {
-                    productPage = await _productUoW.Products.GetPaggingAsync(pagination, x => x.product_name.ContainsText(pagination.Filter));
-                }
-
+                var productPage = await _productUoW.GetProductsPaggingAsync(request);
+                if (productPage == null || productPage.Data == null || productPage.Data.CountExt() <= 0) return pageResult;
                 if (productPage != null)
                 {
                     pageResult = new Pagging<ProductRespone>

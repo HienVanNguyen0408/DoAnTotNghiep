@@ -21,6 +21,7 @@ namespace Web.Models.Entities
         public string FiledSort { get; set; }
 
         public SortType SortType { get; set; } = SortType.DESC;
+
     }
     public enum SortType
     {

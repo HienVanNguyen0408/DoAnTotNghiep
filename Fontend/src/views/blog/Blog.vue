@@ -69,6 +69,11 @@ export default {
     /* border: 1px solid; */
     padding: 20px;
     min-height: 550px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px #a19595;
+}
+.blog-view:hover{
+    box-shadow: 0 0 30px #998f8f;
 }
 .image-blog{
     width: 80%;

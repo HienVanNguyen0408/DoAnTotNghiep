@@ -4,7 +4,7 @@
             <div class="flex">
                 <div class="flex flex-1">
                     <div class="filter-search">
-                        <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterUsers">
+                        <dq-input icon="icon dq-icon-24 icon-look-for" v-model="params.filter" @keyup="filterProducts">
                         </dq-input>
                     </div>
                     <div class="ml-2.5" v-if="selected && selected.length > 0">
@@ -161,7 +161,7 @@ export default {
         /*
         *Hàm lọc danh sách
         */
-        filterUsers: _.debounce(async function () {
+        filterProducts: _.debounce(async function () {
             const me = this;
             await me.loadDataProducts();
         }, 1000),

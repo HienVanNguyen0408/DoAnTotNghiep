@@ -1,12 +1,12 @@
 <template>
-    <div v-if="Blogs && Blogs.length > 0">
-        <div class="flex justify-center blog-title font-bold">VHSTORE BLOG</div>
+    <div v-if="Blogs && Blogs.length > 0" class="blog-list">
+        <div class="flex justify-center blog-title font-bold mt-5">VHSTORE BLOG</div>
         <div class="blogs flex flex-wrap">
-            <div class="blog w-1/5 mt-8" v-for="(blog, index) in Blogs" :key="index">
+            <div class="blog w-23per ml-2per mt-8" v-for="(blog, index) in Blogs" :key="index">
                 <Blog :blog="blog"/>
             </div>
         </div>
-        <div class="blog-page">
+        <div class="blog-page mb-5">
             <dq-pagination ref="pagination" :totalRecord="params.totalRecord"
                 :pageSize="params.pageSize" :totalPages="params.totalPages"
                 :pageIndex="params.pageIndex" :filter="params.filter" :textTotal="'Bài viết'">
@@ -99,6 +99,17 @@ export default {
 </script>
 
 <style scoped>
+.ml-2per{
+    margin-left: 1%;
+    margin-right: 1%;
+}
+.w-23per{
+    width: 23%;
+}
+.blog-list{
+    width: 90%;
+    margin-left: 5%;
+}
 .w-30per{
     width: 30% !important;
 }
@@ -106,5 +117,9 @@ export default {
 }
 .blog-title{
     font-size: 24px;
+}
+.blog-page{
+    height: 80px;
+    margin-top: 30px
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div v-if="Products && Products.length > 0" class="products">
         <div class="flex title-product-list justify-center relative container-fluid">
-            <div class="flex justify-center font-bold productlist-title">QUẦN ÁO VHSTORE</div>
+            <div class="flex justify-center font-bold productlist-title mt-3">QUẦN ÁO VHSTORE</div>
         </div>
         <div class="product-filter">
         </div>
@@ -10,7 +10,7 @@
                 <Product :product="product"/>
             </div>
         </div>
-        <div class="product-page">
+        <div class="product-page mb-5">
             <dq-pagination ref="pagination" :totalRecord="params.totalRecord"
                 :pageSize="params.pageSize" :totalPages="params.totalPages"
                 :pageIndex="params.pageIndex" :filter="params.filter" :textTotal="'Sản phẩm'"
@@ -72,9 +72,17 @@ export default {
         initDataStatic(){
             const me = this;
         },
-        async loadDataProducts() {
+        async loadDataProducts(payload) {
             const me = this;
-            let params = me.getPayload()
+            let params = me.getPayload();
+            if(payload){
+                params = {
+                    pageSize: 8,
+                    pageIndex: 1,
+                    filter: ""
+                }
+                params = {...params, ...payload};
+            }
             await me.getProductPageAsync(params);
             if (me.ProductPage) {
                 me.params.pageIndex = me.ProductPage.pageIndex;
@@ -136,5 +144,8 @@ export default {
     left: 0;
     border-top: 1px dashed #bec5cb;
     z-index: -1;
+}
+.product-page{
+    height: 80px;
 }
 </style>

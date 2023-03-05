@@ -23,6 +23,10 @@ export default {
             default : 1000
         }
     },
+    created(){
+        const me = this;
+        me.sliderValue = me.max;
+    },
     data() {
         return {
             sliderValue : 0,

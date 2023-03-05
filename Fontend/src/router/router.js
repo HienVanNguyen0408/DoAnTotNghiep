@@ -6,7 +6,7 @@ import Page from '@/pages/Page.vue';
 import Home from '@/views/home/Home.vue';
 import ProductPage from '@/views/product/ProductPage.vue';
 import ProductDetail from '@/views/product/ProductDetail.vue';
-import BlogList from '@/views/blog/BlogList.vue';
+import BlogPage from '@/views/blog/BlogPage.vue';
 import BlogDetail from '@/views/blog/BlogDetail.vue';
 import Cart from '@/views/cart/Cart.vue';
 import CartPay from '@/views/cart/CartPay.vue';
@@ -57,7 +57,7 @@ export const router = new VueRouter({
                 {
                     name: 'blog',
                     path: '/blog',
-                    component: BlogList,
+                    component: BlogPage,
                     props:true
                 },
                 {

@@ -68,7 +68,7 @@ namespace Web.AppCore.Interfaces.Services
         /// Lấy danh sách sản phẩm theo điều kiện phân trang
         /// </summary>
         /// <returns></returns>
-        Task<Pagging<ProductRespone>> GetProductsPaggingAsync(Pagination pagination, bool isAdmin = false);
+        Task<Pagging<ProductRespone>> GetProductsPaggingAsync(ProductFilterRequest request, bool isAdmin = false);
 
         /// <summary>
         /// Lấy thông tin sản phẩm theo Id
