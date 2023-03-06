@@ -31,6 +31,7 @@
       <div v-else-if="col.enum != null">
         {{ $commonFunc.getValueStringByEnum(col.enum, data[`${col.dataField}`]) }}
       </div>
+      <div v-else-if="(col.format == $enum.Format.Html)" v-html="data[`${col.dataField}`]"></div>
       <div v-else :title="data[`${col.dataField}`]">
         {{ data[`${col.dataField}`] }}
       </div>

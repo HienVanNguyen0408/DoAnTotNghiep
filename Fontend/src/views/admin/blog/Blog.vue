@@ -102,6 +102,7 @@ export default {
                 {
                     title: 'Nội dung bài viết',
                     dataField: 'content',
+                    format : me.$enum.Format.Html
                 },
             ]
         },

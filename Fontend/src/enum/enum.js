@@ -54,7 +54,8 @@ export default {
         Color: 4,
         PaymentMethods: 5,
         OrderStatus: 6,
-        Gender: 7
+        Gender: 7,
+        Html : 8
     },
 
     SortStatus: {

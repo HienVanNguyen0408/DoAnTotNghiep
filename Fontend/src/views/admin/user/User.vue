@@ -98,18 +98,6 @@ export default {
                     dataField: 'user_name',
                 },
                 {
-                    title: 'Họ và tên',
-                    dataField: 'full_name',
-                },
-                {
-                    title: 'Địa chỉ',
-                    dataField: 'address',
-                },
-                {
-                    title: 'SDT',
-                    dataField: 'phone_number',
-                },
-                {
                     title: 'Email',
                     dataField: 'email',
                 },

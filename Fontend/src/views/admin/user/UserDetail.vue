@@ -18,7 +18,7 @@
                             </dq-input>
                         </div>
                     </div>
-                    <div class="h-row flex dq-mgt-10">
+                    <!-- <div class="h-row flex dq-mgt-10">
                         <div class="h-col w-50">
                             <dq-input class="w-100" :title="'Họ và tên'" placeholder="Họ và tên"
                                 v-model="user.full_name"></dq-input>
@@ -33,7 +33,7 @@
                             <dq-input class="w-100" :title="'Số điện thoại'" placeholder="Số điện thoại"
                                 v-model="user.phone_number"></dq-input>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="h-row flex dq-mgt-10">
                         <div class="h-col flex-1">
                             <dq-input class="w-100" :title="'Email'" placeholder="Email"
