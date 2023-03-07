@@ -6,8 +6,8 @@ namespace Web.Models.Settings
 {
     public class JwtSettings
     {
-        public string ValidAudience { get; set; } = "https://localhost:5001";
-        public string ValidIssuer { get; set; } = "https://localhost:5001";
+        public string ValidAudience { get; set; } = "https://vanhien.online:5001";
+        public string ValidIssuer { get; set; } = "https://vanhien.online:5001";
         /// <summary>
         /// Key
         /// </summary>
