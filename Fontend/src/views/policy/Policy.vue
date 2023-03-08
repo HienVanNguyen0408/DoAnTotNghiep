@@ -33,12 +33,12 @@
             <div class="mt-5">
                 <div class="font-bold text-step-policy">BƯỚC 3: GỬI HOÀN</div>
                 <ul class="policy-ul ml-8">
-                    <li>VHSTORE kiểm tra đơn hàng nếu là lỗi từ phía H2T thì bên VHSTORE sẽ chịu toàn bộ chi phí và gửi
+                    <li>VHSTORE kiểm tra đơn hàng nếu là lỗi từ phía VHSTORE thì bên VHSTORE sẽ chịu toàn bộ chi phí và gửi
                         hàng mới đến cho bạn.</li>
                     <li>
                         Trường hợp do quý khách muốn đổi hàng: Quý khách vui lòng thanh toán phí ship đổi hàng + phí tồn
                         hàng 5% giá trị hàng. Nếu đổi hàng có giá trị thấp hơn thì tiền thừa của quý khách sẽ được lưu
-                        lại H2T để khấu trừ cho những lần mua hàng tiếp theo.
+                        lại VHSTORE để khấu trừ cho những lần mua hàng tiếp theo.
                     </li>
                 </ul>
             </div>
