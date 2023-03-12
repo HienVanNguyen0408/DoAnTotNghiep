@@ -181,6 +181,7 @@ namespace Web.Api.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<ServiceResult<string>> AutheticateAsync([FromBody] UserRequest request)
         {
