@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "webapp"
+  namespace: mta
+  labels:
+    app: "webapp"
+spec:
+  containers:
+  - name: webapp
+    image: "hienvannguyen0408/doantotngiep-app:1.0"
+    resources:
+      limits:
+        cpu: 200m
+        memory: 500Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    ports:
+    - containerPort:  80
+      name:  http
+  volumes:
+    - name: nodemodules
+      hostPath:
+        path: /app/node_modules
+    - name: app
+      hostPath:
+        path: /app
+  restartPolicy: Always
