@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Backend/Web.Api/Controllers/UserEnpoint/UserInfoController.cs
+/Backend/Web.Api/Controllers/UserEnpoint/UserInfoController.cs
