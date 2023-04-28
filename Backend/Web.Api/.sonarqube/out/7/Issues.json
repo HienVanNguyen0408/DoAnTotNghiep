@@ -1,0 +1,3791 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.5.0.0",
+        "fileVersion": "4.5.0-6.23127.3 (e2bc27d2)",
+        "semanticVersion": "4.5.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Logging/HLogging.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 54,
+                  "endLine": 15,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Logging/HLogging.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 54,
+                  "endLine": 20,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Logging/IHLogging.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 48,
+                  "endLine": 11,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Logging/IHLogging.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 48,
+                  "endLine": 12,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8632",
+          "level": "warning",
+          "message": "The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Ultility/JsonMapping.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 24,
+                  "endLine": 20,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS0108",
+          "level": "warning",
+          "message": "'CustomerService._cached' hides inherited member 'BaseDomainService<CustomerService>._cached'. Use the new keyword if hiding was intended.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Customers/CustomerService.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 39,
+                  "endLine": 19,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0108",
+          "level": "warning",
+          "message": "'CustomerService._appSettings' hides inherited member 'BaseDomainService<CustomerService>._appSettings'. Use the new keyword if hiding was intended.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Customers/CustomerService.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 38,
+                  "endLine": 20,
+                  "endColumn": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0618",
+          "level": "warning",
+          "message": "'Logger.Error(string, Exception)' is obsolete: 'Use Error(Exception exception, string message, params object[] args) method instead. Marked obsolete before v4.3.11'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Logging/HLogging.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 13,
+                  "endLine": 17,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0618",
+          "level": "warning",
+          "message": "'Logger.Info(string, Exception)' is obsolete: 'Use Info(Exception exception, string message, params object[] args) method instead. Marked obsolete before v4.3.11'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Logging/HLogging.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 13,
+                  "endLine": 22,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/HttpClientResponse.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 30,
+                  "endLine": 66,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/HttpClientResponse.cs",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 30,
+                  "endLine": 88,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/AddressInfoService.cs",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 30,
+                  "endLine": 33,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 30,
+                  "endLine": 59,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Order/OrderService.cs",
+                "region": {
+                  "startLine": 47,
+                  "startColumn": 30,
+                  "endLine": 47,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/AddressInfoService.cs",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 30,
+                  "endLine": 46,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/AddressInfoService.cs",
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 30,
+                  "endLine": 59,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Order/OrderService.cs",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 30,
+                  "endLine": 71,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS1998",
+          "level": "warning",
+          "message": "This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Dowload/ImportExcelService.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 33,
+                  "endLine": 19,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/AddressInfoService.cs",
+                "region": {
+                  "startLine": 73,
+                  "startColumn": 30,
+                  "endLine": 73,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 77,
+                  "startColumn": 30,
+                  "endLine": 77,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/AddressInfoService.cs",
+                "region": {
+                  "startLine": 87,
+                  "startColumn": 30,
+                  "endLine": 87,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Order/OrderService.cs",
+                "region": {
+                  "startLine": 110,
+                  "startColumn": 30,
+                  "endLine": 110,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/AddressInfoService.cs",
+                "region": {
+                  "startLine": 117,
+                  "startColumn": 30,
+                  "endLine": 117,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/AddressInfoService.cs",
+                "region": {
+                  "startLine": 130,
+                  "startColumn": 30,
+                  "endLine": 130,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 166,
+                  "startColumn": 30,
+                  "endLine": 166,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 215,
+                  "startColumn": 30,
+                  "endLine": 215,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 197,
+                  "startColumn": 30,
+                  "endLine": 197,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 243,
+                  "startColumn": 30,
+                  "endLine": 243,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 319,
+                  "startColumn": 30,
+                  "endLine": 319,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 304,
+                  "startColumn": 30,
+                  "endLine": 304,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 377,
+                  "startColumn": 30,
+                  "endLine": 377,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 406,
+                  "startColumn": 30,
+                  "endLine": 406,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 445,
+                  "startColumn": 30,
+                  "endLine": 445,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 467,
+                  "startColumn": 30,
+                  "endLine": 467,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 448,
+                  "startColumn": 30,
+                  "endLine": 448,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 509,
+                  "startColumn": 30,
+                  "endLine": 509,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 475,
+                  "startColumn": 30,
+                  "endLine": 475,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 536,
+                  "startColumn": 30,
+                  "endLine": 536,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS1998",
+          "level": "warning",
+          "message": "This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 481,
+                  "startColumn": 42,
+                  "endLine": 481,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 594,
+                  "startColumn": 30,
+                  "endLine": 594,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0414",
+          "level": "warning",
+          "message": "The field 'StandardHttpClient.TAG' is assigned but its value is never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 40,
+                  "endLine": 16,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Interfaces/Services/Customer/ICustomerService.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 5,
+                  "endLine": 13,
+                  "endColumn": 77
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Interfaces/Services/download/IDownloadService.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 9,
+                  "endLine": 12,
+                  "endColumn": 81
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Interfaces/Services/Product/IProductService.cs",
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 9,
+                  "endLine": 56,
+                  "endColumn": 120
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3925",
+          "level": "warning",
+          "message": "Update this implementation of 'ISerializable' to conform to the recommended serialization pattern.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Exceptions/ClientException.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 18,
+                  "endLine": 9,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Exceptions/ClientException.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 12,
+                  "endLine": 9,
+                  "endColumn": 17
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Exceptions/ClientException.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 12,
+                  "endLine": 9,
+                  "endColumn": 17
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": "Add 'System.SerializableAttribute' attribute on 'ClientException' because it implements 'ISerializable'.",
+              "1": "Add a 'protected' constructor 'ClientException(SerializationInfo, StreamingContext)'."
+            }
+          }
+        },
+        {
+          "ruleId": "S2094",
+          "level": "warning",
+          "message": "Remove this empty class, write its code or make it an \"interface\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Entities/Mysql/ConfigurationMySql.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 18,
+                  "endLine": 9,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Dowload/DowloadService.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 9,
+                  "endLine": 25,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Dowload/ImportExcelService.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 17,
+                  "endLine": 25,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Dowload/ImportExcelService.cs",
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 17,
+                  "endLine": 60,
+                  "endColumn": 88
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2094",
+          "level": "warning",
+          "message": "Remove this empty class, write its code or make it an \"interface\".",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Dowload/ConfigColumnsExcel.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'KeyCachedCart'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Order/CartService.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 24,
+                  "endLine": 17,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4487",
+          "level": "warning",
+          "message": "Remove this unread private field '_customerUoW' or refactor the code to use its value.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Customers/CustomerService.cs",
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 39,
+                  "endLine": 18,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4487",
+          "level": "warning",
+          "message": "Remove this unread private field '_cached' or refactor the code to use its value.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Customers/CustomerService.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 39,
+                  "endLine": 19,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4487",
+          "level": "warning",
+          "message": "Remove this unread private field '_appSettings' or refactor the code to use its value.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Customers/CustomerService.cs",
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 38,
+                  "endLine": 20,
+                  "endColumn": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4487",
+          "level": "warning",
+          "message": "Remove this unread private field '_customerUoW' or refactor the code to use its value.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Dowload/DowloadService.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 39,
+                  "endLine": 17,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private field 'TAG'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/HttpClientResponse.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 9,
+                  "endLine": 13,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1135",
+          "level": "warning",
+          "message": "Complete the task associated to this 'TODO' comment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/RoleService.cs",
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 20,
+                  "endLine": 53,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/UserService.cs",
+                "region": {
+                  "startLine": 114,
+                  "startColumn": 13,
+                  "endLine": 114,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4487",
+          "level": "warning",
+          "message": "Remove this unread private field '_customerService' or refactor the code to use its value.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Dowload/ImportExcelService.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 43,
+                  "endLine": 14,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_queueSettings' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/MessageQueue/ConsumerQueue.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 40,
+                  "endLine": 19,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2933",
+          "level": "warning",
+          "message": "Make '_queueName' 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/MessageQueue/ConsumerQueue.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 35,
+                  "endLine": 22,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private field 'TAG'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 9,
+                  "endLine": 16,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private field '_queueNameOrder'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/MessageQueue/ConsumerQueue.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 9,
+                  "endLine": 17,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'CheckDataQueue'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/MessageQueue/ConsumerQueue.cs",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 34,
+                  "endLine": 49,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private field 'TAG'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/AddressInfoService.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 9,
+                  "endLine": 16,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private field '_queueNameOrder'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/MessageQueue/PublisherQueue.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 9,
+                  "endLine": 14,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'GetPathImagesBlogAsync'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 330,
+                  "startColumn": 42,
+                  "endLine": 330,
+                  "endColumn": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'GetPathImagesByPathsAsync'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 450,
+                  "startColumn": 42,
+                  "endLine": 450,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'GetKeyCachedBlogImagesBase64'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 543,
+                  "startColumn": 24,
+                  "endLine": 543,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'GetBase64ImagesProductLocalAsync'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 481,
+                  "startColumn": 42,
+                  "endLine": 481,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private method 'GetKeyCachedProductImagesBase64'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 601,
+                  "startColumn": 24,
+                  "endLine": 601,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4487",
+          "level": "warning",
+          "message": "Remove this unread private field '_sizeUoW' or refactor the code to use its value.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 35,
+                  "endLine": 25,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'id' to 'userId' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/UserService.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 57,
+                  "endLine": 39,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S4830",
+          "level": "warning",
+          "message": "Enable server certificate validation on this SSL/TLS connection",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 32,
+                  "endLine": 39,
+                  "endColumn": 73
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 114,
+                  "endLine": 39,
+                  "endColumn": 118
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'KeyCachedCart' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Order/CartService.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 24,
+                  "endLine": 17,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'PublishUpdateOrderAsync' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/MessageQueue/ConsumerQueue.cs",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 33,
+                  "endLine": 43,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2486",
+          "level": "warning",
+          "message": "Handle the exception or explain in a comment why it can be ignored.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/HttpClientResponse.cs",
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 13,
+                  "endLine": 91,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<Web.Models.Entities.Blog>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 44,
+                  "endLine": 54,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/HttpClientResponse.cs",
+                "region": {
+                  "startLine": 89,
+                  "startColumn": 13,
+                  "endLine": 91,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3445",
+          "level": "warning",
+          "message": "Consider using 'throw;' to preserve the stack trace.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 17,
+                  "endLine": 58,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3445",
+          "level": "warning",
+          "message": "Consider using 'throw;' to preserve the stack trace.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 17,
+                  "endLine": 75,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2200",
+          "level": "warning",
+          "message": "Re-throwing caught exception changes stack information",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 17,
+                  "endLine": 58,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CheckDataQueue' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/MessageQueue/ConsumerQueue.cs",
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 34,
+                  "endLine": 49,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Order/OrderService.cs",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 50,
+                  "endLine": 62,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3445",
+          "level": "warning",
+          "message": "Consider using 'throw;' to preserve the stack trace.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 17,
+                  "endLine": 94,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'userInsert'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Subcribers/UserService.cs",
+                "region": {
+                  "startLine": 55,
+                  "startColumn": 21,
+                  "endLine": 55,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2200",
+          "level": "warning",
+          "message": "Re-throwing caught exception changes stack information",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 17,
+                  "endLine": 75,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1827",
+          "level": "note",
+          "message": "Count() is used where Any() could be used instead to improve performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 38,
+                  "endLine": 54,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "OperationKey": "OperationBinaryLeft"
+            }
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<Web.Models.Entities.Product>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 66,
+                  "endLine": 59,
+                  "endColumn": 71
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<Web.Models.Entities.Product>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 66,
+                  "endLine": 64,
+                  "endColumn": 71
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1006",
+          "level": "warning",
+          "message": "Add the default parameter value defined in the overridden method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Order/OrderService.cs",
+                "region": {
+                  "startLine": 82,
+                  "startColumn": 102,
+                  "endLine": 82,
+                  "endColumn": 111
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2200",
+          "level": "warning",
+          "message": "Re-throwing caught exception changes stack information",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 17,
+                  "endLine": 94,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'request' to 'productCategory' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 91,
+                  "endLine": 54,
+                  "endColumn": 98
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'orderRequest' to 'order' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Order/OrderService.cs",
+                "region": {
+                  "startLine": 92,
+                  "startColumn": 63,
+                  "endLine": 92,
+                  "endColumn": 75
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1827",
+          "level": "note",
+          "message": "Count() is used where Any() could be used instead to improve performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Order/OrderService.cs",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 41,
+                  "endLine": 62,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "OperationKey": "OperationBinaryLeft",
+              "ShouldNegateKey": null
+            }
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 178,
+                  "startColumn": 17,
+                  "endLine": 180,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1854",
+          "level": "warning",
+          "message": "Remove this useless assignment to local variable 'blogRespone'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 142,
+                  "startColumn": 17,
+                  "endLine": 142,
+                  "endColumn": 48
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1827",
+          "level": "note",
+          "message": "Count() is used where Any() could be used instead to improve performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 49,
+                  "endLine": 59,
+                  "endColumn": 78
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "OperationKey": "OperationBinaryLeft",
+              "ShouldNegateKey": null
+            }
+          }
+        },
+        {
+          "ruleId": "CA1827",
+          "level": "note",
+          "message": "Count() is used where Any() could be used instead to improve performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 64,
+                  "startColumn": 49,
+                  "endLine": 64,
+                  "endColumn": 77
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "OperationKey": "OperationBinaryLeft"
+            }
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<Web.Models.Entities.OrderItem>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 151,
+                  "startColumn": 54,
+                  "endLine": 151,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'products'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 66,
+                  "startColumn": 25,
+                  "endLine": 66,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 233,
+                  "startColumn": 17,
+                  "endLine": 234,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/HttpClients/StandardHttpClient.cs",
+                "region": {
+                  "startLine": 286,
+                  "startColumn": 17,
+                  "endLine": 287,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2486",
+          "level": "warning",
+          "message": "Handle the exception or explain in a comment why it can be ignored.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 215,
+                  "startColumn": 13,
+                  "endLine": 217,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<Web.Models.Entities.Product>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 181,
+                  "startColumn": 50,
+                  "endLine": 181,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<Web.Models.Entities.OrderItem>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 187,
+                  "startColumn": 54,
+                  "endLine": 187,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1854",
+          "level": "warning",
+          "message": "Remove this useless assignment to local variable 'blogPage'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 175,
+                  "startColumn": 21,
+                  "endLine": 175,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1066",
+          "level": "warning",
+          "message": "Merge this if statement with the enclosing one.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 236,
+                  "startColumn": 21,
+                  "endLine": 236,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 234,
+                  "startColumn": 17,
+                  "endLine": 234,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'request' to 'blog' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 227,
+                  "startColumn": 61,
+                  "endLine": 227,
+                  "endColumn": 68
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 216,
+                  "startColumn": 13,
+                  "endLine": 217,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1066",
+          "level": "warning",
+          "message": "Merge this if statement with the enclosing one.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 238,
+                  "startColumn": 25,
+                  "endLine": 238,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 235,
+                  "startColumn": 21,
+                  "endLine": 235,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3267",
+          "level": "warning",
+          "message": "Loop should be simplified by calling Select(blog => blog.id))",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 308,
+                  "startColumn": 38,
+                  "endLine": 308,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'request' to 'product' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 275,
+                  "startColumn": 67,
+                  "endLine": 275,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1006",
+          "level": "warning",
+          "message": "Add the default parameter value defined in the overridden method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 217,
+                  "startColumn": 111,
+                  "endLine": 217,
+                  "endColumn": 118
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S927",
+          "level": "warning",
+          "message": "Rename parameter 'productRequest' to 'product' to match the interface declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 316,
+                  "startColumn": 67,
+                  "endLine": 316,
+                  "endColumn": 81
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 347,
+                  "startColumn": 58,
+                  "endLine": 347,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2971",
+          "level": "warning",
+          "message": "Use 'Count' property here instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 347,
+                  "startColumn": 58,
+                  "endLine": 347,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1854",
+          "level": "warning",
+          "message": "Remove this useless assignment to local variable 'productRespone'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 346,
+                  "startColumn": 17,
+                  "endLine": 346,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1827",
+          "level": "note",
+          "message": "Count() is used where Any() could be used instead to improve performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 151,
+                  "startColumn": 43,
+                  "endLine": 151,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "OperationKey": "OperationBinaryLeft"
+            }
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 408,
+                  "startColumn": 58,
+                  "endLine": 408,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2971",
+          "level": "warning",
+          "message": "Use 'Count' property here instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 408,
+                  "startColumn": 58,
+                  "endLine": 408,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1854",
+          "level": "warning",
+          "message": "Remove this useless assignment to local variable 'idImages'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 395,
+                  "startColumn": 21,
+                  "endLine": 395,
+                  "endColumn": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1854",
+          "level": "warning",
+          "message": "Remove this useless assignment to local variable 'idImages'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 404,
+                  "startColumn": 25,
+                  "endLine": 404,
+                  "endColumn": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2245",
+          "level": "warning",
+          "message": "Make sure that using this pseudorandom number generator is safe here.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 433,
+                  "startColumn": 34,
+                  "endLine": 433,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2589",
+          "level": "warning",
+          "message": "Change this condition so that it does not always evaluate to 'true'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 224,
+                  "startColumn": 21,
+                  "endLine": 224,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'files'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 264,
+                  "startColumn": 17,
+                  "endLine": 264,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2486",
+          "level": "warning",
+          "message": "Handle the exception or explain in a comment why it can be ignored.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 475,
+                  "startColumn": 13,
+                  "endLine": 477,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 476,
+                  "startColumn": 13,
+                  "endLine": 477,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2486",
+          "level": "warning",
+          "message": "Handle the exception or explain in a comment why it can be ignored.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 536,
+                  "startColumn": 13,
+                  "endLine": 538,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S108",
+          "level": "warning",
+          "message": "Either remove or fill this block of code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 537,
+                  "startColumn": 13,
+                  "endLine": 538,
+                  "endColumn": 14
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1829",
+          "level": "note",
+          "message": "Use the \"Count\" property instead of Enumerable.Count()",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 347,
+                  "startColumn": 45,
+                  "endLine": 347,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "PropertyNameKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1827",
+          "level": "note",
+          "message": "Count() is used where Any() could be used instead to improve performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 181,
+                  "startColumn": 41,
+                  "endLine": 181,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "OperationKey": "OperationBinaryLeft",
+              "ShouldNegateKey": null
+            }
+          }
+        },
+        {
+          "ruleId": "CA1827",
+          "level": "note",
+          "message": "Count() is used where Any() could be used instead to improve performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 187,
+                  "startColumn": 43,
+                  "endLine": 187,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "OperationKey": "OperationBinaryLeft"
+            }
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'files'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 325,
+                  "startColumn": 17,
+                  "endLine": 325,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'images'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 327,
+                  "startColumn": 17,
+                  "endLine": 327,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'pathImagesProduct'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 355,
+                  "startColumn": 17,
+                  "endLine": 355,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2245",
+          "level": "warning",
+          "message": "Make sure that using this pseudorandom number generator is safe here.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 496,
+                  "startColumn": 30,
+                  "endLine": 496,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1155",
+          "level": "warning",
+          "message": "Use '.Any()' to test whether this 'IEnumerable<string>' is empty or not.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 537,
+                  "startColumn": 58,
+                  "endLine": 537,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2971",
+          "level": "warning",
+          "message": "Use 'Count' property here instead.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 537,
+                  "startColumn": 58,
+                  "endLine": 537,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1854",
+          "level": "warning",
+          "message": "Remove this useless assignment to local variable 'idImages'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 524,
+                  "startColumn": 21,
+                  "endLine": 524,
+                  "endColumn": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1854",
+          "level": "warning",
+          "message": "Remove this useless assignment to local variable 'idImages'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 533,
+                  "startColumn": 25,
+                  "endLine": 533,
+                  "endColumn": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2245",
+          "level": "warning",
+          "message": "Make sure that using this pseudorandom number generator is safe here.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 572,
+                  "startColumn": 34,
+                  "endLine": 572,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1481",
+          "level": "warning",
+          "message": "Remove the unused local variable 'blogs'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 199,
+                  "startColumn": 29,
+                  "endLine": 199,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1829",
+          "level": "note",
+          "message": "Use the \"Count\" property instead of Enumerable.Count()",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 408,
+                  "startColumn": 45,
+                  "endLine": 408,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "PropertyNameKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'GetKeyCachedBlogImagesBase64' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 543,
+                  "startColumn": 24,
+                  "endLine": 543,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'GetKeyCachedBlogImages' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Blog/BlogService.cs",
+                "region": {
+                  "startLine": 542,
+                  "startColumn": 24,
+                  "endLine": 542,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1829",
+          "level": "note",
+          "message": "Use the \"Count\" property instead of Enumerable.Count()",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 537,
+                  "startColumn": 45,
+                  "endLine": 537,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "PropertyNameKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'GetKeyCachedProductImages' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 599,
+                  "startColumn": 24,
+                  "endLine": 599,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'GetBase64ImagesProductLocalAsync' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 481,
+                  "startColumn": 42,
+                  "endLine": 481,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'GetKeyCachedProductImagesBase64' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Users/hienv/OneDrive/Desktop/NVHIEN/DoAnTotNghiep/Backend/Web.AppCore/Services/Product/ProductService.cs",
+                "region": {
+                  "startLine": 601,
+                  "startColumn": 24,
+                  "endLine": 601,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1824",
+          "level": "note",
+          "message": "Mark assemblies with NeutralResourcesLanguageAttribute",
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CA1822": {
+          "id": "CA1822",
+          "shortDescription": "Mark members as static",
+          "fullDescription": "Members that do not access instance data or call instance methods can be marked as static. After you mark the methods as static, the compiler will emit nonvirtual call sites to these members. This can give you a measurable performance gain for performance-sensitive code.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1822",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1824": {
+          "id": "CA1824",
+          "shortDescription": "Mark assemblies with NeutralResourcesLanguageAttribute",
+          "fullDescription": "The NeutralResourcesLanguage attribute informs the ResourceManager of the language that was used to display the resources of a neutral culture for an assembly. This improves lookup performance for the first resource that you load and can reduce your working set.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1824",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode",
+              "CompilationEnd"
+            ]
+          }
+        },
+        "CA1827": {
+          "id": "CA1827",
+          "shortDescription": "Do not use Count() or LongCount() when Any() can be used",
+          "fullDescription": "For non-empty collections, Count() and LongCount() enumerate the entire sequence, while Any() stops at the first item or the first item that satisfies a condition.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1827",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1829": {
+          "id": "CA1829",
+          "shortDescription": "Use Length/Count property instead of Count() when available",
+          "fullDescription": "Enumerable.Count() potentially enumerates the sequence while a Length/Count property is a direct access.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1829",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA2200": {
+          "id": "CA2200",
+          "shortDescription": "Rethrow to preserve stack details",
+          "defaultLevel": "warning",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2200",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS0108": {
+          "id": "CS0108",
+          "shortDescription": "Member hides inherited member; missing new keyword",
+          "fullDescription": "A variable was declared with the same name as a variable in a base type. However, the new keyword was not used. This warning informs you that you should use new; the variable is declared as if new had been used in the declaration.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0108)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS0168": {
+          "id": "CS0168",
+          "shortDescription": "Variable is declared but never used",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0168)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS0414": {
+          "id": "CS0414",
+          "shortDescription": "Field is assigned but its value is never used",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0414)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS0618": {
+          "id": "CS0618",
+          "shortDescription": "Type or member is obsolete",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0618)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS1998": {
+          "id": "CS1998",
+          "shortDescription": "Async method lacks 'await' operators and will run synchronously",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS1998)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8632": {
+          "id": "CS8632",
+          "shortDescription": "The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8632)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S1006": {
+          "id": "S1006",
+          "shortDescription": "Method overrides should not change parameter defaults",
+          "fullDescription": "Default arguments are determined by the static type of the object. If a default argument is different for a parameter in an overriding method, the value used in the call will be different when calls are made via the base or derived object, which may be contrary to developer expectations.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1006",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1066": {
+          "id": "S1066",
+          "shortDescription": "Collapsible \"if\" statements should be merged",
+          "fullDescription": "Merging collapsible if statements increases the code’s readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1066",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S108": {
+          "id": "S108",
+          "shortDescription": "Nested blocks of code should not be left empty",
+          "fullDescription": "Most of the time a block of code is empty when a piece of code is really missing. So such empty block must be either filled or removed.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-108",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1135": {
+          "id": "S1135",
+          "shortDescription": "Track uses of \"TODO\" tags",
+          "fullDescription": "TODO tags are commonly used to mark places where some more code is required, but which the developer wants to implement later.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1135",
+          "properties": {
+            "category": "Info Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1144": {
+          "id": "S1144",
+          "shortDescription": "Unused private types or members should be removed",
+          "fullDescription": "private or internal types or private members that are never executed or referenced are dead code: unnecessary, inoperative code that should be removed. Cleaning out dead code decreases the size of the maintained codebase, making it easier to understand the program and preventing bugs from being introduced.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1144",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1155": {
+          "id": "S1155",
+          "shortDescription": "\"Any()\" should be used to test for emptiness",
+          "fullDescription": "Using .Count() to test for emptiness works, but using .Any() makes the intent clearer, and the code more readable. However, there are some cases where special attention should be paid:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1155",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Programmers should not comment out code as it bloats programs and reduces readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1481": {
+          "id": "S1481",
+          "shortDescription": "Unused local variables should be removed",
+          "fullDescription": "If a local variable is declared but not used, it is dead code and should be removed. Doing so will improve maintainability because developers will not wonder what the variable is used for.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1481",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1854": {
+          "id": "S1854",
+          "shortDescription": "Unused assignments should be removed",
+          "fullDescription": "A dead store happens when a local variable is assigned a value that is not read by any subsequent instruction. Calculating or retrieving a value only to then overwrite it or throw it away, could indicate a serious error in the code. Even if it’s not an error, it is at best a waste of resources. Therefore all calculated values should be used.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1854",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2094": {
+          "id": "S2094",
+          "shortDescription": "Classes should not be empty",
+          "fullDescription": "There is no good excuse for an empty class. If it’s being used simply as a common extension point, it should be replaced with an interface. If it was stubbed in as a placeholder for future development it should be fleshed-out. In any other case, it should be eliminated.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2094",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2245": {
+          "id": "S2245",
+          "shortDescription": "Using pseudorandom number generators (PRNGs) is security-sensitive",
+          "fullDescription": "Using pseudorandom number generators (PRNGs) is security-sensitive. For example, it has led in the past to the following vulnerabilities:",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2245",
+          "properties": {
+            "category": "Critical Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2486": {
+          "id": "S2486",
+          "shortDescription": "Generic exceptions should not be ignored",
+          "fullDescription": "When exceptions occur, it is usually a bad idea to simply ignore them. Instead, it is better to handle them properly, or at least to log them.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2486",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2589": {
+          "id": "S2589",
+          "shortDescription": "Boolean expressions should not be gratuitous",
+          "fullDescription": "If a boolean expression doesn’t change the evaluation of the condition, then it is entirely unnecessary, and can be removed. If it is gratuitous because it does not match the programmer’s intent, then it’s a bug and the expression should be fixed.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2589",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2933": {
+          "id": "S2933",
+          "shortDescription": "Fields that are only assigned in the constructor should be \"readonly\"",
+          "fullDescription": "readonly fields can only be assigned in a class constructor. If a class has a field that’s not marked readonly but is only set in the constructor, it could cause confusion about the field’s intended use. To avoid confusion, such fields should be marked readonly to make their intended use explicit, and to prevent future maintainers from inadvertently changing their use.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2933",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2971": {
+          "id": "S2971",
+          "shortDescription": "\"IEnumerable\" LINQs should be simplified",
+          "fullDescription": "In the interests of readability, code that can be simplified should be simplified. To that end, there are several ways IEnumerable language integrated queries (LINQ) can be simplified",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2971",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3267": {
+          "id": "S3267",
+          "shortDescription": "Loops should be simplified with \"LINQ\" expressions",
+          "fullDescription": "When a loop is filtering, selecting or aggregating, those functions can be handled with a clearer, more concise LINQ expression instead.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3267",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3445": {
+          "id": "S3445",
+          "shortDescription": "Exceptions should not be explicitly rethrown",
+          "fullDescription": "When rethrowing an exception, you should do it by simply calling throw; and not throw exc;, because the stack trace is reset with the second syntax, making debugging a lot harder.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3445",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3925": {
+          "id": "S3925",
+          "shortDescription": "\"ISerializable\" should be implemented correctly",
+          "fullDescription": "The ISerializable interface is the mechanism to control the type serialization process. If not implemented correctly this could result in an invalid serialization and hard to detect bugs.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3925",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S4487": {
+          "id": "S4487",
+          "shortDescription": "Unread \"private\" fields should be removed",
+          "fullDescription": "Private fields only used to store values without reading them later is a case of dead store. So changing the value of such field is useless and most probably indicates a serious error in the code.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4487",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S4830": {
+          "id": "S4830",
+          "shortDescription": "Server certificates should be verified during SSL/TLS connections",
+          "fullDescription": "Validation of X.509 certificates is essential to create secure SSL/TLS sessions not vulnerable to man-in-the-middle attacks.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-4830",
+          "properties": {
+            "category": "Critical Vulnerability",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S927": {
+          "id": "S927",
+          "shortDescription": "Parameter names should match base declaration and other partial definitions",
+          "fullDescription": "The name of a parameter in an externally visible. This rule raises an issue when method override does not match the name of the parameter in the base declaration of the method, or the name of the parameter in the interface declaration of the method or the name of any other partial definition.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-927",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

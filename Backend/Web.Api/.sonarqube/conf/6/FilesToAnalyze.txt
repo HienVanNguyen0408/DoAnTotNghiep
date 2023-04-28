@@ -1,0 +1,4 @@
+﻿C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\PostgresDBData\BaseRepo.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\PostgresDBData\IBaseRepo.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\PostgresDBData\PostgresDBContext.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\PostgresDBData\PostgresSettings.cs

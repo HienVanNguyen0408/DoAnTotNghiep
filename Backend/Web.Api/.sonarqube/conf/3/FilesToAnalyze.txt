@@ -1,0 +1,9 @@
+﻿C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\ConnectionManager.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\ServiceCollectionExtension.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\IVideoService.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\NotificationHub.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\RoomDetails.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\TwilioSettings.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\VideoService.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\WebSocketHandler.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\WebSocketManagerMiddleware.cs

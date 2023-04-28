@@ -1,0 +1,5 @@
+﻿C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.MessageQ\Consumer\Consumer.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.MessageQ\Consumer\IConsumer.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.MessageQ\Publisher\IPublisher.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.MessageQ\Publisher\Publisher.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.MessageQ\QueueSettings.cs

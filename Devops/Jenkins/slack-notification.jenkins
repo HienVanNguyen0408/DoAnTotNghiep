@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo "Hello"
+            }
+        }
+    }
+    post {
+        success {
+            slackSend channel: '#ci-jenkins', message: "Hiến thông báo là build thành công rồi!"
+        }
+        failure {
+            slackSend channel: '#ci-jenkins', message: "Hiến thông báo là build thất bại rồi!"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+﻿C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.WokerService\AppConfiguaration.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.WokerService\Program.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.WokerService\Worker\InsertOrderWorker.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.WokerService\Worker\OrderWorker.cs
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.WokerService\appsettings.Development.json
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.WokerService\appsettings.json
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.WokerService\Dockerfile
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.WokerService\Properties\launchSettings.json
+C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\.dockerignore

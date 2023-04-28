@@ -1,0 +1,12 @@
+g
+^C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\ConnectionManager.csutf-8p
+gC:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\ServiceCollectionExtension.csutf-8n
+eC:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\IVideoService.csutf-8p
+gC:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\NotificationHub.csutf-8l
+cC:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\RoomDetails.csutf-8o
+fC:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\TwilioSettings.csutf-8m
+dC:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\VideoChats\VideoService.csutf-8f
+]C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\WebSocketHandler.csutf-8p
+gC:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\WebSocketManagerMiddleware.csutf-8ú
+êC:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\obj\Debug\netcoreapp3.1\.NETCoreApp,Version=v3.1.AssemblyAttributes.csutf-8â
+~C:\Users\hienv\OneDrive\Desktop\NVHIEN\DoAnTotNghiep\Backend\Web.Stockets\obj\Debug\netcoreapp3.1\Web.Stockets.AssemblyInfo.csutf-8
