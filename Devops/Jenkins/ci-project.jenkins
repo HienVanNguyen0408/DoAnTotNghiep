@@ -1,39 +1,31 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage('get code') {
+    eviroment{
+    }
+    stages{
+       stage('get code') {
             steps {
-                git url : 'https://github.com/HienVanNguyen0408/DoAnTotNghiep.git', branch : "${BRANCH_NAME}", credentialsId : '69b8b864-1582-457e-bd7e-3f43f11ba5e8'
+                echo 'get code'
+                git url : 'https://github.com/HienVanNguyen0408/DoAnTotNghiep.git', branch : "${BRANCH_NAME}", credentialsId : '2e9fbd3e-55e2-48a2-a006-442bd2285282'
                 echo 'get code success'
             }
-        }
-        stage('build webapp'){
-            steps {
-                echo 'build'
-                dir('/var/jenkins_home/workspace/NVHIEN_MTA/DoAnTotNghiep/build-to-local/Fontend'){
-                    sh """
-                        docker build . -t hienvannguyen0408/doantotnghiep-app:${VERSION_BUILD}
-                        docker login -u hienvannguyen0408 -p Hien04080408
-                        docker push hienvannguyen0408/doantotnghiep-app:${VERSION_BUILD}
-                        docker rm -f datnwebapp
-                        docker run --rm -d --name datnwebapp  --publish "8082:80" -v /app/node_modules -v /app --user root --privileged=true -d hienvannguyen0408/doantotnghiep-app:${VERSION_BUILD}
-                    """
+        }       
+        stage('Code Analysis') {
+            steps{
+                withSonarQubeEnv(installationName : 'jenkins-sonar') {
+                    echo "Start scan Sonar code"
+                    dir('/var/jenkins_home/workspace/NVHIEN_MTA/DATN/ci-project/Backend'){
+                        sh """
+                            dotnet sonarscanner begin /k:"sonar-datn" /d:sonar.host.url="http://168.138.194.53:9000"  /d:sonar.token="sqp_039373ab8006ea6708685dec1bce4bb12b6eed69"
+                            dotnet build
+                            dotnet sonarscanner end /d:sonar.token="sqp_039373ab8006ea6708685dec1bce4bb12b6eed69"    
+                        """
+                    }
+                    echo "End scan Sonar code"
                 }
             }
+            
         }
-        stage('build webapi'){
-            steps {
-                echo 'build'
-                dir('/var/jenkins_home/workspace/NVHIEN_MTA/DoAnTotNghiep/build-to-local/Backend'){
-                    sh """
-                        docker build . -t hienvannguyen0408/doantotnghiep-api:${VERSION_BUILD}
-                        docker login -u hienvannguyen0408 -p Hien04080408
-                        docker push hienvannguyen0408/doantotnghiep-api:${VERSION_BUILD}
-                        docker rm -f datnwebapi
-                         docker run --rm -d --name datnwebapi  --publish "5001:80" -v /app/publish  --user root --privileged=true -d hienvannguyen0408/doantotnghiep-api:${VERSION_BUILD}
-                    """
-                }
-            }
-        }
+       
     }
 }
