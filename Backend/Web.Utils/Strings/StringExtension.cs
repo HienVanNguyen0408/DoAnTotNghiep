@@ -27,6 +27,6 @@ namespace Web.Utils
 
         public static bool ContainsText(this string text, string value) =>
             (string.IsNullOrEmpty(text) && string.IsNullOrEmpty(value))
-            || (!text.IsNullOrEmptyOrWhiteSpace() && text.Contains(value, StringComparison.OrdinalIgnoreCase));
+            || (!text.IsNullOrEmptyOrWhiteSpace() && text != null && text.Contains(value, StringComparison.OrdinalIgnoreCase));
     }
 }
