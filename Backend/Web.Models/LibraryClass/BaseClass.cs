@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace Web.Models.LibraryClass
@@ -14,6 +15,7 @@ namespace Web.Models.LibraryClass
         public BaseClass(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
+            _logger = _serviceProvider.GetService<ILogger<T>>();
         }
         #endregion
 

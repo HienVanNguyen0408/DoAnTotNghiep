@@ -585,9 +585,6 @@ namespace Web.AppCore.Services
             }
         }
         private string GetKeyCachedProductImages(string productId) => $"product_images_{productId}";
-
-        private string GetKeyCachedProductImagesBase64(string productId) => $"product_images_base_{productId}";
-
         #endregion
     }
 }

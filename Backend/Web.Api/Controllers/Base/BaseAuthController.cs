@@ -11,7 +11,7 @@ namespace Web.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[Controller]")]
-    public abstract class BaseAuthController<T> : BaseController<T>
+    public class BaseAuthController<T> : BaseController<T>
     {
         #region Declaration
         protected readonly AppSettings _appSettings;
@@ -23,9 +23,9 @@ namespace Web.Api.Controllers
         #endregion
 
         #region Contructor
-        protected BaseAuthController(IServiceProvider serviceProvider) : base(serviceProvider)
+        public BaseAuthController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _appSettings = GetRequiredService<IOptions<AppSettings>>().Value;
+            _appSettings = new AppSettings();
             _roleService = GetRequiredService<IRoleAccessService>();
             _httpContext = GetRequiredService<IHttpContextAccessor>();
         }
