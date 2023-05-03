@@ -77,6 +77,7 @@ namespace Web.Infrastructure.UnitOfWork
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return new Pagging<Product>();
             }
         }

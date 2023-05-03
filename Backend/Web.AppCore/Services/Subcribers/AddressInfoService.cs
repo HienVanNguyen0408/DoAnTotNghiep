@@ -32,6 +32,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -45,6 +46,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -58,6 +60,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -72,6 +75,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
 
@@ -86,6 +90,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -116,6 +121,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
