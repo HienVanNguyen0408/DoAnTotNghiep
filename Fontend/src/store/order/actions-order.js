@@ -15,7 +15,7 @@ export default {
         var res = await orderClient.getAsync({
             url : orderClient.url,
             queries : payload 
-        });
+        }, true);
         return res;
     },
     
@@ -29,7 +29,7 @@ export default {
         var res = await orderClient.postAsync({
             url : `${orderClient.url}/pagging`,
             data : payload
-        });
+        }, true);
 
         if(res && res.data){
             context.commit('updateOrderPage',res.data);
@@ -41,7 +41,7 @@ export default {
         var res = await orderClient.postAsync({
             url : `${orderClient.url}/orderuser/${payload.user_id}/${payload.status}`,
             data : payload
-        });
+        } , true);
 
         if(res && res.data){
             context.commit('updateOrderPage',res.data);

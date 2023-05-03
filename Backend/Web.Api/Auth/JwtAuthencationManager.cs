@@ -30,16 +30,16 @@ namespace Web.Api.Auth
             _logger = logger;
         }
 
-        public async Task<string> Autheticate(UserRequest userRequest)
+        public async Task<string> Autheticate(UserRequest user)
         {
             try
             {
                 var users = await _userService.GetUsersAsync();
-                if (!users.Any(x => x.user_name == userRequest.user_name && x.password == userRequest.password))
+                if (!users.Any(x => x.user_name == user.user_name && x.password == user.password))
                 {
                     return null;
                 }
-                return GetToken(userRequest);
+                return GetToken(user);
             }
             catch (Exception ex)
             {

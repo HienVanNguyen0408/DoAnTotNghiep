@@ -11,10 +11,8 @@ namespace Web.AppCore.Services
 {
     public class ImportExcelService : IImportExcelService
     {
-        private readonly ICustomerService _customerService;
         public ImportExcelService(ICustomerService customerService)
         {
-            _customerService = customerService;
         }
         public async Task<bool> ImportDataExcelToDBAsync(ExcelRequest request)
         {

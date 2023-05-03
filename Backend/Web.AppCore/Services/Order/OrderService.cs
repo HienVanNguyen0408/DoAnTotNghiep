@@ -89,21 +89,21 @@ namespace Web.AppCore.Services
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        public async Task<bool> InsertOrderAsync(OrderRequest orderRequest)
+        public async Task<bool> InsertOrderAsync(OrderRequest order)
         {
             try
             {
-                var orderInsert = await _orderUoW.Orders.InsertOneAsync(orderRequest);
+                var orderInsert = await _orderUoW.Orders.InsertOneAsync(order);
                 if (orderInsert == null) return false;
 
                 //Thêm chi tiết đơn hàng
-                if (orderRequest.order_items != null && orderRequest.order_items.Count > 0)
+                if (order.order_items != null && order.order_items.Count > 0)
                 {
-                    foreach (var orderItem in orderRequest.order_items)
+                    foreach (var orderItem in order.order_items)
                     {
-                        orderItem.order_id = orderRequest.id;
+                        orderItem.order_id = order.id;
                     }
-                    await _orderItemUoW.OrderItems.InsertManyAsync(orderRequest.order_items);
+                    await _orderItemUoW.OrderItems.InsertManyAsync(order.order_items);
                 }
                 return true;
             }

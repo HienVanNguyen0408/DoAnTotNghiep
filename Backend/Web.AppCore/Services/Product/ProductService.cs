@@ -22,7 +22,6 @@ namespace Web.AppCore.Services
         private const string TAG = "ProductService";
         private readonly IProductUoW _productUoW;
         private readonly IProductCategoryUoW _productCategoryUoW;
-        private readonly ISizeUoW _sizeUoW;
         private readonly IColorUoW _colorUoW;
         private readonly IOrderItemUoW _orderItemUoW;
         private readonly IImageUoW _imageUoW;
@@ -34,7 +33,6 @@ namespace Web.AppCore.Services
         {
             _productUoW = serviceProvider.GetRequiredService<IProductUoW>();
             _productCategoryUoW = serviceProvider.GetRequiredService<IProductCategoryUoW>();
-            _sizeUoW = serviceProvider.GetRequiredService<ISizeUoW>();
             _colorUoW = serviceProvider.GetRequiredService<IColorUoW>();
             _orderItemUoW = serviceProvider.GetRequiredService<IOrderItemUoW>();
             _imageUoW = serviceProvider.GetRequiredService<IImageUoW>();
@@ -49,29 +47,29 @@ namespace Web.AppCore.Services
         /// <summary>
         /// Xóa loại sản phẩm
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="productCategory"></param>
         /// <returns></returns>
-        public async Task<DeleteStatus> DeleteProductCategoryAsync(ProductCategoryRequest request)
+        public async Task<DeleteStatus> DeleteProductCategoryAsync(ProductCategoryRequest productCategory)
         {
             try
             {
                 //Xóa sản phẩm của loại sp
-                if (request.products == null || request.products.Count() <= 0)
+                if (productCategory.products == null || productCategory.products.Count() <= 0)
                 {
-                    request.products = await _productUoW.Products.GetAllAsync(x => x.product_category_id == request.id);
+                    productCategory.products = await _productUoW.Products.GetAllAsync(x => x.product_category_id == productCategory.id);
                 }
 
-                if (request.products != null && request.products.Count() > 0)
+                if (productCategory.products != null && productCategory.products.Count() > 0)
                 {
-                    var products = await _productUoW.Products.GetAllAsync(x => x.product_category_id == request.id);
-                    var deleteStatus = await DeleteProductsAsync(request.products);
+                    var products = await _productUoW.Products.GetAllAsync(x => x.product_category_id == productCategory.id);
+                    var deleteStatus = await DeleteProductsAsync(productCategory.products);
 
                     //Lỗi/phát sinh đơn hàng của sản phẩm
                     if (deleteStatus != DeleteStatus.Success) return deleteStatus;
                 }
 
                 //Xóa loại sản phẩm
-                var resDelete = await _productCategoryUoW.ProductCategories.DeleteOneAsync(request);
+                var resDelete = await _productCategoryUoW.ProductCategories.DeleteOneAsync(productCategory);
                 return resDelete ? DeleteStatus.Success : DeleteStatus.Fail;
             }
             catch (Exception ex)
@@ -221,42 +219,33 @@ namespace Web.AppCore.Services
             {
                 var productPage = await _productUoW.GetProductsPaggingAsync(request);
                 if (productPage == null || productPage.Data == null || productPage.Data.CountExt() <= 0) return pageResult;
-                if (productPage != null)
+                pageResult = new Pagging<ProductRespone>
                 {
-                    pageResult = new Pagging<ProductRespone>
+                    Data = productPage.Data != null ? productPage.Data.Select(product => MapperExtensions.MapperData<Product, ProductRespone>(product)).ToList() : null,
+                    PageIndex = productPage.PageIndex,
+                    PageSize = productPage.PageSize,
+                    TotalPages = productPage.TotalPages,
+                    TotalRecord = productPage.TotalRecord
+                };
+
+                if (isAdmin || pageResult.Data == null || pageResult.Data.CountExt() <= 0) return pageResult;
+                for (int index = 0; index < pageResult.Data.CountExt(); index++)
+                {
+                    var product = pageResult.Data[index];
+                    //// Lấy thông tin file
+                    if (product.files == null) product.files = new List<FileInfo>();
+
+                    var base64Images = await GetBase64ImagesProductAsync(product.id);
+                    if (base64Images != null && base64Images.CountExt() > 0)
                     {
-                        Data = productPage.Data != null ? productPage.Data.Select(product => MapperExtensions.MapperData<Product, ProductRespone>(product)).ToList() : null,
-                        PageIndex = productPage.PageIndex,
-                        PageSize = productPage.PageSize,
-                        TotalPages = productPage.TotalPages,
-                        TotalRecord = productPage.TotalRecord
-                    };
-
-                    if (!isAdmin)
-                    {
-                        //Lấy thông tin ảnh
-                        if (pageResult.Data != null && pageResult.Data.CountExt() > 0)
-                        {
-                            for (int index = 0; index < pageResult.Data.CountExt(); index++)
-                            {
-                                var product = pageResult.Data[index];
-                                //// Lấy thông tin file
-                                if (product.files == null) product.files = new List<FileInfo>();
-
-                                var base64Images = await GetBase64ImagesProductAsync(product.id);
-                                if (base64Images != null && base64Images.CountExt() > 0)
-                                {
-                                    product.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
-                                    if (product.files.CountExt() <= 0) continue;
-                                    pageResult.Data[index].files = product.files;
-                                }
-
-                                //Lấy thông tin màu sắc - size - số lượng
-                                var colors = await _colorUoW.Colors.GetAllAsync(x => x.product_id == product.id);
-                                if (colors.CountExt() > 0) { pageResult.Data[index].colors = colors.ToList(); }
-                            }
-                        }
+                        product.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
+                        if (product.files.CountExt() <= 0) continue;
+                        pageResult.Data[index].files = product.files;
                     }
+
+                    //Lấy thông tin màu sắc - size - số lượng
+                    var colors = await _colorUoW.Colors.GetAllAsync(x => x.product_id == product.id);
+                    if (colors.CountExt() > 0) { pageResult.Data[index].colors = colors.ToList(); }
                 }
             }
             catch (Exception ex)
@@ -272,29 +261,29 @@ namespace Web.AppCore.Services
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        public async Task<bool> InsertProductAsync(ProductRequest request)
+        public async Task<bool> InsertProductAsync(ProductRequest product)
         {
             try
             {
-                var product = (Product)request;
-                var productInsert = await _productUoW.Products.InsertOneAsync(product);
+                var productMap = (Product)product;
+                var productInsert = await _productUoW.Products.InsertOneAsync(productMap);
 
                 if (productInsert != null)
                 {
-                    if (request.files.CountExt() > 0)
+                    if (product.files.CountExt() > 0)
                     {
-                        await InsertImagesAsync(request.files, request.id);
+                        await InsertImagesAsync(product.files, product.id);
                     }
 
                     ///Cập nhật các thông tin màu size của sản phẩm
-                    if (request.colors.CountExt() > 0)
+                    if (product.colors.CountExt() > 0)
                     {
                         //Cập nhật Id của product
-                        request.colors.ForEach(x => x.product_id = productInsert.id);
-                        var insertColos = await _colorUoW.Colors.InsertManyAsync(request.colors);
+                        product.colors.ForEach(x => x.product_id = productInsert.id);
+                        var insertColos = await _colorUoW.Colors.InsertManyAsync(product.colors);
                         if (insertColos.CountExt() > 0)
                         {
-                            productInsert.quantity = request.colors.SumExt(x => x.amount);
+                            productInsert.quantity = product.colors.SumExt(x => x.amount);
                             await _productUoW.Products.UpdateOneAsync(productInsert);
                         }
                     }
@@ -313,25 +302,25 @@ namespace Web.AppCore.Services
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateProductAsync(ProductRequest productRequest)
+        public async Task<bool> UpdateProductAsync(ProductRequest product)
         {
-            var product = MapperExtensions.MapperData<ProductRequest, Product>(productRequest);
-            var productUpdate = await _productUoW.Products.UpdateOneAsync(product);
+            var productMap = MapperExtensions.MapperData<ProductRequest, Product>(product);
+            var productUpdate = await _productUoW.Products.UpdateOneAsync(productMap);
             if (!productUpdate) return false;
 
             //Không có file nào 
-            if (productRequest.files == null || productRequest.files.CountExt() <= 0) return productUpdate;
+            if (product.files == null || product.files.CountExt() <= 0) return productUpdate;
 
-            var files = productRequest.files.Where(x => !x.path.IsNullOrEmptyOrWhiteSpace()).ToList();
+            var files = product.files.Where(x => !x.path.IsNullOrEmptyOrWhiteSpace()).ToList();
 
-            var images = await _imageUoW.Images.GetAllAsync(x => x.product_id == productRequest.id);
+            var images = await _imageUoW.Images.GetAllAsync(x => x.product_id == product.id);
 
             //Cập nhật thông tin màu sắc - size
-            var updateColors = await UpdateColorProduct(product, productRequest.colors);
+            var updateColors = await UpdateColorProduct(productMap, product.colors);
 
             if (updateColors)
             {
-                await _productUoW.Products.UpdateOneAsync(product);
+                await _productUoW.Products.UpdateOneAsync(productMap);
             }
             return productUpdate;
         }
@@ -527,43 +516,37 @@ namespace Web.AppCore.Services
                 if (pathDbImages == null || pathDbImages.CountExt() <= 0)
                 {
                     var images = await _imageUoW.Images.GetAllAsync(x => x.product_id == productId);
-                    if (images != null && images.CountExt() > 0)
-                    {
-                        pathDbImages = images.SelectExt(x => x.path).ToList();
-                        idImages = images.SelectExt(x => x.id).ToList();
-                    }
-                }
+                    if (images == null || images.CountExt() <= 0) return new List<string>();
+                    pathDbImages = images.SelectExt(x => x.path).ToList();
+                    idImages = images.SelectExt(x => x.id).ToList();
 
-                if (pathDbImages == null || pathDbImages.Count() <= 0) return new List<string>();
+                }
 
                 //Thời gian lưu thông tin path trong DB của các ảnh bài viết
                 var timeCached = 60 * 60 * 24;
                 await _cached.SetAsync(cachedKeyImages, pathDbImages, timeCached);
 
                 var base64Images = new List<string>();
-
                 if (isGetAllImage)
                 {
                     //Lấy thông tin path image trên storage
                     foreach (var path in pathDbImages)
                     {
                         var byteImage = await _storageClient.DownloadFileAsync(path);
-                        if (byteImage != null && byteImage.Length > 0)
+                        if (byteImage == null || byteImage.Length <= 0) continue;
+
+                        var base64Image = Convert.ToBase64String(byteImage);
+                        base64Image = $"data:image/jpeg;base64,{base64Image}";
+                        if (base64Image.IsNullOrEmptyOrWhiteSpace()) continue;
+
+                        base64Images.Add(base64Image);
+                        var pathProductLocal = $"{FileExtensions.GetPathProductLocal()}\\{productId}";
+                        if (!FileExtensions.CheckFolderExist(pathProductLocal))
                         {
-                            var base64Image = Convert.ToBase64String(byteImage);
-                            base64Image = $"data:image/jpeg;base64,{base64Image}";
-                            if (!base64Image.IsNullOrEmptyOrWhiteSpace())
-                            {
-                                base64Images.Add(base64Image);
-                                var pathProductLocal = $"{FileExtensions.GetPathProductLocal()}\\{productId}";
-                                if (!FileExtensions.CheckFolderExist(pathProductLocal))
-                                {
-                                    FileExtensions.CreateFolder(pathProductLocal);
-                                }
-                                //Write filde to local
-                                System.IO.File.WriteAllBytes($"{pathProductLocal}\\{FileExtensions.GetFileNameByPathProduct(path)}.jpeg", byteImage);
-                            }
+                            FileExtensions.CreateFolder(pathProductLocal);
                         }
+                        //Write filde to local
+                        System.IO.File.WriteAllBytes($"{pathProductLocal}\\{FileExtensions.GetFileNameByPathProduct(path)}.jpeg", byteImage);
                     }
                 }
                 else
@@ -572,27 +555,25 @@ namespace Web.AppCore.Services
                     var random = new Random();
                     int imageRandom = random.Next(pathDbImages.CountExt());
                     var byteImage = await _storageClient.DownloadFileAsync(pathDbImages[imageRandom]);
-                    if (byteImage != null && byteImage.Length > 0)
+                    if (byteImage == null || byteImage.Length <= 0) return base64Images;
+
+                    var base64Image = Convert.ToBase64String(byteImage);
+                    base64Image = $"data:image/jpeg;base64,{base64Image}";
+                    if (base64Image.IsNullOrEmptyOrWhiteSpace()) return base64Images;
+                    base64Images.Add(base64Image);
+                    var pathProductLocal = $"{FileExtensions.GetPathProductLocal()}\\{productId}";
+                    if (!FileExtensions.CheckFolderExist(pathProductLocal))
                     {
-                        var base64Image = Convert.ToBase64String(byteImage);
-                        base64Image = $"data:image/jpeg;base64,{base64Image}";
-                        if (!base64Image.IsNullOrEmptyOrWhiteSpace())
-                        {
-                            base64Images.Add(base64Image);
-                            var pathProductLocal = $"{FileExtensions.GetPathProductLocal()}\\{productId}";
-                            if (!FileExtensions.CheckFolderExist(pathProductLocal))
-                            {
-                                FileExtensions.CreateFolder(pathProductLocal);
-                            }
-                            //Write filde to local
-                            System.IO.File.WriteAllBytes($"{pathProductLocal}\\{FileExtensions.GetFileNameByPathProduct(pathDbImages[imageRandom])}.jpeg", byteImage);
-                        }
+                        FileExtensions.CreateFolder(pathProductLocal);
                     }
+                    //Write filde to local
+                    System.IO.File.WriteAllBytes($"{pathProductLocal}\\{FileExtensions.GetFileNameByPathProduct(pathDbImages[imageRandom])}.jpeg", byteImage);
                 }
                 return base64Images;
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return new List<string>();
             }
         }

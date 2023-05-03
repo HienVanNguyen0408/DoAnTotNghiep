@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Web.AppCore.Entities;
 using Web.AppCore.Interfaces.Services;
@@ -19,12 +18,10 @@ namespace Web.Api.Controllers
     {
         private const string TAG = "OrderController";
         private readonly IOrderService _orderService;
-        private readonly IOrderItemService _orderItemService;
         private readonly IPublisherQueue _publisher;
         public OrderController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             _orderService = serviceProvider.GetRequiredService<IOrderService>();
-            _orderItemService = serviceProvider.GetRequiredService<IOrderItemService>();
             _publisher = serviceProvider.GetRequiredService<IPublisherQueue>();
         }
 

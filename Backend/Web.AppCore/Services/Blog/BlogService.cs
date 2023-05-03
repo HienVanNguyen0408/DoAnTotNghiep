@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -182,60 +183,55 @@ namespace Web.AppCore.Services
                     blogPage = await _blogUoW.Blogs.GetPaggingAsync(pagination, x => x.title.ContainsText(pagination.Filter));
                 }
 
-                if (blogPage != null)
+                if (blogPage == null) return pageResult;
+                pageResult = new Pagging<BlogRespone>
                 {
-                    pageResult = new Pagging<BlogRespone>
-                    {
-                        Data = blogPage.Data != null ? blogPage.Data.Select(blog => MapperExtensions.MapperData<Blog, BlogRespone>(blog)).ToList() : null,
-                        PageIndex = blogPage.PageIndex,
-                        PageSize = blogPage.PageSize,
-                        TotalPages = blogPage.TotalPages,
-                        TotalRecord = blogPage.TotalRecord
-                    };
+                    Data = blogPage.Data != null ? blogPage.Data.Select(blog => MapperExtensions.MapperData<Blog, BlogRespone>(blog)).ToList() : null,
+                    PageIndex = blogPage.PageIndex,
+                    PageSize = blogPage.PageSize,
+                    TotalPages = blogPage.TotalPages,
+                    TotalRecord = blogPage.TotalRecord
+                };
 
-                    //Lấy thông tin ảnh
-                    if (pageResult.Data != null && pageResult.Data.CountExt() > 0)
+                if (pageResult.Data == null || pageResult.Data.CountExt() <= 0) return pageResult;
+                //Lấy thông tin ảnh
+                var blogs = pageResult.Data;
+                for (int index = 0; index < pageResult.Data.CountExt(); index++)
+                {
+                    var blog = pageResult.Data[index];
+                    if (blog.files == null) blog.files = new List<FileInfo>();
+                    var base64Images = await GetBase64ImagesBlogAsync(blog.id);
+                    if (base64Images != null && base64Images.CountExt() > 0)
                     {
-                        var blogs = pageResult.Data;
-                        for (int index = 0; index < pageResult.Data.CountExt(); index++)
-                        {
-                            var blog = pageResult.Data[index];
-                            if (blog.files == null) blog.files = new List<FileInfo>();
-                            var base64Images = await GetBase64ImagesBlogAsync(blog.id);
-                            if (base64Images != null && base64Images.CountExt() > 0)
-                            {
-                                blog.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
-                            }
-                            pageResult.Data[index].files = blog.files;
-                        }
-
+                        blog.files = base64Images.SelectExt(x => new FileInfo { path = x }).ToList();
                     }
+                    pageResult.Data[index].files = blog.files;
                 }
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Lỗi hàm GetBlogsPaggingAsync::Exception::{ex.Message}");
             }
-
             return pageResult;
         }
 
         /// <summary>
         /// Thêm  bài viết
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="blog"></param>
         /// <returns></returns>
-        public async Task<bool> InsertBlogAsync(BlogRequest request)
+        public async Task<bool> InsertBlogAsync(BlogRequest blog)
         {
             try
             {
-                var blog = (Blog)request;
-                var blogInsert = await _blogUoW.Blogs.InsertOneAsync(blog);
+                var blogMap = (Blog)blog;
+                var blogInsert = await _blogUoW.Blogs.InsertOneAsync(blogMap);
 
                 if (blogInsert != null)
                 {
-                    if (request.files != null && request.files.CountExt() > 0)
+                    if (blog.files != null && blog.files.CountExt() > 0)
                     {
-                        await InsertImagesAsync(request.files, request.id);
+                        await InsertImagesAsync(blog.files, blog.id);
                     }
                 }
                 return blogInsert != null;
@@ -252,30 +248,30 @@ namespace Web.AppCore.Services
         /// </summary>
         /// <param name="blog"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateBlogAsync(BlogRequest blogRequest)
+        public async Task<bool> UpdateBlogAsync(BlogRequest blog)
         {
-            var blog = MapperExtensions.MapperData<BlogRequest, Blog>(blogRequest);
-            var blogUpdate = await _blogUoW.Blogs.UpdateOneAsync(blog);
+            var blogMap = MapperExtensions.MapperData<BlogRequest, Blog>(blog);
+            var blogUpdate = await _blogUoW.Blogs.UpdateOneAsync(blogMap);
             if (!blogUpdate) return false;
 
             //Không có file nào 
-            if (blogRequest.files == null || blogRequest.files.CountExt() <= 0) return blogUpdate;
+            if (blog.files == null || blog.files.CountExt() <= 0) return blogUpdate;
 
-            var files = blogRequest.files.Where(x => !x.path.IsNullOrEmptyOrWhiteSpace()).ToList();
+            var files = blog.files.Where(x => !x.path.IsNullOrEmptyOrWhiteSpace()).ToList();
 
-            var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blogRequest.id);
+            var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blog.id);
 
             if (images.CountExt() > 0)
             {
-                var deleteImages = await DeleteImagesBlogAsync(blogRequest.id, images.SelectExt(x => x.path).ToList());
+                var deleteImages = await DeleteImagesBlogAsync(blog.id, images.SelectExt(x => x.path).ToList());
                 if (deleteImages)
                 {
-                    await InsertImagesAsync(blogRequest.files, blogRequest.id);
+                    await InsertImagesAsync(blog.files, blog.id);
                 }
             }
             else
             {
-                await InsertImagesAsync(blogRequest.files, blogRequest.id);
+                await InsertImagesAsync(blog.files, blog.id);
             }
 
             return blogUpdate;
@@ -398,32 +394,25 @@ namespace Web.AppCore.Services
                 if (pathDbImages == null || pathDbImages.CountExt() <= 0)
                 {
                     var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blogId);
-                    if (images != null && images.CountExt() > 0)
-                    {
-                        pathDbImages = images.SelectExt(x => x.path).ToList();
-                        idImages = images.SelectExt(x => x.id).ToList();
-                    }
+                    if (images == null || images.CountExt() <= 0) return new List<string>();
+                    pathDbImages = images.SelectExt(x => x.path).ToList();
+                    idImages = images.SelectExt(x => x.id).ToList();
                 }
-
-                if (pathDbImages == null || pathDbImages.Count() <= 0) return new List<string>();
 
                 //Thời gian lưu thông tin path trong DB của các ảnh bài viết
                 var timeCached = 60 * 60 * 24;
                 await _cached.SetAsync(cachedKeyImages, pathDbImages, timeCached);
 
                 var base64Images = new List<string>();
-
                 if (isGetAllImage)
                 {
                     foreach (var path in pathDbImages)
                     {
                         var byteImage = await _storageClient.DownloadFileAsync(path);
-                        if (byteImage != null && byteImage.Length > 0)
-                        {
-                            var base64Image = Convert.ToBase64String(byteImage);
-                            base64Image = $"data:image/jpeg;base64,{base64Image}";
-                            if (!base64Image.IsNullOrEmptyOrWhiteSpace()) base64Images.Add(base64Image);
-                        }
+                        if (byteImage == null || byteImage.Length <= 0) continue;
+                        var base64Image = Convert.ToBase64String(byteImage);
+                        base64Image = $"data:image/jpeg;base64,{base64Image}";
+                        base64Images.Add(base64Image);
                     }
                 }
                 else
@@ -437,13 +426,14 @@ namespace Web.AppCore.Services
                     {
                         var base64Image = Convert.ToBase64String(byteImage);
                         base64Image = $"data:image/jpeg;base64,{base64Image}";
-                        if (!base64Image.IsNullOrEmptyOrWhiteSpace()) base64Images.Add(base64Image);
+                        base64Images.Add(base64Image);
                     }
                 }
                 return base64Images;
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return new List<string>();
             }
         }

@@ -34,11 +34,11 @@ namespace Web.AppCore.Services
         /// <summary>
         /// Lấy thông tin user theo Id
         /// </summary>
-        /// <param name="id">Id của user</param>
+        /// <param name="userId">Id của user</param>
         /// <returns></returns>
-        public async Task<User> GetUserByIdAsync(string id)
+        public async Task<User> GetUserByIdAsync(string userId)
         {
-            var user = await _userUoW.Users.GetByIdAsync(id);
+            var user = await _userUoW.Users.GetByIdAsync(userId);
             return user;
         }
 

@@ -25,7 +25,7 @@ namespace PostgresDBData
         public async Task<bool> DeleteManyAsync(IEnumerable<TEntity> entities)
         {
             await Task.CompletedTask;
-            if (entities == null || entities.Count() <= 0) return false;
+            if (entities == null) return false;
             try
             {
                 _context.RemoveRange(entities);
@@ -40,9 +40,9 @@ namespace PostgresDBData
 
         public async Task<bool> DeleteManyAsync(IEnumerable<string> ids)
         {
-            if (ids == null || ids.Count() <= 0) return false;
+            if (ids == null) return false;
             var entities = await GetByIdsAsync(ids);
-            if (entities == null || entities.Count() <= 0) return false;
+            if (entities == null) return false;
             try
             {
                 _context.RemoveRange(entities);
@@ -58,7 +58,7 @@ namespace PostgresDBData
         public async Task<bool> DeleteManyAsync(Func<TEntity, bool> predicate)
         {
             var entities = await GetAllAsync(predicate);
-            if (entities == null || entities.Count() <= 0) return false;
+            if (entities == null) return false;
             try
             {
                 _context.RemoveRange(entities);

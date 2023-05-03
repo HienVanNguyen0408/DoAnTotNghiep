@@ -4,7 +4,7 @@
             <div class="product-image">
                 <span class="hover-link"></span>
                 <div class="product-link">Xem chi tiết</div>
-                <img class="img-responsive" :src="product.files[indexProductView].path" alt="">
+                <img v-if="product.files && product.files[indexProductView] && product.files[indexProductView].path" class="img-responsive" :src="product.files[indexProductView].path" alt="">
             </div>
             <div class="product-description">
                 <div class="product-label">

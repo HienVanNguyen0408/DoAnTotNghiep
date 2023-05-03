@@ -9,14 +9,14 @@ namespace Web.Api.Controllers
     [Route("api/v1/[Controller]")]
     public class DownloadController : Controller
     {
-        private readonly IDownloadService _downloadService;
-        private readonly IImportExcelService _importExcelService;
+        //private readonly IDownloadService _downloadService;
+        //private readonly IImportExcelService _importExcelService;
 
-        public DownloadController(IDownloadService downloadService, IImportExcelService importExcelService)
-        {
-            _downloadService = downloadService;
-            _importExcelService = importExcelService;
-        }
+        //public DownloadController(IDownloadService downloadService, IImportExcelService importExcelService)
+        //{
+        //    _downloadService = downloadService;
+        //    _importExcelService = importExcelService;
+        //}
 
         //[HttpPost]
         //public async Task<bool> SaveFile([FromBody] DowloadRequest dowloadRequest)
