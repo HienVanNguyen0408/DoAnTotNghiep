@@ -59,6 +59,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return DeleteStatus.Fail;
             }
         }
@@ -76,6 +77,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 var blog = new BlogCategory();
                 blog.description = $"{ex.Message}";
                 var blogs = new List<BlogCategory>();
@@ -140,11 +142,11 @@ namespace Web.AppCore.Services
         /// <returns></returns>
         public async Task<BlogRespone> GetBlogAsync(string blogId)
         {
-            var blogRespone = new BlogRespone();
             var blog = await _blogUoW.Blogs.GetByIdAsync(blogId);
             if (blog == null) return null;
+
             //Map dữ liệu
-            blogRespone = MapperExtensions.MapperData<Blog, BlogRespone>(blog);
+            var blogRespone = MapperExtensions.MapperData<Blog, BlogRespone>(blog);
             var pathImages = await GetBase64ImagesBlogAsync(blogId, true);
             if (pathImages != null && pathImages.CountExt() > 0)
             {
@@ -195,7 +197,6 @@ namespace Web.AppCore.Services
 
                 if (pageResult.Data == null || pageResult.Data.CountExt() <= 0) return pageResult;
                 //Lấy thông tin ảnh
-                var blogs = pageResult.Data;
                 for (int index = 0; index < pageResult.Data.CountExt(); index++)
                 {
                     var blog = pageResult.Data[index];
@@ -227,17 +228,15 @@ namespace Web.AppCore.Services
                 var blogMap = (Blog)blog;
                 var blogInsert = await _blogUoW.Blogs.InsertOneAsync(blogMap);
 
-                if (blogInsert != null)
+                if (blogInsert != null && blog.files != null && blog.files.CountExt() > 0)
                 {
-                    if (blog.files != null && blog.files.CountExt() > 0)
-                    {
-                        await InsertImagesAsync(blog.files, blog.id);
-                    }
+                    await InsertImagesAsync(blog.files, blog.id);
                 }
                 return blogInsert != null;
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return false;
             }
         }
@@ -257,10 +256,7 @@ namespace Web.AppCore.Services
             //Không có file nào 
             if (blog.files == null || blog.files.CountExt() <= 0) return blogUpdate;
 
-            var files = blog.files.Where(x => !x.path.IsNullOrEmptyOrWhiteSpace()).ToList();
-
             var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blog.id);
-
             if (images.CountExt() > 0)
             {
                 var deleteImages = await DeleteImagesBlogAsync(blog.id, images.SelectExt(x => x.path).ToList());
@@ -301,19 +297,21 @@ namespace Web.AppCore.Services
             {
                 if (blogs.CountExt() <= 0) return false;
 
-                foreach (var blog in blogs)
+                var bogIds = blogs.SelectExt(x => x.id);
+                foreach (var blogId in bogIds)
                 {
                     //Xóa ảnh
-                    var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blog.id);
+                    var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blogId);
                     if (images.CountExt() > 0)
                     {
-                        await DeleteImagesBlogAsync(blog.id, images.SelectExt(x => x.path).ToList());
+                        await DeleteImagesBlogAsync(blogId, images.SelectExt(x => x.path).ToList());
                     }
                 }
                 return await _blogUoW.Blogs.DeleteManyAsync(blogs);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return false;
             }
         }
@@ -323,7 +321,7 @@ namespace Web.AppCore.Services
         /// </summary>
         /// <param name="blogId">Id bài viết</param>
         /// <returns></returns>
-        private async Task<List<string>> GetPathImagesBlogAsync(string blogId)
+        public async Task<List<string>> GetPathImagesBlogAsync(string blogId)
         {
             try
             {
@@ -372,6 +370,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return new List<string>();
             }
         }
@@ -388,15 +387,12 @@ namespace Web.AppCore.Services
                 //Key cached lưu các path trong DB của image
                 var cachedKeyImages = GetKeyCachedBlogImages(blogId);
                 var pathDbImages = await _cached.GetAsync<List<string>>(cachedKeyImages);
-                var idImages = new List<string>();
-
                 //Lấy thông tin image từ DB
                 if (pathDbImages == null || pathDbImages.CountExt() <= 0)
                 {
                     var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blogId);
-                    if (images == null || images.CountExt() <= 0) return new List<string>();
+                    if (images == null) return new List<string>();
                     pathDbImages = images.SelectExt(x => x.path).ToList();
-                    idImages = images.SelectExt(x => x.id).ToList();
                 }
 
                 //Thời gian lưu thông tin path trong DB của các ảnh bài viết
@@ -437,7 +433,7 @@ namespace Web.AppCore.Services
                 return new List<string>();
             }
         }
-        private async Task<List<string>> GetPathImagesByPathsAsync(List<string> paths)
+        public async Task<List<string>> GetPathImagesByPathsAsync(List<string> paths)
         {
             try
             {
@@ -456,6 +452,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return new List<string>();
             }
         }
@@ -498,6 +495,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return false;
             }
         }
@@ -525,6 +523,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
             }
             return false;
         }

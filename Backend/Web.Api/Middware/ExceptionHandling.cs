@@ -31,8 +31,6 @@ namespace Web.Api
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            //HttpStatusCode status;
-            //string message;
             var response = new
             {
                 devMsg = exception.Message,

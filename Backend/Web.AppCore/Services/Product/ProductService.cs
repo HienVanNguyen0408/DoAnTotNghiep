@@ -54,7 +54,7 @@ namespace Web.AppCore.Services
             try
             {
                 //Xóa sản phẩm của loại sp
-                if (productCategory.products == null || productCategory.products.Count() <= 0)
+                if (productCategory.products == null)
                 {
                     productCategory.products = await _productUoW.Products.GetAllAsync(x => x.product_category_id == productCategory.id);
                 }
@@ -74,6 +74,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return DeleteStatus.Fail;
             }
         }
@@ -163,6 +164,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return DeleteStatus.Fail;
             }
         }
@@ -194,6 +196,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return DeleteStatus.Fail;
             }
         }
@@ -292,6 +295,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return false;
             }
         }
@@ -394,6 +398,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return false;
             }
         }
@@ -436,6 +441,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
                 return false;
             }
         }
@@ -463,6 +469,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
             }
             return false;
         }

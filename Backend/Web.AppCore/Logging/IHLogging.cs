@@ -8,7 +8,7 @@ namespace Web.AppCore.Logging
 {
     public interface IHLogging
     {
-        void LogError(string message, Exception? ex);
-        void LogInfor(string message, Exception? ex);
+        void LogError(string message, Exception ex);
+        void LogInfor(string message, Exception ex);
     }
 }

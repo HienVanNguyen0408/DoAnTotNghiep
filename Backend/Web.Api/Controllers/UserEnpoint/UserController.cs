@@ -219,7 +219,6 @@ namespace Web.Api.Controllers
                     return svcResult;
                 }
 
-                var userRespone = new UserRespone();
                 var userDB = await _userService.GetUserByUserNameAsync(user.user_name);
                 if (userDB == null)
                 {
@@ -227,11 +226,11 @@ namespace Web.Api.Controllers
                     return svcResult;
                 }
 
-                userRespone = MapperExtensions.MapperData<User, UserRespone>(userDB);
-                userRespone.key_auth = authen;
+                svcResult.Data = MapperExtensions.MapperData<User, UserRespone>(userDB);
+                svcResult.Data.key_auth = authen;
                 svcResult = new ServiceResult<UserRespone>
                 {
-                    Data = userRespone,
+                    Data = svcResult.Data,
                     Success = true,
                     Status = ServiceResultStatus.Ok,
                     Message = "Đăng nhập thành công"
@@ -282,24 +281,6 @@ namespace Web.Api.Controllers
                 svcResult.Message = "Vui lòng liên hệ VHSTORE để được hỗ trợ";
             }
             return svcResult;
-        }
-
-        [HttpPost("testminio")]
-        public async Task<bool> TestMinIO()
-        {
-            var file = System.IO.File.ReadAllBytes(@"C:\Users\HienVanNguyen\Pictures\icon_hud4b034c4f7a5c231da985da63cf83ade_53523_512x512_fill_lanczos_center_2.png");
-            var fullPath = GlobalConstant.GetFullPathTemplate("product", "filetest.png");
-            var xxx = await _storageClient.UploadFileAsync(fullPath, file);
-            return true;
-        }
-
-        [HttpGet("getpath")]
-        public async Task<string> GetPath([FromQuery] string fullPath)
-        {
-            var xxx = await _storageClient.GetPathFileDownloadAsync(fullPath);
-            var data = await _storageClient.DownloadFileAsync(fullPath);
-            System.IO.File.WriteAllBytes(@"C:\Users\HienVanNguyen\Pictures\abc.png", data);
-            return xxx;
         }
 
         /// <summary>

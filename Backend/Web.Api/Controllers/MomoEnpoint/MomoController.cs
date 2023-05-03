@@ -11,7 +11,6 @@ namespace Web.Api.Controllers
     public class MomoController : BaseAuthController<MomoController>
     {
         #region Declaration
-        private const string TAG = "MomoController";
         protected readonly IMomoClient _momo;
         #endregion
         #region contructor
@@ -28,7 +27,6 @@ namespace Web.Api.Controllers
         [HttpPost("payment-momo")]
         public async Task<bool> PaymentMomoAsync()
         {
-            var xxx = await _momo.PaymentMomoAsync(new PaymentRequest());
             return false;
         }
         #endregion

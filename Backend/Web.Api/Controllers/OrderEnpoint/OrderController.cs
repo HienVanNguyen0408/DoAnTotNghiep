@@ -222,28 +222,27 @@ namespace Web.Api.Controllers
             var svcResult = new ServiceResult<Pagging<Order>>();
             try
             {
-                var orderPage = new Pagging<Order>();
                 if (orderStatus == OrderStatus.All)
                 {
-                    orderPage = await _orderService.GetOrderPageAsync(pagination, x => x.user_id == userId);
+                    svcResult.Data = await _orderService.GetOrderPageAsync(pagination, x => x.user_id == userId);
                 }
                 else
                 {
-                    orderPage = await _orderService.GetOrderPageAsync(pagination, x => x.user_id == userId && x.order_status == orderStatus);
+                    svcResult.Data = await _orderService.GetOrderPageAsync(pagination, x => x.user_id == userId && x.order_status == orderStatus);
                 }
+
                 svcResult = new ServiceResult<Pagging<Order>>
                 {
-                    Data = orderPage,
+                    Data = svcResult.Data,
                     Success = true,
                     Status = ServiceResultStatus.Ok
                 };
-                return svcResult;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"{TAG}::Lỗi hàm GetPageOrderByUserAsync::Exception::{ex.Message}");
-                return svcResult;
             }
+            return svcResult;
         }
         #endregion
         #endregion

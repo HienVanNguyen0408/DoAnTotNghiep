@@ -39,9 +39,6 @@ namespace Web.Api
         {
 
             services.Configure<PostgresSettings>(Configuration.GetSection(PostgresSettings.CONFIG_NAME));
-            //services.AddDbContext<PostgreSqlContext>(options => 
-            //        options.UseNpgsql(PostgresSettings.ConnectionString)
-            //);
             services.Configure<GHNSettings>(Configuration.GetSection(GHNSettings.CONFIG_NAME));
             services.Configure<QueueSettings>(Configuration.GetSection(QueueSettings.CONFIG_NAME));
             services.Configure<AppSettings>(Configuration.GetSection(AppSettings.CONFIG_NAME));
@@ -125,17 +122,8 @@ namespace Web.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            //UseSwaggerDoc(app,"dev-docs");
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web.Api v1"));
-            //app.UseWebSockets();
-
-            //var webSocketOptions = new WebSocketOptions()
-            //{
-            //    KeepAliveInterval = TimeSpan.FromSeconds(120),
-            //    ReceiveBufferSize = 4 * 1024
-            //};
-            //app.UseWebSockets(webSocketOptions);
 
             // Hook in the global error-handling middleware
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
@@ -150,29 +138,12 @@ namespace Web.Api
 
             app.UseCors("MyPolicy");
 
-            //app.Use(async (context, next) =>
-            //{
-            //    context.Response.Headers.Add("X-Codepedia-Custom-Header-Response", "Satinder singh");
-            //    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
-            //    context.Response.Headers.Add("X-Frame-Options", "DENY");
-            //    context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
-            //    await next();
-            //});
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
         
-        //private void InitializeDatabase(IApplicationBuilder app)
-        //{
-        //    using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-        //    {
-        //        scope.ServiceProvider.GetRequiredService<MySqlContext>().Database.Migrate();
-
-        //    }
-        //}
         public static IApplicationBuilder UseSwaggerDoc(IApplicationBuilder app, string urlPath)
         {
             if (!string.IsNullOrWhiteSpace(urlPath))

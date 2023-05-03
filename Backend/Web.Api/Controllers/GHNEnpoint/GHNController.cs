@@ -9,7 +9,7 @@ using Web.Models.Entities.GHN;
 
 namespace Web.Api.Controllers.GHNEnpoint
 {
-    public class GHNController : BaseAuthController<GHNController>
+    public class GhnController : BaseAuthController<GhnController>
     {
         #region Declaration
         private const string TAG = "GHNController";
@@ -18,7 +18,7 @@ namespace Web.Api.Controllers.GHNEnpoint
         #endregion
 
         #region Contructor
-        public GHNController(IServiceProvider serviceProvider) : base(serviceProvider)
+        public GhnController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             _ghn = GetRequiredService<IGHNClient>();
         }
@@ -41,8 +41,9 @@ namespace Web.Api.Controllers.GHNEnpoint
                     svcResult.Success = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
             }
             return svcResult;
         }
@@ -64,8 +65,9 @@ namespace Web.Api.Controllers.GHNEnpoint
                     svcResult.Success = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
             }
             return svcResult;
         }
@@ -88,8 +90,9 @@ namespace Web.Api.Controllers.GHNEnpoint
                     svcResult.Success = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
             }
             return svcResult;
         }
@@ -112,8 +115,9 @@ namespace Web.Api.Controllers.GHNEnpoint
                     svcResult.Success = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
             }
             return svcResult;
         }
@@ -138,6 +142,7 @@ namespace Web.Api.Controllers.GHNEnpoint
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, $"Exception::{ex.Message}");
             }
             return svcResult;
         }

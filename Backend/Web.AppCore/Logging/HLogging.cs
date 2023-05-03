@@ -12,12 +12,14 @@ namespace Web.AppCore.Logging
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public void LogError(string message,Exception? ex)
+        [Obsolete]
+        public void LogError(string message,Exception ex)
         {
             _logger.Error(message,ex);
         }
-        
-        public void LogInfor(string message,Exception? ex)
+
+        [Obsolete]
+        public void LogInfor(string message,Exception ex)
         {
             _logger.Info(message,ex);
         }
