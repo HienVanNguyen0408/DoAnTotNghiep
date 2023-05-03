@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Web.Utils;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using EasyNetQ.Logging;
 
 namespace Web.MessageQ.Consumer
 {
@@ -84,6 +85,7 @@ namespace Web.MessageQ.Consumer
                     }
                     catch (Exception ex)
                     {
+                        Console.WriteLine(ex);
                         consumeResult = false;
                     }
                     Console.WriteLine($" [x] Received {message}");
@@ -104,6 +106,7 @@ namespace Web.MessageQ.Consumer
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 consumeResult = false;
             }
 
