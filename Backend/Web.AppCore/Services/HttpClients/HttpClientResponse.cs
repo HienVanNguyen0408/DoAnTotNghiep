@@ -10,8 +10,6 @@ namespace Web.AppCore.Services
 {
     public class HttpClientResponse
     {
-        private const string TAG = "HttpClientResponse";
-
         public bool IsSuccessStatusCode { get; set; }
         public string ReasonPhrase { get; set; }
         public HttpStatusCode StatusCode { get; set; }
@@ -65,6 +63,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 return String.Empty;
             }
         }
@@ -87,7 +86,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine($"{ex.Message}");
             }
 
             return string.Join(";", list);

@@ -32,8 +32,9 @@ namespace PostgresDBData
                 await _context.SaveChangesAsync(true);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 return false;
             }
         }
@@ -49,8 +50,9 @@ namespace PostgresDBData
                 await _context.SaveChangesAsync(true);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 return false;
             }
         }
@@ -65,8 +67,9 @@ namespace PostgresDBData
                 await _context.SaveChangesAsync(true);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 return false;
             }
         }
@@ -139,6 +142,7 @@ namespace PostgresDBData
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 return null;
             }
         }
@@ -153,6 +157,7 @@ namespace PostgresDBData
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 return null;
             }
         }
@@ -168,6 +173,7 @@ namespace PostgresDBData
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 return false;
             }
         }
@@ -184,6 +190,7 @@ namespace PostgresDBData
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 return false;
             }
         }
@@ -232,6 +239,7 @@ namespace PostgresDBData
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 return new Pagging<TEntity>();
             }
         }

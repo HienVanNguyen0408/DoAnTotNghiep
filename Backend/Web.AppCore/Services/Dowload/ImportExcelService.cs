@@ -18,12 +18,9 @@ namespace Web.AppCore.Services
         {
             try
             {
+                await Task.CompletedTask;
                 if (request.FileData == null || request.FileData.Length <= 0) return false;
                 var customers = new List<Customer>();
-                //var dir = "";
-                //// load spreadsheet file
-                //var baseDir = Directory.GetCurrentDirectory();
-                //var fileName = "data.csv";
                 Stream stream = new MemoryStream(request.FileData);
                 var workbook = new Workbook(stream);
                 var ws = workbook.Worksheets[0];
@@ -55,7 +52,6 @@ namespace Web.AppCore.Services
                     customer.Churn = ws.Cells[row, 20].Value.ToString();
                     customers.Add(customer);
                 }
-                //var res = await _customerService.InsertManyCustomersAsync(customers);
                 return false;
             }
             catch (Exception)

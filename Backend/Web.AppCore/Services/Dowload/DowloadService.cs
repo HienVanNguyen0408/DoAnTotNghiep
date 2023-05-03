@@ -14,10 +14,8 @@ namespace Web.AppCore.Services
 {
     public class DowloadService : BaseDomainService<CustomerService>, IDownloadService
     {
-        private readonly ICustomerUoW _customerUoW;
         public DowloadService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _customerUoW = serviceProvider.GetRequiredService<ICustomerUoW>();
         }
         ///// <summary>
         ///// Lưu trữ dữ liệu ở ổ E trên máy window

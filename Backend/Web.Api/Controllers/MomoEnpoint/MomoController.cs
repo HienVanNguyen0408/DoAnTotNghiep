@@ -24,11 +24,6 @@ namespace Web.Api.Controllers
         #endregion
 
         #region Methods
-        [HttpPost("payment-momo")]
-        public async Task<bool> PaymentMomoAsync()
-        {
-            return false;
-        }
         #endregion
 
     }

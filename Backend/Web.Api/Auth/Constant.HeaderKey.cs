@@ -1,6 +1,6 @@
 ﻿namespace Web.Api.Auth
 {
-    public class HeaderKey
+    public static class HeaderKey
     {
         public const string ClientId = "ClientId";
         public const string UserId = "UserId";

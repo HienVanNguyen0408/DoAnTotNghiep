@@ -11,8 +11,6 @@ namespace Web.AppCore.Services.MessageQueue
     public class PublisherQueue : IPublisherQueue
     {
         #region Declaration
-        private const string _queueNameOrder = "OrderDataQueueName";
-
         private readonly IPublisher _publisher;
         private readonly QueueNameSettings _queueNameSettings;
         #endregion

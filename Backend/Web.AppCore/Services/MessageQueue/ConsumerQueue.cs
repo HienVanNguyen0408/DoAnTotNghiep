@@ -14,7 +14,6 @@ namespace Web.AppCore.Services.MessageQueue
     public class ConsumerQueue : IConsumerQueue
     {
         #region Declaration
-        private const string _queueNameOrder = "OrderDataQueueName";
 
         private MessageQ.QueueSettings _queueSettings;
         private IConsumer<Order> _orderConsumer;
@@ -44,12 +43,6 @@ namespace Web.AppCore.Services.MessageQueue
         {
             await Task.CompletedTask;
             return false;
-        }
-
-        private async Task<bool> CheckDataQueue()
-        {
-            await Task.CompletedTask;
-            return true;
         }
 
         public async Task StartConsumeAsync(Func<Order, IDictionary<string, object>, Task<bool>> onMessageHandle)

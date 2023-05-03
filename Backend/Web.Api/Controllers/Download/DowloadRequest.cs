@@ -12,12 +12,6 @@ namespace Web.Api.Controllers
         public byte[] data { get; set; }
 
         /// <summary>
-        /// Loại folder 
-        /// Vocab, Grammar ....
-        /// </summary>
-        //public TypeFolder FolderType { get; set; }
-
-        /// <summary>
         /// Tên file
         /// </summary>
         public string FileName { get; set; }

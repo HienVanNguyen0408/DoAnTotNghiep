@@ -13,7 +13,6 @@ namespace Web.AppCore.Services
     public static class StandardHttpClient
     {
         #region "Variable"
-        private static readonly string TAG = "StandardHttpClient";
 
         /// <summary>
         /// Thời gian hết hạn gọi dịch vụ
@@ -55,7 +54,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine($"{ex.Message}");
             }
         }
 
@@ -72,7 +71,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine($"{ex.Message}");
             }
         }
 
@@ -91,8 +90,9 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine($"{ex.Message}");
             }
+            return string.Empty;
         }
 
         /// <summary>
@@ -174,10 +174,6 @@ namespace Web.AppCore.Services
                 {
                     result.ByteResult = await httpResponseMessage.Content.ReadAsByteArrayAsync();
                 }
-                else
-                {
-
-                }
 
                 //Cập nhật Cookies
                 //Cập nhật Cookies
@@ -189,6 +185,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 result.Exception = ex;
             }
 
@@ -242,6 +239,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 result.Exception = ex;
             }
 
@@ -296,6 +294,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"{ex.Message}");
                 result.Exception = ex;
             }
 

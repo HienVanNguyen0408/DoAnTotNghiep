@@ -12,8 +12,5 @@ namespace Web.AppCore.Services
         public CartService(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-
-
-        private string KeyCachedCart(string userId) => $"Cart_{userId}";
     }
 }

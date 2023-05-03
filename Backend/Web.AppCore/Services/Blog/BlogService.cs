@@ -245,29 +245,29 @@ namespace Web.AppCore.Services
         /// <summary>
         /// Cập nhật bài viết
         /// </summary>
-        /// <param name="blog"></param>
+        /// <param name="blogRequest"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateBlogAsync(BlogRequest blog)
+        public async Task<bool> UpdateBlogAsync(BlogRequest blogRequest)
         {
-            var blogMap = MapperExtensions.MapperData<BlogRequest, Blog>(blog);
+            var blogMap = MapperExtensions.MapperData<BlogRequest, Blog>(blogRequest);
             var blogUpdate = await _blogUoW.Blogs.UpdateOneAsync(blogMap);
             if (!blogUpdate) return false;
 
             //Không có file nào 
-            if (blog.files == null || blog.files.CountExt() <= 0) return blogUpdate;
+            if (blogRequest.files == null || blogRequest.files.CountExt() <= 0) return blogUpdate;
 
-            var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blog.id);
+            var images = await _imageUoW.Images.GetAllAsync(x => x.blog_id == blogRequest.id);
             if (images.CountExt() > 0)
             {
-                var deleteImages = await DeleteImagesBlogAsync(blog.id, images.SelectExt(x => x.path).ToList());
+                var deleteImages = await DeleteImagesBlogAsync(blogRequest.id, images.SelectExt(x => x.path).ToList());
                 if (deleteImages)
                 {
-                    await InsertImagesAsync(blog.files, blog.id);
+                    await InsertImagesAsync(blogRequest.files, blogRequest.id);
                 }
             }
             else
             {
-                await InsertImagesAsync(blog.files, blog.id);
+                await InsertImagesAsync(blogRequest.files, blogRequest.id);
             }
 
             return blogUpdate;
@@ -529,7 +529,6 @@ namespace Web.AppCore.Services
         }
 
         private string GetKeyCachedBlogImages(string blogId) => $"blog_images_{blogId}";
-        private string GetKeyCachedBlogImagesBase64(string blogId) => GlobalConstant.GetFullPathBlog($"{blogId}_{Guid.NewGuid()}", FileExtensions.GetFileExtention(FileType.Image));
         #endregion
 
         #endregion

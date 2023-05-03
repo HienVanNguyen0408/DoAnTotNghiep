@@ -23,7 +23,7 @@ namespace Web.Api.Controllers
         #endregion
 
         #region Contructor
-        public BaseAuthController(IServiceProvider serviceProvider) : base(serviceProvider)
+        protected BaseAuthController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
             _appSettings = GetRequiredService<IOptions<AppSettings>>().Value;
             _roleService = GetRequiredService<IRoleAccessService>();

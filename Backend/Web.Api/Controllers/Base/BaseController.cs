@@ -46,59 +46,6 @@ namespace Web.Api.Controllers
 
         public virtual string ClientId => Request.Headers[HeaderKey.ClientId].ToString();
 
-        //[HttpGet("ip-current")]
-        ///// <summary>
-        ///// Lấy địa chỉ IP Htpp Request
-        ///// </summary>
-        ///// <returns></returns>
-        //public virtual string GetCurrentIPAddress()
-        //{
-        //    try
-        //    {
-        //        var result = string.Empty;
-        //        if (!IsRequestAvailable()) return result;
-
-        //        if (_httpContextAccessor.HttpContext.Request.Headers != null)
-        //        {
-        //            var forwaredHeader = _httpContextAccessor.HttpContext.Request.Headers[HeaderKey.ForwardedHeader];
-        //            // Lấy giá trị key trên
-        //            if (!StringValues.IsNullOrEmpty(forwaredHeader)) { result = forwaredHeader.FirstOrDefault(); }
-        //        }
-
-        //        if (string.IsNullOrEmpty(result) && _httpContextAccessor.HttpContext.Connection.RemoteIpAddress != null)
-        //        {
-        //            result = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-        //        }
-
-        //        if (IPAddress.TryParse(result ?? string.Empty, out IPAddress ip))
-        //        {
-        //            result = ip.ToString();
-        //        }
-        //        else if (!string.IsNullOrEmpty(result))
-        //        {
-        //            result = result.Split(":").FirstOrDefault();
-        //        }
-
-        //        if (result != null && result.Equals(NullIPAddress, StringComparison.OrdinalIgnoreCase))
-        //        {
-        //            result = "127.0.0.1";
-        //        }
-
-        //        //Tách dấu phẩu lấy IP đầu tiên nếu có nhiều IP
-        //        if (result.Contains(","))
-        //        {
-        //            result = result.Split(",").FirstOrDefault();
-        //        }
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex.Message);
-        //    }
-
-        //    return string.Empty;
-        //}
-
         /// <summary>
         /// Kiểm tra request có hợp lệ hay không
         /// </summary>

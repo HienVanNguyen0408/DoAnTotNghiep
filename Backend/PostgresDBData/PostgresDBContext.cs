@@ -9,7 +9,6 @@ namespace PostgresDBData
 {
     public class PostgreSqlContext : DbContext
     {
-        private readonly PostgresSettings _postgresSettings;
         public PostgreSqlContext(DbContextOptions<PostgreSqlContext> options) : base(options)
         {
         }
@@ -37,18 +36,6 @@ namespace PostgresDBData
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<ProductCategory>(entity =>
-            //{
-            //    // Set key for entity
-            //    entity.HasKey(p => p.id);
-            //});
-
-            //modelBuilder.Entity<Product>(entity =>
-            //{
-            //    // Set key for entity
-            //    entity.HasKey(p => p.id);
-            //});
-
             base.OnModelCreating(modelBuilder);
         }
         public override int SaveChanges()

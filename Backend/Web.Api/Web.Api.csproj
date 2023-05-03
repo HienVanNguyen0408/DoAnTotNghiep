@@ -41,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\CustomerEnpoint\" />
     <Folder Include="Documents\TemplateExcel\" />
     <Folder Include="LocalStorage\Blog\" />
     <Folder Include="LocalStorage\Product\" />

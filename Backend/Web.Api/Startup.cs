@@ -105,6 +105,7 @@ namespace Web.Api
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                Console.WriteLine(xmlPath);
             });
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
