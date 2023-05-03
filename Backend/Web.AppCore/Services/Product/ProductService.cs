@@ -476,6 +476,7 @@ namespace Web.AppCore.Services
 
         private async Task<List<string>> GetBase64ImagesProductLocalAsync(string productId, bool isGetAllImage = false)
         {
+            await Task.CompletedTask;
             var images = new List<string>();
             var pathImagesProduct = $"{FileExtensions.GetPathProductLocal()}\\{productId}";
             var checkFolderExist = FileExtensions.CheckFolderExist(pathImagesProduct);

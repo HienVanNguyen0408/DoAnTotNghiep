@@ -17,7 +17,7 @@ namespace Web.AppCore.Ultility
         /// <param name="data2">Dữ liệu cần convert</param>
         /// NVHIEN Created
         /// <returns></returns>
-        public static T? ConvertData<T>(this T data, object data2)
+        public static T ConvertData<T>(this T data, object data2)
         {
             return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(data2));
         }

@@ -20,6 +20,7 @@ namespace Web.Utils
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return default;
             }
         }

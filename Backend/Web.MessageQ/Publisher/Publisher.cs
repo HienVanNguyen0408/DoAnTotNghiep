@@ -69,7 +69,6 @@ namespace Web.MessageQ.Publisher
 
             string message = JsonUtils.Serialize(data);
             var queueMessage = Encoding.UTF8.GetBytes(message);
-            var exchangeName = "order_exchange";
             // Create Exchange
             //_chanel.ExchangeDeclare(exchangeName, RabbitMQ.Client.ExchangeType.Direct);
             _chanel.QueueDeclare(queue: queueName, false, false, false, null);

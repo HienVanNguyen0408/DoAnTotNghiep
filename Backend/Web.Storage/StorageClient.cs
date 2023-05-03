@@ -18,7 +18,6 @@ namespace Web.Storage
 {
     public class StorageClient : IStorageClient
     {
-        private readonly MinioClient _minioClient;
         private readonly StorageSettings _storageSettings;
         private readonly AmazonS3Client _awsClient;
 
@@ -61,6 +60,7 @@ namespace Web.Storage
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
             return true;
@@ -68,6 +68,7 @@ namespace Web.Storage
 
         public async Task<string> GetPathFileDownloadAsync(string fullPath, int seconds = 60 * 60)
         {
+            await Task.CompletedTask;
             try
             {
                 var pathData = _awsClient.GetPreSignedURL(new GetPreSignedUrlRequest()
@@ -80,6 +81,7 @@ namespace Web.Storage
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return string.Empty;
             }
         }
@@ -103,6 +105,7 @@ namespace Web.Storage
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -136,6 +139,7 @@ namespace Web.Storage
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return string.Empty;
             }
         }
@@ -151,6 +155,7 @@ namespace Web.Storage
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }

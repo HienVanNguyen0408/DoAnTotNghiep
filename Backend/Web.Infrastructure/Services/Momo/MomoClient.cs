@@ -22,6 +22,7 @@ namespace Web.Infrastructure.Services.Momo
         }
         public async Task<bool> PaymentMomoAsync(PaymentRequest request)
         {
+            await Task.CompletedTask;
             var serectkey = _momoSettings.AccessKey;
             request = new PaymentRequest
             {

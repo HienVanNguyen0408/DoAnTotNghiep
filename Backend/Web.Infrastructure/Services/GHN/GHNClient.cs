@@ -293,6 +293,7 @@ namespace Web.Infrastructure.Services.GHN
 
         public async Task<bool> PrintOrderAsync()
         {
+            await Task.CompletedTask;
             return false;
         }
 

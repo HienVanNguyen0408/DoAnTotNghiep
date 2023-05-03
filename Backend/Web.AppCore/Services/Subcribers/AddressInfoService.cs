@@ -129,6 +129,7 @@ namespace Web.AppCore.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }

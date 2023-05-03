@@ -9,8 +9,6 @@ namespace Web.Utils
 
     public static class JsonUtils
     {
-        private static readonly string TAG = "JsonUtility";
-
         public static readonly DateFormatHandling JsonDateFormatHandling = DateFormatHandling.IsoDateFormat;
         public static readonly DateTimeZoneHandling JsonDateTimeZoneHandling = DateTimeZoneHandling.Local;
         public static readonly string JsonDateFormatString = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffFFFFK";
