@@ -1,12 +1,13 @@
 pipeline{
     agent any
-    eviroment{
+    environment {
+        PATH = "$PATH:/root/.dotnet/tools"
     }
     stages{
        stage('get code') {
             steps {
                 echo 'get code'
-                git url : 'https://github.com/HienVanNguyen0408/DoAnTotNghiep.git', branch : "${BRANCH_NAME}", credentialsId : '2e9fbd3e-55e2-48a2-a006-442bd2285282'
+                git url : 'https://github.com/HienVanNguyen0408/DoAnTotNghiep.git', branch : "dev", credentialsId : '86892c3c-1935-4ba7-9be1-706408b46397'
                 echo 'get code success'
             }
         }       
@@ -16,9 +17,9 @@ pipeline{
                     echo "Start scan Sonar code"
                     dir('/var/jenkins_home/workspace/NVHIEN_MTA/DATN/ci-project/Backend'){
                         sh """
-                            dotnet sonarscanner begin /k:"sonar-datn" /d:sonar.host.url="http://168.138.194.53:9000"  /d:sonar.token="sqp_039373ab8006ea6708685dec1bce4bb12b6eed69"
+                            dotnet sonarscanner begin /k:"sonar-datn" /d:sonar.host.url="http://168.138.194.53:9000"  /d:sonar.token="sqp_1850bd8f7bd516f8dcc4616e52a7cecf3571e4b8"
                             dotnet build
-                            dotnet sonarscanner end /d:sonar.token="sqp_039373ab8006ea6708685dec1bce4bb12b6eed69"    
+                            dotnet sonarscanner end /d:sonar.token="sqp_1850bd8f7bd516f8dcc4616e52a7cecf3571e4b8"
                         """
                     }
                     echo "End scan Sonar code"
