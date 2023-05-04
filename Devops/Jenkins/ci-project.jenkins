@@ -1,32 +1,68 @@
+def pathProjTest = "/var/jenkins_home/workspace/NVHIEN_MTA/DATN/ci-project/Backend/Web.Test"
+def pathProjectSonar = "http://168.138.194.53:9000/dashboard?id=sonar-datn"
+def tokenSonar = "sqp_6112e30b1c47a1165462aba165daa6407e9eb866"
+def messageNoti = ""
+
 pipeline{
     agent any
     environment {
         PATH = "$PATH:/root/.dotnet/tools"
     }
     stages{
-       stage('get code') {
+       stage('Get Code') {
             steps {
                 echo 'get code'
                 git url : 'https://github.com/HienVanNguyen0408/DoAnTotNghiep.git', branch : "dev", credentialsId : '86892c3c-1935-4ba7-9be1-706408b46397'
                 echo 'get code success'
             }
         }       
-        stage('Code Analysis') {
+        stage('Run test') {
+            steps {
+                echo "Start run test"
+                dir("${pathProjTest}"){
+                    sh """
+                       dotnet test --logger "trx;LogFileName=TestResult.trx;ResultsDirectory=./TestResults"
+                       trx2junit ./TestResults/TestResult.trx
+                    """
+                }
+                echo "End run test"
+            }
+        }
+        stage('Publish test report'){
             steps{
-                withSonarQubeEnv(installationName : 'jenkins-sonar') {
-                    echo "Start scan Sonar code"
-                    dir('/var/jenkins_home/workspace/NVHIEN_MTA/DATN/ci-project/Backend'){
-                        sh """
-                            dotnet sonarscanner begin /k:"sonar-datn" /d:sonar.host.url="http://168.138.194.53:9000"  /d:sonar.token="sqp_1850bd8f7bd516f8dcc4616e52a7cecf3571e4b8"
-                            dotnet build
-                            dotnet sonarscanner end /d:sonar.token="sqp_1850bd8f7bd516f8dcc4616e52a7cecf3571e4b8"
-                        """
+                script{
+                    dir("${pathProjTest}"){
+                        def summary = junit skipMarkingBuildUnstable: true, testResults: 'TestResults/*.xml'
+                        messageNoti = "Kết quả của Unittest\n *Test Summary*\n-Passed/Total::${summary.passCount}/${summary.totalCount}\nTotal::${summary.totalCount}, Failures::${summary.failCount}, Skipped::${summary.skipCount}, Passed::${summary.passCount}\n"
                     }
-                    echo "End scan Sonar code"
                 }
             }
-            
         }
-       
+        stage('Code Analysis') {
+            steps{
+                script{
+                    withSonarQubeEnv(installationName : 'jenkins-sonar') {
+                        echo "Start scan Sonar code"
+                        dir('/var/jenkins_home/workspace/NVHIEN_MTA/DATN/ci-project/Backend'){
+                            sh """
+                                dotnet sonarscanner begin /k:"sonar-datn" /d:sonar.host.url="http://168.138.194.53:9000"  /d:sonar.token="${tokenSonar}"
+                                dotnet build
+                                dotnet sonarscanner end /d:sonar.token="${tokenSonar}"
+                            """
+                            messageNoti = "\nHiến thông báo đã Code Analysis thành công::Xem chi tiết tại đây::${pathProjectSonar}"
+                        }
+                        echo "End scan Sonar code"
+                    }
+                }
+            }
+        }
+    }
+    post {
+        success {
+            slackSend channel: '#ci-jenkins', message: "Hiến thông báo quá trình ci-project thành công!!!\n${messageNoti}"
+        }
+        failure {
+            slackSend channel: '#ci-jenkins', message: "Hiến thông báo quá trình ci-project thất bại!!!\n${messageNoti}"
+        }
     }
 }
