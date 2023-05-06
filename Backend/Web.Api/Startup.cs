@@ -96,7 +96,9 @@ namespace Web.Api
                 .AddDataServiceWebStockets()
                 .AddMessageQueueService()
                 .AddStorageServiceExtension(Configuration);
-
+            //Chạy worker
+            services.AddHostedService<OrderWorker>();
+            services.AddHostedService<InsertOrderWorker>();
 
             services.AddSwaggerGen(c =>
             {
