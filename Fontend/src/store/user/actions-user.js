@@ -32,7 +32,7 @@ export default {
         var res = await userClient.postAsync({
             url : `${userClient.url}/pagging`,
             data : payload
-        });
+        }, true);
         if(res){
             context.commit('updatePaggingUsers',res.data);
         }

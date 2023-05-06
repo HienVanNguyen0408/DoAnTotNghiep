@@ -153,7 +153,7 @@ export default {
         var res = await productClient.postAsync({
             url: `${productClient.url}/pagging-productcategory`,
             data: payload
-        });
+        }, true);
 
         if (res) {
             context.commit('updateProductCategoryPage', res.data);

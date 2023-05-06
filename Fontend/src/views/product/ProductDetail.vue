@@ -100,6 +100,7 @@ export default {
     },
     async created() {
         const me = this;
+        console.log(me.ProductUser);
         if (!me.ProductUser || !me.ProductUser.id) {
             if (me.$route.query && me.$route.query.product) {
                 let payload = {
@@ -167,6 +168,10 @@ export default {
         async addProductCart() {
             const me = this;
             if (me.product.number >= 0) me.product.number = parseInt(me.product.number);
+            let checkValid = me.validateProductAmount();
+            if(!checkValid){
+                alert("Số lượng sản phẩm không đủ");
+            }
             let product = {
                 id: me.ProductUser.id,
                 sale_price: me.ProductUser.sale_price,
@@ -183,8 +188,17 @@ export default {
             } else {
                 // me.$router.push("/login");
             }
+        },
+
+        validateProductAmount(){
+            const me = this;
+            let productSelect = me.ProductUser.colors.find(x => x.size_name == me.sizeSelect&& x.color_name == me.colorNameSelect);
+            if(!productSelect) return true;
+            if(me.product.number > productSelect.amount) return false;
+            return true;
         }
-    }
+    },
+
 }
 </script>
 <style scoped>

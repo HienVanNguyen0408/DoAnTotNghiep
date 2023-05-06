@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('Rollout webapp'){
+            steps {
+                sh """
+                    docker login -u hienvannguyen0408 -p Hien04080408
+                    docker pull hienvannguyen0408/doantotnghiep-app:${VERSION_BUILD}
+                    docker rm -f datnwebapp
+                    docker run --rm -d --name datnwebapp  --publish "8082:80" -v /app/node_modules -v /app --user root --privileged=true -d hienvannguyen0408/doantotnghiep-app:${VERSION_BUILD}
+                """
+            }
+        }
+        stage('Rollout webapi'){
+            steps {
+                sh """
+                    docker login -u hienvannguyen0408 -p Hien04080408
+                    docker pull hienvannguyen0408/doantotnghiep-api:${VERSION_BUILD}
+                    docker rm -f datnwebapi
+                    docker run --rm -d --name datnwebapi  --publish "5001:80" -v /app/publish  --user root --privileged=true -d hienvannguyen0408/doantotnghiep-api:${VERSION_BUILD}
+                """
+            }
+        }
+    }
+}

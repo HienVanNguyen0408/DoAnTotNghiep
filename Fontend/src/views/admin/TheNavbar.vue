@@ -6,7 +6,7 @@
         <div class="menus" v-if="menus && menus.length > 0">
             <div class="menu" v-for="(menu,index) in menus" :key="index" :class="{'menu-active' : routerActive == menu.router}" @click="menuChange(menu)">
                 <div class="flex align-center w-100">
-                    <div class="dq-mgr-10 icon-navbar" :class="menu.icon"></div>
+                    <!-- <div class="dq-mgr-10 icon-navbar" :class="menu.icon"></div> -->
                     <div class="text-navbar">{{ menu.text }}</div>
                 </div>
             </div>

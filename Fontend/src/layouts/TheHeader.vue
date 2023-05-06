@@ -95,7 +95,7 @@
                   <div class="title-search">THÔNG TIN TÀI KHOẢN</div>
                   <div class="font-bold mt-4 cursor-pointer">{{ User.user_name }}</div>
                   <div class="mt-4 cursor-pointer action-form">Tài khoản của tôi</div>
-                  <div class="mt-4 cursor-pointer action-form">Địa chỉ của tôi</div>
+                  <div class="mt-4 cursor-pointer action-form" @click="viewAddress">Địa chỉ của tôi</div>
                   <div class="mt-4 cursor-pointer action-form" @click="logout">Đăng xuất</div>
                 </div>
               </div>
@@ -288,6 +288,11 @@ export default {
     viewOrders(){
       const me = this;
       me.$router.push("/order")
+    },
+
+    viewAddress(){
+      const me = this;
+      me.$router.push("/address-info");
     }
   },
 

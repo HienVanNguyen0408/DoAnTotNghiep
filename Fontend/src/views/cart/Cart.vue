@@ -268,8 +268,8 @@ export default {
 
         resetCart() {
             const me = this;
-            if (me.$commonFunc.getUserName()) {
-                me.$commonFunc.resetCartByUser(me.$commonFunc.getUserName());
+            if (me.User && me.User.user_name) {
+                me.$commonFunc.resetCartByUser(me.User.user_name);
             }
         },
         /**
@@ -280,7 +280,7 @@ export default {
             me.resetCart();
             if (me.orders) {
                 for (let i = 0; i < me.orders.length; i++) {
-                    me.$commonFunc.addCart(me.$commonFunc.getUserName(), me.orders[i]);
+                    me.$commonFunc.addCart(me.User.user_name, me.orders[i]);
                 }
             }
             await me.getOrders();
@@ -337,6 +337,7 @@ export default {
             const me = this;
             me.orders = [...me.orders.filter(x => !x.selected)];
             me.updateCart();
+            me.selected = [];
         },
         /**
          * Check row grid
