@@ -35,9 +35,10 @@
                 <div class="options-size mt-3 pb-4 border-bottom" v-if="colorsProductSize && colorsProductSize.length > 0">
                     <div class="sizes-product flex">
                         <div :class="[sizeSelect == color.size_name ? 'size-product-active' : '']"
-                            class="size-product cursor-pointer mr-3" v-for="(color, index) in colorsProductSize"
+                            class="size-product cursor-pointer mr-3 relative" v-for="(color, index) in colorsProductSize"
                             :key="index" @click="selectSize(color)">
                             <div>{{ color.size_name }}</div>
+                            <div class="amount-product">{{ color.amount }}</div>
                         </div>
                     </div>
                 </div>
@@ -92,6 +93,7 @@ export default {
         ...mapGetters(ModuleProduct, [
             'ProductUser',
         ]),
+        ...mapGetters(["CartProducts"]),
         getColorsProduct() {
             const me = this;
             if (!me.ProductUser || !me.ProductUser.colors || me.ProductUser.colors.length <= 0) return [];
@@ -100,7 +102,6 @@ export default {
     },
     async created() {
         const me = this;
-        console.log(me.ProductUser);
         if (!me.ProductUser || !me.ProductUser.id) {
             if (me.$route.query && me.$route.query.product) {
                 let payload = {
@@ -109,6 +110,8 @@ export default {
                 };
                 await me.getProductAsync(payload);
             }
+            //load lại giỏ hàng
+            await me.getCartByUser(me.User.user_name);
         }
         if (!me.ProductUser || !me.ProductUser.id) {
             me.$router.push({ path: 'product' })
@@ -169,14 +172,15 @@ export default {
             const me = this;
             if (me.product.number >= 0) me.product.number = parseInt(me.product.number);
             let checkValid = me.validateProductAmount();
-            if(!checkValid){
+            if (!checkValid) {
                 me.$commonFunc.showNotification(me.$enum.NotificationStatus.Warning, {
-                    title : 'Thêm giỏ hàng',
-                    message : 'Số lượng sản phẩm không đủ',
-                    duration : 2
+                    title: 'Thêm giỏ hàng',
+                    message: 'Số lượng sản phẩm không đủ',
+                    duration: 2
                 })
                 return;
             }
+
             let product = {
                 id: me.ProductUser.id,
                 sale_price: me.ProductUser.sale_price,
@@ -186,31 +190,49 @@ export default {
                 total_amount: me.product.number * me.ProductUser.sale_price
             }
             me.product = { ...me.product, ...product };
+
+            //Thêm số lượng giỏ hàng vượt quá số lượng đang có
+            let productCart = me.CartProducts.find(x => x.id == x.id && x.color_name == product.color_name && x.size_name == product.size_name);
+            if (productCart) {
+                let colorStock = me.colorsProductSize.find(x => x.color_name == product.color_name && x.size_name == product.size_name);
+                if (colorStock) {
+                    let check = colorStock.amount < me.product.number + productCart.number;
+                    if (check) {
+                        me.$commonFunc.showNotification(me.$enum.NotificationStatus.Warning, {
+                            title: 'Thêm giỏ hàng',
+                            message: 'Số lượng trong giỏ và mới thêm nhiều hơn số lượng đang có',
+                            duration: 2
+                        });
+                        return;
+                    }
+                }
+            }
+
             if (me.User && me.User.id) {
                 me.$commonFunc.addCart(me.User.user_name, me.product);
                 //load lại giỏ hàng
                 await me.getCartByUser(me.User.user_name);
                 me.$commonFunc.showNotification(me.$enum.NotificationStatus.Success, {
-                    title : 'Thêm giỏ hàng',
-                    message : 'Thêm sản phẩm thành công',
-                    duration : 2
+                    title: 'Thêm giỏ hàng',
+                    message: 'Thêm sản phẩm thành công',
+                    duration: 2
                 })
                 me.product.number = 1;
             } else {
                 me.$commonFunc.showNotification(me.$enum.NotificationStatus.Warning, {
-                    title : 'Hết hạn đăng nhập',
-                    message : 'Vui lòng đăng nhập lại để thực hiện!!',
-                    duration : 2
+                    title: 'Hết hạn đăng nhập',
+                    message: 'Vui lòng đăng nhập lại để thực hiện!!',
+                    duration: 2
                 })
                 // me.$router.push("/login");
             }
         },
 
-        validateProductAmount(){
+        validateProductAmount() {
             const me = this;
-            let productSelect = me.ProductUser.colors.find(x => x.size_name == me.sizeSelect&& x.color_name == me.colorNameSelect);
-            if(!productSelect) return true;
-            if(me.product.number > productSelect.amount) return false;
+            let productSelect = me.ProductUser.colors.find(x => x.size_name == me.sizeSelect && x.color_name == me.colorNameSelect);
+            if (!productSelect) return true;
+            if (me.product.number > productSelect.amount) return false;
             return true;
         }
     },
@@ -272,5 +294,12 @@ export default {
     border-radius: 50%;
     width: 50px;
     height: 50px;
+}
+
+.amount-product {
+    font-size: 10px;
+    position: absolute;
+    top: 0px;
+    right: 1px;
 }
 </style>

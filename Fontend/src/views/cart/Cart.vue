@@ -183,6 +183,10 @@ export default {
                     dataField: 'product_name',
                 },
                 {
+                    title: 'Kích thước',
+                    dataField: 'size_name'
+                },
+                {
                     title: 'Đơn giá',
                     dataField: 'sale_price',
                     format: me.$enum.Format.Money
@@ -196,7 +200,7 @@ export default {
                     title: 'Thành tiền',
                     dataField: 'total_amount',
                     format: me.$enum.Format.Money
-                }
+                },
             ];
             me.widgetLeft = {
                 components: WidgetCart,

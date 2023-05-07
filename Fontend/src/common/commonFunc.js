@@ -78,9 +78,9 @@ class CommonFunc {
             }
         } else {
             let exist = order && orderStorage[`${userName}`].orders.filter(x => x.id == order.id) && orderStorage[`${userName}`]
-                .orders.filter(x => x.id == order.id && x.color_name == order.color_name && x.size_name && order.size_name).length > 0;
+                .orders.filter(x => x.id == order.id && x.color_name == order.color_name && x.size_name == order.size_name).length > 0;
             if (exist) {
-                let index = orderStorage[`${userName}`].orders.findIndex((obj => obj.id == order.id));
+                let index = orderStorage[`${userName}`].orders.findIndex((x => x.id == order.id  && x.color_name == order.color_name && x.size_name == order.size_name));
                 orderStorage[`${userName}`].orders[index].total_amount += order.total_amount;
                 orderStorage[`${userName}`].orders[index].number += order.number;
             } else {
