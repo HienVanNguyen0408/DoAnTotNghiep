@@ -61,31 +61,35 @@ pipeline{
         }
         stage('Build & Deploy webapp'){
             steps {
-                echo 'build'
-                dir("${pathProject}/Fontend"){
-                    sh """
-                        docker build . -t hienvannguyen0408/doantotnghiep-app:lastest
-                        docker login -u hienvannguyen0408 -p Hien04080408
-                        docker push hienvannguyen0408/doantotnghiep-app:lastest
-                        docker rm -f datnwebapp
-                        docker run --rm -d --name datnwebapp  --publish "8082:80" -v /app/node_modules -v /app --user root --privileged=true -d hienvannguyen0408/doantotnghiep-app:lastest
-                    """
-                    messageNoti += "\n- Hiến thông báo đã build và deploy thành công web-app"
+                script {
+                    echo 'build'
+                    dir("${pathProject}/Fontend"){
+                        sh """
+                            docker build . -t hienvannguyen0408/doantotnghiep-app:lastest
+                            docker login -u hienvannguyen0408 -p Hien04080408
+                            docker push hienvannguyen0408/doantotnghiep-app:lastest
+                            docker rm -f datnwebapp
+                            docker run --rm -d --name datnwebapp  --publish "8082:80" -v /app/node_modules -v /app --user root --privileged=true -d hienvannguyen0408/doantotnghiep-app:lastest
+                        """
+                        messageNoti += "\n- Hiến thông báo đã build và deploy thành công web-app"
+                    }
                 }
             }
         }
         stage('Build & Deploy webapi'){
             steps {
-                echo 'build'
-                dir("${pathProject}/Backend"){
-                    sh """
-                        docker build . -f Dockerfile -t hienvannguyen0408/doantotnghiep-api:lastest
-                        docker login -u hienvannguyen0408 -p Hien04080408
-                        docker push hienvannguyen0408/doantotnghiep-api:lastest
-                        docker rm -f datnwebapi
-                        docker run --rm -d --name datnwebapi  --publish "5001:80" -v /app/publish  --user root --privileged=true -d hienvannguyen0408/doantotnghiep-api:lastest
-                    """
-                    messageNoti += "\n- Hiến thông báo đã build và deploy thành công web-api"
+                script{
+                    echo 'build'
+                    dir("${pathProject}/Backend"){
+                        sh """
+                            docker build . -f Dockerfile -t hienvannguyen0408/doantotnghiep-api:lastest
+                            docker login -u hienvannguyen0408 -p Hien04080408
+                            docker push hienvannguyen0408/doantotnghiep-api:lastest
+                            docker rm -f datnwebapi
+                            docker run --rm -d --name datnwebapi  --publish "5001:80" -v /app/publish  --user root --privileged=true -d hienvannguyen0408/doantotnghiep-api:lastest
+                        """
+                        messageNoti += "\n- Hiến thông báo đã build và deploy thành công web-api"
+                    }
                 }
             }
         }
