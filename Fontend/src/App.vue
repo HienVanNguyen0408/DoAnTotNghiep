@@ -2,13 +2,11 @@
   <div id="app">
     <FullPage />
     <dq-loading></dq-loading>
-    <!-- <Messanger /> -->
   </div>
 </template>
 
 <script>
 import FullPage from '@/pages/FullPage.vue';
-// import Messanger from '@/views/platform/Messanger.vue';
 import {
   mapMutations
 } from 'vuex';
