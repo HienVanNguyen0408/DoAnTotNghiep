@@ -67,5 +67,7 @@ namespace Web.AppCore.Interfaces.Services
         Task<Order> GetOrderAsync(string orderId);
 
         Task<bool> UpdateOrderOnQueueAsync(Order order, IDictionary<string, object> headers);
+
+        Task<bool> ValidateProductOrderAsync(List<OrderItemRequest> orderItems);
     }
 }

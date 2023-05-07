@@ -39,12 +39,25 @@ namespace Web.Api.Controllers
             var svcResult = new ServiceResult<bool>();
             try
             {
+                //Validate số lượng sản phẩm
+                var checkAmountProduct = await _orderService.ValidateProductOrderAsync(order.order_items);
+                if (checkAmountProduct)
+                {
+                    return new ServiceResult<bool>
+                    {
+                        Data = false,
+                        Success = false,
+                        Status = ServiceResultStatus.Ok,
+                        Message = "Có sản phẩm không đủ số lượng.Vui lòng về giỏ hàng kiểm tra"
+                    };
+                }
                 var res = await _publisher.PublishInsertOrderAsync(order, null);
                 svcResult = new ServiceResult<bool>
                 {
                     Data = res,
                     Success = res,
-                    Status = ServiceResultStatus.Ok
+                    Status = ServiceResultStatus.Ok,
+                    Message = "Đặt hàng thành công"
                 };
                 return svcResult;
             }

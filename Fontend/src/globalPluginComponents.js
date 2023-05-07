@@ -95,3 +95,9 @@ Vue.component('dq-multiple-slider',DQMultipleRangeSlider);
 
 import DQRangeSlider from '@/components/dq-input-slider/DQRangeSlider';
 Vue.component('dq-range-slider',DQRangeSlider);
+
+import DQNotification from '@/components/dq-notification/DQNotification';
+Vue.component('dq-notificaiton',DQNotification);
+
+import DQConfirm from '@/components/dq-notification/DQConfirm';
+Vue.component('dq-confirm',DQConfirm);

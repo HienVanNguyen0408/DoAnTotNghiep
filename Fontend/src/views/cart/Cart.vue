@@ -14,17 +14,19 @@
             <div class="flex">
                 <div class="dq-grid mt-5 flex-5 mr-10">
                     <dq-grid ref="gridProduct" :data="CartProducts" :columns="columns" serial="true" checkbox="true"
-                        :textPage="'Sản phẩm'" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti">
+                        :textPage="'Sản phẩm'" @checkboxOne="checkboxOne" @checkboxMulti="checkboxMulti"
+                        :widgetLeft="widgetLeft" @widgetLeftEvent="widgetLeftEvent">
                     </dq-grid>
                 </div>
                 <div class="flex-2 form-confirm-order">
                     <div class="address-info">
                         <div class="flex">
                             <div class="font-bold">Địa điểm</div>
-                            <div v-if="!AddressInfo || !AddressInfo.id" class="ml-3 text-add-address font-bold" @click="insertAddress">Thêm địa chỉ</div>
+                            <div v-if="!AddressInfo || !AddressInfo.id" class="ml-3 text-add-address font-bold"
+                                @click="insertAddress">Thêm địa chỉ</div>
                             <div v-else class="ml-3">{{ AddressInfo.address_info }}</div>
                         </div>
-                        <div v-if="AddressInfo && AddressInfo.address_info"  class="text-edit-address">
+                        <div v-if="AddressInfo && AddressInfo.address_info" class="text-edit-address">
                             <span class="cursor-pointer " @click="editInfoAddress">Chỉnh sửa</span>
                         </div>
                     </div>
@@ -34,25 +36,25 @@
                             <div class="flex align-center justify-between mb-4">
                                 <div>Tạm tính( <span>{{ selected && selected.length > 0 ? selected.length : 0 }}</span>
                                     sản phẩm )</div>
-                                <div>{{ totalMoney | formatMoney}}đ</div>
+                                <div>{{ totalMoney | formatMoney }}đ</div>
                             </div>
                             <div class="flex align-center justify-between mb-4">
                                 <div>
                                     <div>Phí vận chuyển</div>
                                     <div>(Đơn vị vận chuyển: GHN)</div>
                                 </div>
-                                <div>{{ totalFeeShip | formatMoney}}đ</div>
+                                <div>{{ totalFeeShip | formatMoney }}đ</div>
                             </div>
                             <div class="flex align-center justify-between mb-4" v-if="LeadTime && LeadTime.leadtime">
                                 <div>
                                     <div>Thời gian dự tính đơn hàng</div>
                                     <div>(Đơn vị vận chuyển: GHN)</div>
                                 </div>
-                                <div>{{ new Date(LeadTime.leadtime*1000) | formatDate}}</div>
+                                <div>{{ new Date(LeadTime.leadtime * 1000) | formatDate }}</div>
                             </div>
                             <div class="flex align-center justify-between mb-4">
                                 <div>Tổng cộng</div>
-                                <div class="color-totalamount">{{ totalFeeShip + totalMoney | formatMoney}}đ</div>
+                                <div class="color-totalamount">{{ totalFeeShip + totalMoney | formatMoney }}đ</div>
                             </div>
                         </div>
                         <div class="btn-confirm-order">
@@ -67,7 +69,8 @@
         </div>
         <div v-else class="not-oder-cart">
             <div>
-                <div class="text-not-order flex justify-center align-center mt-8">Không có sản phẩm nào trong giỏ hàng của bạn</div>
+                <div class="text-not-order flex justify-center align-center mt-8">Không có sản phẩm nào trong giỏ hàng của
+                    bạn</div>
                 <div class="flex justify-center align-center mt-8">
                     <dq-button @click="buyProduct" class="continue-buy" :title="'Tiếp tục mua hàng'">
                     </dq-button>
@@ -79,12 +82,13 @@
 
 <script>
 import {
-    mapActions, mapGetters
+    mapActions, mapGetters, mapMutations
 } from 'vuex';
 import { ModuleUser, ModuleGHN } from '@/store/module-const';
+import WidgetCart from "./WidgetCart.vue";
 export default {
     name: "Cart",
-    components:{
+    components: {
     },
     data() {
         return {
@@ -99,6 +103,7 @@ export default {
                 totalPages: 0
             },
             selected: [],
+            widgetLeft: {}
         }
     },
     created() {
@@ -150,7 +155,7 @@ export default {
         },
         totalFeeShip() {
             const me = this;
-            if(me.Fee && me.Fee.total > 0) return me.Fee.total;
+            if (me.Fee && me.Fee.total > 0) return me.Fee.total;
             return 0;
         }
     },
@@ -163,6 +168,7 @@ export default {
             "getFeeInfoAsync",
             "getLeadTimeInfoAsync"
         ]),
+        ...mapMutations(["changeLoadingStatus"]),
         async initData() {
             const me = this;
             me.initDataStatic();
@@ -181,22 +187,28 @@ export default {
                     dataField: 'sale_price',
                     format: me.$enum.Format.Money
                 },
-                {
-                    title: 'Số lượng',
-                    dataField: 'number',
-                    format: me.$enum.Format.Money
-                },
+                // {
+                //     title: 'Số lượng',
+                //     dataField: 'number',
+                //     format: me.$enum.Format.Money
+                // },
                 {
                     title: 'Thành tiền',
                     dataField: 'total_amount',
                     format: me.$enum.Format.Money
                 }
-            ]
+            ];
+            me.widgetLeft = {
+                components: WidgetCart,
+                title: 'Số lượng',
+                props: {},
+                dataField: 'number'
+            }
         },
         /**
          * Lấy thông tin địa chỉ mặc định
          */
-        async getAddressInfoDefault(){
+        async getAddressInfoDefault() {
             const me = this;
             if (me.User && me.User.id) {
                 let payload = {
@@ -204,21 +216,21 @@ export default {
                 };
                 await me.getAddressInfoDefaultAsync(payload);
                 //Tính fee đơn hàng
-                if(me.AddressInfo && me.AddressInfo.id){
+                if (me.AddressInfo && me.AddressInfo.id) {
                     payload = {
-                        to_ward_code : me.AddressInfo.ward_code,
-                        to_district_id : me.AddressInfo.district_id
+                        to_ward_code: me.AddressInfo.ward_code,
+                        to_district_id: me.AddressInfo.district_id
                     }
                     await me.getFeeInfoAsync(payload);
                 }
             }
         },
 
-        async getLeadTimeInfo(){
+        async getLeadTimeInfo() {
             const me = this;
             let payload = {
-                to_ward_code : me.AddressInfo.ward_code,
-                to_district_id : me.AddressInfo.district_id
+                to_ward_code: me.AddressInfo.ward_code,
+                to_district_id: me.AddressInfo.district_id
             }
             await me.getLeadTimeInfoAsync(payload);
         },
@@ -227,8 +239,9 @@ export default {
          */
         async getOrders() {
             const me = this;
-            if(me.User && me.User.user_name){
+            if (me.User && me.User.user_name) {
                 await me.getCartByUser(me.User.user_name);
+                me.orders = [...me.CartProducts];
             }
         },
         /**
@@ -290,22 +303,30 @@ export default {
          */
         confirmPayment() {
             const me = this;
-            if(!me.AddressInfo || !me.AddressInfo.address_info){
-                alert("Bạn chưa thêm địa chỉ nhận hàng");
+            if (!me.AddressInfo || !me.AddressInfo.address_info) {
+                me.$commonFunc.showNotification(me.$enum.NotificationStatus.Warning, {
+                    title: 'Xác nhận thanh toán',
+                    message: 'Bạn chưa thêm địa chỉ nhận hàng',
+                    duration: 2
+                })
                 return;
             }
 
             if (!me.selected || me.selected.length <= 0) {
-                alert("Bạn chưa chọn đơn hàng để xác nhận thanh toán");
+                me.$commonFunc.showNotification(me.$enum.NotificationStatus.Warning, {
+                    title: 'Xác nhận thanh toán',
+                    message: 'Bạn chưa chọn đơn hàng để xác nhận thanh toán',
+                    duration: 2
+                })
                 return;
             }
-            
+
             if (me.selected && me.selected.length > 0) {
                 let paymentOrder = {
-                    products : me.selected,
-                    total_ship : me.totalFeeShip,
-                    total_amount : me.totalMoney,
-                    address_info : me.AddressInfo
+                    products: me.selected,
+                    total_ship: me.totalFeeShip,
+                    total_amount: me.totalMoney,
+                    address_info: me.AddressInfo
                 }
                 me.$commonFunc.addOrderPayment(paymentOrder);
                 me.$router.push("/cartpay");
@@ -335,9 +356,9 @@ export default {
         },
         deleteCart() {
             const me = this;
-            me.orders = [...me.orders.filter(x => !x.selected)];
+            me.orders = [...me.orders.filter(x => !me.selected.find(s => s.id == x.id))];
             me.updateCart();
-            me.selected = [];
+            me.resetSelect();
         },
         /**
          * Check row grid
@@ -360,24 +381,51 @@ export default {
         /**
          * Thêm địa chỉ nhận hàng
          */
-        insertAddress(){
+        insertAddress() {
             const me = this;
             me.$router.push("/address-info");
         },
 
-        editInfoAddress(){
+        editInfoAddress() {
             const me = this;
             me.$router.push("/address-info");
-        }
+        },
+        resetSelect() {
+            const me = this;
+            me.selected = [];
+            me.$refs.gridProduct.resetSelect();
+        },
 
+        async widgetLeftEvent(data) {
+            const me = this;
+            me.changeLoadingStatus(true);
+            me.updateNumberProduct(data);
+            me.changeLoadingStatus(false);
+        },
+        async updateNumberProduct(order) {
+            const me = this;
+            let index = me.orders.findIndex((x) => {
+                return (x.id = order.id);
+            });   
+            if(index >= 0){
+                if (order.number && parseInt(order.number) > 30) {
+                    order.number = 30;
+                }
+                me.orders[index].number = parseInt(order.number);
+                me.orders[index].total_amount = me.orders[index].sale_price * parseInt(order.number);
+                me.$commonFunc.updateOrderUser(me.User.user_name, me.orders);
+                await me.getOrders();
+            }
+        }
     }
 }
 </script>
 
 <style scoped>
-.text-cart{
+.text-cart {
     font-size: 30px;
 }
+
 .text-select {
     font-size: 20px;
     display: flex;
@@ -395,22 +443,26 @@ export default {
 }
 
 .btn-confirm-order {}
-.text-add-address{
+
+.text-add-address {
     cursor: pointer;
     color: #00aab7;
 }
-.text-add-address:hover{
+
+.text-add-address:hover {
     color: #1dcddb;
 }
 
-.text-edit-address{
+.text-edit-address {
     cursor: pointer;
     color: #00aab7;
 }
-.text-edit-address:hover{
+
+.text-edit-address:hover {
     color: #1dcddb;
 }
-.continue-buy{
+
+.continue-buy {
     width: 150px;
 }
 </style>

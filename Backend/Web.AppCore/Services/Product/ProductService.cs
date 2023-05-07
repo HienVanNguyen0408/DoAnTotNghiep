@@ -586,6 +586,29 @@ namespace Web.AppCore.Services
             }
         }
         private string GetKeyCachedProductImages(string productId) => $"product_images_{productId}";
+
+        public async Task<bool> UpdateQuantityProduct(List<Product> products, IDictionary<string, object> headers)
+        {
+
+            try
+            {
+                if (products == null || products.Count == 0) return false;
+                foreach (var product in products)
+                {
+                    var productColors = await _productUoW.Colors.GetAllAsync(x => x.product_id == product.id);
+                    if (!productColors.AnyExt()) return false;
+
+                    product.quantity = productColors.SumExt(x => x.amount);
+                    await _productUoW.Products.UpdateOneAsync(product);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
         #endregion
     }
 }

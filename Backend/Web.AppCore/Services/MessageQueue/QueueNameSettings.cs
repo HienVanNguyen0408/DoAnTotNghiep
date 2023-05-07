@@ -10,5 +10,6 @@ namespace Web.AppCore.Services.MessageQueue
     {
         public string QueueNameOrder { get; set; } = "OrderDataQueueName";
         public string QueueNameInsertOrder { get; set; } = "InsertOrderDataQueueName";
+        public string QueueNameUpdateQuantityProduct { get; set; } = "UpdateAmountProductQueueName";
     }
 }

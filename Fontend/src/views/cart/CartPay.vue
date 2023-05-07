@@ -187,7 +187,9 @@ export default {
                     product_id : x.id,
                     product_name : x.product_name,
                     quantity : x.number,
-                    unit_price : x.sale_price
+                    unit_price : x.sale_price,
+                    size_name : x.size_name,
+                    color_name : x.color_name
                 }));
                 let payload = {
                     user_id: me.User.id,
@@ -205,8 +207,21 @@ export default {
                 };
                 let res = await me.insertOrderAsync(payload);
                 if(res){
-                    me.$commonFunc.updateCartByUserAfterPayment(me.User.user_name, me.products.map(x => x.id));
-                    me.$router.push("/cart");
+                    if(res.data){
+                        me.$commonFunc.showNotification(me.$enum.NotificationStatus.Success, {
+                            title : 'Đặt hàng',
+                            message : `${res.message}`,
+                            duration : 2
+                        })
+                        me.$commonFunc.updateCartByUserAfterPayment(me.User.user_name, me.products.map(x => x.id));
+                        me.$router.push("/cart");
+                    }else{
+                        me.$commonFunc.showNotification(me.$enum.NotificationStatus.Warning, {
+                            title : 'Đặt hàng',
+                            message : `${res.message}`,
+                            duration : 2
+                        })
+                    }
                 }
             }
         },

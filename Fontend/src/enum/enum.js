@@ -234,6 +234,11 @@ export default {
         Delete: 2,
         SetDefault: 3,
         UnSetDefault: 4
+    },
+    NotificationStatus:{
+        Success : 1,
+        Info : 2,
+        Warning : 3,
+        Error : 4
     }
-
 }

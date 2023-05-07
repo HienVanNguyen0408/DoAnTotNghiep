@@ -2,6 +2,7 @@
 import Enum from '@/enum/enum';
 import moment from 'moment';
 import i18nEnum from '@/i18n/vi/enum/i18nEnum';
+import { notification } from 'ant-design-vue';
 
 const keyOrderStorage = "Web-Order";
 const keyCountdown = "examTimer";
@@ -107,11 +108,11 @@ class CommonFunc {
         localStorage.removeItem(`${keyOrderPayment}`);
     }
 
-    removeOrderPaymentById(id){
+    removeOrderPaymentById(id) {
         let orderPayment = localStorage.getItem(keyOrderPayment)
         orderPayment = !orderPayment ? {} : JSON.parse(orderPayment);
-        if(orderPayment)
-        return orderPayment;
+        if (orderPayment)
+            return orderPayment;
     }
 
     /**
@@ -161,7 +162,15 @@ class CommonFunc {
         localStorage.setItem(`${keyOrderStorage}`, JSON.stringify(orderStorage));
     }
 
-    updateCartByUserAfterPayment(userName, ids){
+    updateOrderUser(userName, orders) {
+        let store = localStorage.getItem(keyOrderStorage)
+        let orderStorage = !store ? {} : JSON.parse(store);
+        orderStorage[`${userName}`] = {};
+        orderStorage[`${userName}`].orders = orders;
+        localStorage.setItem(`${keyOrderStorage}`, JSON.stringify(orderStorage));
+    }
+
+    updateCartByUserAfterPayment(userName, ids) {
         let orderUserName = {};
         // Lấy dữ liệu trên storgare
         let store = localStorage.getItem(keyOrderStorage);
@@ -173,7 +182,7 @@ class CommonFunc {
 
         if (orderStorage[userName]) {
             let orders = orderStorage[userName].orders;
-            if(ids && ids.length > 0){
+            if (ids && ids.length > 0) {
                 orders = orderStorage[userName].orders.filter(x => !ids.includes(x.id));
             }
             orderUserName = {
@@ -749,6 +758,38 @@ class CommonFunc {
                 break;
         }
         return sizes;
+    }
+
+
+    showNotification(notificationStatus , option, callback) {
+        if(!option){
+            option = {
+                duration : 1
+            }
+        }
+        let type = 'success';
+        switch (notificationStatus) {
+            case Enum.NotificationStatus.Info:
+                type = 'info';
+                break;
+            case Enum.NotificationStatus.Warning:
+                type = 'warning';
+                break;
+            case Enum.NotificationStatus.Error:
+                type = 'error';
+                break;
+        }
+        notification[type]({
+            message: `${option.title}`,
+            description: `${option.message}`,
+            onClick: () => {
+                console.log('Notification Clicked!');
+                if(callback){
+                    callback('onclick')
+                }
+            },
+            duration: option.duration ? option.duration : 1,
+        });
     }
 }
 

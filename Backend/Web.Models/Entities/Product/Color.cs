@@ -22,5 +22,6 @@ namespace Web.Models.Entities
         /// Số lượng sản phẩm
         /// </summary>
         public int amount { get; set; }
+
     }
 }

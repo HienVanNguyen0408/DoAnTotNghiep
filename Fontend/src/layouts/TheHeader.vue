@@ -210,6 +210,11 @@ export default {
               }
               me.getOrders();
               me.closeFormLogin();
+              me.$commonFunc.showNotification(me.$enum.NotificationStatus.Success, {
+                  title : 'Đăng nhập',
+                  message : 'Đăng nhập thành công',
+                  duration : 2
+              })
             }
           } else {
             if (user) {

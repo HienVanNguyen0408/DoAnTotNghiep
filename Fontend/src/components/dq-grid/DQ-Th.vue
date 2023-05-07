@@ -12,7 +12,7 @@
     ]" :class="[col && col.align ? `text-${col.align}` : '']">
       {{ col.title }}
     </th>
-    <th v-if="widgetLeft" class="w-100"></th>
+    <th v-if="widgetLeft" class="w-100">{{ widgetLeft.title }}</th>
   </div>
 </template>
 

@@ -10,5 +10,6 @@ namespace Web.AppCore.Interfaces.Services.MessageQueue
     {
         Task<bool> PublishUpdateOrderAsync(object data, IDictionary<string, object> headers = null);
         Task<bool> PublishInsertOrderAsync(object data, IDictionary<string, object> headers = null);
+        Task<bool> PublishUpdateAmountProductAsync(object data, IDictionary<string, object> headers = null);
     }
 }

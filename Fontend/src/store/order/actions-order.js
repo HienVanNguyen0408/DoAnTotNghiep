@@ -76,10 +76,7 @@ export default {
         var res = await orderClient.postAsync({
             url : `${orderClient.url}/insert`,
             data: payload
-        });
-        if(res && res.data){
-            return res.data;
-        }
+        }, true);
         return res;
     },
 

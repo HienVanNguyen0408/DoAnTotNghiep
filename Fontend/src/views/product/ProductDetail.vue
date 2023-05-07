@@ -46,7 +46,7 @@
                 </div>
                 <div class="option-number mt-3 pb-4 border-bottom">
                     <div class="font-bold mb-3">Chọn số lượng</div>
-                    <dq-input :type="'number'" v-model="product.number"></dq-input>
+                    <dq-input :type="'number'" v-model="product.number" :min="1" :max="30"></dq-input>
                 </div>
                 <div class="action-buy-product mt-4 pb-5">
                     <div class="add-cart">
@@ -170,7 +170,12 @@ export default {
             if (me.product.number >= 0) me.product.number = parseInt(me.product.number);
             let checkValid = me.validateProductAmount();
             if(!checkValid){
-                alert("Số lượng sản phẩm không đủ");
+                me.$commonFunc.showNotification(me.$enum.NotificationStatus.Warning, {
+                    title : 'Thêm giỏ hàng',
+                    message : 'Số lượng sản phẩm không đủ',
+                    duration : 2
+                })
+                return;
             }
             let product = {
                 id: me.ProductUser.id,
@@ -185,7 +190,18 @@ export default {
                 me.$commonFunc.addCart(me.User.user_name, me.product);
                 //load lại giỏ hàng
                 await me.getCartByUser(me.User.user_name);
+                me.$commonFunc.showNotification(me.$enum.NotificationStatus.Success, {
+                    title : 'Thêm giỏ hàng',
+                    message : 'Thêm sản phẩm thành công',
+                    duration : 2
+                })
+                me.product.number = 1;
             } else {
+                me.$commonFunc.showNotification(me.$enum.NotificationStatus.Warning, {
+                    title : 'Hết hạn đăng nhập',
+                    message : 'Vui lòng đăng nhập lại để thực hiện!!',
+                    duration : 2
+                })
                 // me.$router.push("/login");
             }
         },

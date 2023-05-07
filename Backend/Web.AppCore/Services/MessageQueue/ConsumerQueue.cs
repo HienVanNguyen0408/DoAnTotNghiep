@@ -18,6 +18,7 @@ namespace Web.AppCore.Services.MessageQueue
         private MessageQ.QueueSettings _queueSettings;
         private IConsumer<Order> _orderConsumer;
         private IConsumer<OrderRequest> _orderConsumerR;
+        private IConsumer<List<Product>> _productsQuantityConsumer;
         private QueueNameSettings _queueName;
         #endregion
 
@@ -25,6 +26,7 @@ namespace Web.AppCore.Services.MessageQueue
         #region Properties
         private IConsumer<Order> OrderConsumer => _orderConsumer ??= new Consumer<Order>(_queueSettings);
         private IConsumer<OrderRequest> OrderInsertConsumer => _orderConsumerR ??= new Consumer<OrderRequest>(_queueSettings);
+        private IConsumer<List<Product>> ProductsUpdateQuantityConsumer => _productsQuantityConsumer ??= new Consumer<List<Product>>(_queueSettings);
         #endregion
 
         #region Contructor
@@ -53,6 +55,11 @@ namespace Web.AppCore.Services.MessageQueue
         public async Task StartConsumeAsync(Func<OrderRequest, IDictionary<string, object>, Task<bool>> onMessageHandle)
         {
             await OrderInsertConsumer.StartConsumeAsync(_queueName.QueueNameInsertOrder, onMessageHandle);
+        }
+
+        public async Task StartConsumeAsync(Func<List<Product>, IDictionary<string, object>, Task<bool>> onMessageHandle)
+        {
+            await ProductsUpdateQuantityConsumer.StartConsumeAsync(_queueName.QueueNameUpdateQuantityProduct, onMessageHandle);
         }
         #endregion
     }

@@ -10,6 +10,7 @@ using Web.AppCore.Interfaces.Services;
 using Web.AppCore.Interfaces.Services.MessageQueue;
 using Web.Models.Entities;
 using Web.Models.Request;
+using Web.Utils;
 
 namespace Web.AppCore.Services
 {
@@ -18,6 +19,7 @@ namespace Web.AppCore.Services
         private readonly IPublisherQueue _publisherQueue;
         private readonly IOrderUoW _orderUoW;
         private readonly IOrderItemUoW _orderItemUoW;
+        private readonly IProductUoW _productUoW;
 
 
         public OrderService(IPublisherQueue publisherQueue, IServiceProvider serviceProvider) : base(serviceProvider)
@@ -25,6 +27,7 @@ namespace Web.AppCore.Services
             _publisherQueue = publisherQueue;
             _orderUoW = serviceProvider.GetRequiredService<IOrderUoW>();
             _orderItemUoW = serviceProvider.GetRequiredService<IOrderItemUoW>();
+            _productUoW = serviceProvider.GetRequiredService<IProductUoW>();
         }
 
         /// <summary>
@@ -101,11 +104,25 @@ namespace Web.AppCore.Services
                 //Thêm chi tiết đơn hàng
                 if (order.order_items != null && order.order_items.Count > 0)
                 {
+                    var productsColor = await _productUoW.Colors.GetAllAsync(x => order.order_items.AnyExt(o => x.product_id == o.product_id && x.size_name == o.size_name && x.color_name == o.color_name));
                     foreach (var orderItem in order.order_items)
                     {
                         orderItem.order_id = order.id;
+                        var productColor = productsColor.FirstOrDefault(x => x.product_id == orderItem.product_id && x.size_name == orderItem.size_name && x.color_name == orderItem.color_name);
+                        if (productColor != null)
+                        {
+                            productColor.amount -= orderItem.quantity;
+                        }
                     }
+
                     await _orderItemUoW.OrderItems.InsertManyAsync(order.order_items);
+                    //Cập nhật số lượng tồn
+                    await _productUoW.Colors.UpdateManyAsync(productsColor);
+                    var products = await _productUoW.Products.GetAllAsync(x => order.order_items.AnyExt(o => x.id == o.product_id));
+                    if (products.AnyExt())
+                    {
+                        await _publisherQueue.PublishUpdateAmountProductAsync(products);
+                    }
                 }
                 return true;
             }
@@ -148,6 +165,15 @@ namespace Web.AppCore.Services
         public async Task<bool> UpdateOrderOnQueueAsync(Order order, IDictionary<string, object> headers)
         {
             return await _orderUoW.Orders.UpdateOneAsync(order);
+        }
+
+        public async Task<bool> ValidateProductOrderAsync(List<OrderItemRequest> orderItems)
+        {
+            var products = await _productUoW.Colors.GetAllAsync();
+            if (!products.Any()) return true;
+
+            var productsCheck = products.Where(x => orderItems.AnyExt(o => x.product_id == o.product_id && x.amount < o.quantity && x.color_name == o.color_name && x.size_name == o.size_name));
+            return productsCheck.Any();
         }
     }
 }

@@ -51,6 +51,18 @@ namespace Web.AppCore.Services.MessageQueue
             await Task.CompletedTask;
             return _publisher.Publish(_queueNameSettings.QueueNameInsertOrder, data, headers);
         }
+
+        /// <summary>
+        /// Cập nhật lại số lượng của sản phẩm
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="headers"></param>
+        /// <returns></returns>
+        public async Task<bool> PublishUpdateAmountProductAsync(object data, IDictionary<string, object> headers = null)
+        {
+            await Task.CompletedTask;
+            return _publisher.Publish(_queueNameSettings.QueueNameUpdateQuantityProduct, data, headers);
+        }
         #endregion
     }
 }

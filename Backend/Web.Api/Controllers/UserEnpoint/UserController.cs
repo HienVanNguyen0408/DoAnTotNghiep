@@ -283,6 +283,7 @@ namespace Web.Api.Controllers
             return svcResult;
         }
 
+        [AllowAnonymous]
         /// <summary>
         /// Danh sách các địa chỉ của người dùng
         /// </summary>

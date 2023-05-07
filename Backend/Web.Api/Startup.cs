@@ -99,6 +99,7 @@ namespace Web.Api
             //Chạy worker
             services.AddHostedService<OrderWorker>();
             services.AddHostedService<InsertOrderWorker>();
+            services.AddHostedService<UpdateAmountProductWorker>();
 
             services.AddSwaggerGen(c =>
             {

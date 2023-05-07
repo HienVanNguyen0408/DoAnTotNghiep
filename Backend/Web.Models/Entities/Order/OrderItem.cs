@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Web.Models.Entities
@@ -50,5 +51,15 @@ namespace Web.Models.Entities
         /// Tiền ck
         /// </summary>
         public decimal? discount_amount { get; set; }
+
+        /// <summary>
+        /// Màu sắc
+        /// </summary>
+        public string color_name { get; set; }
+
+        /// <summary>
+        /// Kích thước
+        /// </summary>
+        public string size_name { get; set; }
     }
 }

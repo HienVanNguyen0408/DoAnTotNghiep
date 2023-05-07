@@ -98,6 +98,8 @@ namespace Web.AppCore.Interfaces.Services
         Task<DeleteStatus> DeleteProductAsync(Product product);
 
         Task<DeleteStatus> DeleteProductsAsync(IEnumerable<Product> products);
+
+        Task<bool> UpdateQuantityProduct(List<Product> products, IDictionary<string, object> headers);
         #endregion
 
     }

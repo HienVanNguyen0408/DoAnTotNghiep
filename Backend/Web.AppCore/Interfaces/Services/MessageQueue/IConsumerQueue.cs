@@ -12,5 +12,6 @@ namespace Web.AppCore.Interfaces.Services.MessageQueue
     {
         Task StartConsumeAsync(Func<Order, IDictionary<string, object>, Task<bool>> onMessageHandle);
         Task StartConsumeAsync(Func<OrderRequest, IDictionary<string, object>, Task<bool>> onMessageHandle);
+        Task StartConsumeAsync(Func<List<Product>, IDictionary<string, object>, Task<bool>> onMessageHandle);
     }
 }
