@@ -223,6 +223,7 @@ namespace Web.Api.Controllers
                 if (userDB == null)
                 {
                     svcResult.Message = "Đăng nhập thất bại";
+                    svcResult.Status = ServiceResultStatus.NotFound;
                     return svcResult;
                 }
 

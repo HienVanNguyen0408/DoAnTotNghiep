@@ -14,6 +14,8 @@ using Web.Api.Controllers;
 using Web.AppCore.Interfaces.Services;
 using Web.AppCore.Services;
 using Web.Caching;
+using Web.Models.Entities;
+using Web.Models.Request;
 using Web.Models.Settings;
 using Web.Test.Services;
 
@@ -32,6 +34,15 @@ namespace Web.Test.Controllers
         protected Mock<IRoleAccessService> _roleService;
         protected Mock<IHttpContextAccessor> _httpContext;
         protected Mock<HttpRequest> _httpRequest;
+
+
+        protected const string _userId = "efc7a589-0e9f-4aa4-8542-92f48b03600b";
+        protected const string _jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im52aGllbjEyMyIsInJvbGUiOiJVc2VyIiwibmJmIjoxNjgzNjQxNzQ1LCJleHAiOjE2ODM3MjgxNDUsImlhdCI6MTY4MzY0MTc0NX0.qcKXQzJylJyNhDEyQfMxq48siST-7Sa1Nv-8ukTBgsc";
+
+        protected  UserRequest _userRequest =  new UserRequest(){
+            user_name = "nvhien123",
+            password  = "nvhien123"
+        };
 
 
         [SetUp]
