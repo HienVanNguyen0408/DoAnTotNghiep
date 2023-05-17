@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Web.Models.Entities;
+using Web.Models.Enums.Order;
 using Web.Models.Request;
+using Web.Models.Respone;
 
 namespace Web.AppCore.Interfaces.Services
 {
@@ -69,5 +69,12 @@ namespace Web.AppCore.Interfaces.Services
         Task<bool> UpdateOrderOnQueueAsync(Order order, IDictionary<string, object> headers);
 
         Task<bool> ValidateProductOrderAsync(List<OrderItemRequest> orderItems);
+
+        /// <summary>
+        /// Lấy thông tin thống kê
+        /// </summary>
+        /// <param name="periodType"></param>
+        /// <returns></returns>
+        Task<SaleStatistic> GetSaleStatisticAsync(PeriodType periodType);    
     }
 }

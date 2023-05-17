@@ -112,6 +112,12 @@ export const router = new VueRouter({
             props: true,
             children: [
                 {
+                    name: 'dashboard',
+                    path: '/dashboard',
+                    component: Dashboard,
+                    props: true
+                },
+                {
                     name: 'adminuser',
                     path: '/admin',
                     component: AdminUser,

@@ -17,4 +17,7 @@ export default{
     updateTotalRecords: async function(state,res){
         state.TotalRecords = res;
     },
+    updateSalesStatistic : async function(state,res){
+        state.SalesStatistic = {...res};
+    },
 }

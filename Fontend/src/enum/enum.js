@@ -240,5 +240,21 @@ export default {
         Info : 2,
         Warning : 3,
         Error : 4
+    },
+
+    PeriodType : {
+        /// <summary>
+        /// 7 Ngày gần nhất
+        /// </summary>
+        Last7Days : 7,
+
+        /// <summary>
+        /// Tháng này
+        /// </summary>
+        ThisMonth : 30,
+        /// <summary>
+        /// Năm nay
+        /// </summary>
+        ThisYear : 365
     }
 }

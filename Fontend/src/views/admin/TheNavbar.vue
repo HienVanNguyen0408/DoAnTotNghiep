@@ -41,12 +41,12 @@
             initDataStatic(){
                 const me = this;
                 me.menus = [
-                    // {
-                    //     name : 'dashboard',
-                    //     router : '/dashboard',
-                    //     text : `${me.$t('i18nAdmin.Dashboard')}`,
-                    //     icon : 'icon-dashboard dq-icon-20'
-                    // },
+                    {
+                        name : 'dashboard',
+                        router : '/dashboard',
+                        text : `${me.$t('i18nAdmin.Dashboard')}`,
+                        icon : 'icon-dashboard dq-icon-20'
+                    },
                     {
                         name : 'adminuser',
                         router : '/admin',

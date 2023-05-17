@@ -2,15 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Web.AppCore.Entities;
+using Twilio.TwiML.Messaging;
 using Web.AppCore.Interfaces.Repository;
 using Web.AppCore.Interfaces.Services;
 using Web.AppCore.Interfaces.Services.MessageQueue;
 using Web.Models.Entities;
+using Web.Models.Enums.Order;
 using Web.Models.Request;
+using Web.Models.Respone;
 using Web.Utils;
+using Web.Utils.DateTimeExtensions;
 
 namespace Web.AppCore.Services
 {
@@ -175,5 +177,97 @@ namespace Web.AppCore.Services
             var productsCheck = products.Where(x => orderItems.AnyExt(o => x.product_id == o.product_id && x.amount < o.quantity && x.color_name == o.color_name && x.size_name == o.size_name));
             return productsCheck.Any();
         }
+
+        public async Task<SaleStatistic> GetSaleStatisticAsync(PeriodType periodType)
+        {
+            var salesStatistic = new SaleStatistic() { PeriodType = periodType };
+            switch (periodType)
+            {
+                case PeriodType.Last7Days:
+                    salesStatistic.SaleStatisticText = new List<string> { "Ngày 1", "Ngày 2", "Ngày 3", "Ngày 4", "Ngày 5", "Ngày 6", "Ngày 7" };
+                    break;
+                case PeriodType.ThisMonth:
+                    salesStatistic.SaleStatisticText = new List<string> { "Tuần 1", "Tuần 2", "Tuần 3", "Tuần 4", "Tuần 5" };
+                    break;
+                case PeriodType.ThisYear:
+                    salesStatistic.SaleStatisticText = new List<string> { "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12" };
+                    break;
+            }
+
+            var rangeTime = GetRangeDateTimeOfPeriod(periodType);
+            var ordersPeriod = await _orderUoW.Orders.GetAllAsync(x => x.created_date != null && (x.created_date.Value.Date >= rangeTime.Item1.Date || x.created_date.Value.Date <= rangeTime.Item2.Date));
+            var orders = ordersPeriod?.ToList();
+            var firstDateRange =  new DateTime(rangeTime.Item1.Year, rangeTime.Item1.Month, rangeTime.Item1.Day, 0, 0, 0);
+            var lastDateRange = new DateTime(rangeTime.Item1.Year, rangeTime.Item1.Month, rangeTime.Item1.Day, 23, 59, 59);
+
+            //Lấy thông tin thống kê
+            foreach (var text in salesStatistic.SaleStatisticText)
+            {
+                if (periodType == PeriodType.Last7Days) firstDateRange = firstDateRange.AddDays(1);
+                if (periodType == PeriodType.ThisMonth)
+                {
+                    lastDateRange = firstDateRange.AddDays(7);
+                    if (lastDateRange.Date >= rangeTime.Item2.Date) lastDateRange = rangeTime.Item2.Date;
+                }
+                if (periodType == PeriodType.ThisYear) lastDateRange = firstDateRange.AddMonths(1);
+                var orderWeek = orders.WhereExt(x => x.created_date.Value.Date >= firstDateRange.Date && x.created_date.Value < lastDateRange.Date);
+                var orderInfoStatistic = new OrderInfo() { Sales = 0, NumberOrder = 0 };
+                if (orderWeek != null)
+                {
+                    orderInfoStatistic.Sales = orderWeek.SumExt(x => x.total_order);
+                    orderInfoStatistic.NumberOrder = orderWeek.CountExt();
+                }
+                salesStatistic.OrderInfos.Add(orderInfoStatistic);
+                firstDateRange = lastDateRange;
+
+            }
+            return salesStatistic;
+        }
+
+        private DateTime GetFirtDateTimeOfPeriod(PeriodType periodType)
+        {
+            var toDay = DateTime.Now;
+            var dateTime = DateTime.Now;
+            switch (periodType)
+            {
+                case PeriodType.Last7Days:
+                    dateTime = toDay.StartOfWeek(DayOfWeek.Monday);
+
+                    break;
+                case PeriodType.ThisMonth:
+                    dateTime = new DateTime(toDay.Year, toDay.Month, 1);
+                    break;
+                case PeriodType.ThisYear:
+                    dateTime = new DateTime(toDay.Year, 1, 1);
+                    break;
+            }
+            return dateTime;
+        }
+
+        private (DateTime, DateTime) GetRangeDateTimeOfPeriod(PeriodType periodType)
+        {
+            var toDay = DateTime.Now;
+            (DateTime, DateTime) rangeTime = (DateTime.Now, DateTime.Now);
+            switch (periodType)
+            {
+                case PeriodType.Last7Days:
+                    rangeTime.Item1 = toDay.StartOfWeek(DayOfWeek.Monday);
+                    rangeTime.Item2 = toDay.StartOfWeek(DayOfWeek.Sunday);
+                    break;
+                case PeriodType.ThisMonth:
+                    rangeTime.Item1 = new DateTime(toDay.Year, toDay.Month, 1);
+                    rangeTime.Item2 = rangeTime.Item1.AddMonths(1).AddDays(-1);
+                    break;
+                case PeriodType.ThisYear:
+                    rangeTime.Item1 = new DateTime(toDay.Year, 1, 1);
+                    rangeTime.Item2 = rangeTime.Item1.AddYears(1).AddDays(-1);
+                    break;
+            }
+
+            rangeTime.Item1 = new DateTime(rangeTime.Item1.Year, rangeTime.Item1.Month, rangeTime.Item1.Day, 0, 0, 0);
+            rangeTime.Item2 = new DateTime(rangeTime.Item2.Year, rangeTime.Item2.Month, rangeTime.Item2.Day, 23, 59, 59);
+            return rangeTime;
+        }
+
     }
 }

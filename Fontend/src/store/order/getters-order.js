@@ -16,5 +16,8 @@ export default{
 
     TotalRecords(state){
         return state.TotalRecords;
+    },
+    SalesStatistic(state){
+        return state.SalesStatistic;
     }
 }

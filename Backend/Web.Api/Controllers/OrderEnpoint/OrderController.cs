@@ -9,7 +9,9 @@ using Web.AppCore.Interfaces.Services;
 using Web.AppCore.Interfaces.Services.MessageQueue;
 using Web.Models.Entities;
 using Web.Models.Enums;
+using Web.Models.Enums.Order;
 using Web.Models.Request;
+using Web.Models.Respone;
 
 namespace Web.Api.Controllers
 {
@@ -257,6 +259,33 @@ namespace Web.Api.Controllers
             }
             return svcResult;
         }
+
+        [HttpGet("salesstatistics")]
+        public async Task<ServiceResult<SaleStatistic>> GetSaleSTatisticAsync([FromQuery] PeriodType periodType)
+        {
+            var svcResult = new ServiceResult<SaleStatistic>();
+            try
+            {
+                var saleStatistic = await _orderService.GetSaleStatisticAsync(periodType);
+                svcResult = new ServiceResult<SaleStatistic>
+                {
+                    Data = saleStatistic,
+                    Success = true
+                };
+            }
+            catch (Exception ex)
+            {
+                svcResult = new ServiceResult<SaleStatistic>
+                {
+                    Data = new SaleStatistic(),
+                    Success = false
+                };
+                _logger.LogError($"{TAG}::Lỗi hàm GetSaleSTatisticAsync::Exception::{ex.Message}");
+            }
+            return svcResult;
+        }
+
+
         #endregion
         #endregion
     }

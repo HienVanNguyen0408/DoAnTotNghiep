@@ -30,6 +30,7 @@ namespace Web.Utils
 
         #region Sum 
         public static float SumExt<TSource>(this IEnumerable<TSource> sources, Func<TSource, float> selector) => sources?.Sum(n => selector(n)) ?? 0;
+        public static decimal SumExt<TSource>(this IEnumerable<TSource> sources, Func<TSource, decimal> selector) => sources?.Sum(n => selector(n)) ?? 0;
         public static int SumExt<TSource>(this IEnumerable<TSource> sources, Func<TSource, int> selector) => sources?.Sum(n => selector(n)) ?? 0;
         public static decimal SumExt(this IEnumerable<decimal> sources) => sources?.Sum() ?? 0;
         public static double SumExt(this IEnumerable<double> sources) => sources?.Sum() ?? 0;

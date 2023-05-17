@@ -129,4 +129,21 @@ export default {
         }
         return res;
     },
+
+    /**
+     * Xoá nhiều đơn hàng
+     * @param {*} context 
+     * @param {*} payload 
+     * @returns 
+     */
+    getSalesStatisticAsync: async function (context, payload) {
+        var res = await orderClient.getAsync({
+            url : `${orderClient.url}/salesstatistics?periodType=${payload}`
+        }, true);
+        if(res && res.data){
+            context.commit('updateSalesStatistic', res.data);
+            return res.data;
+        }
+        return res;
+    },
 }
