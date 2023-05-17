@@ -9,6 +9,6 @@ namespace PostgresDBData
     public class PostgresSettings
     {
         public const string CONFIG_NAME = "PostgresSettings";
-        public const string ConnectionString = "User ID=nvhien;Password=nvhien;Host=14.225.255.101;Port=5432;Database=web;";
+        public const string ConnectionString = "User ID=nvhien;Password=nvhien;Host=168.138.194.53;Port=5432;Database=web;";
     }
 }
