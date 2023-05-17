@@ -26,7 +26,7 @@
             routerActive(){
                 const me = this;
                 if(me.$route && me.$route.path) return me.$route.path;
-                return '/admin';
+                return '/dashboard';
             }
         },
         created(){
