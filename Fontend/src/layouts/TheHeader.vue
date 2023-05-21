@@ -209,7 +209,7 @@
                     if (!err) {
                         if (!me.isRegister) {
                             let res = await me.loginUserAsync(user);
-                            if (me.User) {
+                            if (res && res.data) {
                                 delete me.User.password;
                                 await me.$auth.setToken(me.User.key_auth);
                                 me.$commonFunc.updateUserInfo(me.User);
@@ -219,13 +219,20 @@
                                     me.$router.push("/dashboard");
                                 }
                                 me.getOrders();
-                                me.closeFormLogin();
                                 me.$commonFunc.showNotification(me.$enum.NotificationStatus.Success, {
                                     title: 'Đăng nhập',
                                     message: 'Đăng nhập thành công',
                                     duration: 2
                                 })
                             }
+                            else{
+                                me.$commonFunc.showNotification(me.$enum.NotificationStatus.Error, {
+                                    title: 'Đăng nhập',
+                                    message: `${res.message}`,
+                                    duration: 2
+                                })
+                            }
+                            me.closeFormLogin();
                         } else {
                             if (user) {
                                 let res = await me.registerUserAsync(user);

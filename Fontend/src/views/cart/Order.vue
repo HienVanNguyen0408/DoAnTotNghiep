@@ -91,7 +91,7 @@ export default {
                 },
                 {
                     title: 'Tổng tiền đơn hàng',
-                    dataField: 'total_amount',
+                    dataField: 'total_order',
                     format: me.$enum.Format.Money
                 },
                 {
