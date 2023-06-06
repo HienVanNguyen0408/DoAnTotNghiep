@@ -28,6 +28,7 @@ pipeline{
                 echo "End run test"
             }
         }
+        
         stage('Publish test report'){
             steps{
                 script{
