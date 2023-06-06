@@ -15,4 +15,5 @@ pipeline {
             slackSend channel: '#ci-jenkins', message: "Hiến thông báo là build thất bại rồi!"
         }
     }
+    
 }
