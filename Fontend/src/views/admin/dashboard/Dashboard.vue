@@ -52,7 +52,7 @@ export default {
                 responsive: true,
                 maintainAspectRatio: false
             },
-            period: this.$enum.PeriodType.Last7Days,
+            period: this.$enum.PeriodType.ThisYear,
             periods : []
         }
     },

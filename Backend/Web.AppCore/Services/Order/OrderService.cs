@@ -203,7 +203,7 @@ namespace Web.AppCore.Services
             //Lấy thông tin thống kê
             foreach (var text in salesStatistic.SaleStatisticText)
             {
-                if (periodType == PeriodType.Last7Days) lastDateRange = firstDateRange.AddDays(1);
+                if (periodType == PeriodType.Last7Days) firstDateRange = firstDateRange.AddDays(1);
                 if (periodType == PeriodType.ThisMonth)
                 {
                     lastDateRange = firstDateRange.AddDays(7);
@@ -252,7 +252,7 @@ namespace Web.AppCore.Services
             {
                 case PeriodType.Last7Days:
                     rangeTime.Item1 = toDay.StartOfWeek(DayOfWeek.Monday);
-                    rangeTime.Item2 = toDay.StartOfWeek(DayOfWeek.Sunday).AddDays(7);
+                    rangeTime.Item2 = toDay.StartOfWeek(DayOfWeek.Sunday);
                     break;
                 case PeriodType.ThisMonth:
                     rangeTime.Item1 = new DateTime(toDay.Year, toDay.Month, 1);
